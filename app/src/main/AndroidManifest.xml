@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.my.spendright">
+
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="19" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Spendright">
+        <activity android:name=".act.PaymentReport"></activity>
+        <activity android:name=".act.SchdulePayment" />
+        <activity android:name=".act.PaymentComplete" />
+        <activity android:name=".act.ConfirmPayment" />
+        <activity android:name=".act.ReminderScreen" />
+        <activity
+            android:name=".act.AddTrasactionScreen"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".act.Notification"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".act.PaymentInformation"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".act.AddActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".act.HomeActivity"
+            android:label="@string/title_activity_home" />
+        <activity
+            android:name=".act.RegistrationFinal"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".act.RegistrationTwo"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".act.RegistrationOne"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".act.Registration"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".act.LoginSuccess"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".act.LoginOne"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".act.SelectAccount"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".act.LoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".act.WelcomeActivity"
+            android:screenOrientation="portrait" />
+    </application>
+
+</manifest>

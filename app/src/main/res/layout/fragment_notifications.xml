@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/blue"
+        >
+
+        <RelativeLayout
+            android:id="@+id/RRtoolbaar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_50sdp"
+            >
+            <ImageView
+                android:visibility="gone"
+                android:id="@+id/imgBack"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/left_arraow"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                >
+
+            </ImageView>
+
+            <TextView
+                android:textStyle="bold"
+                android:textSize="@dimen/_14sdp"
+                android:layout_centerInParent="true"
+                android:textColor="@color/white"
+                android:text="Welcome, Jonathan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+
+            <ImageView
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/notifications"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                >
+            </ImageView>
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</layout>

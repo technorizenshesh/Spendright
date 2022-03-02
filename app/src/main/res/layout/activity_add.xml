@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+
+    <LinearLayout
+        android:padding="@dimen/_5sdp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <RelativeLayout
+            android:id="@+id/RRtoolbaar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_50sdp"
+            >
+
+            <ImageView
+                android:id="@+id/imgBack"
+                android:layout_alignParentLeft="true"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/back"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                >
+
+            </ImageView>
+
+            <TextView
+                android:textStyle="bold"
+                android:textSize="@dimen/_14sdp"
+                android:layout_centerInParent="true"
+                android:textColor="@color/black"
+                android:text="Add Account"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+
+            <ImageView
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/close"
+                android:layout_width="@dimen/_12sdp"
+                android:layout_height="@dimen/_12sdp"
+                >
+
+            </ImageView>
+
+        </RelativeLayout>
+
+        <TextView
+            android:layout_marginTop="@dimen/_10sdp"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:textSize="@dimen/_12sdp"
+            android:textColor="@color/black"
+            android:text="Lets go! Please add any of the account to proceed further with the bill payments."
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+
+        <TextView
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:text="What type of account are you adding?"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:textSize="@dimen/_12sdp"
+            android:textColor="@color/gray"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+
+        <EditText
+            android:layout_margin="@dimen/_5sdp"
+            android:textSize="@dimen/_12sdp"
+            android:padding="@dimen/_10sdp"
+            android:elevation="@dimen/_10sdp"
+            android:inputType="text"
+            android:textColorHint="@color/black"
+            android:textColor="@color/black"
+            android:hint="Select account type...."
+            android:background="@drawable/border_white_one"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_45sdp"
+            >
+        </EditText>
+
+
+        <TextView
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:text="What type of account are you adding?"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:textSize="@dimen/_12sdp"
+            android:textColor="@color/gray"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+
+        <EditText
+            android:layout_margin="@dimen/_5sdp"
+            android:padding="@dimen/_10sdp"
+            android:elevation="@dimen/_10sdp"
+            android:inputType="text"
+            android:textColorHint="@color/black"
+            android:textColor="@color/black"
+            android:background="@drawable/border_white_one"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_45sdp"
+            >
+        </EditText>
+
+
+        <TextView
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:text="What is your current balance?"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:textSize="@dimen/_12sdp"
+            android:textColor="@color/gray"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+
+        <EditText
+            android:layout_margin="@dimen/_5sdp"
+            android:padding="@dimen/_10sdp"
+            android:elevation="@dimen/_10sdp"
+            android:inputType="text"
+            android:textColorHint="@color/black"
+            android:textColor="@color/black"
+            android:background="@drawable/border_white_one"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_45sdp"
+            >
+        </EditText>
+
+        <RelativeLayout
+            android:layout_marginRight="@dimen/_5sdp"
+            android:layout_marginLeft="@dimen/_5sdp"
+            android:id="@+id/RRlogin"
+            android:layout_marginTop="@dimen/_30sdp"
+            android:background="@drawable/border_btn"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_50sdp"
+            >
+
+            <TextView
+                android:layout_marginLeft="20sp"
+                android:layout_centerVertical="true"
+                android:textStyle="bold"
+                android:textSize="@dimen/_16sdp"
+                android:textColor="@color/white"
+                android:text="Next"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+
+            <ImageView
+                android:layout_marginRight="@dimen/_20sdp"
+                android:src="@drawable/right_back"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                >
+            </ImageView>
+
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</layout>

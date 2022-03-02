@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Spendright</string>
+    <string name="add_more"><u>ADD MORE</u></string>
+    <string name="title_activity_home">MainActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Accounts</string>
+    <string name="title_notifications">EXPENSE REPORT</string>
+    <string name="THIS_MONTH">THIS MONTH</string>
+</resources>

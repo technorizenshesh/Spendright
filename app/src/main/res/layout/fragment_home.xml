@@ -1,0 +1,374 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+
+    <RelativeLayout
+        android:background="@color/blue"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+           <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+                <RelativeLayout
+                    android:id="@+id/RRtoolbaar"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_50sdp"
+                    >
+
+                    <ImageView
+                        android:visibility="gone"
+                        android:id="@+id/imgBack"
+                        android:layout_marginLeft="@dimen/_10sdp"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/left_arraow"
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        >
+
+                    </ImageView>
+
+                    <TextView
+                        android:textStyle="bold"
+                        android:textSize="@dimen/_14sdp"
+                        android:layout_centerInParent="true"
+                        android:textColor="@color/white"
+                        android:text="Welcome, Jonathan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        />
+
+                    <ImageView
+                        android:id="@+id/notification"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="@dimen/_10sdp"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/notifications"
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        >
+
+                    </ImageView>
+
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:background="@drawable/border_btn"
+                    android:layout_margin="@dimen/_10sdp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    >
+
+                    <ImageView
+                        android:src="@drawable/add_bank"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:layout_gravity="center"
+                        android:layout_width="@dimen/_60sdp"
+                        android:layout_height="@dimen/_60sdp">
+
+                    </ImageView>
+
+                    <TextView
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:fontFamily="@font/poppinsregular"
+                        android:textSize="@dimen/_14sdp"
+                        android:textColor="@color/white"
+                        android:text="Add Your Bank Accounts"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        />
+
+                    <TextView
+                        android:gravity="center"
+                        android:padding="@dimen/_7sdp"
+                        android:fontFamily="@font/poppinsregular"
+                        android:textSize="@dimen/_10sdp"
+                        android:textColor="@color/white"
+                        android:text="Now That You’ve Estimated Some expenses lets see how much money you have right now."
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        />
+
+                    <RelativeLayout
+                        android:id="@+id/RRAddAccount"
+                        android:background="@drawable/border_blue"
+                        android:layout_margin="@dimen/_10sdp"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_35sdp"
+                        >
+
+
+                        <TextView
+                            android:drawablePadding="@dimen/_7sdp"
+                            android:drawableRight="@drawable/add_one"
+                            android:layout_centerHorizontal="true"
+                            android:textStyle="bold"
+                            android:text="ADD ACCOUNT"
+                            android:gravity="center"
+                            android:padding="@dimen/_7sdp"
+                            android:fontFamily="@font/poppinsregular"
+                            android:textSize="@dimen/_12sdp"
+                            android:textColor="@color/white"
+                            android:layout_gravity="center"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            />
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <TextView
+                    android:textStyle="bold"
+                    android:text="Pay Bill for-"
+                    android:padding="@dimen/_10sdp"
+                    android:fontFamily="@font/poppinsregular"
+                    android:textSize="@dimen/_14sdp"
+                    android:textColor="@color/white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    />
+
+                <LinearLayout
+                    android:layout_marginRight="@dimen/_6sdp"
+                    android:layout_marginLeft="@dimen/_6sdp"
+                    android:orientation="horizontal"
+                    android:weightSum="3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    >
+
+                    <LinearLayout
+                        android:id="@+id/LLelectCIty"
+                        android:orientation="vertical"
+                        android:layout_margin="@dimen/_6sdp"
+                        android:background="@drawable/border_white_onee"
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        >
+
+
+                        <ImageView
+                            android:layout_gravity="center"
+                            android:src="@drawable/electrical"
+                            android:layout_marginTop="@dimen/_15sdp"
+                            android:layout_width="@dimen/_30sdp"
+                            android:layout_height="@dimen/_30sdp">
+
+                        </ImageView>
+
+                        <TextView
+                            android:gravity="center"
+                            android:layout_margin="@dimen/_7sdp"
+                            android:fontFamily="@font/poppinsregular"
+                            android:textSize="@dimen/_10sdp"
+                            android:textColor="@color/black"
+                            android:text="Electricity Bill"
+                            android:layout_gravity="center"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/bill2"
+                        android:orientation="vertical"
+                        android:layout_margin="@dimen/_6sdp"
+                        android:background="@drawable/border_white_onee"
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        >
+
+
+                        <ImageView
+                            android:layout_gravity="center"
+                            android:src="@drawable/cable"
+                            android:layout_marginTop="@dimen/_15sdp"
+                            android:layout_width="@dimen/_30sdp"
+                            android:layout_height="@dimen/_30sdp">
+
+                        </ImageView>
+
+                        <TextView
+                            android:gravity="center"
+                            android:layout_margin="@dimen/_7sdp"
+                            android:fontFamily="@font/poppinsregular"
+                            android:textSize="@dimen/_10sdp"
+                            android:textColor="@color/black"
+                            android:text="Cable TV Bill"
+                            android:layout_gravity="center"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/bill3"
+                        android:orientation="vertical"
+                        android:layout_margin="@dimen/_6sdp"
+                        android:background="@drawable/border_white_onee"
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        >
+
+
+                        <ImageView
+                            android:layout_gravity="center"
+                            android:src="@drawable/airtime"
+                            android:layout_marginTop="@dimen/_15sdp"
+                            android:layout_width="@dimen/_30sdp"
+                            android:layout_height="@dimen/_30sdp">
+
+                        </ImageView>
+
+                        <TextView
+                            android:gravity="center"
+                            android:layout_margin="@dimen/_7sdp"
+                            android:fontFamily="@font/poppinsregular"
+                            android:textSize="@dimen/_10sdp"
+                            android:textColor="@color/black"
+                            android:text="Buy airtime \n data bundles"
+                            android:layout_gravity="center"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginRight="@dimen/_6sdp"
+                    android:layout_marginLeft="@dimen/_6sdp"
+                    android:orientation="horizontal"
+                    android:weightSum="3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    >
+
+                    <LinearLayout
+                        android:id="@+id/bill4"
+                        android:orientation="vertical"
+                        android:layout_margin="@dimen/_6sdp"
+                        android:background="@drawable/border_white_onee"
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        >
+
+
+                        <ImageView
+                            android:layout_gravity="center"
+                            android:src="@drawable/broadband"
+                            android:layout_marginTop="@dimen/_15sdp"
+                            android:layout_width="@dimen/_30sdp"
+                            android:layout_height="@dimen/_30sdp">
+
+                        </ImageView>
+
+                        <TextView
+                            android:gravity="center"
+                            android:layout_margin="@dimen/_7sdp"
+                            android:fontFamily="@font/poppinsregular"
+                            android:textSize="@dimen/_10sdp"
+                            android:textColor="@color/black"
+                            android:text="Broadband Bill"
+                            android:layout_gravity="center"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/RRSchdule"
+                        android:orientation="vertical"
+                        android:layout_margin="@dimen/_6sdp"
+                        android:background="@drawable/border_white_onee"
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        >
+
+
+                        <ImageView
+                            android:layout_gravity="center"
+                            android:src="@drawable/schedule"
+                            android:layout_marginTop="@dimen/_15sdp"
+                            android:layout_width="@dimen/_30sdp"
+                            android:layout_height="@dimen/_30sdp"
+                            />
+
+                        <TextView
+                            android:gravity="center"
+                            android:layout_margin="@dimen/_7sdp"
+                            android:fontFamily="@font/poppinsregular"
+                            android:textSize="@dimen/_10sdp"
+                            android:textColor="@color/black"
+                            android:text="Schedule Payments"
+                            android:layout_gravity="center"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/llReport"
+                        android:orientation="vertical"
+                        android:layout_margin="@dimen/_6sdp"
+                        android:background="@drawable/border_white_onee"
+                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        >
+
+
+                        <ImageView
+                            android:layout_gravity="center"
+                            android:src="@drawable/payment"
+                            android:layout_marginTop="@dimen/_15sdp"
+                            android:layout_width="@dimen/_30sdp"
+                            android:layout_height="@dimen/_30sdp">
+
+                        </ImageView>
+
+                        <TextView
+                            android:gravity="center"
+                            android:layout_margin="@dimen/_7sdp"
+                            android:fontFamily="@font/poppinsregular"
+                            android:textSize="@dimen/_10sdp"
+                            android:textColor="@color/black"
+                            android:text="Payment Reports"
+                            android:layout_gravity="center"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </RelativeLayout>
+
+</layout>

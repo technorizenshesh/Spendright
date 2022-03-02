@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <LinearLayout
+            android:padding="@dimen/_5sdp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+            <RelativeLayout
+                android:id="@+id/RRtoolbaar"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_50sdp"
+                >
+
+                <ImageView
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:id="@+id/imgBack"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginRight="@dimen/_10sdp"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/back"
+                    android:layout_width="@dimen/_15sdp"
+                    android:layout_height="@dimen/_15sdp"
+                    >
+                </ImageView>
+
+                <TextView
+                    android:textStyle="bold"
+                    android:textSize="@dimen/_14sdp"
+                    android:layout_centerInParent="true"
+                    android:textColor="@color/black"
+                    android:text="Schedule Payment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:elevation="@dimen/_15sdp"
+                android:background="@drawable/border_white_one"
+                android:layout_margin="@dimen/_10sdp"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_170sdp"
+                >
+
+                <ImageView
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/reminder"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_width="@dimen/_100sdp"
+                    android:layout_height="@dimen/_100sdp"
+                    >
+
+                </ImageView>
+
+            </RelativeLayout>
+
+
+
+
+            <EditText
+                android:drawableRight="@drawable/bottom_arrow"
+                android:layout_margin="@dimen/_5sdp"
+                android:textSize="@dimen/_12sdp"
+                android:padding="@dimen/_10sdp"
+                android:elevation="@dimen/_10sdp"
+                android:inputType="text"
+                android:textColorHint="@color/black"
+                android:textColor="@color/black"
+                android:text="Electricity"
+                android:textStyle="bold"
+                android:background="@drawable/border_white_one"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_45sdp"
+                >
+            </EditText>
+
+
+            <TextView
+                android:text="Category"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:textSize="@dimen/_12sdp"
+                android:textColor="@color/black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+
+            <EditText
+                android:drawableRight="@drawable/bottom_arrow"
+                android:hint="Investment"
+                android:layout_margin="@dimen/_5sdp"
+                android:padding="@dimen/_10sdp"
+                android:elevation="@dimen/_10sdp"
+                android:inputType="text"
+                android:textColorHint="@color/black"
+                android:textColor="@color/black"
+                android:background="@drawable/border_white_one"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_45sdp"
+                >
+            </EditText>
+
+
+            <TextView
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:text="Amount:"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:textSize="@dimen/_12sdp"
+                android:textColor="@color/black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+
+            <EditText
+                android:hint="10.00"
+                android:layout_margin="@dimen/_5sdp"
+                android:padding="@dimen/_10sdp"
+                android:elevation="@dimen/_10sdp"
+                android:inputType="text"
+                android:textColorHint="@color/black"
+                android:textColor="@color/black"
+                android:background="@drawable/border_white_one"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_45sdp"
+                >
+            </EditText>
+
+            <TextView
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:text="Schedule Date:"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:textSize="@dimen/_12sdp"
+                android:textColor="@color/black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+
+            <EditText
+                android:hint="12-10-2022"
+                android:layout_margin="@dimen/_5sdp"
+                android:padding="@dimen/_10sdp"
+                android:elevation="@dimen/_10sdp"
+                android:inputType="text"
+                android:textColorHint="@color/black"
+                android:textColor="@color/black"
+                android:background="@drawable/border_white_one"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_45sdp"
+                >
+            </EditText>
+
+            <TextView
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:text="Frequency:"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:textSize="@dimen/_12sdp"
+                android:textColor="@color/black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+
+            <EditText
+                android:drawablePadding="@dimen/_10sdp"
+                android:drawableRight="@drawable/bottom_arrow"
+                android:hint="Daily"
+                android:layout_margin="@dimen/_5sdp"
+                android:padding="@dimen/_10sdp"
+                android:elevation="@dimen/_10sdp"
+                android:inputType="text"
+                android:textColorHint="@color/black"
+                android:textColor="@color/black"
+                android:background="@drawable/border_white_one"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_45sdp"
+                >
+            </EditText>
+
+
+            <TextView
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:text="From:"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:textSize="@dimen/_12sdp"
+                android:textColor="@color/black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+
+            <EditText
+                android:drawablePadding="@dimen/_10sdp"
+                android:drawableRight="@drawable/bottom_arrow"
+                android:hint="Budget Account"
+                android:layout_margin="@dimen/_5sdp"
+                android:padding="@dimen/_10sdp"
+                android:elevation="@dimen/_10sdp"
+                android:inputType="text"
+                android:textColorHint="@color/black"
+                android:textColor="@color/black"
+                android:background="@drawable/border_white_one"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_45sdp"
+                >
+            </EditText>
+
+            <RelativeLayout
+                android:layout_marginRight="@dimen/_5sdp"
+                android:layout_marginLeft="@dimen/_5sdp"
+                android:id="@+id/RRpay"
+                android:layout_marginTop="@dimen/_30sdp"
+                android:background="@drawable/border_btn"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_50sdp"
+                >
+
+                <TextView
+                    android:layout_centerInParent="true"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/_16sdp"
+                    android:textColor="@color/white"
+                    android:text="Save"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+
+</layout>

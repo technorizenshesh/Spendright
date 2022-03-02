@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/blue"
+                >
+
+                <RelativeLayout
+                    android:id="@+id/RRtoolbaar"
+                    android:visibility="visible"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_50sdp"
+                    >
+
+                    <TextView
+                        android:textStyle="bold"
+                        android:textSize="@dimen/_14sdp"
+                        android:layout_centerInParent="true"
+                        android:textColor="@color/white"
+                        android:text="Registration"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                    </TextView>
+
+
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_below="@+id/RRtoolbaar"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    >
+
+
+                    <ImageView
+                        android:id="@+id/imgLogo"
+                        android:padding="@dimen/_20sdp"
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/loginsuccess"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_350sdp"
+                        >
+                    </ImageView>
+
+                    <TextView
+                        android:padding="@dimen/_10sdp"
+                        android:gravity="center"
+                        android:layout_below="@+id/imgLogo"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/_28sdp"
+                        android:textColor="@color/white"
+                        android:text="Your account has been created."
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        />
+
+                    <RelativeLayout
+                        android:layout_marginBottom="@dimen/_20sdp"
+                        android:id="@+id/RRDone"
+                        android:layout_marginRight="@dimen/_10sdp"
+                        android:layout_marginLeft="@dimen/_10sdp"
+                        android:layout_marginTop="@dimen/_20sdp"
+                        android:background="@drawable/border_btn"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_50sdp"
+                        >
+
+                        <TextView
+                            android:layout_marginLeft="20sp"
+                            android:layout_centerVertical="true"
+                            android:textStyle="bold"
+                            android:textSize="@dimen/_16sdp"
+                            android:textColor="@color/white"
+                            android:text="Start"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            />
+
+                        <ImageView
+                            android:layout_marginRight="@dimen/_20sdp"
+                            android:src="@drawable/right_back"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_width="@dimen/_20sdp"
+                            android:layout_height="@dimen/_20sdp"
+                            >
+                        </ImageView>
+
+                    </RelativeLayout>
+
+
+                </LinearLayout>
+
+
+
+            </RelativeLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </RelativeLayout>
+
+</layout>
