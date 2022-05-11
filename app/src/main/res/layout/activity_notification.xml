@@ -42,16 +42,6 @@
                 android:layout_height="wrap_content"
                 />
 
-            <ImageView
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:src="@drawable/close"
-                android:layout_width="@dimen/_12sdp"
-                android:layout_height="@dimen/_12sdp"
-                >
-
-            </ImageView>
-
         </RelativeLayout>
 
         <androidx.core.widget.NestedScrollView

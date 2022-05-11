@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical"
+        >
+
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/txtEmty"
+            android:textStyle="bold"
+            android:textSize="@dimen/_14sdp"
+            android:layout_centerInParent="true"
+            android:textColor="@color/black"
+            android:text="No data Found"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+
+        <ProgressBar
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerInParent="true"
+            android:id="@+id/progressBar"
+            android:background="@drawable/progresh_background"
+            android:elevation="6dp"
+            android:padding="5dp"
+            android:indeterminate="true"
+            android:indeterminateTintMode="src_atop"
+            android:indeterminateTint="@color/purple_200"
+            android:visibility="gone"
+            />
+
+
+        <RelativeLayout
+        android:id="@+id/RRtoolbaar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_50sdp"
+        >
+
+          <RelativeLayout
+              android:id="@+id/imgBack"
+              android:layout_width="@dimen/_50sdp"
+              android:layout_height="match_parent"
+              >
+
+              <ImageView
+                  android:layout_centerInParent="true"
+                  android:src="@drawable/back"
+                  android:layout_width="@dimen/_20sdp"
+                  android:layout_height="@dimen/_20sdp"
+                  >
+              </ImageView>
+
+          </RelativeLayout>
+
+
+
+        <TextView
+            android:textStyle="bold"
+            android:textSize="@dimen/_14sdp"
+            android:layout_centerInParent="true"
+            android:textColor="@color/black"
+            android:text="Estimate Expenses and Budget"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+
+        </RelativeLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerGrp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/RRAddNewGrp"
+            android:layout_below="@+id/RRtoolbaar"
+            android:layout_marginTop="@dimen/_5sdp" />
+
+        <RelativeLayout
+            android:id="@+id/RRAddNewGrp"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_50sdp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:background="@drawable/border_btn">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20sp"
+                android:text="Add New Group"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_16sdp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/_20sdp"
+                android:src="@drawable/right_back"></ImageView>
+
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+
+</layout>

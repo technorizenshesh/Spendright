@@ -8,6 +8,21 @@
         android:background="@color/blue"
         >
 
+        <ProgressBar
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerInParent="true"
+            android:id="@+id/progressBar"
+            android:background="@drawable/progresh_background"
+            android:elevation="6dp"
+            android:padding="5dp"
+            android:indeterminate="true"
+            android:indeterminateTintMode="src_atop"
+            android:indeterminateTint="@color/purple_200"
+            android:visibility="gone"
+            />
+
+
         <androidx.core.widget.NestedScrollView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -38,7 +53,7 @@
 
                     <TextView
                         android:textStyle="bold"
-                        android:textSize="@dimen/_14sdp"
+                          android:textSize="@dimen/_12sdp"
                         android:layout_centerInParent="true"
                         android:textColor="@color/white"
                         android:text="Registration"
@@ -83,7 +98,8 @@
                     <TextView
                         android:layout_marginTop="@dimen/_10sdp"
                         android:gravity="center"
-                        android:textSize="@dimen/_14sdp"
+                        android:textSize="@dimen/_12sdp"
+                        android:textStyle="bold"
                         android:textColor="@color/black"
                         android:text="Phone number"
                         android:layout_width="wrap_content"
@@ -106,6 +122,7 @@
                         </ImageView>
 
                         <EditText
+                            android:id="@+id/edtMobile"
                             android:inputType="number"
                             android:layout_marginLeft="@dimen/_5sdp"
                             android:textColorHint="@color/black"
@@ -132,7 +149,8 @@
                     <TextView
                         android:layout_marginTop="@dimen/_10sdp"
                         android:gravity="center"
-                        android:textSize="@dimen/_14sdp"
+                        android:textSize="@dimen/_12sdp"
+                        android:textStyle="bold"
                         android:textColor="@color/black"
                         android:text="Email address"
                         android:layout_width="wrap_content"
@@ -155,6 +173,7 @@
                         </ImageView>
 
                         <EditText
+                            android:id="@+id/edtemail"
                             android:layout_marginLeft="@dimen/_5sdp"
                             android:textColorHint="@color/black"
                             android:layout_gravity="center"
@@ -181,7 +200,8 @@
                     <TextView
                         android:layout_marginTop="@dimen/_10sdp"
                         android:gravity="center"
-                        android:textSize="@dimen/_14sdp"
+                        android:textSize="@dimen/_12sdp"
+                        android:textStyle="bold"
                         android:textColor="@color/black"
                         android:text="First name"
                         android:layout_width="wrap_content"
@@ -204,6 +224,7 @@
                         </ImageView>
 
                         <EditText
+                            android:id="@+id/edtFName"
                             android:layout_marginLeft="@dimen/_5sdp"
                             android:textColorHint="@color/black"
                             android:layout_gravity="center"
@@ -230,7 +251,8 @@
                     <TextView
                         android:layout_marginTop="@dimen/_10sdp"
                         android:gravity="center"
-                        android:textSize="@dimen/_14sdp"
+                          android:textSize="@dimen/_12sdp"
+                        android:textStyle="bold"
                         android:textColor="@color/black"
                         android:text="Last name"
                         android:layout_width="wrap_content"
@@ -253,6 +275,7 @@
                         </ImageView>
 
                         <EditText
+                            android:id="@+id/edtLName"
                             android:layout_marginLeft="@dimen/_5sdp"
                             android:textColorHint="@color/black"
                             android:layout_gravity="center"
@@ -280,7 +303,8 @@
                     <TextView
                         android:layout_marginTop="@dimen/_10sdp"
                         android:gravity="center"
-                        android:textSize="@dimen/_14sdp"
+                          android:textSize="@dimen/_12sdp"
+                        android:textStyle="bold"
                         android:textColor="@color/black"
                         android:text="Street address"
                         android:layout_width="wrap_content"
@@ -303,6 +327,7 @@
                         </ImageView>
 
                         <EditText
+                            android:id="@+id/edtStreetAddress"
                             android:layout_marginLeft="@dimen/_5sdp"
                             android:textColorHint="@color/black"
                             android:layout_gravity="center"
@@ -330,7 +355,8 @@
                     <TextView
                         android:layout_marginTop="@dimen/_10sdp"
                         android:gravity="center"
-                        android:textSize="@dimen/_14sdp"
+                          android:textSize="@dimen/_12sdp"
+                        android:textStyle="bold"
                         android:textColor="@color/black"
                         android:text="City"
                         android:layout_width="wrap_content"
@@ -353,6 +379,7 @@
                         </ImageView>
 
                         <EditText
+                            android:id="@+id/edtCity"
                             android:layout_marginLeft="@dimen/_5sdp"
                             android:textColorHint="@color/black"
                             android:layout_gravity="center"
@@ -380,7 +407,8 @@
                     <TextView
                         android:layout_marginTop="@dimen/_10sdp"
                         android:gravity="center"
-                        android:textSize="@dimen/_14sdp"
+                          android:textSize="@dimen/_12sdp"
+                        android:textStyle="bold"
                         android:textColor="@color/black"
                         android:text="Country of residence"
                         android:layout_width="wrap_content"
@@ -403,6 +431,7 @@
                         </ImageView>
 
                         <EditText
+                            android:id="@+id/edtCountry"
                             android:layout_marginLeft="@dimen/_5sdp"
                             android:textColorHint="@color/black"
                             android:layout_gravity="center"
@@ -430,7 +459,8 @@
                     <TextView
                         android:layout_marginTop="@dimen/_10sdp"
                         android:gravity="center"
-                        android:textSize="@dimen/_14sdp"
+                          android:textSize="@dimen/_12sdp"
+                        android:textStyle="bold"
                         android:textColor="@color/black"
                         android:text="Date of birth"
                         android:layout_width="wrap_content"
@@ -438,6 +468,7 @@
                         />
 
                     <LinearLayout
+                        android:id="@+id/llDob"
                         android:orientation="horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_45sdp"
@@ -452,19 +483,17 @@
 
                         </ImageView>
 
-                        <EditText
+                        <TextView
+                            android:gravity="center_vertical"
+                            android:id="@+id/edtDateOFBirth"
                             android:layout_marginLeft="@dimen/_5sdp"
-                            android:textColorHint="@color/black"
                             android:layout_gravity="center"
-                            android:padding="@dimen/_5sdp"
-                            android:inputType="text"
                             android:textColor="@color/black"
-                            android:hint="30/05/1964"
-                            android:background="@null"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
+                            android:text="30/05/1964"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             >
-                        </EditText>
+                        </TextView>
 
                     </LinearLayout>
 
@@ -480,7 +509,8 @@
                     <TextView
                         android:layout_marginTop="@dimen/_10sdp"
                         android:gravity="center"
-                        android:textSize="@dimen/_14sdp"
+                          android:textSize="@dimen/_12sdp"
+                        android:textStyle="bold"
                         android:textColor="@color/black"
                         android:text="Password"
                         android:layout_width="wrap_content"
@@ -503,6 +533,7 @@
                         </ImageView>
 
                         <EditText
+                            android:id="@+id/edtPassword"
                             android:layout_marginLeft="@dimen/_5sdp"
                             android:textColorHint="@color/black"
                             android:layout_gravity="center"
@@ -533,6 +564,7 @@
                         >
 
                         <CheckBox
+                            android:id="@+id/checEdTerms"
                             android:buttonTint="@color/blue"
                             android:layout_marginTop="@dimen/_5sdp"
                             android:gravity="center"
@@ -547,7 +579,7 @@
                             android:textStyle="bold"
                             android:layout_marginTop="@dimen/_10sdp"
                             android:gravity="center"
-                            android:textSize="@dimen/_14sdp"
+                              android:textSize="@dimen/_12sdp"
                             android:textColor="@color/black"
                             android:text="I accept"
                             android:layout_width="wrap_content"
@@ -559,7 +591,7 @@
                             android:layout_marginLeft="@dimen/_5sdp"
                             android:layout_marginTop="@dimen/_10sdp"
                             android:gravity="center"
-                            android:textSize="@dimen/_14sdp"
+                              android:textSize="@dimen/_12sdp"
                             android:textColor="@color/blue"
                             android:text=" Terms &amp; Conditions."
                             android:layout_width="wrap_content"
@@ -605,7 +637,8 @@
                         android:layout_gravity="center"
                         android:layout_marginTop="@dimen/_10sdp"
                         android:gravity="center"
-                        android:textSize="@dimen/_14sdp"
+                          android:textSize="@dimen/_12sdp"
+                        android:textStyle="bold"
                         android:textColor="@color/black"
                         android:text="Or Continue With"
                         android:layout_width="wrap_content"
@@ -649,7 +682,7 @@
                                 android:layout_marginLeft="@dimen/_10sdp"
                                 android:textStyle="bold"
                                 android:layout_centerInParent="true"
-                                android:textSize="@dimen/_14sdp"
+                                  android:textSize="@dimen/_12sdp"
                                 android:textColor="@color/black"
                                 android:text="Facebook"
                                 android:layout_width="match_parent"
@@ -682,7 +715,7 @@
                                 android:layout_toRightOf="@+id/imgGoogle"
                                 android:textStyle="bold"
                                 android:layout_centerInParent="true"
-                                android:textSize="@dimen/_14sdp"
+                                  android:textSize="@dimen/_12sdp"
                                 android:textColor="@color/black"
                                 android:gravity="center"
                                 android:text="Google"
@@ -705,7 +738,8 @@
                         <TextView
                             android:layout_marginTop="@dimen/_10sdp"
                             android:gravity="center"
-                            android:textSize="@dimen/_14sdp"
+                              android:textSize="@dimen/_12sdp"
+                        android:textStyle="bold"
                             android:textColor="@color/gray"
                             android:text="Don’t have an account?"
                             android:layout_width="wrap_content"
@@ -718,7 +752,7 @@
                             android:textStyle="bold"
                             android:layout_marginTop="@dimen/_10sdp"
                             android:gravity="center"
-                            android:textSize="@dimen/_14sdp"
+                              android:textSize="@dimen/_12sdp"
                             android:textColor="@color/black"
                             android:text=" LOGIN"
                             android:layout_width="wrap_content"

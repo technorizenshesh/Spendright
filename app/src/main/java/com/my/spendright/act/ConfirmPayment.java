@@ -3,6 +3,7 @@ package com.my.spendright.act;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.my.spendright.R;
@@ -19,6 +20,10 @@ public class ConfirmPayment extends AppCompatActivity {
 
         binding.imgBack.setOnClickListener(v -> {
             onBackPressed();
+        });
+
+        binding.RRConfirm.setOnClickListener(v -> {
+            startActivity(new Intent(ConfirmPayment.this,PaymentComplete.class));
         });
     }
 }

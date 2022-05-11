@@ -14,5 +14,30 @@
         <!-- Customize your theme here. -->
     </style>
 
+<!--    <style name="SwitchCompatStyle" >
+        <item name="android:thumb">@color/orange</item>
+        <item name="trackTint">@color/orange</item>
+    </style>-->
+
+
+
+    <style name="BrandedSwitch" parent="Theme.AppCompat.Light">
+        <item name="android:textColor">#ffa000</item>
+        <item name="android:textSize">9dp</item>
+    </style>
+
+    <style name="control" parent="Theme.AppCompat.Light">
+        <!-- active thumb & track color (30% transparency) -->
+        <item name="colorControlActivated">#FF0101</item>
+        <item name="colorSwitchThumbNormal">#06FF01</item>
+    </style>
+
+    <style name="tab_text"
+        parent="@android:style/TextAppearance.Widget.TabWidget">
+        <item name="android:textAllCaps" tools:targetApi="ice_cream_sandwich">false</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
 
 </resources>

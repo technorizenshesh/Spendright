@@ -25,6 +25,7 @@ public class LoginOne extends AppCompatActivity {
         binding.RRNext.setOnClickListener(v -> {
 
           startActivity(new Intent(LoginOne.this,LoginSuccess.class));
+            finish();
 
         });
 

@@ -92,7 +92,8 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
         layouts = new int[] {
                 R.layout.intro_screen1,
                 R.layout.intro_screen2,
-                R.layout.intro_screen3
+                R.layout.intro_screen3,
+                R.layout.intro_screen4
         };
 
         RRStart.setOnClickListener(v -> {
@@ -134,15 +135,16 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
             imageView.setPadding(5,5,5,5);
 
             if(currentPage == i) {
-                imageView.setImageResource(R.drawable.ovel);
-            }else {
                 imageView.setImageResource(R.drawable.ovel_yellow);
+            }else {
+                imageView.setImageResource(R.drawable.ovel);
+
             }
 
             dotsLayout.addView(imageView);
         }
 
-        if(currentPage == 2)
+        if(currentPage == 3)
         {
             RRStart.setVisibility(View.VISIBLE);
         }else
@@ -215,7 +217,7 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
 
             View view = layoutInflater.inflate(layouts[position], container, false);
 
-            if(position == 2)
+            if(position == 3)
             {
                 RRStart.setVisibility(View.VISIBLE);
             }else

@@ -3,171 +3,229 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     >
 
-    <LinearLayout
-        android:padding="@dimen/_5sdp"
-        android:orientation="vertical"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         >
 
-        <RelativeLayout
-            android:id="@+id/RRtoolbaar"
+        <ProgressBar
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerInParent="true"
+            android:id="@+id/progressBar"
+            android:background="@drawable/progresh_background"
+            android:elevation="6dp"
+            android:padding="5dp"
+            android:indeterminate="true"
+            android:indeterminateTintMode="src_atop"
+            android:indeterminateTint="@color/purple_200"
+            android:visibility="gone"
+            />
+
+
+        <LinearLayout
+            android:padding="@dimen/_5sdp"
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_50sdp"
+            android:layout_height="match_parent"
             >
 
-            <ImageView
-                android:id="@+id/imgBack"
-                android:layout_alignParentLeft="true"
-                android:layout_marginRight="@dimen/_10sdp"
-                android:layout_centerVertical="true"
-                android:src="@drawable/back"
-                android:layout_width="@dimen/_20sdp"
-                android:layout_height="@dimen/_20sdp"
+            <RelativeLayout
+                android:id="@+id/RRtoolbaar"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_50sdp"
                 >
 
-            </ImageView>
+                <RelativeLayout
+                    android:id="@+id/imgBack"
+                    android:layout_alignParentLeft="true"
+                    android:layout_width="@dimen/_50sdp"
+                    android:layout_height="match_parent"
+                    >
+
+                    <ImageView
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/back"
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        >
+                    </ImageView>
+
+                </RelativeLayout>
+
+
+                <TextView
+                    android:textStyle="bold"
+                    android:textSize="@dimen/_14sdp"
+                    android:layout_centerInParent="true"
+                    android:textColor="@color/black"
+                    android:text="Add Account"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    />
+
+
+            </RelativeLayout>
 
             <TextView
-                android:textStyle="bold"
-                android:textSize="@dimen/_14sdp"
-                android:layout_centerInParent="true"
+                android:text="Lets go! Please add any of the account to proceed further with the bill payments."
+                android:layout_marginTop="@dimen/_10sdp"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:textSize="@dimen/_12sdp"
                 android:textColor="@color/black"
-                android:text="Add Account"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 />
-
-            <ImageView
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:src="@drawable/close"
-                android:layout_width="@dimen/_12sdp"
-                android:layout_height="@dimen/_12sdp"
-                >
-
-            </ImageView>
-
-        </RelativeLayout>
-
-        <TextView
-            android:layout_marginTop="@dimen/_10sdp"
-            android:gravity="center"
-            android:layout_gravity="center"
-            android:textSize="@dimen/_12sdp"
-            android:textColor="@color/black"
-            android:text="Lets go! Please add any of the account to proceed further with the bill payments."
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            />
-
-        <TextView
-            android:layout_marginLeft="@dimen/_10sdp"
-            android:text="What type of account are you adding?"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:textSize="@dimen/_12sdp"
-            android:textColor="@color/gray"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            />
-
-        <EditText
-            android:layout_margin="@dimen/_5sdp"
-            android:textSize="@dimen/_12sdp"
-            android:padding="@dimen/_10sdp"
-            android:elevation="@dimen/_10sdp"
-            android:inputType="text"
-            android:textColorHint="@color/black"
-            android:textColor="@color/black"
-            android:hint="Select account type...."
-            android:background="@drawable/border_white_one"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_45sdp"
-            >
-        </EditText>
-
-
-        <TextView
-            android:layout_marginLeft="@dimen/_10sdp"
-            android:text="What type of account are you adding?"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:textSize="@dimen/_12sdp"
-            android:textColor="@color/gray"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            />
-
-        <EditText
-            android:layout_margin="@dimen/_5sdp"
-            android:padding="@dimen/_10sdp"
-            android:elevation="@dimen/_10sdp"
-            android:inputType="text"
-            android:textColorHint="@color/black"
-            android:textColor="@color/black"
-            android:background="@drawable/border_white_one"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_45sdp"
-            >
-        </EditText>
-
-
-        <TextView
-            android:layout_marginLeft="@dimen/_10sdp"
-            android:text="What is your current balance?"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:textSize="@dimen/_12sdp"
-            android:textColor="@color/gray"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            />
-
-        <EditText
-            android:layout_margin="@dimen/_5sdp"
-            android:padding="@dimen/_10sdp"
-            android:elevation="@dimen/_10sdp"
-            android:inputType="text"
-            android:textColorHint="@color/black"
-            android:textColor="@color/black"
-            android:background="@drawable/border_white_one"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_45sdp"
-            >
-        </EditText>
-
-        <RelativeLayout
-            android:layout_marginRight="@dimen/_5sdp"
-            android:layout_marginLeft="@dimen/_5sdp"
-            android:id="@+id/RRlogin"
-            android:layout_marginTop="@dimen/_30sdp"
-            android:background="@drawable/border_btn"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_50sdp"
-            >
 
             <TextView
-                android:layout_marginLeft="20sp"
-                android:layout_centerVertical="true"
-                android:textStyle="bold"
-                android:textSize="@dimen/_16sdp"
-                android:textColor="@color/white"
-                android:text="Next"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:text="What type of account are you adding?"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:textSize="@dimen/_12sdp"
+                android:textColor="@color/gray"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 />
 
-            <ImageView
-                android:layout_marginRight="@dimen/_20sdp"
-                android:src="@drawable/right_back"
+            <RelativeLayout
+                android:elevation="@dimen/_10sdp"
+                android:layout_margin="@dimen/_5sdp"
+                android:background="@drawable/border_white_one"
                 android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_width="@dimen/_20sdp"
-                android:layout_height="@dimen/_20sdp"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_45sdp"
                 >
-            </ImageView>
+
+                <Spinner
+                    android:layout_toLeftOf="@+id/imgState"
+                    android:visibility="visible"
+                    android:id="@+id/spinnerCategory"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
+                    android:backgroundTint="@color/black"
+                    />
+
+                <ImageView
+                    android:layout_marginRight="@dimen/_10sdp"
+                    android:id="@+id/imgState"
+                    android:layout_width="@dimen/_15sdp"
+                    android:layout_height="@dimen/_15sdp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/arrow_btm">
+
+                </ImageView>
+
+            </RelativeLayout>
+
+            <TextView
+                android:visibility="gone"
+                android:paddingLeft="@dimen/_10sdp"
+                android:gravity="center_vertical"
+                android:id="@+id/AccountNAme"
+                android:textStyle="bold"
+                android:layout_margin="@dimen/_5sdp"
+                android:textSize="@dimen/_12sdp"
+                android:elevation="@dimen/_10sdp"
+                android:inputType="text"
+                android:textColorHint="@color/black"
+                android:textColor="@color/black"
+                android:hint="Select account type...."
+                android:background="@drawable/border_white_one"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_45sdp"
+                >
+            </TextView>
 
 
-        </RelativeLayout>
+            <TextView
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:text="Give it a nickname?"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:textSize="@dimen/_12sdp"
+                android:textColor="@color/gray"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
 
-    </LinearLayout>
+            <EditText
+                android:id="@+id/edtAccontHolderName"
+                android:layout_margin="@dimen/_5sdp"
+                android:padding="@dimen/_10sdp"
+                android:elevation="@dimen/_10sdp"
+                android:inputType="text"
+                android:textColorHint="@color/black"
+                android:textColor="@color/black"
+                android:background="@drawable/border_white_one"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_45sdp"
+                >
+            </EditText>
+
+
+            <TextView
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:text="What is your current balance?"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:textSize="@dimen/_12sdp"
+                android:textColor="@color/gray"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+
+            <EditText
+                android:id="@+id/edtHolderBalnce"
+                android:layout_margin="@dimen/_5sdp"
+                android:padding="@dimen/_10sdp"
+                android:elevation="@dimen/_10sdp"
+                android:inputType="numberDecimal"
+                android:textColorHint="@color/black"
+                android:textColor="@color/black"
+                android:background="@drawable/border_white_one"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_45sdp"
+                >
+            </EditText>
+
+            <RelativeLayout
+                android:layout_marginRight="@dimen/_5sdp"
+                android:layout_marginLeft="@dimen/_5sdp"
+                android:id="@+id/RRAdd"
+                android:layout_marginTop="@dimen/_30sdp"
+                android:background="@drawable/border_btn"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_50sdp"
+                >
+
+                <TextView
+                    android:layout_marginLeft="20sp"
+                    android:layout_centerVertical="true"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/_16sdp"
+                    android:textColor="@color/white"
+                    android:text="Next"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    />
+
+                <ImageView
+                    android:layout_marginRight="@dimen/_20sdp"
+                    android:src="@drawable/right_back"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    >
+                </ImageView>
+
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
 
 </layout>

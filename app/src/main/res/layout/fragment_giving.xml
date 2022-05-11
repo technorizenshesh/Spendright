@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:padding="@dimen/_5sdp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <androidx.cardview.widget.CardView
+            app:cardCornerRadius="@dimen/_10sdp"
+            android:layout_margin="@dimen/_5sdp"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_55sdp"
+            >
+
+            <RelativeLayout
+                android:padding="@dimen/_10sdp"
+                android:layout_gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+                <ImageView
+                    android:src="@drawable/chirity"
+                    android:layout_width="@dimen/_35sdp"
+                    android:layout_height="@dimen/_35sdp"
+                    >
+                </ImageView>
+
+                <TextView
+                    android:layout_centerInParent="true"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/poppinsregular"
+                    android:textSize="@dimen/_14sdp"
+                    android:textColor="@color/black"
+                    android:text="Charity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    />
+
+                <ImageView
+                    android:src="@drawable/arrow_right"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    >
+
+                </ImageView>
+
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            app:cardCornerRadius="@dimen/_10sdp"
+            android:layout_margin="@dimen/_5sdp"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_55sdp"
+            >
+
+            <RelativeLayout
+                android:padding="@dimen/_10sdp"
+                android:layout_gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                >
+
+                <ImageView
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/titl"
+                    android:layout_width="@dimen/_35sdp"
+                    android:layout_height="@dimen/_35sdp"
+                    >
+                </ImageView>
+
+                <TextView
+                    android:layout_centerInParent="true"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/poppinsregular"
+                    android:textSize="@dimen/_14sdp"
+                    android:textColor="@color/black"
+                    android:text="Tithe"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    />
+
+                <ImageView
+                    android:src="@drawable/arrow_right"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    >
+                </ImageView>
+
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <RelativeLayout
+            android:visibility="gone"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="@dimen/_15sdp"
+            android:id="@+id/RRlogin"
+            android:background="@drawable/border_btn"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_50sdp"
+            >
+
+            <TextView
+                android:layout_marginLeft="20sp"
+                android:layout_centerInParent="true"
+                android:textStyle="bold"
+                android:textSize="@dimen/_16sdp"
+                android:textColor="@color/white"
+                android:text="Pay Now"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</layout>

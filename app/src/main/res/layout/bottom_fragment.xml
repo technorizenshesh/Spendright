@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+
+    <RelativeLayout
+        android:layout_margin="@dimen/_10sdp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:background="@color/white"
+        android:layout_height="wrap_content"
+        >
+
+        <RelativeLayout
+            android:layout_marginRight="@dimen/_10sdp"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:id="@+id/RRtoll"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_50sdp"
+            >
+
+
+            <TextView
+                android:textStyle="bold"
+                android:textSize="@dimen/_14sdp"
+                android:layout_centerVertical="true"
+                android:textColor="@color/black"
+                android:text="Accounts Option"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+
+            <ImageView
+                android:id="@+id/imgBack"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/close_blue"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                >
+            </ImageView>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_below="@+id/RRtoll"
+            android:id="@+id/llNoti"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+            <RelativeLayout
+                android:id="@+id/RRExpenses"
+                android:layout_margin="@dimen/_10sdp"
+                android:layout_alignParentBottom="true"
+                android:layout_gravity="bottom"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:background="@drawable/border_white_gray"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_50sdp"
+                >
+
+                <ImageView
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:id="@+id/img"
+                    android:src="@drawable/change_pin"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_width="@dimen/_25sdp"
+                    android:layout_height="@dimen/_25sdp"
+                    >
+                </ImageView>
+
+                <TextView
+                    android:layout_toRightOf="@+id/img"
+                    android:layout_marginLeft="20sp"
+                    android:layout_centerVertical="true"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/_16sdp"
+                    android:textColor="@color/black"
+                    android:text="Expenses and Budget"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    />
+
+                <ImageView
+                    android:layout_marginRight="@dimen/_10sdp"
+                    android:src="@drawable/back_orange"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    >
+                </ImageView>
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/RRSchdule"
+                android:layout_margin="@dimen/_10sdp"
+                android:layout_alignParentBottom="true"
+                android:layout_gravity="bottom"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:background="@drawable/border_white_gray"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_50sdp"
+                >
+
+                <ImageView
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:id="@+id/Contact"
+                    android:src="@drawable/change_pin"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_width="@dimen/_25sdp"
+                    android:layout_height="@dimen/_25sdp"
+                    >
+                </ImageView>
+
+                <TextView
+                    android:layout_toRightOf="@+id/Contact"
+                    android:layout_marginLeft="20sp"
+                    android:layout_centerVertical="true"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/_16sdp"
+                    android:textColor="@color/black"
+                    android:text="Scheduled Payments"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    />
+
+                <ImageView
+                    android:layout_marginRight="@dimen/_10sdp"
+                    android:src="@drawable/back_orange"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    >
+                </ImageView>
+
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</layout>
+

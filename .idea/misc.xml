@@ -1,5 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Spendright/app/src/main/res/layout/activity_add.xml" value="0.1" />
+        <entry key="..\:/Spendright/app/src/main/res/layout/activity_home.xml" value="0.1" />
+        <entry key="..\:/Spendright/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Spendright/app/src/main/res/layout/activity_schdule_payment_method.xml" value="0.1" />
+        <entry key="..\:/Spendright/app/src/main/res/layout/fragment_giving.xml" value="0.1" />
+        <entry key="..\:/Spendright/app/src/main/res/layout/fragment_home.xml" value="0.2" />
+        <entry key="..\:/Spendright/app/src/main/res/layout/fragment_schdule_payment.xml" value="0.20416666666666666" />
+        <entry key="..\:/Spendright/app/src/main/res/menu/bottom_nav_menu.xml" value="0.19814814814814816" />
+        <entry key="..\:/Spendright/app/src/main/res/menu/poupup_menu.xml" value="0.19814814814814816" />
+      </map>
+    </option>
+  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>

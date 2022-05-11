@@ -20,7 +20,7 @@ public class RegistrationFinal extends AppCompatActivity {
        binding.RRDone.setOnClickListener(v -> {
 
            startActivity(new Intent(RegistrationFinal.this,HomeActivity.class));
-
+           finish();
        });
 
     }

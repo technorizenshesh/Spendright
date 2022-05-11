@@ -79,7 +79,7 @@
                                 />
 
                             <TextView
-                                android:text="1234-4567-3456-3456"
+                                android:text="Cash Mode"
                                 android:fontFamily="@font/poppinsregular"
                                 android:textSize="@dimen/_12sdp"
                                 android:textColor="@color/black"
@@ -92,12 +92,10 @@
 
                         <ImageView
                             android:id="@+id/gr"
-                            android:layout_centerVertical="true"
-                            android:src="@drawable/gr"
                             android:layout_width="@dimen/_30sdp"
                             android:layout_height="@dimen/_30sdp"
-                            >
-                        </ImageView>
+                            android:layout_centerVertical="true"
+                            android:src="@drawable/gr"></ImageView>
 
                         <LinearLayout
                             android:layout_below="@+id/gr"
@@ -109,7 +107,6 @@
 
                             <TextView
                                 android:textStyle="bold"
-                                android:fontFamily="@font/poppinsregular"
                                 android:textSize="@dimen/_25sdp"
                                 android:textColor="@color/black"
                                 android:text="76.451,00"
@@ -119,7 +116,6 @@
 
                             <TextView
                                 android:text="Total Expense"
-                                android:fontFamily="@font/poppinsregular"
                                 android:textSize="@dimen/_14sdp"
                                 android:textColor="@color/black"
                                 android:layout_width="wrap_content"
@@ -156,7 +152,6 @@
 
                             <TextView
                                 android:text="Bill Number"
-                                android:fontFamily="@font/poppinsregular"
                                 android:textSize="@dimen/_12sdp"
                                 android:textColor="@color/black"
                                 android:layout_width="wrap_content"
@@ -165,7 +160,6 @@
 
                             <TextView
                                 android:textStyle="bold"
-                                android:fontFamily="@font/poppinsregular"
                                 android:textSize="@dimen/_14sdp"
                                 android:textColor="@color/black"
                                 android:text="7623547GJHJHT547"
@@ -183,17 +177,15 @@
                             <TextView
                                 android:layout_alignParentLeft="true"
                                 android:text="From Account:"
-                                android:fontFamily="@font/poppinsregular"
                                 android:textSize="@dimen/_12sdp"
-                                android:textColor="@color/black"
+                                android:textColor="@color/gray"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 />
 
                             <TextView
                                 android:layout_alignParentRight="true"
-                                android:text="From Account:"
-                                android:fontFamily="@font/poppinsregular"
+                                android:text="Amount"
                                 android:textSize="@dimen/_12sdp"
                                 android:textColor="@color/black"
                                 android:layout_width="wrap_content"
@@ -211,15 +203,14 @@
                             >
 
                             <TextView
-                                android:layout_alignParentLeft="true"
-                                android:textStyle="bold"
-                                android:fontFamily="@font/poppinsregular"
-                                android:textSize="@dimen/_14sdp"
-                                android:textColor="@color/black"
-                                android:text="Budget Account"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                />
+                                android:layout_alignParentLeft="true"
+                                android:fontFamily="@font/poppinsregular"
+                                android:text="Cash Account"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/_14sdp"
+                                android:textStyle="bold" />
 
                             <TextView
                                 android:layout_alignParentRight="true"
@@ -227,7 +218,7 @@
                                 android:fontFamily="@font/poppinsregular"
                                 android:textSize="@dimen/_14sdp"
                                 android:textColor="@color/black"
-                                android:text="16/08/2020"
+                                android:text="10.00"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 />
@@ -244,10 +235,9 @@
 
                             <TextView
                                 android:layout_alignParentLeft="true"
-                                android:text="Amount"
-                                android:fontFamily="@font/poppinsregular"
+                                android:text="Description"
                                 android:textSize="@dimen/_12sdp"
-                                android:textColor="@color/black"
+                                android:textColor="@color/gray"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 />
@@ -255,14 +245,11 @@
                             <TextView
                                 android:layout_alignParentRight="true"
                                 android:text="Payment date"
-                                android:fontFamily="@font/poppinsregular"
                                 android:textSize="@dimen/_12sdp"
-                                android:textColor="@color/black"
+                                android:textColor="@color/gray"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 />
-
-
 
                         </RelativeLayout>
 
@@ -275,10 +262,9 @@
                             <TextView
                                 android:layout_alignParentLeft="true"
                                 android:textStyle="bold"
-                                android:fontFamily="@font/poppinsregular"
                                 android:textSize="@dimen/_14sdp"
                                 android:textColor="@color/black"
-                                android:text="10.00"
+                                android:text="Electricity Bill"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 />
@@ -286,7 +272,6 @@
                             <TextView
                                 android:layout_alignParentRight="true"
                                 android:textStyle="bold"
-                                android:fontFamily="@font/poppinsregular"
                                 android:textSize="@dimen/_14sdp"
                                 android:textColor="@color/black"
                                 android:text="16/08/2020"
@@ -296,36 +281,6 @@
 
                         </RelativeLayout>
 
-
-
-                        <LinearLayout
-                            android:orientation="vertical"
-                            android:layout_marginTop="@dimen/_5sdp"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            >
-
-                            <TextView
-                                android:layout_alignParentLeft="true"
-                                android:text="Description"
-                                android:fontFamily="@font/poppinsregular"
-                                android:textSize="@dimen/_12sdp"
-                                android:textColor="@color/black"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                />
-                            <TextView
-                                android:layout_alignParentRight="true"
-                                android:textStyle="bold"
-                                android:fontFamily="@font/poppinsregular"
-                                android:textSize="@dimen/_14sdp"
-                                android:textColor="@color/black"
-                                android:text="Electricity Bill"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                />
-
-                        </LinearLayout>
 
                     </LinearLayout>
 
@@ -359,7 +314,7 @@
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppinsregular"
                                 android:text="Amount"
-                                android:textColor="@color/black"
+                                android:textColor="@color/gray"
                                 android:textSize="@dimen/_12sdp" />
 
 
@@ -368,7 +323,7 @@
                                 android:text="Fee"
                                 android:fontFamily="@font/poppinsregular"
                                 android:textSize="@dimen/_12sdp"
-                                android:textColor="@color/black"
+                                android:textColor="@color/gray"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 />
@@ -442,7 +397,7 @@
                     android:layout_marginBottom="@dimen/_20sdp"
                     android:layout_marginRight="@dimen/_10sdp"
                     android:layout_marginLeft="@dimen/_10sdp"
-                    android:id="@+id/RRlogin"
+                    android:id="@+id/RRConfirm"
                     android:layout_marginTop="@dimen/_20sdp"
                     android:background="@drawable/border_btn"
                     android:layout_width="match_parent"
@@ -460,6 +415,18 @@
                         />
 
                 </RelativeLayout>
+
+
+                <TextView
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:textSize="@dimen/_14sdp"
+                    android:textColor="@color/white"
+                    android:text="Cancel Payment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    />
 
             </LinearLayout>
 

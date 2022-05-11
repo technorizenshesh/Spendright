@@ -29,5 +29,11 @@
         android:label="@string/THIS_MONTH"
         tools:layout="@layout/fragment_notifications" />
 
+    <fragment
+        android:id="@+id/navigation_Schdule"
+        android:name="com.my.spendright.Fragment.SchdulePaymentFragment"
+        android:label="Scheduled payment"
+        tools:layout="@layout/activity_schdule_payment_method" />
+
 
 </navigation>

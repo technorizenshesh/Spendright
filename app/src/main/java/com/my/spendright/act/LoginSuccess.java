@@ -20,6 +20,7 @@ public class LoginSuccess extends AppCompatActivity {
 
         binding.RRSignUp.setOnClickListener(v -> {
             startActivity(new Intent(LoginSuccess.this,HomeActivity.class));
+            finish();
         });
     }
 }

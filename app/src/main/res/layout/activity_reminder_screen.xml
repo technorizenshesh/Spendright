@@ -171,7 +171,7 @@
                 />
 
             <EditText
-                android:hint="Budget Account"
+                android:hint="Cash Account"
                 android:layout_margin="@dimen/_5sdp"
                 android:padding="@dimen/_10sdp"
                 android:elevation="@dimen/_10sdp"

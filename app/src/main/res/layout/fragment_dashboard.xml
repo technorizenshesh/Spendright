@@ -21,6 +21,7 @@
                 >
 
                 <ImageView
+                    android:id="@+id/addImgAccount"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:src="@drawable/add_one"
                     android:layout_gravity="center"
@@ -34,7 +35,7 @@
                     android:layout_marginTop="@dimen/_10sdp"
                     android:layout_gravity="center"
                     android:textStyle="bold"
-                    android:text="Prepaid Card Account"
+                    android:text="My Accounts"
                     android:fontFamily="@font/poppinsregular"
                     android:textSize="@dimen/_10sdp"
                     android:textColor="@color/white"
@@ -45,7 +46,7 @@
                    <TextView
                     android:layout_gravity="center"
                     android:textStyle="bold"
-                    android:text="Swipe for more budget accounts"
+                    android:text="Swipe for more accounts"
                     android:fontFamily="@font/poppinsregular"
                     android:textSize="@dimen/_12sdp"
                     android:textColor="@color/white"
@@ -114,9 +115,7 @@
 
 
                                 <TextView
-                                    android:textStyle="italic"
                                     android:text="Income"
-                                    android:fontFamily="@font/poppinsregular"
                                     android:textSize="@dimen/_10sdp"
                                     android:textColor="@color/black"
                                     android:layout_width="wrap_content"
@@ -125,7 +124,7 @@
 
                                 <TextView
                                     android:textStyle="bold"
-                                    android:textSize="@dimen/_16sdp"
+                                    android:textSize="@dimen/_20sdp"
                                     android:textColor="@color/black"
                                     android:text="76.451,00"
                                     android:layout_width="wrap_content"
@@ -133,6 +132,16 @@
                                     />
 
                             </LinearLayout>
+
+                            <TextView
+                                android:layout_centerHorizontal="true"
+                                android:text="(Account Name)"
+                                android:fontFamily="@font/poppinsregular"
+                                android:textSize="@dimen/_10sdp"
+                                android:textColor="@color/black"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                />
 
                             <LinearLayout
                                 android:orientation="vertical"
@@ -143,10 +152,8 @@
 
 
                                 <TextView
-                                    android:textStyle="italic"
                                     android:layout_gravity="right"
                                     android:text="Budget"
-                                    android:fontFamily="@font/poppinsregular"
                                     android:textSize="@dimen/_10sdp"
                                     android:textColor="@color/black"
                                     android:layout_width="wrap_content"
@@ -156,7 +163,7 @@
                                 <TextView
                                     android:layout_gravity="right"
                                     android:textStyle="bold"
-                                    android:textSize="@dimen/_16sdp"
+                                    android:textSize="@dimen/_20sdp"
                                     android:textColor="@color/black"
                                     android:text="76.451,00"
                                     android:layout_width="wrap_content"
@@ -187,9 +194,7 @@
 
 
                                     <TextView
-                                        android:textStyle="italic"
                                         android:text="Expense"
-                                        android:fontFamily="@font/poppinsregular"
                                         android:textSize="@dimen/_10sdp"
                                         android:textColor="@color/black"
                                         android:layout_width="wrap_content"
@@ -198,7 +203,7 @@
 
                                     <TextView
                                         android:textStyle="bold"
-                                        android:textSize="@dimen/_16sdp"
+                                        android:textSize="@dimen/_20sdp"
                                         android:textColor="@color/black"
                                         android:text="76.451,00"
                                         android:layout_width="wrap_content"
@@ -216,10 +221,8 @@
 
 
                                     <TextView
-                                        android:textStyle="italic"
                                         android:layout_gravity="right"
                                         android:text="Current Balance"
-                                        android:fontFamily="@font/poppinsregular"
                                         android:textSize="@dimen/_10sdp"
                                         android:textColor="@color/black"
                                         android:layout_width="wrap_content"
@@ -229,12 +232,13 @@
                                     <TextView
                                         android:layout_gravity="right"
                                         android:textStyle="bold"
-                                        android:textSize="@dimen/_16sdp"
+                                        android:textSize="@dimen/_20sdp"
                                         android:textColor="@color/black"
                                         android:text="76.451,00"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         />
+
                                 </LinearLayout>
 
                             </RelativeLayout>
@@ -254,73 +258,136 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 >
-                                <TextView
-                                    android:textStyle="bold"
-                                    android:fontFamily="@font/poppinsregular"
-                                    android:textSize="@dimen/_16sdp"
-                                    android:textColor="@color/black"
-                                    android:text="Budget accounts"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    />
+
 
                                 <TextView
-                                    android:text="1234-4567-3456-3456"
-                                    android:fontFamily="@font/poppinsregular"
-                                    android:textSize="@dimen/_12sdp"
+                                    android:text="Income"
+                                    android:textSize="@dimen/_10sdp"
                                     android:textColor="@color/black"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     />
 
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_alignParentRight="true"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                >
                                 <TextView
                                     android:textStyle="bold"
-                                    android:gravity="center"
-                                    android:fontFamily="@font/poppinsregular"
-                                    android:textSize="@dimen/_12sdp"
-                                    android:textColor="@color/black"
-                                    android:text="Budget Set \n2.400"
-                                    android:layout_gravity="center"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    />
-
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_alignParentBottom="true"
-                                android:orientation="vertical"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                >
-
-                                <TextView
-                                    android:textStyle="bold"
-                                    android:fontFamily="@font/poppinsregular"
-                                    android:textSize="@dimen/_25sdp"
+                                    android:textSize="@dimen/_20sdp"
                                     android:textColor="@color/black"
                                     android:text="76.451,00"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     />
 
+                            </LinearLayout>
+
+                            <TextView
+                                android:layout_centerHorizontal="true"
+                                android:text="(Account Name)"
+                                android:fontFamily="@font/poppinsregular"
+                                android:textSize="@dimen/_10sdp"
+                                android:textColor="@color/black"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                />
+
+                            <LinearLayout
+                                android:orientation="vertical"
+                                android:layout_alignParentRight="true"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                >
+
+
                                 <TextView
-                                    android:text="Total Expense"
-                                    android:fontFamily="@font/poppinsregular"
-                                    android:textSize="@dimen/_14sdp"
+                                    android:layout_gravity="right"
+                                    android:text="Budget"
+                                    android:textSize="@dimen/_10sdp"
                                     android:textColor="@color/black"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     />
 
+                                <TextView
+                                    android:layout_gravity="right"
+                                    android:textStyle="bold"
+                                    android:textSize="@dimen/_20sdp"
+                                    android:textColor="@color/black"
+                                    android:text="76.451,00"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    />
                             </LinearLayout>
+
+                            <ImageView
+                                android:layout_centerInParent="true"
+                                android:src="@drawable/gr"
+                                android:layout_width="@dimen/_30sdp"
+                                android:layout_height="@dimen/_30sdp"
+                                >
+
+                            </ImageView>
+
+
+                            <RelativeLayout
+                                android:layout_alignParentBottom="true"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                >
+                                <LinearLayout
+                                    android:orientation="vertical"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    >
+
+
+                                    <TextView
+                                        android:text="Expense"
+                                        android:textSize="@dimen/_10sdp"
+                                        android:textColor="@color/black"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        />
+
+                                    <TextView
+                                        android:textStyle="bold"
+                                        android:textSize="@dimen/_20sdp"
+                                        android:textColor="@color/black"
+                                        android:text="76.451,00"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        />
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:orientation="vertical"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    >
+
+
+                                    <TextView
+                                        android:layout_gravity="right"
+                                        android:text="Current Balance"
+                                        android:textSize="@dimen/_10sdp"
+                                        android:textColor="@color/black"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        />
+
+                                    <TextView
+                                        android:layout_gravity="right"
+                                        android:textStyle="bold"
+                                        android:textSize="@dimen/_20sdp"
+                                        android:textColor="@color/black"
+                                        android:text="76.451,00"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        />
+
+                                </LinearLayout>
+
+                            </RelativeLayout>
 
                         </RelativeLayout>
 
@@ -343,17 +410,15 @@
                         >
 
                         <TextView
-                            android:layout_centerVertical="true"
-                            android:drawablePadding="@dimen/_10sdp"
-                            android:drawableRight="@drawable/bottom_arrow"
-                            android:textStyle="bold"
-                            android:text="TAll transactions"
-                            android:fontFamily="@font/poppinsregular"
-                            android:textSize="@dimen/_14sdp"
-                            android:textColor="@color/black"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            />
+                            android:drawableRight="@drawable/bottom_arrow"
+                            android:drawablePadding="@dimen/_10sdp"
+                            android:fontFamily="@font/poppinsregular"
+                            android:text="All transactions"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_14sdp"
+                            android:textStyle="bold" />
 
                         <LinearLayout
                             android:layout_alignParentRight="true"
@@ -362,6 +427,7 @@
                             >
 
                             <ImageView
+                                android:id="@+id/payMentInformation"
                                 android:layout_gravity="center"
                                 android:src="@drawable/grp_card"
                                 android:layout_width="@dimen/_30sdp"
@@ -371,6 +437,7 @@
 
 
                             <ImageView
+                                android:id="@+id/imgAddTrasaction"
                                 android:layout_gravity="center"
                                 android:layout_marginLeft="@dimen/_10sdp"
                                 android:src="@drawable/add_blue"
@@ -392,7 +459,7 @@
 
                         <ImageView
                             android:layout_gravity="center"
-                            android:src="@drawable/mail"
+                            android:src="@drawable/golub"
                             android:layout_width="@dimen/_30sdp"
                             android:layout_height="@dimen/_30sdp"
                             >
@@ -410,7 +477,7 @@
                                 android:layout_centerVertical="true"
                                 android:textStyle="bold"
                                 android:text="Golub Taxi Transportation"
-                                android:textSize="@dimen/_14sdp"
+                                android:textSize="@dimen/_12sdp"
                                 android:textColor="@color/black"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -425,7 +492,7 @@
 
                                 <TextView
                                     android:textColor="@color/gray"
-                                    android:text="20th May, 18:39"
+                                    android:text="20th May, 18:39 "
                                     android:fontFamily="@font/poppinsregular"
                                     android:textSize="@dimen/_10sdp"
                                     android:layout_width="wrap_content"
@@ -497,7 +564,7 @@
 
                         <ImageView
                             android:layout_gravity="center"
-                            android:src="@drawable/mail"
+                            android:src="@drawable/fran"
                             android:layout_width="@dimen/_30sdp"
                             android:layout_height="@dimen/_30sdp"
                             >
@@ -514,8 +581,8 @@
                             <TextView
                                 android:layout_centerVertical="true"
                                 android:textStyle="bold"
-                                android:text="Golub Taxi Transportation"
-                                android:textSize="@dimen/_14sdp"
+                                android:text="Francois Restaurant Dinner"
+                                android:textSize="@dimen/_12sdp"
                                 android:textColor="@color/black"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -530,7 +597,7 @@
 
                                 <TextView
                                     android:textColor="@color/gray"
-                                    android:text="20th May, 18:39"
+                                    android:text="15th May, 20:56 "
                                     android:fontFamily="@font/poppinsregular"
                                     android:textSize="@dimen/_10sdp"
                                     android:layout_width="wrap_content"
@@ -539,7 +606,7 @@
 
                                 <TextView
                                     android:textColor="@color/orange"
-                                    android:text="(Cash)"
+                                    android:text="(Current a/c)"
                                     android:fontFamily="@font/poppinsregular"
                                     android:textSize="@dimen/_10sdp"
                                     android:layout_width="wrap_content"
@@ -602,7 +669,7 @@
 
                         <ImageView
                             android:layout_gravity="center"
-                            android:src="@drawable/mail"
+                            android:src="@drawable/airmax"
                             android:layout_width="@dimen/_30sdp"
                             android:layout_height="@dimen/_30sdp"
                             >
@@ -619,8 +686,8 @@
                             <TextView
                                 android:layout_centerVertical="true"
                                 android:textStyle="bold"
-                                android:text="Golub Taxi Transportation"
-                                android:textSize="@dimen/_14sdp"
+                                android:text="AirMax Travel to Paris"
+                                android:textSize="@dimen/_12sdp"
                                 android:textColor="@color/black"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -628,14 +695,14 @@
 
                             <LinearLayout
                                 android:orientation="horizontal"
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 >
 
 
                                 <TextView
                                     android:textColor="@color/gray"
-                                    android:text="20th May, 18:39"
+                                    android:text="14th May, 16:00 "
                                     android:fontFamily="@font/poppinsregular"
                                     android:textSize="@dimen/_10sdp"
                                     android:layout_width="wrap_content"
@@ -644,7 +711,7 @@
 
                                 <TextView
                                     android:textColor="@color/orange"
-                                    android:text="(Cash)"
+                                    android:text="(Saving a/c)"
                                     android:fontFamily="@font/poppinsregular"
                                     android:textSize="@dimen/_10sdp"
                                     android:layout_width="wrap_content"
@@ -683,10 +750,6 @@
                             </ImageView>
 
                         </LinearLayout>
-
-
-
-
                     </LinearLayout>
 
                     <View
@@ -707,7 +770,7 @@
 
                         <ImageView
                             android:layout_gravity="center"
-                            android:src="@drawable/mail"
+                            android:src="@drawable/constrac"
                             android:layout_width="@dimen/_30sdp"
                             android:layout_height="@dimen/_30sdp"
                             >
@@ -724,8 +787,8 @@
                             <TextView
                                 android:layout_centerVertical="true"
                                 android:textStyle="bold"
-                                android:text="Golub Taxi Transportation"
-                                android:textSize="@dimen/_14sdp"
+                                android:text="Construction ltd."
+                                android:textSize="@dimen/_12sdp"
                                 android:textColor="@color/black"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -733,14 +796,14 @@
 
                             <LinearLayout
                                 android:orientation="horizontal"
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 >
 
 
                                 <TextView
                                     android:textColor="@color/gray"
-                                    android:text="20th May, 18:39"
+                                    android:text="11th May, 09:26 "
                                     android:fontFamily="@font/poppinsregular"
                                     android:textSize="@dimen/_10sdp"
                                     android:layout_width="wrap_content"
@@ -788,11 +851,8 @@
                             </ImageView>
 
                         </LinearLayout>
-
-
-
-
                     </LinearLayout>
+
 
                     <View
                         android:layout_marginTop="@dimen/_5sdp"
@@ -813,7 +873,7 @@
 
                         <ImageView
                             android:layout_gravity="center"
-                            android:src="@drawable/mail"
+                            android:src="@drawable/robt"
                             android:layout_width="@dimen/_30sdp"
                             android:layout_height="@dimen/_30sdp"
                             >
@@ -830,8 +890,8 @@
                             <TextView
                                 android:layout_centerVertical="true"
                                 android:textStyle="bold"
-                                android:text="Golub Taxi Transportation"
-                                android:textSize="@dimen/_14sdp"
+                                android:text="Robert Smith"
+                                android:textSize="@dimen/_12sdp"
                                 android:textColor="@color/black"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -839,14 +899,14 @@
 
                             <LinearLayout
                                 android:orientation="horizontal"
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 >
 
 
                                 <TextView
                                     android:textColor="@color/gray"
-                                    android:text="20th May, 18:39"
+                                    android:text="11th May, 09:26 "
                                     android:fontFamily="@font/poppinsregular"
                                     android:textSize="@dimen/_10sdp"
                                     android:layout_width="wrap_content"
@@ -855,9 +915,9 @@
 
                                 <TextView
                                     android:textColor="@color/orange"
-                                    android:text="(Cash)"
+                                    android:text="(Prepaid Card)"
                                     android:fontFamily="@font/poppinsregular"
-                                    android:textSize="@dimen/_12sdp"
+                                    android:textSize="@dimen/_10sdp"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     />
@@ -906,6 +966,111 @@
                         android:layout_width="match_parent"
                         android:layout_height="0.5dp"
                         >
+                    </View>
+
+                    <LinearLayout
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        >
+
+                        <ImageView
+                            android:layout_gravity="center"
+                            android:src="@drawable/constrac"
+                            android:layout_width="@dimen/_30sdp"
+                            android:layout_height="@dimen/_30sdp"
+                            >
+                        </ImageView>
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_marginLeft="@dimen/_10sdp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            >
+
+
+                            <TextView
+                                android:layout_centerVertical="true"
+                                android:textStyle="bold"
+                                android:text="Construction ltd."
+                                android:textSize="@dimen/_12sdp"
+                                android:textColor="@color/black"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                />
+
+                            <LinearLayout
+                                android:orientation="horizontal"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                >
+
+
+                                <TextView
+                                    android:textColor="@color/gray"
+                                    android:text="11th May, 09:26 "
+                                    android:fontFamily="@font/poppinsregular"
+                                    android:textSize="@dimen/_10sdp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    />
+
+                                <TextView
+                                    android:textColor="@color/orange"
+                                    android:text="(Cash)"
+                                    android:fontFamily="@font/poppinsregular"
+                                    android:textSize="@dimen/_10sdp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    />
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            >
+
+                            <TextView
+                                android:textStyle="bold"
+                                android:textColor="@color/orange"
+                                android:gravity="right"
+                                android:layout_gravity="center"
+                                android:text="-345,00"
+                                android:fontFamily="@font/poppinsregular"
+                                android:textSize="@dimen/_12sdp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                />
+
+                            <ImageView
+                                android:src="@drawable/doller"
+                                android:layout_gravity="right"
+                                android:layout_width="@dimen/_12sdp"
+                                android:layout_height="@dimen/_12sdp"
+                                >
+
+                            </ImageView>
+
+                        </LinearLayout>
+
+
+
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:background="@color/black"
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        >
+
                     </View>
 
                 </LinearLayout>

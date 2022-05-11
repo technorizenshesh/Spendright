@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/blue"
+    >
+
+    <RelativeLayout
+        android:id="@+id/RRtolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_50sdp"
+        >
+
+        <TextView
+            android:layout_centerInParent="true"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_18sdp"
+            android:text="Category Add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+        </TextView>
+
+        <RelativeLayout
+            android:id="@+id/RRcross"
+            android:layout_alignParentRight="true"
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="match_parent"
+            >
+            <ImageView
+                android:layout_centerInParent="true"
+                android:src="@drawable/close_blue"
+                android:layout_width="@dimen/_25sdp"
+                android:layout_height="@dimen/_25sdp"
+                >
+
+            </ImageView>
+
+        </RelativeLayout>
+
+
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_below="@+id/RRtolbar"
+        android:padding="@dimen/_10sdp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+
+
+        <TextView
+            android:textStyle="bold"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:textColor="@color/white"
+            android:inputType="text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Select Monthly/Weekly"
+            android:textSize="@dimen/_14sdp">
+
+        </TextView>
+
+        <RelativeLayout
+            android:id="@+id/RRSelctMonthWeek"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_45sdp"
+            android:background="@drawable/btn_new"
+            >
+
+            <TextView
+                android:textColor="@color/black"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:id="@+id/txtSelectMonth"
+                android:inputType="text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Select Monthly/Weekly"
+                android:textSize="@dimen/_14sdp">
+
+            </TextView>
+
+            <ImageView
+                android:layout_marginRight="@dimen/_10sdp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/arrow_btm"
+                android:layout_width="@dimen/_12sdp"
+                android:layout_height="@dimen/_12sdp"
+                >
+
+            </ImageView>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_marginTop="@dimen/_10sdp"
+            android:visibility="gone"
+            android:id="@+id/RRSelctDay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+            <TextView
+                android:textStyle="bold"
+                android:id="@+id/MontEnd"
+                android:textColor="@color/white"
+                android:inputType="text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Select End Monthly Date"
+                android:textSize="@dimen/_14sdp">
+
+            </TextView>
+
+            <RelativeLayout
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_below="@+id/MontEnd"
+                android:background="@drawable/btn_new"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_45sdp"
+                >
+
+                <Spinner
+                    android:layout_toLeftOf="@+id/imgmonth"
+                    android:visibility="visible"
+                    android:id="@+id/spinnerMonthDays"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
+                    android:backgroundTint="@color/black"
+                    />
+
+                <ImageView
+                    android:layout_marginRight="@dimen/_10sdp"
+                    android:id="@+id/imgmonth"
+                    android:layout_width="@dimen/_12sdp"
+                    android:layout_height="@dimen/_12sdp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/arrow_btm">
+
+                </ImageView>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_marginTop="@dimen/_10sdp"
+            android:visibility="gone"
+            android:id="@+id/RRselectWeeks"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+            <TextView
+                android:textStyle="bold"
+                android:id="@+id/WeekEnd"
+                android:textColor="@color/white"
+                android:inputType="text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Select End Weekly Day"
+                android:textSize="@dimen/_14sdp">
+
+            </TextView>
+
+            <RelativeLayout
+                android:layout_below="@+id/WeekEnd"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/btn_new"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_45sdp"
+                >
+
+                <Spinner
+                    android:layout_toLeftOf="@+id/imgWeeks"
+                    android:visibility="visible"
+                    android:id="@+id/spinnerWeeks"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
+                    android:backgroundTint="@color/black"
+                    />
+
+                <ImageView
+                    android:layout_marginRight="@dimen/_10sdp"
+                    android:id="@+id/imgWeeks"
+                    android:layout_width="@dimen/_12sdp"
+                    android:layout_height="@dimen/_12sdp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/arrow_btm">
+
+                </ImageView>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+
+
+
+
+
+        <RelativeLayout
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_45sdp"
+            android:background="@drawable/btn_new"
+            >
+
+            <EditText
+                android:textColor="@color/black"
+                android:id="@+id/edtCategoryName"
+                android:maxLength="11"
+                android:inputType="text"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:hint="Category Name"
+                android:padding="@dimen/_10sdp"
+                android:textSize="@dimen/_14sdp">
+
+            </EditText>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_45sdp"
+            android:background="@drawable/btn_new"
+            >
+
+            <EditText
+                android:textColor="@color/black"
+                android:id="@+id/edtAmt"
+                android:maxLength="11"
+                android:inputType="number"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:hint="Budget Amount"
+                android:padding="@dimen/_10sdp"
+                android:textSize="@dimen/_14sdp">
+
+            </EditText>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/RRAdd"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:background="@drawable/border_btn"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_50sdp"
+            >
+
+            <TextView
+                android:layout_marginLeft="20sp"
+                android:layout_centerInParent="true"
+                android:textStyle="bold"
+                android:textSize="@dimen/_16sdp"
+                android:textColor="@color/white"
+                android:text="Add"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

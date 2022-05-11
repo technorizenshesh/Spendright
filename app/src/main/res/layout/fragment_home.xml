@@ -1,365 +1,391 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    >
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <RelativeLayout
-        android:background="@color/blue"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/blue"
         >
 
-        <androidx.core.widget.NestedScrollView
+        <ProgressBar
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerInParent="true"
+            android:id="@+id/progressBar"
+            android:background="@drawable/progresh_background"
+            android:elevation="6dp"
+            android:padding="5dp"
+            android:indeterminate="true"
+            android:indeterminateTintMode="src_atop"
+            android:indeterminateTint="@color/purple_200"
+            android:visibility="gone"
+            />
+
+        <RelativeLayout
+            android:id="@+id/RRtoolbaar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/_50sdp">
+
+            <ImageView
+                android:id="@+id/imgBack"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:src="@drawable/left_arraow"
+                android:visibility="gone">
+
+            </ImageView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="Welcome, Jonathan"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_14sdp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/notification"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:src="@drawable/notifications">
+
+            </ImageView>
+
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/RRtoolbaar"
+            android:orientation="vertical"
+            android:weightSum="2"
             >
 
-           <LinearLayout
-                android:orientation="vertical"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
                 >
 
                 <RelativeLayout
-                    android:id="@+id/RRtoolbaar"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_50sdp"
-                    >
-
-                    <ImageView
-                        android:visibility="gone"
-                        android:id="@+id/imgBack"
-                        android:layout_marginLeft="@dimen/_10sdp"
-                        android:layout_centerVertical="true"
-                        android:src="@drawable/left_arraow"
-                        android:layout_width="@dimen/_20sdp"
-                        android:layout_height="@dimen/_20sdp"
-                        >
-
-                    </ImageView>
-
-                    <TextView
-                        android:textStyle="bold"
-                        android:textSize="@dimen/_14sdp"
-                        android:layout_centerInParent="true"
-                        android:textColor="@color/white"
-                        android:text="Welcome, Jonathan"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        />
-
-                    <ImageView
-                        android:id="@+id/notification"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginRight="@dimen/_10sdp"
-                        android:layout_centerVertical="true"
-                        android:src="@drawable/notifications"
-                        android:layout_width="@dimen/_20sdp"
-                        android:layout_height="@dimen/_20sdp"
-                        >
-
-                    </ImageView>
-
-                </RelativeLayout>
-
-                <LinearLayout
-                    android:orientation="vertical"
+                    android:visibility="gone"
+                    android:id="@+id/RRadd"
                     android:background="@drawable/border_btn"
                     android:layout_margin="@dimen/_10sdp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     >
 
-                    <ImageView
-                        android:src="@drawable/add_bank"
-                        android:layout_marginTop="@dimen/_10sdp"
-                        android:layout_gravity="center"
-                        android:layout_width="@dimen/_60sdp"
-                        android:layout_height="@dimen/_60sdp">
-
-                    </ImageView>
-
-                    <TextView
-                        android:layout_marginTop="@dimen/_5sdp"
-                        android:fontFamily="@font/poppinsregular"
-                        android:textSize="@dimen/_14sdp"
-                        android:textColor="@color/white"
-                        android:text="Add Your Bank Accounts"
-                        android:layout_gravity="center"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        />
-
-                    <TextView
-                        android:gravity="center"
-                        android:padding="@dimen/_7sdp"
-                        android:fontFamily="@font/poppinsregular"
-                        android:textSize="@dimen/_10sdp"
-                        android:textColor="@color/white"
-                        android:text="Now That You’ve Estimated Some expenses lets see how much money you have right now."
-                        android:layout_gravity="center"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        />
-
-                    <RelativeLayout
-                        android:id="@+id/RRAddAccount"
-                        android:background="@drawable/border_blue"
-                        android:layout_margin="@dimen/_10sdp"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/_35sdp"
-                        >
-
-
-                        <TextView
-                            android:drawablePadding="@dimen/_7sdp"
-                            android:drawableRight="@drawable/add_one"
-                            android:layout_centerHorizontal="true"
-                            android:textStyle="bold"
-                            android:text="ADD ACCOUNT"
-                            android:gravity="center"
-                            android:padding="@dimen/_7sdp"
-                            android:fontFamily="@font/poppinsregular"
-                            android:textSize="@dimen/_12sdp"
-                            android:textColor="@color/white"
-                            android:layout_gravity="center"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            />
-                    </RelativeLayout>
-                </LinearLayout>
-
-                <TextView
-                    android:textStyle="bold"
-                    android:text="Pay Bill for-"
-                    android:padding="@dimen/_10sdp"
-                    android:fontFamily="@font/poppinsregular"
-                    android:textSize="@dimen/_14sdp"
-                    android:textColor="@color/white"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    />
-
-                <LinearLayout
-                    android:layout_marginRight="@dimen/_6sdp"
-                    android:layout_marginLeft="@dimen/_6sdp"
-                    android:orientation="horizontal"
-                    android:weightSum="3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    >
-
                     <LinearLayout
-                        android:id="@+id/LLelectCIty"
-                        android:orientation="vertical"
-                        android:layout_margin="@dimen/_6sdp"
-                        android:background="@drawable/border_white_onee"
-                        android:layout_weight="1"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        >
-
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="vertical">
 
                         <ImageView
+                            android:layout_width="@dimen/_60sdp"
+                            android:layout_height="@dimen/_60sdp"
                             android:layout_gravity="center"
-                            android:src="@drawable/electrical"
-                            android:layout_marginTop="@dimen/_15sdp"
-                            android:layout_width="@dimen/_30sdp"
-                            android:layout_height="@dimen/_30sdp">
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:src="@drawable/add_bank">
 
                         </ImageView>
 
                         <TextView
-                            android:gravity="center"
-                            android:layout_margin="@dimen/_7sdp"
-                            android:fontFamily="@font/poppinsregular"
-                            android:textSize="@dimen/_10sdp"
-                            android:textColor="@color/black"
-                            android:text="Electricity Bill"
-                            android:layout_gravity="center"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            />
+                            android:layout_gravity="center"
+                            android:layout_marginTop="@dimen/_5sdp"
+                            android:fontFamily="@font/poppinsregular"
+                            android:text="Add Your Bank Accounts"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_14sdp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:fontFamily="@font/poppinsregular"
+                            android:gravity="center"
+                            android:padding="@dimen/_7sdp"
+                            android:text="Now That You’ve Estimated Some expenses lets see how much money you have right now."
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_10sdp" />
+
+                        <RelativeLayout
+                            android:id="@+id/RRAddAccount"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_35sdp"
+                            android:layout_margin="@dimen/_10sdp"
+                            android:background="@drawable/border_blue">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:layout_gravity="center"
+                                android:drawableRight="@drawable/add_one"
+                                android:drawablePadding="@dimen/_7sdp"
+                                android:fontFamily="@font/poppinsregular"
+                                android:gravity="center"
+                                android:padding="@dimen/_7sdp"
+                                android:text="ADD ACCOUNT"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/_12sdp"
+                                android:textStyle="bold" />
+                        </RelativeLayout>
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclermyAccount"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    tools:listitem="@layout/itme_my_account"
+                    />
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppinsregular"
+                android:padding="@dimen/_5sdp"
+                android:text="Pay Bill for-"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_14sdp"
+                android:textStyle="bold" />
+
+
+
+            <LinearLayout
+                android:layout_marginTop="@dimen/_5sdp"
+                android:weightSum="2"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/_6sdp"
+                    android:layout_marginRight="@dimen/_6sdp"
+                    android:orientation="horizontal"
+                    android:weightSum="3">
+
+                    <LinearLayout
+                        android:id="@+id/LLelectCIty"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="@dimen/_6sdp"
+                        android:layout_weight="1"
+                        android:background="@drawable/border_white_onee"
+                        android:orientation="vertical">
+
+
+                        <ImageView
+                            android:layout_width="@dimen/_30sdp"
+                            android:layout_height="@dimen/_30sdp"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="@dimen/_15sdp"
+                            android:src="@drawable/electrical">
+
+                        </ImageView>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="@dimen/_7sdp"
+                            android:fontFamily="@font/poppinsregular"
+                            android:gravity="center"
+                            android:text="Electricity Bill"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_10sdp" />
 
                     </LinearLayout>
 
                     <LinearLayout
                         android:id="@+id/bill2"
-                        android:orientation="vertical"
-                        android:layout_margin="@dimen/_6sdp"
-                        android:background="@drawable/border_white_onee"
-                        android:layout_weight="1"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        >
+                        android:layout_margin="@dimen/_6sdp"
+                        android:layout_weight="1"
+                        android:background="@drawable/border_white_onee"
+                        android:orientation="vertical">
 
 
                         <ImageView
-                            android:layout_gravity="center"
-                            android:src="@drawable/cable"
-                            android:layout_marginTop="@dimen/_15sdp"
                             android:layout_width="@dimen/_30sdp"
-                            android:layout_height="@dimen/_30sdp">
+                            android:layout_height="@dimen/_30sdp"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="@dimen/_15sdp"
+                            android:src="@drawable/cable">
 
                         </ImageView>
 
                         <TextView
-                            android:gravity="center"
-                            android:layout_margin="@dimen/_7sdp"
-                            android:fontFamily="@font/poppinsregular"
-                            android:textSize="@dimen/_10sdp"
-                            android:textColor="@color/black"
-                            android:text="Cable TV Bill"
-                            android:layout_gravity="center"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            />
+                            android:layout_gravity="center"
+                            android:layout_margin="@dimen/_7sdp"
+                            android:fontFamily="@font/poppinsregular"
+                            android:gravity="center"
+                            android:text="Cable TV Bill"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_10sdp" />
 
                     </LinearLayout>
 
                     <LinearLayout
                         android:id="@+id/bill3"
-                        android:orientation="vertical"
-                        android:layout_margin="@dimen/_6sdp"
-                        android:background="@drawable/border_white_onee"
-                        android:layout_weight="1"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        >
+                        android:layout_margin="@dimen/_6sdp"
+                        android:layout_weight="1"
+                        android:background="@drawable/border_white_onee"
+                        android:orientation="vertical">
 
 
                         <ImageView
-                            android:layout_gravity="center"
-                            android:src="@drawable/airtime"
-                            android:layout_marginTop="@dimen/_15sdp"
                             android:layout_width="@dimen/_30sdp"
-                            android:layout_height="@dimen/_30sdp">
+                            android:layout_height="@dimen/_30sdp"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="@dimen/_15sdp"
+                            android:src="@drawable/airtime">
 
                         </ImageView>
 
                         <TextView
-                            android:gravity="center"
-                            android:layout_margin="@dimen/_7sdp"
-                            android:fontFamily="@font/poppinsregular"
-                            android:textSize="@dimen/_10sdp"
-                            android:textColor="@color/black"
-                            android:text="Buy airtime \n data bundles"
-                            android:layout_gravity="center"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            />
+                            android:layout_gravity="center"
+                            android:layout_margin="@dimen/_7sdp"
+                            android:fontFamily="@font/poppinsregular"
+                            android:gravity="center"
+                            android:text="Buy airtime \n data bundles"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_10sdp" />
 
                     </LinearLayout>
 
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_marginRight="@dimen/_6sdp"
-                    android:layout_marginLeft="@dimen/_6sdp"
-                    android:orientation="horizontal"
-                    android:weightSum="3"
+                    android:layout_weight="1"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    >
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/_6sdp"
+                    android:layout_marginRight="@dimen/_6sdp"
+                    android:orientation="horizontal"
+                    android:weightSum="3">
 
                     <LinearLayout
                         android:id="@+id/bill4"
-                        android:orientation="vertical"
-                        android:layout_margin="@dimen/_6sdp"
-                        android:background="@drawable/border_white_onee"
-                        android:layout_weight="1"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        >
+                        android:layout_margin="@dimen/_6sdp"
+                        android:layout_weight="1"
+                        android:background="@drawable/border_white_onee"
+                        android:orientation="vertical">
 
 
                         <ImageView
-                            android:layout_gravity="center"
-                            android:src="@drawable/broadband"
-                            android:layout_marginTop="@dimen/_15sdp"
                             android:layout_width="@dimen/_30sdp"
-                            android:layout_height="@dimen/_30sdp">
+                            android:layout_height="@dimen/_30sdp"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:src="@drawable/broadband">
 
                         </ImageView>
 
                         <TextView
-                            android:gravity="center"
-                            android:layout_margin="@dimen/_7sdp"
-                            android:fontFamily="@font/poppinsregular"
-                            android:textSize="@dimen/_10sdp"
-                            android:textColor="@color/black"
-                            android:text="Broadband Bill"
-                            android:layout_gravity="center"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            />
+                            android:layout_gravity="center"
+                            android:layout_margin="@dimen/_7sdp"
+                            android:fontFamily="@font/poppinsregular"
+                            android:gravity="center"
+                            android:text="Broadband Bill"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_10sdp" />
 
                     </LinearLayout>
 
                     <LinearLayout
                         android:id="@+id/RRSchdule"
-                        android:orientation="vertical"
-                        android:layout_margin="@dimen/_6sdp"
-                        android:background="@drawable/border_white_onee"
-                        android:layout_weight="1"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        >
+                        android:layout_margin="@dimen/_6sdp"
+                        android:layout_weight="1"
+                        android:background="@drawable/border_white_onee"
+                        android:orientation="vertical">
 
 
                         <ImageView
-                            android:layout_gravity="center"
-                            android:src="@drawable/schedule"
-                            android:layout_marginTop="@dimen/_15sdp"
                             android:layout_width="@dimen/_30sdp"
                             android:layout_height="@dimen/_30sdp"
-                            />
+                            android:layout_gravity="center"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:src="@drawable/schedule" />
 
                         <TextView
-                            android:gravity="center"
-                            android:layout_margin="@dimen/_7sdp"
-                            android:fontFamily="@font/poppinsregular"
-                            android:textSize="@dimen/_10sdp"
-                            android:textColor="@color/black"
-                            android:text="Schedule Payments"
-                            android:layout_gravity="center"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            />
+                            android:layout_gravity="center"
+                            android:layout_margin="@dimen/_7sdp"
+                            android:fontFamily="@font/poppinsregular"
+                            android:gravity="center"
+                            android:text="Schedule Payments"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_10sdp" />
 
                     </LinearLayout>
 
                     <LinearLayout
                         android:id="@+id/llReport"
-                        android:orientation="vertical"
-                        android:layout_margin="@dimen/_6sdp"
-                        android:background="@drawable/border_white_onee"
-                        android:layout_weight="1"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        >
+                        android:layout_margin="@dimen/_6sdp"
+                        android:layout_weight="1"
+                        android:background="@drawable/border_white_onee"
+                        android:orientation="vertical">
 
 
                         <ImageView
-                            android:layout_gravity="center"
-                            android:src="@drawable/payment"
-                            android:layout_marginTop="@dimen/_15sdp"
                             android:layout_width="@dimen/_30sdp"
-                            android:layout_height="@dimen/_30sdp">
+                            android:layout_height="@dimen/_30sdp"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:src="@drawable/payment">
 
                         </ImageView>
 
                         <TextView
-                            android:gravity="center"
-                            android:layout_margin="@dimen/_7sdp"
-                            android:fontFamily="@font/poppinsregular"
-                            android:textSize="@dimen/_10sdp"
-                            android:textColor="@color/black"
-                            android:text="Payment Reports"
-                            android:layout_gravity="center"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            />
+                            android:layout_gravity="center"
+                            android:layout_margin="@dimen/_7sdp"
+                            android:fontFamily="@font/poppinsregular"
+                            android:gravity="center"
+                            android:text="Payment Reports"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_10sdp" />
 
                     </LinearLayout>
 
@@ -367,7 +393,8 @@
 
             </LinearLayout>
 
-        </androidx.core.widget.NestedScrollView>
+
+        </LinearLayout>
 
     </RelativeLayout>
 

@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+
+    <RelativeLayout
+        android:background="@color/blue"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <RelativeLayout
+            android:id="@+id/RRtoolbaar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_50sdp"
+            >
+
+            <ImageView
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:id="@+id/imgBack"
+                android:layout_alignParentLeft="true"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/back_left"
+                android:layout_width="@dimen/_15sdp"
+                android:layout_height="@dimen/_15sdp"
+                >
+            </ImageView>
+
+            <TextView
+                android:textStyle="bold"
+                android:textSize="@dimen/_14sdp"
+                android:layout_centerInParent="true"
+                android:textColor="@color/white"
+                android:text="Expenses and Budget"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+
+        </RelativeLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_below="@+id/RRtoolbaar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+            <LinearLayout
+                android:padding="@dimen/_10sdp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+                <RelativeLayout
+                    android:padding="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    >
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        >
+
+                        <TextView
+                            android:textSize="@dimen/_14sdp"
+                            android:layout_centerInParent="true"
+                            android:textColor="@color/white"
+                            android:text="Feb 2022"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            />
+
+                        <ImageView
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="@dimen/_10sdp"
+                            android:src="@drawable/add"
+                            android:layout_width="@dimen/_17sdp"
+                            android:layout_height="@dimen/_17sdp"
+                            >
+                        </ImageView>
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_alignParentRight="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        >
+
+                        <ImageView
+                            android:id="@+id/imgEdit"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="@dimen/_10sdp"
+                            android:src="@drawable/edit"
+                            android:layout_width="@dimen/_20sdp"
+                            android:layout_height="@dimen/_20sdp"
+                            >
+                        </ImageView>
+
+                        <ImageView
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="@dimen/_10sdp"
+                            android:src="@drawable/dots"
+                            android:layout_width="@dimen/_20sdp"
+                            android:layout_height="@dimen/_20sdp"
+                            >
+                        </ImageView>
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:padding="@dimen/_10sdp"
+                    android:background="@drawable/border_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_90sdp"
+                    >
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_centerVertical="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        >
+
+
+                        <TextView
+                            android:drawableTint="@color/white"
+                            android:textStyle="bold"
+                            android:drawablePadding="@dimen/_10sdp"
+                            android:drawableLeft="@drawable/doller"
+                            android:layout_marginTop="@dimen/_5sdp"
+                            android:text="2,650.00"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_18sdp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            >
+                        </TextView>
+
+                        <TextView
+                            android:layout_marginTop="@dimen/_5sdp"
+                            android:text="Ready to Assign"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_18sdp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            >
+                        </TextView>
+
+
+                    </LinearLayout>
+
+                    <RelativeLayout
+                        android:padding="@dimen/_10sdp"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="@dimen/_20sdp"
+                        android:id="@+id/RRAddAccount"
+                        android:background="@drawable/border_blue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/_40sdp"
+                        >
+
+
+                        <TextView
+                            android:layout_centerInParent="true"
+                            android:textStyle="bold"
+                            android:text="Assign Money"
+                            android:gravity="center"
+                            android:fontFamily="@font/poppinsregular"
+                            android:textSize="@dimen/_12sdp"
+                            android:textColor="@color/white"
+                            android:layout_gravity="center"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            />
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+
+
+                <RelativeLayout
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    >
+
+                    <TextView
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentLeft="true"
+                        android:textSize="@dimen/_14sdp"
+                        android:textColor="@color/white"
+                        android:text="Bills"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        />
+
+                    <TextView
+                        android:layout_alignParentRight="true"
+                        android:textSize="@dimen/_14sdp"
+                        android:textColor="@color/white"
+                        android:text="Available\nto Spend"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        />
+
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:background="@drawable/border_white_one"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:padding="@dimen/_10sdp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    >
+
+                    <TextView
+                        android:textStyle="bold"
+                        android:text="Electricity"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_12sdp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        >
+                    </TextView>
+
+                    <TextView
+                        android:drawablePadding="@dimen/_10sdp"
+                        android:drawableLeft="@drawable/doller"
+                        android:text="20.00"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_12sdp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        >
+                    </TextView>
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:drawableTint="@color/white"
+                    android:drawablePadding="@dimen/_5sdp"
+                    android:drawableLeft="@drawable/doller"
+                    android:layout_alignParentLeft="true"
+                    android:textSize="@dimen/_14sdp"
+                    android:textColor="@color/white"
+                    android:text="180.00 more needed eventually"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    />
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:background="@drawable/border_white_one"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:padding="@dimen/_10sdp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    >
+
+                    <TextView
+                        android:textStyle="bold"
+                        android:text="Rent/ Mortgage"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_12sdp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        >
+                    </TextView>
+
+                    <TextView
+                        android:drawablePadding="@dimen/_10sdp"
+                        android:drawableLeft="@drawable/doller"
+                        android:text="600.00"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_12sdp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        >
+                    </TextView>
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:drawableTint="@color/white"
+                    android:drawablePadding="@dimen/_5sdp"
+                    android:drawableLeft="@drawable/doller"
+                    android:layout_alignParentLeft="true"
+                    android:textSize="@dimen/_14sdp"
+                    android:textColor="@color/white"
+                    android:text="180.00 more needed eventually"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    />
+
+                <RelativeLayout
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    >
+
+                    <TextView
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentLeft="true"
+                        android:textSize="@dimen/_14sdp"
+                        android:textColor="@color/white"
+                        android:text="Frequent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        />
+
+                    <TextView
+                        android:layout_alignParentRight="true"
+                        android:textSize="@dimen/_14sdp"
+                        android:textColor="@color/white"
+                        android:text="Available\nto Spend"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        />
+
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:background="@drawable/border_white_one"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:padding="@dimen/_10sdp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    >
+
+                    <TextView
+                        android:textStyle="bold"
+                        android:text="Groceries"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_12sdp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        >
+                    </TextView>
+
+                    <TextView
+                        android:drawablePadding="@dimen/_10sdp"
+                        android:drawableLeft="@drawable/doller"
+                        android:text="20.00"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_12sdp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        >
+                    </TextView>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </RelativeLayout>
+
+</layout>

@@ -13,7 +13,7 @@
         >
 
         <TextView
-            android:textStyle="bold"
+            android:fontFamily="@font/poppinsregular"
             android:textSize="@dimen/_14sdp"
             android:layout_centerInParent="true"
             android:textColor="@color/white"
@@ -24,7 +24,7 @@
         </TextView>
 
         <TextView
-            android:textStyle="bold"
+            android:fontFamily="@font/poppinsregular"
             android:layout_marginTop="@dimen/_10sdp"
             android:layout_marginRight="@dimen/_10sdp"
             android:layout_alignParentRight="true"
@@ -47,6 +47,7 @@
 
 
         <ImageView
+            android:scaleType="fitXY"
             android:id="@+id/imgLogo"
             android:padding="@dimen/_20sdp"
             android:layout_centerInParent="true"
@@ -61,7 +62,7 @@
             android:gravity="center"
             android:layout_below="@+id/imgLogo"
             android:textStyle="bold"
-            android:textSize="@dimen/_28sdp"
+            android:textSize="@dimen/_22sdp"
             android:textColor="@color/white"
             android:text="Track your money everywhere."
             android:layout_width="wrap_content"

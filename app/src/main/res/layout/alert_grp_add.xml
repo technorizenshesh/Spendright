@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/blue"
+    >
+
+    <androidx.cardview.widget.CardView
+        app:cardCornerRadius="@dimen/_10sdp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <LinearLayout
+            android:padding="@dimen/_10sdp"
+            android:orientation="vertical"
+            android:background="@color/blue"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+            <TextView
+                android:textStyle="bold"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_18sdp"
+                android:text="Group Name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+            </TextView>
+
+            <RelativeLayout
+                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_45sdp"
+                android:background="@drawable/btn_new"
+                >
+
+                <EditText
+                    android:textColor="@color/black"
+                    android:id="@+id/edtName"
+                    android:maxLength="11"
+                    android:inputType="text"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:hint="Group Name"
+                    android:padding="@dimen/_10sdp"
+                    android:textSize="@dimen/_14sdp">
+
+                </EditText>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/RRAdd"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:background="@drawable/border_btn"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_50sdp"
+                >
+
+                <TextView
+                    android:layout_marginLeft="20sp"
+                    android:layout_centerInParent="true"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/_16sdp"
+                    android:textColor="@color/white"
+                    android:text="Add"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>

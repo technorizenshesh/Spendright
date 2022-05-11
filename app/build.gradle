@@ -4,7 +4,7 @@ plugins {
 
 android {
     compileSdkVersion 30
-    buildToolsVersion "30.0.0"
+    buildToolsVersion "30.0.3"
 
     defaultConfig {
         applicationId "com.my.spendright"
@@ -53,13 +53,39 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui:2.2.2'
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.1'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1'
+    implementation 'com.android.support:appcompat-v7:30.0.0'
+    implementation 'com.android.support.constraint:constraint-layout:2.0.4'
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
     implementation 'com.budiyev.android:code-scanner:2.1.0'
     implementation 'com.intuit.sdp:sdp-android:1.0.6'
 
+    //Google Login
+    //noinspection GradleCompatible
+    implementation 'com.google.firebase:firebase-messaging:9.6.1'
+    //implementation 'com.google.firebase:firebase-auth:11.6.0'
+    implementation 'com.google.firebase:firebase-core:17.5.1'
+   // implementation 'com.google.android.gms:play-services-auth:11.6.0'
+    implementation 'com.google.android.gms:play-services-auth:16.0.0'
+    implementation 'com.google.firebase:firebase-auth:20.0.1'
+
+    //FaceBook
+    implementation 'com.facebook.android:facebook-android-sdk:[5,6)'
+    //implementation 'com.facebook.android:facebook-android-sdk:[6,9)'
+    implementation platform('com.google.firebase:firebase-bom:26.2.0')
+    implementation 'com.google.firebase:firebase-auth'
+
+    //Retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.6.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.6.0'
+    //gson
+    implementation 'com.google.code.gson:gson:2.8.6'
+    implementation 'com.applandeo:material-calendar-view:1.9.0-alpha03'
+
+
     //circle
     implementation 'de.hdodenhof:circleimageview:3.0.0'
 
 }
+apply plugin: 'com.google.gms.google-services'

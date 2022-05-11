@@ -3,7 +3,21 @@
     <string name="add_more"><u>ADD MORE</u></string>
     <string name="title_activity_home">MainActivity</string>
     <string name="title_home">Home</string>
-    <string name="title_dashboard">Accounts</string>
+    <string name="title_dashboard">Account info</string>
     <string name="title_notifications">EXPENSE REPORT</string>
     <string name="THIS_MONTH">THIS MONTH</string>
+    <string name="terms">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce dapibus arcu id dui cursus egestas. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce dapibus arcu id dui cursus egestas Lorem ipsum dolor sit amet, consectetur adipiscing elit. FusceLorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce dapibus arcu id dui cursus egestas. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce dapibus arcu id dui cursus egestas Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce</string>
+    <string name="assign_through"><u>ASSIGN THROUGH</u></string>
+    <string name="set_budget"><u>SET BUDGET</u></string>
+    <string name="my_budgets"><u>MY BUDGETS</u></string>
+    <string name="checkInternet">Please Check Your Internet Connection</string>
+    <string name="facebook_app_id">1174011723346095</string>
+
+    <string name="fb_login_protocol_scheme">fb1174011723346095</string>
+
+    <string name="this_month">This month</string>
+    <string name="view_all_plan"><u>View All Plan</u></string>
+    <string name="date_wise_statement"><u>Statement</u></string>
+    <string name="details"><u>Details</u></string>
+
 </resources>

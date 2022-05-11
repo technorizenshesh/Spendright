@@ -21,6 +21,7 @@ public class RegistrationOne extends AppCompatActivity {
 
         binding.RRNext.setOnClickListener(v -> {
             startActivity(new Intent(RegistrationOne.this,RegistrationTwo.class));
+            finish();
         });
     }
 }
