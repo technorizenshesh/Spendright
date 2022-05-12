@@ -19,16 +19,15 @@
             >
 
             <ImageView
-                android:layout_marginLeft="@dimen/_10sdp"
+                android:visibility="gone"
                 android:id="@+id/imgBack"
-                android:layout_alignParentLeft="true"
-                android:layout_marginRight="@dimen/_10sdp"
-                android:layout_centerVertical="true"
-                android:src="@drawable/back"
                 android:layout_width="@dimen/_15sdp"
                 android:layout_height="@dimen/_15sdp"
-                >
-            </ImageView>
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:src="@drawable/back"></ImageView>
 
             <TextView
                 android:textStyle="bold"

@@ -3,7 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Spendright/app/src/main/res/layout-v16/activity_airetime_international.xml" value="0.22" />
+        <entry key="..\:/Spendright/app/src/main/res/layout-v16/activity_payment_bill_airetime.xml" value="0.16" />
         <entry key="..\:/Spendright/app/src/main/res/layout/activity_add.xml" value="0.1" />
+        <entry key="..\:/Spendright/app/src/main/res/layout/activity_confirm_payment_airtime.xml" value="0.20416666666666666" />
         <entry key="..\:/Spendright/app/src/main/res/layout/activity_home.xml" value="0.1" />
         <entry key="..\:/Spendright/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Spendright/app/src/main/res/layout/activity_schdule_payment_method.xml" value="0.1" />
