@@ -1,16 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
 
     <RelativeLayout
         android:orientation="vertical"
-        android:background="@color/white"
+        android:background="@color/blue"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         >
 
-            <LinearLayout
+        <ProgressBar
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerInParent="true"
+            android:id="@+id/progressBar"
+            android:background="@drawable/progresh_background"
+            android:elevation="6dp"
+            android:padding="5dp"
+            android:indeterminate="true"
+            android:indeterminateTintMode="src_atop"
+            android:indeterminateTint="@color/purple_200"
+            android:visibility="gone"
+            />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycleGiving"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_5sdp">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+
+        <LinearLayout
+                android:visibility="gone"
                 android:padding="@dimen/_5sdp"
                 android:weightSum="6"
                 android:orientation="vertical"
@@ -41,14 +66,13 @@
                         </ImageView>
 
                         <TextView
-                            android:textStyle="bold"
-                            android:fontFamily="@font/poppinsregular"
-                            android:textSize="@dimen/_14sdp"
-                            android:textColor="@color/black"
-                            android:text="Currency Market"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
+                            android:fontFamily="@font/poppinsregular"
+                            android:text="Currency Market (Dismiss)"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_14sdp"
                             />
 
                         <ImageView
@@ -87,15 +111,14 @@
                         </ImageView>
 
                         <TextView
-                            android:layout_centerInParent="true"
-                            android:textStyle="bold"
-                            android:fontFamily="@font/poppinsregular"
-                            android:textSize="@dimen/_14sdp"
-                            android:textColor="@color/black"
-                            android:text="Fixed Deposits"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            />
+                            android:layout_centerInParent="true"
+                            android:fontFamily="@font/poppinsregular"
+                            android:text="Fixed Deposits (Dismiss)"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_14sdp"
+                             />
 
                         <ImageView
                             android:layout_marginRight="@dimen/_10sdp"
@@ -135,15 +158,14 @@
                         </ImageView>
 
                         <TextView
-                            android:layout_centerInParent="true"
-                            android:textStyle="bold"
-                            android:fontFamily="@font/poppinsregular"
-                            android:textSize="@dimen/_14sdp"
-                            android:textColor="@color/black"
-                            android:text="Savings"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            />
+                            android:layout_centerInParent="true"
+                            android:fontFamily="@font/poppinsregular"
+                            android:text="Savings (Dismiss)"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_14sdp"
+                             />
 
                         <ImageView
                             android:layout_marginRight="@dimen/_10sdp"
@@ -183,14 +205,13 @@
                         </ImageView>
 
                         <TextView
-                            android:layout_centerInParent="true"
-                            android:textStyle="bold"
-                            android:fontFamily="@font/poppinsregular"
-                            android:textSize="@dimen/_14sdp"
-                            android:textColor="@color/black"
-                            android:text="Property"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:fontFamily="@font/poppinsregular"
+                            android:text="Property (Dismiss)"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_14sdp"
                             />
 
                         <ImageView
@@ -234,10 +255,10 @@
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
                             android:fontFamily="@font/poppinsregular"
-                            android:text="Insurance POlicy"
+                            android:text="Insurance Policy (Dismiss)"
                             android:textColor="@color/black"
                             android:textSize="@dimen/_14sdp"
-                            android:textStyle="bold" />
+                        />
 
                         <ImageView
                             android:layout_marginRight="@dimen/_10sdp"
@@ -281,10 +302,10 @@
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
                             android:fontFamily="@font/poppinsregular"
-                            android:text="Gold"
+                            android:text="Gold (Dismiss)"
                             android:textColor="@color/black"
                             android:textSize="@dimen/_14sdp"
-                            android:textStyle="bold" />
+                            />
 
                         <ImageView
                             android:layout_marginRight="@dimen/_10sdp"

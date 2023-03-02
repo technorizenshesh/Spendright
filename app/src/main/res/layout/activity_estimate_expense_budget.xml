@@ -38,7 +38,7 @@
                     android:textSize="@dimen/_14sdp"
                     android:layout_centerInParent="true"
                     android:textColor="@color/black"
-                    android:text="Estimate Expenses and Budget"
+                    android:text="Estimate Expenses &amp; Set Budget"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     />
@@ -93,7 +93,7 @@
                     </LinearLayout>
 
                     <ImageView
-                        android:layout_alignParentRight="true"
+                        android:layout_alignParentRight = "true"
                         android:layout_gravity="center"
                         android:layout_marginLeft="@dimen/_10sdp"
                         android:src="@drawable/add_blue"

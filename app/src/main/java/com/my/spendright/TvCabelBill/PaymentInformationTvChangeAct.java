@@ -10,17 +10,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.my.spendright.ElectircalBill.Model.GetServiceElectricialModel;
-import com.my.spendright.ElectircalBill.UtilRetro.RetrofitSetup;
-import com.my.spendright.Model.GetProfileModel;
 import com.my.spendright.Model.TvSuscriptionServiceModel;
 import com.my.spendright.R;
 import com.my.spendright.TvCabelBill.adapter.TvSusCriptionChnageAdapter;
-import com.my.spendright.adapter.MyAccountHomeAdapter;
-import com.my.spendright.adapter.ServicesAdapter;
-import com.my.spendright.databinding.ActivityPaymentInformationTvBinding;
 import com.my.spendright.databinding.ActivityPaymentInformationTvChangeBinding;
-import com.my.spendright.utils.ApiNew;
+import com.my.spendright.utils.Preference;
+import com.my.spendright.utils.RetrofitClients;
 import com.my.spendright.utils.SessionManager;
 
 import java.util.ArrayList;
@@ -72,8 +67,10 @@ public class PaymentInformationTvChangeAct extends AppCompatActivity {
 
         }
 
+
+
         binding.progressBar.setVisibility(View.VISIBLE);
-        ServiceSubscriptionPlanApi("harshit.ixora89@gmail.com","harshit89@");
+        ServiceSubscriptionPlanApi();
 
     }
 
@@ -107,10 +104,8 @@ public class PaymentInformationTvChangeAct extends AppCompatActivity {
         });
     }
 
-    private void ServiceSubscriptionPlanApi(final String username, final String password) {
-        ApiNew loginService =
-                RetrofitSetup.createService(ApiNew.class, username, password);
-        Call<TvSuscriptionServiceModel> call = loginService.Api_service_tv_subscription_plan(ServicesSubscriptionId);
+    private void ServiceSubscriptionPlanApi() {
+        Call<TvSuscriptionServiceModel> call = RetrofitClients.getInstance().getApi().Api_service_tv_subscription_plan(ServicesSubscriptionId);
         call.enqueue(new Callback<TvSuscriptionServiceModel>() {
             @Override
             public void onResponse(@NonNull Call<TvSuscriptionServiceModel> call, @NonNull Response<TvSuscriptionServiceModel> response) {

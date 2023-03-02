@@ -2,12 +2,12 @@
 
     <item
         android:id="@+id/BouquestChange"
-        android:title="Bouquest Change"
+        android:title="BOUQUET Change"
         />
 
     <item
         android:id="@+id/BouquestRenewal"
-        android:title="Bouquest Renewal"
+        android:title="BOUQUET Renewal"
         />
 
 </menu>

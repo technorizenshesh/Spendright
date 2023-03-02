@@ -132,12 +132,14 @@ public class PaymentReport extends AppCompatActivity {
             @Override
             public void onItemClick(View view, int position, ReportModal.Result model) {
 
+            //    startActivity(new Intent(PaymentReport.this,PaymentReportPageAct.class).putExtra("RequestId",model.getRequestId()));
+
+
             }
         });
     }
 
     private void GetPaymentReportMethod(){
-        //sessionManager.getUserID();
         Call<ReportModal> call = RetrofitClients.getInstance().getApi()
                 .get_vtpass_book_payment(sessionManager.getUserID());
         call.enqueue(new Callback<ReportModal>() {
@@ -158,15 +160,19 @@ public class PaymentReport extends AppCompatActivity {
 
                     } else
                     {
+                        binding.progressBar.setVisibility(View.GONE);
 
                     }
                 }catch (Exception e)
                 {
+                    binding.progressBar.setVisibility(View.GONE);
+
                     e.printStackTrace();
                 }
             }
             @Override
             public void onFailure(Call<ReportModal> call, Throwable t) {
+                binding.progressBar.setVisibility(View.GONE);
             }
         });
     }

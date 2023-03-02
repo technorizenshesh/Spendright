@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    >
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -49,7 +48,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:text="Verification Bill Number"
+                    android:text="Enter Details"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_14sdp"
                     android:textStyle="bold" />
@@ -57,6 +56,7 @@
             </RelativeLayout>
 
             <LinearLayout
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -66,7 +66,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:gravity="center"
-                    android:text="Current Balnce Vtpass : "
+                    android:text="Current Balance Vtpass : "
                     android:textColor="@color/black"
                     android:textSize="@dimen/_14sdp" />
 
@@ -88,7 +88,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:gravity="center"
-                android:text="Services id"
+                android:text="Services ID"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_14sdp"
                 android:textStyle="bold" />
@@ -158,9 +158,19 @@
                     android:layout_width="@dimen/_25sdp"
                     android:layout_height="@dimen/_25sdp"
                     android:layout_gravity="center"
-                    android:src="@drawable/des">
+                    android:src="@drawable/des"
+                     android:visibility="gone"/>
 
-                </ImageView>
+                <com.hbb20.CountryCodePicker
+                    android:id="@+id/txtCountry"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    app:ccp_autoDetectCountry="true"
+                    app:ccp_showFlag="true"
+                    app:ccp_showFullName="false"
+                    app:ccp_showNameCode="false"
+                    app:ccp_showPhoneCode="true" />
 
                 <EditText
                     android:id="@+id/edtPhone"
@@ -171,18 +181,29 @@
                     android:background="@null"
                     android:inputType="numberDecimal"
                     android:padding="@dimen/_5sdp"
-                    android:text="08011111111"
+                    android:hint="phone number"
                     android:textColor="@color/black"
                     android:textColorHint="@color/gray"
                     android:textSize="@dimen/_12sdp"
-                    android:textStyle="bold"></EditText>
+                    android:textStyle="bold"/>
 
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1sp"
-                android:background="@color/black"></View>
+                android:background="@color/black"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:gravity="center_vertical"
+                android:text="Please enter phone number without 0 and country code"
+                android:textColor="@color/red"
+                android:textSize="@dimen/_10sdp"
+                android:textStyle="bold" />
+
 
             <RelativeLayout
                 android:layout_marginTop="@dimen/_10sdp"
@@ -260,6 +281,8 @@
                 </ImageView>
 
                 <TextView
+                    android:drawablePadding="@dimen/_3sdp"
+                    android:drawableLeft="@drawable/doller"
                     android:gravity="center_vertical"
                     android:id="@+id/txtAmt"
                     android:layout_width="337dp"
@@ -267,7 +290,6 @@
                     android:layout_gravity="center"
                     android:layout_marginLeft="@dimen/_5sdp"
                     android:background="@null"
-                    android:hint="00"
                     android:inputType="numberDecimal"
                     android:padding="@dimen/_5sdp"
                     android:textColor="@color/black"

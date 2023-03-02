@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    >
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -48,12 +47,11 @@
                         android:layout_width="@dimen/_20sdp"
                         android:layout_height="@dimen/_20sdp"
                         >
-
                     </ImageView>
 
                     <TextView
                         android:textStyle="bold"
-                          android:textSize="@dimen/_12sdp"
+                         android:textSize="@dimen/_12sdp"
                         android:layout_centerInParent="true"
                         android:textColor="@color/white"
                         android:text="Registration"
@@ -73,655 +71,729 @@
                 </RelativeLayout>
 
                 <LinearLayout
-                    android:layout_below="@+id/RRtoolbaar"
-                    android:padding="@dimen/_10sdp"
-                    android:layout_margin="@dimen/_5sdp"
-                    android:background="@drawable/border_white"
-                    android:layout_centerInParent="true"
-                    android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    >
+                    android:layout_below="@+id/RRtoolbaar"
+                    android:layout_centerInParent="true"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:layout_marginBottom="@dimen/_5sdp"
+                    android:background="@drawable/border_white"
+                    android:orientation="vertical"
+                    android:padding="@dimen/_10sdp">
 
                     <TextView
-                        android:layout_gravity="center"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
                         android:layout_marginTop="@dimen/_10sdp"
                         android:gravity="center"
-                        android:text="Personal information"
+                        android:text="Personal Information"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_20sdp"
-                        android:textStyle="bold"
-                        />
+                        android:textStyle="bold" />
 
                     <TextView
-                        android:layout_marginTop="@dimen/_10sdp"
-                        android:gravity="center"
-                        android:textSize="@dimen/_12sdp"
-                        android:textStyle="bold"
-                        android:textColor="@color/black"
-                        android:text="Phone number"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        />
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:gravity="center"
+                        android:text="Phone Number"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_12sdp"
+                        android:textStyle="bold" />
 
                     <LinearLayout
-                        android:orientation="horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_45sdp"
-                        >
+                        android:orientation="horizontal">
 
                         <ImageView
-                            android:layout_gravity="center"
-                            android:src="@drawable/mail"
+                            android:visibility="gone"
                             android:layout_width="@dimen/_20sdp"
                             android:layout_height="@dimen/_20sdp"
-                            >
+                            android:layout_gravity="center"
+                            android:src="@drawable/mail">
 
                         </ImageView>
 
+
+                        <com.hbb20.CountryCodePicker
+                            android:id="@+id/txtCountry"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            app:ccp_autoDetectCountry="true"
+                            app:ccp_showFlag="true"
+                            app:ccp_showFullName="false"
+                            app:ccp_showNameCode="false"
+                            app:ccp_showPhoneCode="true" />
+
                         <EditText
                             android:id="@+id/edtMobile"
-                            android:inputType="number"
-                            android:layout_marginLeft="@dimen/_5sdp"
-                            android:textColorHint="@color/black"
-                            android:layout_gravity="center"
-                            android:padding="@dimen/_5sdp"
-                            android:textColor="@color/black"
-                            android:hint="+44 35 6 456 1234"
-                            android:background="@null"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            >
+                            android:layout_gravity="center"
+                            android:background="@null"
+                            android:hint="**********"
+                            android:inputType="number"
+                            android:padding="@dimen/_5sdp"
+                            android:textColor="@color/black"
+                            android:textColorHint="#6616110D">
+
                         </EditText>
 
                     </LinearLayout>
 
+
                     <View
-                        android:background="@color/black"
                         android:layout_width="match_parent"
                         android:layout_height="1sp"
-                        >
+                        android:background="@color/black"/>
 
-                    </View>
 
                     <TextView
-                        android:layout_marginTop="@dimen/_10sdp"
-                        android:gravity="center"
-                        android:textSize="@dimen/_12sdp"
-                        android:textStyle="bold"
-                        android:textColor="@color/black"
-                        android:text="Email address"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:gravity="center_vertical"
+                        android:text="Please enter phone number without 0 and country code"
+                        android:textColor="@color/red"
+                        android:textSize="@dimen/_10sdp"
+                        android:textStyle="bold" />
+
+
+
+
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        />
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:gravity="center"
+                        android:text="Email Address"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_12sdp"
+                        android:textStyle="bold" />
+
+
+
 
                     <LinearLayout
-                        android:orientation="horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_45sdp"
-                        >
+                        android:orientation="horizontal">
 
                         <ImageView
-                            android:layout_gravity="center"
-                            android:src="@drawable/password"
                             android:layout_width="@dimen/_20sdp"
                             android:layout_height="@dimen/_20sdp"
-                            >
+                            android:layout_gravity="center"
+                            android:src="@drawable/password">
 
                         </ImageView>
 
                         <EditText
                             android:id="@+id/edtemail"
-                            android:layout_marginLeft="@dimen/_5sdp"
-                            android:textColorHint="@color/black"
-                            android:layout_gravity="center"
-                            android:padding="@dimen/_5sdp"
-                            android:inputType="text"
-                            android:textColor="@color/black"
-                            android:hint="Your email address"
-                            android:background="@null"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            >
-                        </EditText>
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="@dimen/_5sdp"
+                            android:background="@null"
+                            android:hint="Your email address"
+                            android:inputType="text"
+                            android:padding="@dimen/_5sdp"
+                            android:textColor="@color/black"
+                            android:textColorHint="#5B16110D"></EditText>
 
                     </LinearLayout>
 
                     <View
-                        android:background="@color/black"
                         android:layout_width="match_parent"
                         android:layout_height="1sp"
-                        >
+                        android:background="@color/black">
 
                     </View>
 
                     <TextView
-                        android:layout_marginTop="@dimen/_10sdp"
-                        android:gravity="center"
-                        android:textSize="@dimen/_12sdp"
-                        android:textStyle="bold"
-                        android:textColor="@color/black"
-                        android:text="First name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        />
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:gravity="center"
+                        android:text="First Name"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_12sdp"
+                        android:textStyle="bold" />
 
                     <LinearLayout
-                        android:orientation="horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_45sdp"
-                        >
+                        android:orientation="horizontal">
 
                         <ImageView
-                            android:layout_gravity="center"
-                            android:src="@drawable/password"
                             android:layout_width="@dimen/_20sdp"
                             android:layout_height="@dimen/_20sdp"
-                            >
+                            android:layout_gravity="center"
+                            android:src="@drawable/password">
 
                         </ImageView>
 
                         <EditText
                             android:id="@+id/edtFName"
-                            android:layout_marginLeft="@dimen/_5sdp"
-                            android:textColorHint="@color/black"
-                            android:layout_gravity="center"
-                            android:padding="@dimen/_5sdp"
-                            android:inputType="text"
-                            android:textColor="@color/black"
-                            android:hint="Bianca"
-                            android:background="@null"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            >
-                        </EditText>
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="@dimen/_5sdp"
+                            android:background="@null"
+                            android:hint="Bianca"
+                            android:inputType="text"
+                            android:padding="@dimen/_5sdp"
+                            android:textColor="@color/black"
+                            android:textColorHint="#5616110D"></EditText>
 
                     </LinearLayout>
 
                     <View
-                        android:background="@color/black"
                         android:layout_width="match_parent"
                         android:layout_height="1sp"
-                        >
+                        android:background="@color/black">
 
                     </View>
 
+
+
+
+
                     <TextView
-                        android:layout_marginTop="@dimen/_10sdp"
-                        android:gravity="center"
-                          android:textSize="@dimen/_12sdp"
-                        android:textStyle="bold"
-                        android:textColor="@color/black"
-                        android:text="Last name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        />
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:gravity="center"
+                        android:text="Last Name"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_12sdp"
+                        android:textStyle="bold" />
 
                     <LinearLayout
-                        android:orientation="horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_45sdp"
-                        >
+                        android:orientation="horizontal">
 
                         <ImageView
-                            android:layout_gravity="center"
-                            android:src="@drawable/password"
                             android:layout_width="@dimen/_20sdp"
                             android:layout_height="@dimen/_20sdp"
-                            >
+                            android:layout_gravity="center"
+                            android:src="@drawable/password">
 
                         </ImageView>
 
                         <EditText
                             android:id="@+id/edtLName"
-                            android:layout_marginLeft="@dimen/_5sdp"
-                            android:textColorHint="@color/black"
-                            android:layout_gravity="center"
-                            android:padding="@dimen/_5sdp"
-                            android:inputType="text"
-                            android:textColor="@color/black"
-                            android:hint="Rossi"
-                            android:background="@null"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            >
-                        </EditText>
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="@dimen/_5sdp"
+                            android:background="@null"
+                            android:hint="Rossi"
+                            android:inputType="text"
+                            android:padding="@dimen/_5sdp"
+                            android:textColor="@color/black"
+                            android:textColorHint="#5216110D"/>
 
                     </LinearLayout>
 
                     <View
-                        android:background="@color/black"
                         android:layout_width="match_parent"
                         android:layout_height="1sp"
-                        >
+                        android:background="@color/black">
 
                     </View>
 
 
+
                     <TextView
-                        android:layout_marginTop="@dimen/_10sdp"
-                        android:gravity="center"
-                          android:textSize="@dimen/_12sdp"
-                        android:textStyle="bold"
-                        android:textColor="@color/black"
-                        android:text="Street address"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        />
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:gravity="center"
+                        android:text="BVN"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_12sdp"
+                        android:textStyle="bold" />
 
                     <LinearLayout
-                        android:orientation="horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_45sdp"
-                        >
+                        android:orientation="horizontal">
 
                         <ImageView
-                            android:layout_gravity="center"
-                            android:src="@drawable/password"
                             android:layout_width="@dimen/_20sdp"
                             android:layout_height="@dimen/_20sdp"
-                            >
+                            android:layout_gravity="center"
+                            android:src="@drawable/password">
+
+                        </ImageView>
+
+                        <EditText
+                            android:id="@+id/edtBvn"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="@dimen/_5sdp"
+                            android:background="@null"
+                            android:hint="12345678901"
+                            android:inputType="number"
+                            android:padding="@dimen/_5sdp"
+                            android:textColor="@color/black"
+                            android:maxLines="1"
+                            android:maxLength="11"
+                            android:textColorHint="#5216110D"/>
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1sp"
+                        android:background="@color/black"/>
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:gravity="center_vertical"
+                        android:text="BVN is required to set up your wallet "
+                        android:textColor="@color/red"
+                        android:textSize="@dimen/_10sdp"
+                        android:textStyle="bold" />
+
+
+
+
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:gravity="center"
+                        android:text="Street Address"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_12sdp"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_45sdp"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="@dimen/_20sdp"
+                            android:layout_height="@dimen/_20sdp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/password">
 
                         </ImageView>
 
                         <EditText
                             android:id="@+id/edtStreetAddress"
-                            android:layout_marginLeft="@dimen/_5sdp"
-                            android:textColorHint="@color/black"
-                            android:layout_gravity="center"
-                            android:padding="@dimen/_5sdp"
-                            android:inputType="text"
-                            android:textColor="@color/black"
-                            android:hint="Via Salaria 712"
-                            android:background="@null"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            >
-                        </EditText>
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="@dimen/_5sdp"
+                            android:background="@null"
+                            android:hint="Via Salaria 712"
+                            android:inputType="text"
+                            android:padding="@dimen/_5sdp"
+                            android:textColor="@color/black"
+                            android:textColorHint="#4F16110D"></EditText>
 
                     </LinearLayout>
 
                     <View
-                        android:background="@color/black"
                         android:layout_width="match_parent"
                         android:layout_height="1sp"
-                        >
+                        android:background="@color/black">
 
                     </View>
 
 
                     <TextView
-                        android:layout_marginTop="@dimen/_10sdp"
-                        android:gravity="center"
-                          android:textSize="@dimen/_12sdp"
-                        android:textStyle="bold"
-                        android:textColor="@color/black"
-                        android:text="City"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        />
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:gravity="center"
+                        android:text="City"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_12sdp"
+                        android:textStyle="bold" />
 
                     <LinearLayout
-                        android:orientation="horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_45sdp"
-                        >
+                        android:orientation="horizontal">
 
                         <ImageView
-                            android:layout_gravity="center"
-                            android:src="@drawable/password"
                             android:layout_width="@dimen/_20sdp"
                             android:layout_height="@dimen/_20sdp"
-                            >
+                            android:layout_gravity="center"
+                            android:src="@drawable/password">
 
                         </ImageView>
 
                         <EditText
                             android:id="@+id/edtCity"
-                            android:layout_marginLeft="@dimen/_5sdp"
-                            android:textColorHint="@color/black"
-                            android:layout_gravity="center"
-                            android:padding="@dimen/_5sdp"
-                            android:inputType="text"
-                            android:textColor="@color/black"
-                            android:hint="Milano"
-                            android:background="@null"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            >
-                        </EditText>
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="@dimen/_5sdp"
+                            android:background="@null"
+                            android:hint="Milano"
+                            android:inputType="text"
+                            android:padding="@dimen/_5sdp"
+                            android:textColor="@color/black"
+                            android:textColorHint="#4516110D"></EditText>
 
                     </LinearLayout>
 
                     <View
-                        android:background="@color/black"
                         android:layout_width="match_parent"
                         android:layout_height="1sp"
-                        >
+                        android:background="@color/black">
 
                     </View>
 
 
                     <TextView
-                        android:layout_marginTop="@dimen/_10sdp"
-                        android:gravity="center"
-                          android:textSize="@dimen/_12sdp"
-                        android:textStyle="bold"
-                        android:textColor="@color/black"
-                        android:text="Country of residence"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        />
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:gravity="center"
+                        android:text="Country of Residence"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_12sdp"
+                        android:textStyle="bold" />
 
-                    <LinearLayout
-                        android:orientation="horizontal"
+
+                    <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_45sdp"
-                        >
+                        android:layout_alignParentRight="true"
+                        android:elevation="@dimen/_10sdp">
+
+                        <Spinner
+                            android:id="@+id/spinnerCategory"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_toLeftOf="@+id/imgState"
+                            android:background="@android:color/transparent"
+                            android:backgroundTint="@color/black"
+                            android:visibility="visible" />
 
                         <ImageView
-                            android:layout_gravity="center"
-                            android:src="@drawable/password"
+                            android:id="@+id/imgState"
+                            android:layout_width="@dimen/_15sdp"
+                            android:layout_height="@dimen/_15sdp"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="@dimen/_10sdp"
+                            android:src="@drawable/arrow_btm">
+
+                        </ImageView>
+
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:visibility="gone"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_45sdp"
+                        android:orientation="horizontal">
+
+                        <ImageView
                             android:layout_width="@dimen/_20sdp"
                             android:layout_height="@dimen/_20sdp"
-                            >
+                            android:layout_gravity="center"
+                            android:src="@drawable/password">
 
                         </ImageView>
 
                         <EditText
                             android:id="@+id/edtCountry"
-                            android:layout_marginLeft="@dimen/_5sdp"
-                            android:textColorHint="@color/black"
-                            android:layout_gravity="center"
-                            android:padding="@dimen/_5sdp"
-                            android:inputType="text"
-                            android:textColor="@color/black"
-                            android:hint="Nigeria"
-                            android:background="@null"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            >
-                        </EditText>
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="@dimen/_5sdp"
+                            android:background="@null"
+                            android:hint="Nigeria"
+                            android:inputType="text"
+                            android:padding="@dimen/_5sdp"
+                            android:textColor="@color/black"
+                            android:textColorHint="#5116110D"></EditText>
 
                     </LinearLayout>
 
                     <View
-                        android:background="@color/black"
                         android:layout_width="match_parent"
                         android:layout_height="1sp"
-                        >
+                        android:background="@color/black">
 
                     </View>
 
 
                     <TextView
-                        android:layout_marginTop="@dimen/_10sdp"
-                        android:gravity="center"
-                          android:textSize="@dimen/_12sdp"
-                        android:textStyle="bold"
-                        android:textColor="@color/black"
-                        android:text="Date of birth"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        />
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:gravity="center"
+                        android:text="Date of Birth"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_12sdp"
+                        android:textStyle="bold" />
 
                     <LinearLayout
                         android:id="@+id/llDob"
-                        android:orientation="horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_45sdp"
-                        >
+                        android:orientation="horizontal">
 
                         <ImageView
-                            android:layout_gravity="center"
-                            android:src="@drawable/password"
                             android:layout_width="@dimen/_20sdp"
                             android:layout_height="@dimen/_20sdp"
-                            >
+                            android:layout_gravity="center"
+                            android:src="@drawable/password">
 
                         </ImageView>
 
                         <TextView
-                            android:gravity="center_vertical"
                             android:id="@+id/edtDateOFBirth"
-                            android:layout_marginLeft="@dimen/_5sdp"
-                            android:layout_gravity="center"
-                            android:textColor="@color/black"
-                            android:text="30/05/1964"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            >
-                        </TextView>
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="@dimen/_5sdp"
+                            android:gravity="center_vertical"
+                            android:text="30/05/1964"
+                            android:textColor="@color/black"></TextView>
 
                     </LinearLayout>
 
                     <View
-                        android:background="@color/black"
                         android:layout_width="match_parent"
                         android:layout_height="1sp"
-                        >
+                        android:background="@color/black">
 
                     </View>
 
 
                     <TextView
-                        android:layout_marginTop="@dimen/_10sdp"
-                        android:gravity="center"
-                          android:textSize="@dimen/_12sdp"
-                        android:textStyle="bold"
-                        android:textColor="@color/black"
-                        android:text="Password"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        />
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:gravity="center"
+                        android:text="Password"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_12sdp"
+                        android:textStyle="bold" />
 
                     <LinearLayout
-                        android:orientation="horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_45sdp"
-                        >
+                        android:orientation="horizontal">
 
                         <ImageView
-                            android:layout_gravity="center"
-                            android:src="@drawable/password"
                             android:layout_width="@dimen/_20sdp"
                             android:layout_height="@dimen/_20sdp"
-                            >
+                            android:layout_gravity="center"
+                            android:src="@drawable/password">
 
                         </ImageView>
 
                         <EditText
                             android:id="@+id/edtPassword"
-                            android:layout_marginLeft="@dimen/_5sdp"
-                            android:textColorHint="@color/black"
-                            android:layout_gravity="center"
-                            android:padding="@dimen/_5sdp"
-                            android:inputType="textPassword"
-                            android:textColor="@color/black"
-                            android:hint="****************"
-                            android:background="@null"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            >
-                        </EditText>
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="@dimen/_5sdp"
+                            android:background="@null"
+                            android:hint="****************"
+                            android:inputType="textPassword"
+                            android:padding="@dimen/_5sdp"
+                            android:textColor="@color/black"
+                            android:textColorHint="#5416110D"></EditText>
 
                     </LinearLayout>
 
                     <View
-                        android:background="@color/black"
                         android:layout_width="match_parent"
                         android:layout_height="1sp"
-                        >
-                    </View>
+                        android:background="@color/black"></View>
 
 
                     <LinearLayout
-                        android:orientation="horizontal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        >
+                        android:orientation="horizontal">
 
                         <CheckBox
                             android:id="@+id/checEdTerms"
-                            android:buttonTint="@color/blue"
-                            android:layout_marginTop="@dimen/_5sdp"
-                            android:gravity="center"
-                            android:layout_gravity="center"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            >
+                            android:layout_gravity="center"
+                            android:layout_marginTop="@dimen/_5sdp"
+                            android:buttonTint="@color/blue"
+                            android:gravity="center">
 
                         </CheckBox>
 
                         <TextView
-                            android:textStyle="bold"
-                            android:layout_marginTop="@dimen/_10sdp"
-                            android:gravity="center"
-                              android:textSize="@dimen/_12sdp"
-                            android:textColor="@color/black"
-                            android:text="I accept"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            />
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:gravity="center"
+                            android:text="I accept"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_12sdp"
+                            android:textStyle="bold" />
 
-                        <TextView
-                            android:textStyle="bold"
+                        <LinearLayout
+                            android:id="@+id/layTerms"
+                            android:layout_width="@dimen/_114sdp"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
                             android:layout_marginLeft="@dimen/_5sdp"
                             android:layout_marginTop="@dimen/_10sdp"
-                            android:gravity="center"
-                              android:textSize="@dimen/_12sdp"
-                            android:textColor="@color/blue"
-                            android:text=" Terms &amp; Conditions."
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            />
+                            >
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text=" Terms &amp; Conditions."
+                                android:textColor="@color/blue"
+                                android:textSize="@dimen/_12sdp"
+                                android:textStyle="bold" />
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:layout_marginLeft="@dimen/_3sdp"
+                                android:background="@color/blue"/>
+
+
+                        </LinearLayout>
+
 
                     </LinearLayout>
 
 
                     <RelativeLayout
                         android:id="@+id/RRRegis"
-                        android:layout_marginTop="@dimen/_20sdp"
-                        android:background="@drawable/border_btn"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_50sdp"
-                        >
+                        android:layout_marginTop="@dimen/_20sdp"
+                        android:background="@drawable/border_btn">
 
                         <TextView
-                            android:layout_marginLeft="20sp"
-                            android:layout_centerVertical="true"
-                            android:textStyle="bold"
-                            android:textSize="@dimen/_16sdp"
-                            android:textColor="@color/white"
-                            android:text="Next"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            />
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="20sp"
+                            android:text="Next"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_16sdp"
+                            android:textStyle="bold" />
 
                         <ImageView
-                            android:layout_marginRight="@dimen/_20sdp"
-                            android:src="@drawable/right_back"
-                            android:layout_alignParentRight="true"
-                            android:layout_centerVertical="true"
                             android:layout_width="@dimen/_20sdp"
                             android:layout_height="@dimen/_20sdp"
-                            >
-                        </ImageView>
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="@dimen/_20sdp"
+                            android:src="@drawable/right_back"></ImageView>
 
 
                     </RelativeLayout>
 
                     <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginTop="@dimen/_10sdp"
                         android:gravity="center"
-                          android:textSize="@dimen/_12sdp"
-                        android:textStyle="bold"
-                        android:textColor="@color/black"
                         android:text="Or Continue With"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        />
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_12sdp"
+                        android:textStyle="bold"
+                        android:visibility="gone" />
 
                     <LinearLayout
-                        android:layout_marginTop="@dimen/_10sdp"
-                        android:orientation="horizontal"
-                        android:weightSum="2"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_45sdp"
-                        >
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:orientation="horizontal"
+                        android:visibility="gone"
+                        android:weightSum="2">
 
                         <RelativeLayout
 
-                            android:elevation="@dimen/_3sdp"
-                            android:layout_margin="@dimen/_5sdp"
-                            android:background="@drawable/border_white_one"
-                            android:padding="@dimen/_3sdp"
-                            android:layout_weight="1"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            >
+                            android:layout_margin="@dimen/_5sdp"
+                            android:layout_weight="1"
+                            android:background="@drawable/border_white_one"
+                            android:elevation="@dimen/_3sdp"
+                            android:padding="@dimen/_3sdp">
 
                             <ImageView
                                 android:id="@+id/imgFb"
-                                android:layout_marginLeft="@dimen/_10sdp"
-                                android:layout_centerVertical="true"
-                                android:layout_gravity="center"
-                                android:src="@drawable/fb"
                                 android:layout_width="@dimen/_20sdp"
                                 android:layout_height="@dimen/_20sdp"
-                                >
+                                android:layout_centerVertical="true"
+                                android:layout_gravity="center"
+                                android:layout_marginLeft="@dimen/_10sdp"
+                                android:src="@drawable/fb">
 
                             </ImageView>
 
                             <TextView
-                                android:gravity="center"
-                                android:layout_toRightOf="@+id/imgFb"
-                                android:layout_marginLeft="@dimen/_10sdp"
-                                android:textStyle="bold"
-                                android:layout_centerInParent="true"
-                                  android:textSize="@dimen/_12sdp"
-                                android:textColor="@color/black"
-                                android:text="Facebook"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                />
+                                android:layout_centerInParent="true"
+                                android:layout_marginLeft="@dimen/_10sdp"
+                                android:layout_toRightOf="@+id/imgFb"
+                                android:gravity="center"
+                                android:text="Facebook"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/_12sdp"
+                                android:textStyle="bold" />
 
                         </RelativeLayout>
 
                         <RelativeLayout
-                            android:elevation="@dimen/_3sdp"
-                            android:layout_margin="@dimen/_5sdp"
-                            android:background="@drawable/border_white_one"
-                            android:padding="@dimen/_3sdp"
-                            android:layout_weight="1"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            >
+                            android:layout_margin="@dimen/_5sdp"
+                            android:layout_weight="1"
+                            android:background="@drawable/border_white_one"
+                            android:elevation="@dimen/_3sdp"
+                            android:padding="@dimen/_3sdp">
 
                             <ImageView
                                 android:id="@+id/imgGoogle"
-                                android:layout_marginLeft="@dimen/_10sdp"
-                                android:layout_centerVertical="true"
-                                android:src="@drawable/google"
                                 android:layout_width="@dimen/_20sdp"
                                 android:layout_height="@dimen/_20sdp"
-                                >
-                            </ImageView>
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="@dimen/_10sdp"
+                                android:src="@drawable/google"></ImageView>
 
                             <TextView
-                                android:layout_toRightOf="@+id/imgGoogle"
-                                android:textStyle="bold"
-                                android:layout_centerInParent="true"
-                                  android:textSize="@dimen/_12sdp"
-                                android:textColor="@color/black"
-                                android:gravity="center"
-                                android:text="Google"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                />
+                                android:layout_centerInParent="true"
+                                android:layout_toRightOf="@+id/imgGoogle"
+                                android:gravity="center"
+                                android:text="Google"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/_12sdp"
+                                android:textStyle="bold" />
 
                         </RelativeLayout>
 
@@ -729,35 +801,32 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:layout_gravity="center"
-                        android:orientation="horizontal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        >
+                        android:layout_gravity="center"
+                        android:orientation="horizontal">
 
                         <TextView
-                            android:layout_marginTop="@dimen/_10sdp"
-                            android:gravity="center"
-                              android:textSize="@dimen/_12sdp"
-                        android:textStyle="bold"
-                            android:textColor="@color/gray"
-                            android:text="Don’t have an account?"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            />
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:gravity="center"
+                            android:text="Don’t have an account?"
+                            android:textColor="@color/gray"
+                            android:textSize="@dimen/_12sdp"
+                            android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/txtLogin"
-                            android:layout_marginLeft="@dimen/_5sdp"
-                            android:textStyle="bold"
-                            android:layout_marginTop="@dimen/_10sdp"
-                            android:gravity="center"
-                              android:textSize="@dimen/_12sdp"
-                            android:textColor="@color/black"
-                            android:text=" LOGIN"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            />
+                            android:layout_marginLeft="@dimen/_5sdp"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:gravity="center"
+                            android:text=" LOGIN"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_12sdp"
+                            android:textStyle="bold" />
 
                     </LinearLayout>
 

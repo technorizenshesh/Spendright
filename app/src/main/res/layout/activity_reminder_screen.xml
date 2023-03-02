@@ -122,6 +122,8 @@
                 />
 
             <EditText
+                android:drawableLeft="@drawable/doller"
+                android:drawablePadding="@dimen/_3sdp"
                 android:hint="10.00"
                 android:layout_margin="@dimen/_5sdp"
                 android:padding="@dimen/_10sdp"

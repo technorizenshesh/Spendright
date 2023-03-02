@@ -52,7 +52,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
-                        android:text="International Airtime Data"
+                        android:text="International Airtime &amp; Data"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_14sdp"
                         android:textStyle="bold" />
@@ -62,14 +62,15 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:visibility="gone">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_10sdp"
                         android:gravity="center"
-                        android:text="Current Balnce Vtpass : "
+                        android:text="Current Balance Vtpass : "
                         android:textColor="@color/black"
                         android:textSize="@dimen/_14sdp" />
 
@@ -153,16 +154,37 @@
                     android:textSize="@dimen/_14sdp"
                     android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/txtAmt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                <RelativeLayout
                     android:layout_marginTop="@dimen/_20sdp"
-                    android:gravity="center"
-                    android:text="Amount"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_14sdp"
-                    android:textStyle="bold" />
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    >
+
+                    <TextView
+                        android:id="@+id/txtAmt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="Amount"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_14sdp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/txtAmtMinMax"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentRight="true"
+                        android:gravity="center_vertical"
+                        android:padding="@dimen/_3sdp"
+                        android:text=""
+                        android:textColor="@color/red"
+                        android:textStyle="bold">
+
+                    </TextView>
+
+                </RelativeLayout>
+
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -177,20 +199,96 @@
 
                     </ImageView>
 
-                    <EditText
-                        android:id="@+id/edtAmt"
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+
+                        <TextView
+                            android:id="@+id/txtCurrency"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:padding="@dimen/_3sdp">
+
+                        </TextView>
+
+                        <EditText
+                            android:text=""
+                            android:id="@+id/edtAmt"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="@dimen/_5sdp"
+                            android:background="@null"
+                            android:inputType="numberDecimal"
+                            android:padding="@dimen/_5sdp"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/gray"
+                            android:textSize="@dimen/_12sdp"
+                            android:textStyle="bold"
+                            >
+
+                        </EditText>
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1sp"
+                    android:background="@color/black"></View>
+
+
+
+
+                <TextView
+                    android:id="@+id/txtAmtFinal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:gravity="center"
+                    android:text="Final Amount Pay (Naira)"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_14sdp"
+                    android:textStyle="bold"
+                    />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_45sdp"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="@dimen/_25sdp"
+                        android:layout_height="@dimen/_25sdp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/des">
+
+                    </ImageView>
+
+                    <TextView
+                        android:id="@+id/edtAmtNaira"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
                         android:layout_marginLeft="@dimen/_5sdp"
                         android:background="@null"
-                        android:hint="8888"
+                        android:drawableLeft="@drawable/doller"
+                        android:drawablePadding="@dimen/_3sdp"
+                        android:gravity="center_vertical"
                         android:inputType="numberDecimal"
                         android:padding="@dimen/_5sdp"
                         android:textColor="@color/black"
                         android:textColorHint="@color/gray"
                         android:textSize="@dimen/_12sdp"
-                        android:textStyle="bold"></EditText>
+                        android:textStyle="bold"></TextView>
 
                 </LinearLayout>
 
@@ -230,7 +328,6 @@
                         android:layout_gravity="center"
                         android:layout_marginLeft="@dimen/_5sdp"
                         android:background="@null"
-                        android:hint="abc@gmail.com"
                         android:inputType="text"
                         android:padding="@dimen/_5sdp"
                         android:textColor="@color/black"

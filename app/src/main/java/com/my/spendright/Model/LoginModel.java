@@ -65,6 +65,9 @@ public class LoginModel {
         @SerializedName("country_residence")
         @Expose
         private String countryResidence;
+        @SerializedName("country_code")
+        @Expose
+        private String countryCode;
         @SerializedName("dob")
         @Expose
         private String dob;
@@ -77,12 +80,24 @@ public class LoginModel {
         @SerializedName("social_id")
         @Expose
         private String socialId;
+        @SerializedName("type")
+        @Expose
+        private String type;
         @SerializedName("lat")
         @Expose
         private String lat;
         @SerializedName("lon")
         @Expose
         private String lon;
+        @SerializedName("loan_accounts")
+        @Expose
+        private String loanAccounts;
+        @SerializedName("budget_accounts")
+        @Expose
+        private String budgetAccounts;
+        @SerializedName("investment_accounts")
+        @Expose
+        private String investmentAccounts;
         @SerializedName("otp")
         @Expose
         private String otp;
@@ -92,6 +107,29 @@ public class LoginModel {
         @SerializedName("date_time")
         @Expose
         private String dateTime;
+        @SerializedName("monnify_accountReference")
+        @Expose
+        private String monnifyAccountReference;
+
+        @SerializedName("batch_id")
+        @Expose
+        private String batchId;
+
+        public String getBatchId() {
+            return batchId;
+        }
+
+        public void setBatchId(String batchId) {
+            this.batchId = batchId;
+        }
+
+        public String getMonnifyAccountReference() {
+            return monnifyAccountReference;
+        }
+
+        public void setMonnifyAccountReference(String monnifyAccountReference) {
+            this.monnifyAccountReference = monnifyAccountReference;
+        }
 
         public String getId() {
             return id;
@@ -157,6 +195,14 @@ public class LoginModel {
             this.countryResidence = countryResidence;
         }
 
+        public String getCountryCode() {
+            return countryCode;
+        }
+
+        public void setCountryCode(String countryCode) {
+            this.countryCode = countryCode;
+        }
+
         public String getDob() {
             return dob;
         }
@@ -189,6 +235,14 @@ public class LoginModel {
             this.socialId = socialId;
         }
 
+        public String getType() {
+            return type;
+        }
+
+        public void setType(String type) {
+            this.type = type;
+        }
+
         public String getLat() {
             return lat;
         }
@@ -203,6 +257,30 @@ public class LoginModel {
 
         public void setLon(String lon) {
             this.lon = lon;
+        }
+
+        public String getLoanAccounts() {
+            return loanAccounts;
+        }
+
+        public void setLoanAccounts(String loanAccounts) {
+            this.loanAccounts = loanAccounts;
+        }
+
+        public String getBudgetAccounts() {
+            return budgetAccounts;
+        }
+
+        public void setBudgetAccounts(String budgetAccounts) {
+            this.budgetAccounts = budgetAccounts;
+        }
+
+        public String getInvestmentAccounts() {
+            return investmentAccounts;
+        }
+
+        public void setInvestmentAccounts(String investmentAccounts) {
+            this.investmentAccounts = investmentAccounts;
         }
 
         public String getOtp() {
@@ -230,5 +308,4 @@ public class LoginModel {
         }
 
     }
-
 }

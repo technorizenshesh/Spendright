@@ -11,6 +11,7 @@ public class RetrofitClients {
 
    // private static final String BASE_URL ="https://www.lamavietech.ml/spendright/webservice/";
     private static final String BASE_URL ="https://spendright.ng/spendright/webservice/";
+
     private static RetrofitClients mInstance;
     private Retrofit retrofit;
 

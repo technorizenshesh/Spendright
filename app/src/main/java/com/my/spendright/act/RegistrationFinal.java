@@ -22,6 +22,5 @@ public class RegistrationFinal extends AppCompatActivity {
            startActivity(new Intent(RegistrationFinal.this,HomeActivity.class));
            finish();
        });
-
     }
 }

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    >
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -77,7 +76,7 @@
                     android:gravity="center"
                     android:textSize="@dimen/_14sdp"
                     android:textColor="@color/black"
-                    android:text="Payment information"
+                    android:text="Payment Information"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     />
@@ -92,7 +91,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="Bill Number :"
+                        android:text="Meter Number :"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_14sdp"
                         android:textStyle="bold" />
@@ -119,7 +118,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="Service id :"
+                        android:text="Service ID :"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_14sdp"
                         android:textStyle="bold" />
@@ -265,7 +264,7 @@
                     android:gravity="center"
                     android:textSize="@dimen/_14sdp"
                     android:textColor="@color/black"
-                    android:text="Service id"
+                    android:text="Service ID"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     />
@@ -377,7 +376,7 @@
                     android:gravity="center"
                     android:textSize="@dimen/_14sdp"
                     android:textColor="@color/black"
-                    android:text="Customer Mobilr Number"
+                    android:text="Customer Phone Number"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     />
@@ -393,9 +392,20 @@
                         android:src="@drawable/des"
                         android:layout_width="@dimen/_25sdp"
                         android:layout_height="@dimen/_25sdp"
-                        >
+                        android:visibility="gone"
+                        />
 
-                    </ImageView>
+                    <com.hbb20.CountryCodePicker
+                        android:id="@+id/txtCountry"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        app:ccp_autoDetectCountry="true"
+                        app:ccp_showFlag="true"
+                        app:ccp_showFullName="false"
+                        app:ccp_showNameCode="false"
+                        app:ccp_showPhoneCode="true" />
+
 
                     <EditText
                         android:id="@+id/edtCMobile"
@@ -408,7 +418,7 @@
                         android:layout_gravity="center"
                         android:padding="@dimen/_5sdp"
                         android:textColor="@color/black"
-                        android:hint="Customer Mobilr Number"
+                        android:hint="Customer Phone Number"
                         android:background="@null"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -422,8 +432,20 @@
                     android:background="@color/black"
                     android:layout_width="match_parent"
                     android:layout_height="1sp"
-                    >
-                </View>
+                    />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:gravity="center_vertical"
+                    android:text="Please enter phone number without 0 and country code"
+                    android:textColor="@color/red"
+                    android:textSize="@dimen/_10sdp"
+                    android:textStyle="bold" />
+
+
+
 
                 <TextView
                     android:textStyle="bold"
@@ -431,7 +453,7 @@
                     android:gravity="center"
                     android:textSize="@dimen/_14sdp"
                     android:textColor="@color/black"
-                    android:text="Enter amount"
+                    android:text="Enter Amount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     />
@@ -461,7 +483,6 @@
                         android:layout_gravity="center"
                         android:padding="@dimen/_5sdp"
                         android:textColor="@color/black"
-                        android:hint="6.725,00"
                         android:background="@null"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -485,7 +506,7 @@
                     android:gravity="center"
                     android:textSize="@dimen/_14sdp"
                     android:textColor="@color/black"
-                    android:text="Payment date"
+                    android:text="Payment Date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     />
@@ -541,7 +562,7 @@
                     android:gravity="center"
                     android:textSize="@dimen/_14sdp"
                     android:textColor="@color/black"
-                    android:text="Name of Bill"
+                    android:text="Payment Type"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     />
@@ -572,7 +593,7 @@
                         android:layout_gravity="center"
                         android:padding="@dimen/_5sdp"
                         android:textColor="@color/black"
-                        android:hint="Broadband Bil"
+                        android:hint="Data Purchase"
                         android:background="@null"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -627,7 +648,7 @@
                         android:layout_gravity="center"
                         android:padding="@dimen/_5sdp"
                         android:textColor="@color/black"
-                        android:hint="Broadband Bil"
+                        android:hint="Data Purchase"
                         android:background="@null"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -737,11 +758,10 @@
 
                 <RelativeLayout
                     android:id="@+id/RRPay"
-                    android:layout_marginTop="@dimen/_30sdp"
-                    android:background="@drawable/border_btn"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_50sdp"
-                    >
+                    android:layout_marginTop="@dimen/_30sdp"
+                    android:background="@drawable/border_btn">
 
                     <TextView
                         android:layout_width="wrap_content"

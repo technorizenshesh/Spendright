@@ -36,6 +36,37 @@
             </TextView>
 
             <RelativeLayout
+                android:layout_below="@+id/month"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/btn_new"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_45sdp"
+                >
+
+                <Spinner
+                    android:id="@+id/spinnerGrpCategory"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_toLeftOf="@+id/imgMnth"
+                    android:background="@android:color/transparent"
+                    android:backgroundTint="@color/black"
+                    android:visibility="visible" />
+
+                <ImageView
+                    android:layout_marginRight="@dimen/_10sdp"
+                    android:id="@+id/imgMnth"
+                    android:layout_width="@dimen/_12sdp"
+                    android:layout_height="@dimen/_12sdp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/arrow_btm">
+
+                </ImageView>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:visibility="gone"
                 android:layout_marginTop="@dimen/_20sdp"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_45sdp"
@@ -43,15 +74,15 @@
                 >
 
                 <EditText
-                    android:textColor="@color/black"
                     android:id="@+id/edtName"
-                    android:maxLength="11"
-                    android:inputType="text"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@null"
                     android:hint="Group Name"
+                    android:inputType="text"
+                    android:maxLength="11"
                     android:padding="@dimen/_10sdp"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/_14sdp">
 
                 </EditText>

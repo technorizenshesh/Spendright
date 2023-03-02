@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    >
+
+    <LinearLayout
+        android:padding="5sp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+            <TextView
+                android:layout_centerVertical="true"
+                android:id="@+id/txtCategoryName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Budget Amount"
+                android:textColor="@color/gray"
+                android:textSize="@dimen/_12sdp" />
+
+            <LinearLayout
+                android:visibility="invisible"
+                android:orientation="horizontal"
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_30sdp"
+                >
+
+                <RelativeLayout
+                    android:id="@+id/RRDeleteGrpCatgy"
+                    android:layout_width="@dimen/_50sdp"
+                    android:layout_height="match_parent"
+                    >
+
+                    <ImageView
+                        android:layout_width="@dimen/_15sdp"
+                        android:layout_height="@dimen/_15sdp"
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/delete"
+                        android:tint="@color/blue"
+                        tools:ignore="UseAppTint">
+
+                    </ImageView>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/RREdit"
+                    android:layout_width="@dimen/_50sdp"
+                    android:layout_height="match_parent"
+                  >
+
+                    <ImageView
+                        android:tint="@color/blue"
+                        android:layout_width="@dimen/_15sdp"
+                        android:layout_height="@dimen/_15sdp"
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/edit"
+                        tools:ignore="UseAppTint">
+
+                    </ImageView>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <TextView
+            android:gravity="center_vertical"
+            android:layout_gravity="center_vertical"
+            android:drawableLeft="@drawable/doller"
+            android:drawablePadding="@dimen/_3sdp"
+            android:id="@+id/txtAmout"
+            android:textSize="@dimen/_12sdp"
+            android:padding="@dimen/_10sdp"
+            android:elevation="@dimen/_10sdp"
+            android:inputType="text"
+            android:textColorHint="@color/black"
+            android:textColor="@color/black"
+            android:hint="0.00"
+            android:background="@drawable/border_white_gray"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_45sdp"
+            >
+        </TextView>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/txtCalneder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:text="Monthly, end of Month"
+                android:textColor="@color/gray"
+                android:textSize="@dimen/_12sdp" />
+
+            <TextView
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:text="@string/assign_through"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_12sdp"
+                android:textStyle="bold" />
+
+
+        </RelativeLayout>
+
+        <TextView
+            android:visibility="gone"
+            android:layout_alignParentLeft="true"
+            android:text="Categories"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:textSize="@dimen/_12sdp"
+            android:textColor="@color/gray"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+
+
+        <HorizontalScrollView
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+            <RelativeLayout
+                android:orientation="vertical"
+                android:background="@drawable/border_white_gray"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_width="@dimen/_80sdp"
+                android:layout_height="@dimen/_70sdp"
+                >
+
+                <ImageView
+                    android:id="@+id/imgCateogyr"
+                    android:layout_width="@dimen/_35sdp"
+                    android:layout_height="@dimen/_35sdp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:src="@drawable/img_re">
+
+                </ImageView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/imgCateogyr"
+                    android:layout_centerHorizontal="true"
+                    android:text="Categories"
+                    android:textColor="@color/gray"
+                    android:textSize="@dimen/_12sdp" />
+
+            </RelativeLayout>
+
+        </HorizontalScrollView>
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    >
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -26,7 +28,7 @@
         <RelativeLayout
             android:id="@+id/RRtoolbaar"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_50sdp">
+            android:layout_height="@dimen/_45sdp">
 
             <ImageView
                 android:id="@+id/imgBack"
@@ -35,11 +37,10 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/_10sdp"
                 android:src="@drawable/left_arraow"
-                android:visibility="gone">
-
-            </ImageView>
+                android:visibility="gone"></ImageView>
 
             <TextView
+                android:id="@+id/txtUser"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
@@ -48,33 +49,71 @@
                 android:textSize="@dimen/_14sdp"
                 android:textStyle="bold" />
 
-            <ImageView
-                android:id="@+id/notification"
-                android:layout_width="@dimen/_20sdp"
-                android:layout_height="@dimen/_20sdp"
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="@dimen/_10sdp"
-                android:src="@drawable/notifications">
+                android:orientation="horizontal">
 
-            </ImageView>
+                <RelativeLayout
+                    android:id="@+id/RRnotification"
+                    android:layout_width="@dimen/_40sdp"
+                    android:layout_height="match_parent"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/_10sdp"
+                        android:src="@drawable/notifications">
+
+                    </ImageView>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/RRProfile"
+                    android:layout_width="@dimen/_40sdp"
+                    android:layout_height="match_parent"
+                    android:visibility="gone">
+
+                    <ImageView
+
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/_10sdp"
+                        android:src="@drawable/setting">
+
+                    </ImageView>
+
+                </RelativeLayout>
+
+            </LinearLayout>
 
         </RelativeLayout>
-
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/RRtoolbaar"
             android:orientation="vertical"
-            android:weightSum="2"
-            >
+            android:weightSum="2">
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                >
+                android:layout_weight="1">
+
+                <com.jjoe64.graphview.GraphView
+                    android:id="@+id/graphView"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true" />
 
                 <RelativeLayout
                     android:visibility="gone"
@@ -89,7 +128,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        >
 
                         <ImageView
                             android:layout_width="@dimen/_60sdp"
@@ -106,7 +146,7 @@
                             android:layout_gravity="center"
                             android:layout_marginTop="@dimen/_5sdp"
                             android:fontFamily="@font/poppinsregular"
-                            android:text="Add Your Bank Accounts"
+                            android:text="Add Your Account(s)"
                             android:textColor="@color/white"
                             android:textSize="@dimen/_14sdp" />
 
@@ -117,7 +157,7 @@
                             android:fontFamily="@font/poppinsregular"
                             android:gravity="center"
                             android:padding="@dimen/_7sdp"
-                            android:text="Now That You’ve Estimated Some expenses lets see how much money you have right now."
+                            android:text="Set your budget and start tracking your expenses."
                             android:textColor="@color/white"
                             android:textSize="@dimen/_10sdp" />
 
@@ -142,33 +182,386 @@
                                 android:textColor="@color/white"
                                 android:textSize="@dimen/_12sdp"
                                 android:textStyle="bold" />
+
                         </RelativeLayout>
+
                     </LinearLayout>
 
                 </RelativeLayout>
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclermyAccount"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/rlOldUser"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    tools:listitem="@layout/itme_my_account"
-                    />
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/constraintlayout"
+                    android:visibility="visible">
+
+                    <LinearLayout
+                        android:id="@+id/layBudge"
+                        android:layout_width="@dimen/_90sdp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginRight="5dp"
+                        android:orientation="vertical"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <TextView
+                            android:id="@+id/txtBudget"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="SET BUDGET"
+                            android:textColor="@color/orange"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginRight="@dimen/_3sdp"
+                            android:background="@color/orange" />
+
+                    </LinearLayout>
+
+
+                    <TextView
+                        android:id="@+id/textView2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="My Account Overview"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/layBudge" />
+
+                 <!--   <TextView
+                        android:id="@+id/tv1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:text="Today’s Expense: = "
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+                    <TextView
+                        android:id="@+id/tv2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="5dp"
+                        android:text="Today’s Income: = "
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tv1" />
+
+                    <TextView
+                        android:id="@+id/tv3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="5dp"
+                        android:text="Number of Tracking account:"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tv2" />
+
+
+                    <TextView
+                        android:id="@+id/tv_total_expense"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:drawableLeft="@drawable/doller"
+                        android:drawableTint="@color/red"
+                        android:gravity="center"
+                        android:text="0.0"
+                        android:textColor="@color/red"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toEndOf="@+id/tv1"
+                        app:layout_constraintTop_toTopOf="@+id/tv1" />
+
+                    <TextView
+                        android:id="@+id/tv_total_income"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:drawableLeft="@drawable/doller"
+                        android:drawableTint="@color/green"
+                        android:gravity="center"
+                        android:text="0.0"
+                        android:textColor="@color/green"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toEndOf="@+id/tv2"
+                        app:layout_constraintTop_toTopOf="@+id/tv2" />
+
+                    <TextView
+                        android:id="@+id/tv_no_tracking_account"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:gravity="center"
+                        android:text=""
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toEndOf="@+id/tv3"
+                        app:layout_constraintTop_toTopOf="@+id/tv3" />-->
+
+                    <TextView
+                        android:id="@+id/tv3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="5dp"
+                        android:visibility="invisible"
+                        android:text="Number of Tracking account:"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        tools:ignore="MissingConstraints" />
+
+                    <com.github.mikephil.charting.charts.BarChart
+                        android:id="@+id/barchart"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_115sdp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView2"
+                        />
+
+
+                    <TextView
+                        android:id="@+id/textView3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:text="Current Budget "
+                        android:layout_marginStart="@dimen/_8sdp"
+                        android:textColor="@color/black"
+                        android:textSize="13sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/tv3" />
+
+                    <TextView
+                        android:id="@+id/txtAmt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginStart="@dimen/_6sdp"
+                        android:drawableLeft="@drawable/doller"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toTopOf="@+id/textView3"
+                        app:layout_constraintEnd_toEndOf="@+id/textView3"
+                        app:layout_constraintStart_toStartOf="@+id/textView3" />
+
+                    <TextView
+                        android:id="@+id/textView4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:text="Wallet Balance "
+                        android:textColor="@color/black"
+                        android:textSize="13sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent" />
+
+                    <TextView
+                        android:id="@+id/txtAmt1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:drawableLeft="@drawable/doller"
+                        android:text="0.0"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toTopOf="@+id/textView4"
+                        app:layout_constraintEnd_toEndOf="@+id/textView4"
+                        app:layout_constraintStart_toStartOf="@+id/textView4" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <RelativeLayout
+                    android:id="@+id/rlNewUser"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:visibility="gone"
+                    android:background="@drawable/drawable_orange_bg">
+
+
+                    <ImageView
+                        android:id="@+id/ivBank"
+                        android:layout_width="@dimen/_35sdp"
+                        android:layout_height="@dimen/_35sdp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_margin="@dimen/_20sdp"
+                        android:src="@drawable/add_bank"/>
+
+
+                    <TextView
+                        android:id="@+id/tvOne"
+                        android:layout_below="@+id/ivBank"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Add a Tracking Account"
+                        android:textColor="@color/white"
+                        android:layout_centerHorizontal="true"
+                        android:textSize="@dimen/_17sdp"
+                        android:textStyle="bold"/>
+
+
+                    <TextView
+                        android:id="@+id/tvTwo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tvOne"
+                        android:layout_centerInParent="true"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:layout_marginEnd="@dimen/_10sdp"
+                        android:layout_marginBottom="@dimen/_10sdp"
+                        android:gravity="center_horizontal"
+                        android:text="@string/account_statement"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_12sdp"
+                        android:textStyle="normal" />
+
+
+
+                    <RelativeLayout
+                        android:id="@+id/rlAdd"
+                        android:layout_below="@+id/tvTwo"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_38sdp"
+                        android:layout_margin="@dimen/_10sdp"
+                        android:background="@drawable/rounded_blue_bg">
+
+                        <TextView
+                            android:id="@+id/tvAdd"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:gravity="center_horizontal"
+                            android:text="@string/add_account"
+                            android:textColor="@color/white"
+                            android:textAllCaps="true"
+                            android:textSize="@dimen/_13sdp"
+                            android:textStyle="bold" />
+
+
+                        <ImageView
+                            android:layout_width="@dimen/_15sdp"
+                            android:layout_height="@dimen/_15sdp"
+                            android:layout_centerInParent="true"
+                            android:src="@drawable/add"
+                            android:layout_marginStart="@dimen/_10sdp"
+                            android:layout_toEndOf="@+id/tvAdd"/>
+
+                    </RelativeLayout>
+
+
+
+
+
+                </RelativeLayout>
+
+
+
+
+                <!--                <androidx.recyclerview.widget.RecyclerView-->
+<!--                    android:id="@+id/recyclermyAccount"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:orientation="horizontal"-->
+<!--                    tools:listitem="@layout/itme_my_account" />-->
 
             </RelativeLayout>
 
-            <TextView
-                android:layout_marginTop="@dimen/_5sdp"
-                android:layout_width="wrap_content"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cs1"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/poppinsregular"
-                android:padding="@dimen/_5sdp"
-                android:text="Pay Bill for-"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_14sdp"
-                android:textStyle="bold" />
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppinsregular"
+                    android:text="Buy -"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_14sdp"
+                    android:textStyle="bold"
+                    android:layout_marginStart="14dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginLeft="14dp" />
 
 
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginRight="14dp"
+                    android:layout_marginEnd="14dp"
+                    >
+
+                    <TextView
+                        android:id="@+id/tvFund"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Fund Wallet"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_14sdp"
+                        android:textStyle="bold"
+                        android:clickable="true"
+
+                        android:focusable="true" />
+                    <View
+                        android:layout_width="@dimen/_75sdp"
+                        android:layout_height="1dp"
+                        android:background="@color/white"/>
+
+                </LinearLayout>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <LinearLayout
                 android:layout_marginTop="@dimen/_5sdp"
@@ -176,9 +569,9 @@
                 android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
-
-
+                android:orientation="vertical"
+                android:visibility="visible"
+                >
                 <LinearLayout
                     android:layout_weight="1"
                     android:layout_width="match_parent"
@@ -189,6 +582,7 @@
                     android:weightSum="3">
 
                     <LinearLayout
+                        android:gravity="center"
                         android:id="@+id/LLelectCIty"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -199,10 +593,9 @@
 
 
                         <ImageView
-                            android:layout_width="@dimen/_30sdp"
-                            android:layout_height="@dimen/_30sdp"
+                            android:layout_width="@dimen/_22sdp"
+                            android:layout_height="@dimen/_22sdp"
                             android:layout_gravity="center"
-                            android:layout_marginTop="@dimen/_15sdp"
                             android:src="@drawable/electrical">
 
                         </ImageView>
@@ -214,13 +607,15 @@
                             android:layout_margin="@dimen/_7sdp"
                             android:fontFamily="@font/poppinsregular"
                             android:gravity="center"
-                            android:text="Electricity Bill"
+                            android:text="Electricity \n Token"
                             android:textColor="@color/black"
                             android:textSize="@dimen/_10sdp" />
 
                     </LinearLayout>
 
                     <LinearLayout
+                        android:gravity="center"
+                        android:layout_gravity="center"
                         android:id="@+id/bill2"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -231,10 +626,9 @@
 
 
                         <ImageView
-                            android:layout_width="@dimen/_30sdp"
-                            android:layout_height="@dimen/_30sdp"
+                            android:layout_width="@dimen/_22sdp"
+                            android:layout_height="@dimen/_22sdp"
                             android:layout_gravity="center"
-                            android:layout_marginTop="@dimen/_15sdp"
                             android:src="@drawable/cable">
 
                         </ImageView>
@@ -246,41 +640,42 @@
                             android:layout_margin="@dimen/_7sdp"
                             android:fontFamily="@font/poppinsregular"
                             android:gravity="center"
-                            android:text="Cable TV Bill"
+                            android:text="Cable TV Subscription"
                             android:textColor="@color/black"
                             android:textSize="@dimen/_10sdp" />
 
                     </LinearLayout>
 
                     <LinearLayout
+                        android:layout_gravity="center"
+                        android:padding="@dimen/_5sdp"
                         android:id="@+id/bill3"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_margin="@dimen/_6sdp"
                         android:layout_weight="1"
+                        android:gravity="center"
                         android:background="@drawable/border_white_onee"
                         android:orientation="vertical">
 
 
                         <ImageView
-                            android:layout_width="@dimen/_30sdp"
-                            android:layout_height="@dimen/_30sdp"
+                            android:layout_width="@dimen/_22sdp"
+                            android:layout_height="@dimen/_22sdp"
                             android:layout_gravity="center"
-                            android:layout_marginTop="@dimen/_15sdp"
                             android:src="@drawable/airtime">
 
                         </ImageView>
 
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_margin="@dimen/_7sdp"
-                            android:fontFamily="@font/poppinsregular"
+                            android:padding="@dimen/_5sdp"
                             android:gravity="center"
-                            android:text="Buy airtime \n data bundles"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Local and Foreign \n Airtime"
                             android:textColor="@color/black"
-                            android:textSize="@dimen/_10sdp" />
+                            android:textSize="@dimen/_10sdp"
+                            />
 
                     </LinearLayout>
 
@@ -318,40 +713,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:layout_margin="@dimen/_7sdp"
+                            android:layout_margin="@dimen/_3sdp"
                             android:fontFamily="@font/poppinsregular"
                             android:gravity="center"
-                            android:text="Broadband Bill"
-                            android:textColor="@color/black"
-                            android:textSize="@dimen/_10sdp" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/RRSchdule"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_margin="@dimen/_6sdp"
-                        android:layout_weight="1"
-                        android:background="@drawable/border_white_onee"
-                        android:orientation="vertical">
-
-
-                        <ImageView
-                            android:layout_width="@dimen/_30sdp"
-                            android:layout_height="@dimen/_30sdp"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="@dimen/_10sdp"
-                            android:src="@drawable/schedule" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_margin="@dimen/_7sdp"
-                            android:fontFamily="@font/poppinsregular"
-                            android:gravity="center"
-                            android:text="Schedule Payments"
+                            android:text="Data Subscription"
                             android:textColor="@color/black"
                             android:textSize="@dimen/_10sdp" />
 
@@ -383,7 +748,37 @@
                             android:layout_margin="@dimen/_7sdp"
                             android:fontFamily="@font/poppinsregular"
                             android:gravity="center"
-                            android:text="Payment Reports"
+                            android:text="Transaction Reports"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_10sdp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/RRSchdule"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="@dimen/_6sdp"
+                        android:layout_weight="1"
+                        android:background="@drawable/border_white_onee"
+                        android:orientation="vertical">
+
+
+                        <ImageView
+                            android:layout_width="@dimen/_30sdp"
+                            android:layout_height="@dimen/_30sdp"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:src="@drawable/viw_more" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="@dimen/_7sdp"
+                            android:fontFamily="@font/poppinsregular"
+                            android:gravity="center"
+                            android:text="View more"
                             android:textColor="@color/black"
                             android:textSize="@dimen/_10sdp" />
 
@@ -393,7 +788,16 @@
 
             </LinearLayout>
 
-
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvHome"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:spanCount="3"
+                tools:itemCount="6"
+                tools:listitem="@layout/item_home"
+                />
         </LinearLayout>
 
     </RelativeLayout>

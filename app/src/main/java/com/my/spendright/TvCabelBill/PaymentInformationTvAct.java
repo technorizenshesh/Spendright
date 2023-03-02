@@ -8,6 +8,7 @@ import android.database.DatabaseUtils;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.my.spendright.NumberTextWatcher;
 import com.my.spendright.R;
 import com.my.spendright.act.ConfirmPaymentAct;
 import com.my.spendright.act.PaymentInformation;
@@ -54,18 +55,23 @@ public class PaymentInformationTvAct extends AppCompatActivity {
             binding.edtAmount.setText(RenewalAmt+"");
 
             binding.edtServicesId.setText(ServicesSubscriptionId+"");
+            binding.txtCountry.setCountryForPhoneCode(234);
+
 
         }
 
         binding.RRPay.setOnClickListener(v -> {
 
-            String phone=binding.edtCMobile.getText().toString();
+            String phone =  binding.edtCMobile.getText().toString();
+
             if(phone.equalsIgnoreCase(""))
             {
-                Toast.makeText(this, "PLease Enter Mobile Number..", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Please Enter Mobile Number..", Toast.LENGTH_SHORT).show();
 
             }else
             {
+                 phone= binding.txtCountry.getSelectedCountryCodeWithPlus()+ binding.edtCMobile.getText().toString();
+
                 startActivity(new Intent(PaymentInformationTvAct.this, ConfirmPaymentTvAct.class)
                         .putExtra("ServicesId",ServicesSubscriptionId)
                         .putExtra("ServicesName",ServicesSubscriptionName)

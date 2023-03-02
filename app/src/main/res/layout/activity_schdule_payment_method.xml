@@ -15,30 +15,26 @@
         <RelativeLayout
             android:id="@+id/RRtoolbaar"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_50sdp"
-            >
+            android:layout_height="@dimen/_50sdp">
 
             <ImageView
-                android:layout_marginLeft="@dimen/_10sdp"
                 android:id="@+id/imgBack"
-                android:layout_alignParentLeft="true"
-                android:layout_marginRight="@dimen/_10sdp"
-                android:layout_centerVertical="true"
-                android:src="@drawable/back"
                 android:layout_width="@dimen/_15sdp"
                 android:layout_height="@dimen/_15sdp"
-                >
-            </ImageView>
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:src="@drawable/back"></ImageView>
 
             <TextView
-                android:textStyle="bold"
-                android:textSize="@dimen/_14sdp"
-                android:layout_centerInParent="true"
-                android:textColor="@color/black"
-                android:text="Scheduled Payments"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                />
+                android:layout_centerInParent="true"
+                android:text="Scheduled Payments"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_14sdp"
+                android:textStyle="bold" />
         </RelativeLayout>
 
         <LinearLayout

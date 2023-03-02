@@ -68,7 +68,7 @@
             </RelativeLayout>
 
             <TextView
-                android:text="Lets go! Please add any of the account to proceed further with the bill payments."
+                android:text="Please add an account to set budget and start tracking your expenses."
                 android:layout_marginTop="@dimen/_10sdp"
                 android:gravity="center"
                 android:layout_gravity="center"
@@ -98,14 +98,13 @@
                 >
 
                 <Spinner
-                    android:layout_toLeftOf="@+id/imgState"
-                    android:visibility="visible"
                     android:id="@+id/spinnerCategory"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_toLeftOf="@+id/imgState"
                     android:background="@android:color/transparent"
                     android:backgroundTint="@color/black"
-                    />
+                    android:visibility="visible" />
 
                 <ImageView
                     android:layout_marginRight="@dimen/_10sdp"
@@ -132,7 +131,7 @@
                 android:inputType="text"
                 android:textColorHint="@color/black"
                 android:textColor="@color/black"
-                android:hint="Select account type...."
+                android:hint="Select account type..."
                 android:background="@drawable/border_white_one"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_45sdp"
@@ -167,7 +166,7 @@
 
             <TextView
                 android:layout_marginLeft="@dimen/_10sdp"
-                android:text="What is your current balance?"
+                android:text="What is your opening balance?"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:textSize="@dimen/_12sdp"
                 android:textColor="@color/gray"
@@ -176,6 +175,8 @@
                 />
 
             <EditText
+                android:drawableLeft="@drawable/doller"
+                android:drawablePadding="@dimen/_3sdp"
                 android:id="@+id/edtHolderBalnce"
                 android:layout_margin="@dimen/_5sdp"
                 android:padding="@dimen/_10sdp"

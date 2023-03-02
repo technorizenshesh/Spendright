@@ -1,0 +1,392 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+            <ProgressBar
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerInParent="true"
+                android:id="@+id/progressBar"
+                android:background="@drawable/progresh_background"
+                android:elevation="6dp"
+                android:padding="5dp"
+                android:indeterminate="true"
+                android:indeterminateTintMode="src_atop"
+                android:indeterminateTint="@color/purple_200"
+                android:visibility="gone"
+                />
+            <LinearLayout
+                android:padding="@dimen/_5sdp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                >
+
+                <RelativeLayout
+                    android:id="@+id/RRtoolbaar"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_50sdp"
+                    >
+
+                    <RelativeLayout
+                        android:id="@+id/RRback"
+                        android:layout_width="@dimen/_40sdp"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:id="@+id/imgBack"
+                            android:layout_width="@dimen/_15sdp"
+                            android:layout_height="@dimen/_15sdp"
+                            android:layout_centerInParent="true"
+                            android:src="@drawable/back">
+
+                        </ImageView>
+
+                    </RelativeLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="Update Transaction"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_14sdp"
+                        android:textStyle="bold" />
+
+                </RelativeLayout>
+
+
+                <TextView
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:text="Add Amount"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:textSize="@dimen/_12sdp"
+                    android:textColor="@color/gray"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    />
+
+                <EditText
+                    android:drawableLeft="@drawable/doller"
+                    android:drawablePadding="@dimen/_3sdp"
+                    android:id="@+id/edtAmt"
+                    android:layout_margin="@dimen/_5sdp"
+                    android:textSize="@dimen/_12sdp"
+                    android:padding="@dimen/_10sdp"
+                    android:elevation="@dimen/_10sdp"
+                    android:inputType="number"
+                    android:textColorHint="@color/black"
+                    android:textColor="@color/black"
+                    android:hint="0.00"
+                    android:background="@drawable/border_white_one"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_45sdp"
+                    >
+                </EditText>
+
+                <TextView
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:text="Category Name"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:textSize="@dimen/_12sdp"
+                    android:textColor="@color/gray"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    />
+
+                <RelativeLayout
+                    android:background="@drawable/border_white_one"
+                    android:layout_margin="@dimen/_5sdp"
+                    android:elevation="@dimen/_10sdp"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_45sdp"
+                    >
+
+                    <Spinner
+                        android:id="@+id/spinnerBudgetAct"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_toLeftOf="@+id/imgState"
+                        android:background="@android:color/transparent"
+                        android:backgroundTint="@color/black"
+                        android:visibility="visible" />
+
+                    <ImageView
+                        android:layout_marginRight="@dimen/_5sdp"
+                        android:id="@+id/imgState"
+                        android:layout_width="@dimen/_10sdp"
+                        android:layout_height="@dimen/_10sdp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/bottom_arrow">
+
+                    </ImageView>
+
+                </RelativeLayout>
+
+                <TextView
+                    android:visibility="gone"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:text="Name"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:textSize="@dimen/_12sdp"
+                    android:textColor="@color/gray"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    />
+
+                <EditText
+                    android:visibility="gone"
+                    android:id="@+id/edtName"
+                    android:textSize="@dimen/_12sdp"
+                    android:padding="@dimen/_10sdp"
+                    android:layout_margin="@dimen/_5sdp"
+                    android:elevation="@dimen/_10sdp"
+                    android:inputType="text"
+                    android:textColorHint="@color/black"
+                    android:textColor="@color/black"
+                    android:hint="Expense or Income Name"
+                    android:background="@drawable/border_white_one"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_45sdp"
+                    >
+
+                </EditText>
+
+
+                <TextView
+                    android:visibility="gone"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:text="Account"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:textSize="@dimen/_12sdp"
+                    android:textColor="@color/gray"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    />
+
+                <TextView
+                    android:visibility="gone"
+                    android:gravity="center_vertical"
+                    android:drawableRight="@drawable/bottom_arrow"
+                    android:textSize="@dimen/_12sdp"
+                    android:padding="@dimen/_10sdp"
+                    android:layout_margin="@dimen/_5sdp"
+                    android:elevation="@dimen/_10sdp"
+                    android:inputType="text"
+                    android:textColorHint="@color/black"
+                    android:textColor="@color/black"
+                    android:hint="Select Category"
+                    android:background="@drawable/border_white_one"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_45sdp"
+                    >
+                </TextView>
+
+                <TextView
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:text="Date"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:textSize="@dimen/_12sdp"
+                    android:textColor="@color/gray"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    />
+
+                <TextView
+                    android:id="@+id/txtDate"
+                    android:gravity="center_vertical"
+                    android:drawableRight="@drawable/caleder"
+                    android:textSize="@dimen/_12sdp"
+                    android:padding="@dimen/_10sdp"
+                    android:layout_margin="@dimen/_5sdp"
+                    android:elevation="@dimen/_10sdp"
+                    android:inputType="text"
+                    android:textColorHint="@color/black"
+                    android:textColor="@color/black"
+                    android:hint="Select Date"
+                    android:background="@drawable/border_white_one"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_45sdp"
+                    >
+                </TextView>
+
+
+                <TextView
+                    android:visibility="gone"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:text="Repeat"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:textSize="@dimen/_12sdp"
+                    android:textColor="@color/gray"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    />
+
+                <TextView
+                    android:visibility="gone"
+                    android:gravity="center_vertical"
+                    android:drawableRight="@drawable/bottom_arrow"
+                    android:textSize="@dimen/_12sdp"
+                    android:padding="@dimen/_10sdp"
+                    android:layout_margin="@dimen/_5sdp"
+                    android:elevation="@dimen/_10sdp"
+                    android:inputType="text"
+                    android:textColorHint="@color/black"
+                    android:textColor="@color/black"
+                    android:hint="Select Mode"
+                    android:background="@drawable/border_white_one"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_45sdp"
+                    >
+                </TextView>
+
+                <TextView
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:text="Description"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:textSize="@dimen/_12sdp"
+                    android:textColor="@color/gray"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    />
+
+                <EditText
+                    android:singleLine="false"
+                    android:id="@+id/edtFlags"
+                    android:layout_margin="@dimen/_5sdp"
+                    android:textSize="@dimen/_12sdp"
+                    android:padding="@dimen/_10sdp"
+                    android:elevation="@dimen/_10sdp"
+                    android:inputType="text"
+                    android:textColorHint="@color/black"
+                    android:textColor="@color/black"
+                    android:background="@drawable/border_white_one"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_75sdp"
+                    >
+                </EditText>
+
+
+                <TextView
+                    android:visibility="gone"
+                    android:gravity="center_vertical"
+                    android:drawableRight="@drawable/bottom_arrow"
+                    android:textSize="@dimen/_12sdp"
+                    android:padding="@dimen/_10sdp"
+                    android:layout_margin="@dimen/_5sdp"
+                    android:elevation="@dimen/_10sdp"
+                    android:inputType="text"
+                    android:textColorHint="@color/black"
+                    android:textColor="@color/black"
+                    android:hint="Assign Flag"
+                    android:background="@drawable/border_white_one"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_45sdp"
+                    >
+
+                </TextView>
+
+
+                <LinearLayout
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    >
+
+                    <TextView
+                        android:layout_centerInParent="true"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/_16sdp"
+                        android:textColor="@color/black"
+                        android:text="Income"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        />
+
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/SitchBtn"
+                        android:layout_marginRight="@dimen/_10sdp"
+                        android:layout_marginLeft="@dimen/_15sdp"
+                        android:layout_width="wrap_content"
+                        android:checked="true"
+                        android:padding="15dp"
+                        android:scaleX="1.5"
+                        android:scaleY="1.5"
+                        android:layout_height="wrap_content"
+                        android:theme="@style/control"/>
+
+                    <TextView
+                        android:layout_marginLeft="@dimen/_15sdp"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/_16sdp"
+                        android:textColor="@color/black"
+                        android:text="Expense"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        />
+
+
+                </LinearLayout>
+
+
+
+
+
+                <RelativeLayout
+                    android:layout_marginBottom="@dimen/_20sdp"
+                    android:id="@+id/RRSave"
+                    android:layout_marginTop="@dimen/_30sdp"
+                    android:background="@drawable/border_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_50sdp"
+                    >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="Save Transaction"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_16sdp"
+                        android:textStyle="bold" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_marginBottom="@dimen/_20sdp"
+                    android:id="@+id/RRDelete"
+                    android:background="@drawable/border_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_50sdp"
+                    >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="Delete"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_16sdp"
+                        android:textStyle="bold" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+        </RelativeLayout>
+
+
+    </androidx.core.widget.NestedScrollView>
+
+</layout>

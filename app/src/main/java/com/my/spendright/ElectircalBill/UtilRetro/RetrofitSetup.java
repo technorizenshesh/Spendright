@@ -2,23 +2,48 @@ package com.my.spendright.ElectircalBill.UtilRetro;
 
 import android.text.TextUtils;
 
+import com.my.spendright.utils.Constant;
+
+import java.util.concurrent.TimeUnit;
+
 import okhttp3.Credentials;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitSetup {
+    public static Retrofit retrofit = null;
 
-    public static final String API_BASE_URL = "https://sandbox.vtpass.com/api/";
+  //  public static final String API_BASE_URL = "https://sandbox.vtpass.com/api/";
+   private static final String API_BASE_URL ="https://vtpass.com/api/";
 
+    public static Retrofit getClient() {
+        if (retrofit == null) {
+            OkHttpClient client = new OkHttpClient.Builder()
+                    .connectTimeout(300, TimeUnit.SECONDS)
+                    .readTimeout(300, TimeUnit.SECONDS).build();
+
+            retrofit = new Retrofit.Builder()
+                    .baseUrl(API_BASE_URL)
+                    .client(client)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+
+        }
+
+        return retrofit;
+    }
+
+
+
+
+ /*
     private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 
     private static Retrofit.Builder builder =
             new Retrofit.Builder()
                     .baseUrl(API_BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create());
-
-    private static Retrofit retrofit = builder.build();
 
     public static <S> S createService(Class<S> serviceClass) {
         return createService(serviceClass, null, null);
@@ -50,5 +75,5 @@ public class RetrofitSetup {
         }
 
         return retrofit.create(serviceClass);
-    }
+    }*/
 }

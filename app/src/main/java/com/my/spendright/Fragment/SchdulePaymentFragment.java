@@ -1,6 +1,7 @@
 package com.my.spendright.Fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import com.google.android.material.tabs.TabLayout;
 import com.my.spendright.Model.HomeModal;
 import com.my.spendright.R;
+import com.my.spendright.act.SchdulePayment;
 import com.my.spendright.act.SchdulePaymentMethod;
 import com.my.spendright.databinding.FragmentGivingBinding;
 import com.my.spendright.databinding.FragmentSchdulePaymentBinding;
@@ -33,8 +35,8 @@ public class SchdulePaymentFragment extends Fragment {
        // View root = inflater.inflate(R.layout.fragment_home, container, false);
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_schdule_payment, container, false);
 
-        binding.imgBack.setOnClickListener(view -> {
-            //onBackPressed();
+        binding.addImgAccount.setOnClickListener(view -> {
+            startActivity(new Intent(getActivity(), SchdulePayment.class));
         });
 
         setUpUi();
@@ -43,6 +45,7 @@ public class SchdulePaymentFragment extends Fragment {
     }
 
     private void setUpUi() {
+
         binding.tabLayout.addTab(binding.tabLayout.newTab().setText("Investment"));
         binding.tabLayout.addTab(binding.tabLayout.newTab().setText("Giving"));
         binding.tabLayout.addTab(binding.tabLayout.newTab().setText("Subscription"));
@@ -56,17 +59,14 @@ public class SchdulePaymentFragment extends Fragment {
             public void onTabSelected(TabLayout.Tab tab) {
                 binding.viewPager.setCurrentItem(tab.getPosition());
             }
-
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-
             }
-
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-
             }
         });
+
     }
 
     public class Qr_DetailsAdapter extends FragmentPagerAdapter {
@@ -100,7 +100,6 @@ public class SchdulePaymentFragment extends Fragment {
                     return null;
             }
         }
-
         @Override
         public int getCount() {
             return totalTabs;

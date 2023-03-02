@@ -6,192 +6,321 @@
         android:minSdkVersion="8"
         android:targetSdkVersion="19" />
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+   <!-- <uses-permission android:name="android.permission.SEND_SMS" />-->
+
+
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/logo"
+        android:icon="@mipmap/logo_one"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/logo"
+        android:roundIcon="@mipmap/logo_one"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Spendright"
         android:usesCleartextTraffic="true">
-
-        <activity android:name=".airetime.ConfirmPaymentAireTimeForiegnAct"
+        <activity
+            android:name=".act.PaymentReportPageAct"
+            android:exported="false" />
+        <activity
+            android:name=".act.MyProfileAct"
+            android:exported="false"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".GraphNewAct"
+            android:exported="false"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".act.UpdateMyAccountAct"
+            android:exported="false"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".GraphAct"
+            android:exported="false"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".act.MyAccountAct"
+            android:exported="false"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".act.PaiChartAct"
+            android:exported="false"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".act.UpdatedAccountInfoTrasaction"
+            android:exported="false"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".act.ChangePassword"
+            android:exported="false"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".act.SchdulePaymentDetails"
+            android:exported="false"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".airetime.ConfirmPaymentAireTimeForiegnAct"
             android:exported="false"
             android:screenOrientation="portrait"
-            >
-
-        </activity>
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".airetime.ForeignAirtimeActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".airetime.PaymentBillInterNational"
             android:exported="false"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".act.PaymentReportDateWiseAct"
             android:exported="false"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".TvCabelBill.PaymentInformationTvChangeAct"
             android:exported="false"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".Broadband.ConfirmPaymentBroadBandAct"
             android:exported="false"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".airetime.ConfirmPaymentAireTimeAct"
             android:exported="false"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".Broadband.PaymentBillBroadBandAct"
             android:exported="false"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".airetime.PaymentBillAireTime"
             android:exported="false"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".TvCabelBill.ConfirmPaymentTvChangeAct"
             android:exported="false"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".TvCabelBill.PaymentInformationTvChangeInformationAct"
             android:exported="false"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".TvCabelBill.ConfirmPaymentTvAct"
             android:exported="false"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".TvCabelBill.PaymentInformationTvAct"
             android:exported="false"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".TvCabelBill.PayMentCabilBillAct"
             android:exported="false"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".act.ConfirmPaymentAct"
             android:exported="false"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".ElectircalBill.PaymentBill"
             android:exported="false"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".act.VtpassActivityLogin"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".act.SetBudget.SetBudgetActivity"
-            android:screenOrientation="portrait" />
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".act.ForogtPassword"
-            android:screenOrientation="portrait" />
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".MainActivity"
-            android:screenOrientation="portrait">
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".act.EditExpensen"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            />
+        <activity
+            android:name=".act.ExpensesBudget"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".act.MyBudgets"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".act.EstimateExpenseBudget"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".act.SchdulePaymentMethod"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".act.EditCateories"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:exported="false"/>
+        <activity
+            android:name=".act.FIlterActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:exported="false"/>
+        <activity
+            android:name=".act.TermsCondition"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:exported="false"/>
+        <activity
+            android:name=".act.SettingActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:exported="false"/>
+        <activity
+            android:name=".act.PaymentReport"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:exported="false"/>
+        <activity
+            android:name=".act.SchdulePayment"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:exported="false"/>
+        <activity
+            android:name=".act.PaymentComplete"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:exported="false"/>
+        <activity
+            android:name=".act.ConfirmPayment"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:exported="false"/>
+        <activity
+            android:name=".act.ReminderScreen"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:exported="false"/>
+        <activity
+            android:name=".act.AddTrasactionScreen"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:exported="false"/>
+        <activity
+            android:name=".act.Notification"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:exported="false"/>
+        <activity
+            android:name=".act.PaymentInformation"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:exported="false"
+            />
+        <activity
+            android:name=".act.AddActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:exported="false"/>
+        <activity
+            android:name=".act.HomeActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme">
 
             <!--
-            <intent-filter>
+                <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
             -->
-        </activity>
-        <activity
-            android:name=".act.EditExpensen"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".act.ExpensesBudget"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".act.MyBudgets"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".act.EstimateExpenseBudget"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".act.SchdulePaymentMethod"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".act.EditCateories"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".act.FIlterActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".act.TermsCondition"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".act.SettingActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".act.PaymentReport"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".act.SchdulePayment"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".act.PaymentComplete"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".act.ConfirmPayment"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".act.ReminderScreen"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".act.AddTrasactionScreen"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".act.Notification"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".act.PaymentInformation"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".act.AddActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".act.HomeActivity"
-            android:label="@string/title_activity_home"
-            android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".act.RegistrationFinal"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:exported="false"/>
         <activity
             android:name=".act.RegistrationTwo"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:exported="false"/>
         <activity
             android:name=".act.RegistrationOne"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:exported="false"/>
         <activity
             android:name=".act.Registration"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:exported="false"/>
         <activity
             android:name=".act.LoginSuccess"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:exported="false"/>
         <activity
             android:name=".act.LoginOne"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:exported="false"/>
         <activity
             android:name=".act.SelectAccount"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:exported="false"/>
         <activity
             android:name=".act.LoginActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:exported="false"/>
         <activity
             android:name=".act.WelcomeActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:exported="false"/>
+
+
+        <activity
+            android:name=".act.FundAct"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:exported="false"/>
+
+        <activity
+            android:name=".act.ui.ContactInfoAct"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
@@ -200,8 +329,8 @@
         <activity
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-            android:label="@string/app_name" />
-
+            android:label="@string/app_name"
+            android:exported="true"/>
         <activity
             android:name="com.facebook.CustomTabActivity"
             android:exported="true">
@@ -215,6 +344,15 @@
             </intent-filter>
         </activity>
 
+        <service
+            android:name=".Notification.MyFirebaseMessagingService"
+            android:permission="com.google.android.c2dm.permission.SEND"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

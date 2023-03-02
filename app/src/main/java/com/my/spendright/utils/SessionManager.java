@@ -36,6 +36,8 @@ public class SessionManager {
     public static final String KEY_USER_PROFILE_PICTURE = "keyUserProfile";
     public static final String KEY_DEVICE_TOKEN = "keyDeviceToken";
     public static final String KEY_USER_STATUS = "keyUserStatus";
+    public static final String KEY_ACCOUNT_REFERENCE = "accountReference";
+    public static final String KEY_cate_id = "category_id";
 
 
     public void saveUserToken(String userAuthKey){
@@ -111,6 +113,37 @@ public class SessionManager {
         return userID;
     }
 
+
+
+    @RequiresApi(api = Build.VERSION_CODES.GINGERBREAD)
+    public void saveAccountReference(String accountReference){
+        editor = preferences.edit();
+        editor.putString(KEY_ACCOUNT_REFERENCE, accountReference);
+        editor.apply();
+
+    }
+
+    public String getAccountReference(){
+        String accountReference = preferences.getString(KEY_ACCOUNT_REFERENCE,"");
+        return accountReference;
+    }
+
+
+
+    @RequiresApi(api = Build.VERSION_CODES.GINGERBREAD)
+    public void saveCateId(String catId){
+
+        editor = preferences.edit();
+        editor.putString(KEY_cate_id, catId);
+        editor.apply();
+
+    }
+
+    public String getCatId(){
+        String catId = preferences.getString(KEY_cate_id,"");
+        return catId;
+    }
+
     @RequiresApi(api = Build.VERSION_CODES.GINGERBREAD)
     public void saveAccountId(String accontId){
 
@@ -124,6 +157,8 @@ public class SessionManager {
         String accontId = preferences.getString(KEY_account_id,"");
         return accontId;
     }
+
+
 
     public String getUserName(){
         String userName = preferences.getString(KEY_USER_NAME,"");

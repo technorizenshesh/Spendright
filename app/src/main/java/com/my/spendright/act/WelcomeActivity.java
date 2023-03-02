@@ -9,6 +9,7 @@ import android.content.pm.Signature;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -34,27 +35,26 @@ import java.security.NoSuchAlgorithmException;
 
 public class WelcomeActivity extends AppCompatActivity implements View.OnClickListener{
 
-
     private ViewPager viewPager;
     private MyViewPagerAdapter myViewPagerAdapter;
     private LinearLayout dotsLayout;
     private int[] layouts;
     private Context mContext;
-    private TextView tvSignIn, tvSkip;
     private RelativeLayout RRStart;
 
     Boolean[] checkBoxState;
     private static final String TAG = "fireBaseToken";
+    Handler mHandler;
+    int position=0;
+    Runnable runnable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-
         if (Build.VERSION.SDK_INT >= 21) {
             getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         }
-
         setContentView(R.layout.activity_welcome);
 
         try {
@@ -76,7 +76,6 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
 
         mContext= WelcomeActivity.this;
         viewPager = findViewById(R.id.view_pager);
-        tvSkip = findViewById(R.id.btn_next);
        // tvSignIn = findViewById(R.id.tvSignIn);
         dotsLayout = findViewById(R.id.layoutDots);
         RRStart = findViewById(R.id.RRStart);
@@ -96,14 +95,13 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
                 R.layout.intro_screen4
         };
 
-        RRStart.setOnClickListener(v -> {
-
+         RRStart.setOnClickListener(v -> {
             startActivity(new Intent(WelcomeActivity.this,SelectAccount.class));
             finish();
-
         });
+
         // adding bottom dots
-        addBottomDots(0);
+        addBottomDots(position);
 
         // making notification bar transparent
         changeStatusBarColor();
@@ -112,14 +110,18 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
         viewPager.setAdapter(myViewPagerAdapter);
         viewPager.addOnPageChangeListener(viewPagerPageChangeListener);
 
-        tvSkip.setOnClickListener(this);
 
-        /*RRStart.setOnClickListener(v -> {
-            startActivity(new Intent(WelcomeActivity.this,SelectAccount.class));
+        mHandler = new Handler();
+        runnable = new Runnable() {
+            @Override
+            public void run() {
+                mHandler.postDelayed(runnable, 2000);
+                 ++position;
+                 viewPager.setCurrentItem(position);
 
-        });*/
-       // tvSignIn.setOnClickListener(this);
-
+            }
+        };
+        mHandler.postDelayed(runnable, 2000);
     }
 
     private void addBottomDots(int currentPage) {
@@ -144,14 +146,14 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
             dotsLayout.addView(imageView);
         }
 
-        if(currentPage == 3)
+      /*  if(currentPage == 3)
         {
             RRStart.setVisibility(View.VISIBLE);
         }else
         {
             RRStart.setVisibility(View.GONE);
         }
-
+*/
     }
 
     private int getItem(int i) {
@@ -165,22 +167,26 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
 
     //  viewpager change listener
     ViewPager.OnPageChangeListener viewPagerPageChangeListener = new ViewPager.OnPageChangeListener() {
-
         @Override
         public void onPageSelected(int position) {
             addBottomDots(position);
+           if(position==3)
+            {
+                RRStart.setVisibility(View.VISIBLE);
+                mHandler.removeCallbacks(runnable);
+                mHandler.postDelayed(runnable, 2000);
+       /*        startActivity(new Intent(WelcomeActivity.this,LoginActivity.class));
+               finish();*/
+            }
         }
-
         @Override
         public void onPageScrolled(int arg0, float arg1, int arg2) {
 
         }
-
         @Override
         public void onPageScrollStateChanged(int arg0) {
 
         }
-
     };
 
     private void changeStatusBarColor() {
@@ -217,7 +223,8 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
 
             View view = layoutInflater.inflate(layouts[position], container, false);
 
-            if(position == 3)
+         /*
+           if(position == 3)
             {
                 RRStart.setVisibility(View.VISIBLE);
             }else
@@ -225,6 +232,7 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
                 RRStart.setVisibility(View.GONE);
             }
 
+*/
             container.addView(view);
 
             return view;

@@ -1,5 +1,6 @@
 package com.my.spendright.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -27,14 +28,17 @@ import com.my.spendright.Model.CreateGroupModel;
 import com.my.spendright.Model.DayDaysModel;
 import com.my.spendright.Model.GetSetbudgetExpence;
 import com.my.spendright.Model.HomeModal;
+import com.my.spendright.NumberTextWatcher;
 import com.my.spendright.R;
 import com.my.spendright.act.SetBudget.SetBudgetActivity;
 import com.my.spendright.utils.AddCategoryModel;
 import com.my.spendright.utils.RetrofitClients;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.TimeZone;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -52,10 +56,12 @@ public class SetBudgetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     String select_Month_Week="";
     String endMonthDayEndWeek="";
+    String month="";
     int arr[];
     int pos;
     String USerId="";
     String accountId="";
+
     public SetBudgetAdapter(Context context, ArrayList<GetSetbudgetExpence.Result> modelList,String USerId,String accountId) {
         this.mContext = context;
         this.modelList = modelList;
@@ -77,7 +83,7 @@ public class SetBudgetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, @SuppressLint("RecyclerView") final int position) {
         //Here you can fill your row view
         if (holder instanceof ViewHolder) {
             final GetSetbudgetExpence.Result model = getItem(position);
@@ -111,10 +117,7 @@ public class SetBudgetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             });
 
             genericViewHolder.RRDelete.setOnClickListener(v -> {
-
                 AlertDaliogDelete(position,model.getGroupId());
-
-
             });
 
             setAdapter(genericViewHolder.recyclerCategory, (ArrayList<GetSetbudgetExpence.Result.CategoryDetail>) modelList.get(position).getCategoryDetail());
@@ -190,22 +193,26 @@ public class SetBudgetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     private void AlertDaliogArea(String Grpid) {
         String[] strAr1=new String[] {"Sat","Sun","Mon","Tue","Wed","Thu","frd"};
+        String[] strAr12=new String[] {"Jan","Feb","Mar","Apr","May","June","July","Aug","Sep","Oct","Nov","Dec"};
 
         LayoutInflater li;
         RelativeLayout RRAdd;
         EditText edtCategoryName;
         EditText edtAmt;
+        TextView txtCurrentMonth;
         RelativeLayout RRSelctMonthWeek;
         RelativeLayout RRSelctDay;
         RelativeLayout RRselectWeeks;
         RelativeLayout RRcross;
         TextView txtSelectMonth;
         Spinner spinnerMonthDays;
+        Spinner spinnerMonth;
         Spinner spinnerWeeks;
         AlertDialog.Builder alertDialogBuilder;
         li = LayoutInflater.from(mContext);
         promptsView = li.inflate(R.layout.alert_grp_category, null);
         RRAdd = (RelativeLayout) promptsView.findViewById(R.id.RRAdd);
+        txtCurrentMonth = (TextView) promptsView.findViewById(R.id.txtCurrentMonth);
         edtCategoryName = (EditText) promptsView.findViewById(R.id.edtCategoryName);
         edtAmt = (EditText) promptsView.findViewById(R.id.edtAmt);
         RRcross = (RelativeLayout) promptsView.findViewById(R.id.RRcross);
@@ -213,21 +220,33 @@ public class SetBudgetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         RRselectWeeks = (RelativeLayout) promptsView.findViewById(R.id.RRselectWeeks);
         txtSelectMonth = (TextView) promptsView.findViewById(R.id.txtSelectMonth);
         spinnerMonthDays = (Spinner) promptsView.findViewById(R.id.spinnerMonthDays);
+        spinnerMonth = (Spinner) promptsView.findViewById(R.id.spinnerMonth);
         spinnerWeeks = (Spinner) promptsView.findViewById(R.id.spinnerWeeks);
         RRSelctMonthWeek = (RelativeLayout) promptsView.findViewById(R.id.RRSelctMonthWeek);
         alertDialogBuilder = new AlertDialog.Builder(mContext);
         alertDialogBuilder.setView(promptsView);
 
+        edtAmt.addTextChangedListener(new NumberTextWatcher(edtAmt,"#,###"));
+
+        MonthDaysAdapter customAdapter=new MonthDaysAdapter(mContext,strAr12);
+        spinnerMonth.setAdapter(customAdapter);
+
+        Calendar cal=Calendar.getInstance();
+        SimpleDateFormat month_date = new SimpleDateFormat("MMM");
+        month = month_date.format(cal.getTime());
+
+        txtCurrentMonth.setText(month);
+
         RRcross.setOnClickListener(v -> {
             alertDialog.dismiss();
         });
+
         RRSelctMonthWeek.setOnClickListener(v -> {
         //Creating the instance of PopupMenu
             PopupMenu popup = new PopupMenu(mContext, RRSelctMonthWeek);
             //Inflating the Popup using xml file
             popup.getMenuInflater()
                     .inflate(R.menu.poupup_menu, popup.getMenu());
-
             //registering popup with OnMenuItemClickListener
             popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                 public boolean onMenuItemClick(MenuItem item) {
@@ -253,7 +272,6 @@ public class SetBudgetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                         RRSelctDay.setVisibility(View.GONE);
                         RRselectWeeks.setVisibility(View.VISIBLE);
 
-
                         select_Month_Week ="Weekly";
 
                         WeekdaysDaysAdapter customAdapter=new WeekdaysDaysAdapter(mContext,strAr1);
@@ -261,35 +279,47 @@ public class SetBudgetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
                         txtSelectMonth.setText(item.getTitle()+"");
 
-
                     }
                     return true;
                 }
             });
 
-            spinnerMonthDays.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                public void onItemSelected(AdapterView<?> parent, View arg1, int pos, long arg3){
-                    int endMonthDayEndWeekNew = arr[pos];
-                     endMonthDayEndWeek= String.valueOf(endMonthDayEndWeekNew);
-                }
-                @Override
-                public void onNothingSelected(AdapterView<?> arg0) {
-                    // TODO Auto-generated method stub
-                }
-            });
-
-            spinnerWeeks.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                public void onItemSelected(AdapterView<?> parent, View arg1, int pos, long arg3){
-                 //   endMonthDayEndWeek = modelListCategory.get(pos).getId();
-                     endMonthDayEndWeek= strAr1[pos];
-                }
-                @Override
-                public void onNothingSelected(AdapterView<?> arg0) {
-                    // TODO Auto-generated method stub
-                }
-            });
             popup.show();
 
+        });
+
+        spinnerMonthDays.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, View arg1, int pos, long arg3){
+                int endMonthDayEndWeekNew = arr[pos];
+                endMonthDayEndWeek= String.valueOf(endMonthDayEndWeekNew);
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
+                // TODO Auto-generated method stub
+            }
+        });
+
+        spinnerWeeks.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, View arg1, int pos, long arg3){
+                //   endMonthDayEndWeek = modelListCategory.get(pos).getId();
+                endMonthDayEndWeek= strAr1[pos];
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
+                // TODO Auto-generated method stub
+            }
+        });
+
+        spinnerMonth.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, View arg1, int pos, long arg3){
+                //   endMonthDayEndWeek = modelListCategory.get(pos).getId();
+              //  month= strAr12[pos];
+                Toast.makeText(mContext, ""+month, Toast.LENGTH_SHORT).show();
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
+                // TODO Auto-generated method stub
+            }
         });
 
         RRAdd.setOnClickListener(new View.OnClickListener() {
@@ -317,9 +347,9 @@ public class SetBudgetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
                 }else
                 {
-                    select_Month_Week="";
-                    endMonthDayEndWeek="";
-                    AddGrpMethod(CategoryName,Grpid,Amt);
+                    /*select_Month_Week="";
+                    endMonthDayEndWeek="";*/
+                    AddGrpMethod(CategoryName,Grpid,Amt,month);
                     alertDialog.dismiss();
 
                 }
@@ -332,9 +362,9 @@ public class SetBudgetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     }
 
 
-    private void AddGrpMethod(String CategoyrName,String GrpId,String Amt){
+    private void AddGrpMethod(String CategoyrName,String GrpId,String Amt,String month){
         Call<AddCategoryModel> call = RetrofitClients.getInstance().getApi()
-                .Api_add_category_group(USerId,GrpId,accountId,CategoyrName,Amt,select_Month_Week,endMonthDayEndWeek);
+                .Api_add_category_group(USerId,GrpId,accountId,CategoyrName,Amt,select_Month_Week,endMonthDayEndWeek,month);
         call.enqueue(new Callback<AddCategoryModel>() {
             @RequiresApi(api = Build.VERSION_CODES.GINGERBREAD)
             @Override
@@ -350,6 +380,7 @@ public class SetBudgetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                         ((SetBudgetActivity)mContext).getExpenceMethod();
 
                      //   getExpenceMethod();
+
                     } else {
 
                     }

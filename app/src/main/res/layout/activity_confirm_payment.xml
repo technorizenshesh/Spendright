@@ -42,7 +42,7 @@
                         android:textSize="@dimen/_14sdp"
                         android:layout_centerInParent="true"
                         android:textColor="@color/white"
-                        android:text="Confirm Your Pament"
+                        android:text="Confirm Your Payment"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         />
@@ -309,7 +309,6 @@
                             >
 
                             <TextView
-                                android:layout_marginTop="@dimen/_20sdp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppinsregular"
@@ -340,7 +339,7 @@
 
                             <TextView
                                 android:drawablePadding="@dimen/_10sdp"
-                                android:drawableRight="@drawable/doller"
+                                  android:drawableLeft="@drawable/doller"
                                 android:gravity="right"
                                 android:textStyle="bold"
                                 android:fontFamily="@font/poppinsregular"
@@ -353,7 +352,7 @@
 
                             <TextView
                                 android:drawablePadding="@dimen/_10sdp"
-                                android:drawableRight="@drawable/doller"
+                                  android:drawableLeft="@drawable/doller"
                                 android:gravity="right"
                                 android:textStyle="bold"
                                 android:fontFamily="@font/poppinsregular"
@@ -373,7 +372,6 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 />
-
                             <TextView
                                 android:drawablePadding="@dimen/_10sdp"
                                 android:drawableRight="@drawable/doller_orange"

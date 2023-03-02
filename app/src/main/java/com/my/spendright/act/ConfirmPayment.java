@@ -25,5 +25,6 @@ public class ConfirmPayment extends AppCompatActivity {
         binding.RRConfirm.setOnClickListener(v -> {
             startActivity(new Intent(ConfirmPayment.this,PaymentComplete.class));
         });
+
     }
 }

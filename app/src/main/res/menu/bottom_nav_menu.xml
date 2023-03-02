@@ -22,13 +22,13 @@
 
     <item
         android:id="@+id/navigation_notifications1"
-        android:icon="@drawable/prf"
+        android:icon="@drawable/new_icon"
         android:title="@string/THIS_MONTH"
         />
 
     <item
         android:id="@+id/navigation_Schdule"
-        android:icon="@drawable/prf"
+        android:icon="@drawable/schedule_payment"
         android:title="Scheduled payment"
         />
 

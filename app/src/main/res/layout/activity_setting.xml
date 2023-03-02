@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     >
 
     <RelativeLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:background="@color/white"
         android:layout_height="match_parent"
         >
 
@@ -44,155 +41,354 @@
 
         </RelativeLayout>
 
+
+        <ProgressBar
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerInParent="true"
+            android:id="@+id/progressBar"
+            android:background="@drawable/progresh_background"
+            android:elevation="6dp"
+            android:padding="5dp"
+            android:indeterminate="true"
+            android:indeterminateTintMode="src_atop"
+            android:indeterminateTint="@color/purple_200"
+            android:visibility="gone"
+            />
+
+
         <androidx.core.widget.NestedScrollView
-            android:layout_below="@+id/RRtoolbaar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            >
+            android:layout_below="@+id/RRtoolbaar">
 
             <LinearLayout
                 android:id="@+id/llNoti"
-                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                >
+                android:orientation="vertical">
 
                 <RelativeLayout
-                    android:layout_margin="@dimen/_10sdp"
-                    android:layout_alignParentBottom="true"
-                    android:layout_gravity="bottom"
                     android:id="@+id/RRNext"
-                    android:layout_marginTop="@dimen/_20sdp"
-                    android:background="@drawable/border_white_gray"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_50sdp"
-                    >
+                    android:layout_alignParentBottom="true"
+                    android:layout_gravity="bottom"
+                    android:layout_margin="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:background="@drawable/border_white_gray"
+                    android:visibility="gone">
 
                     <ImageView
-                        android:layout_marginLeft="@dimen/_10sdp"
                         android:id="@+id/img"
-                        android:src="@drawable/change_pin"
-                        android:layout_alignParentLeft="true"
-                        android:layout_centerVertical="true"
                         android:layout_width="@dimen/_25sdp"
                         android:layout_height="@dimen/_25sdp"
-                        >
-                    </ImageView>
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/_10sdp"
+                        android:src="@drawable/change_pin"></ImageView>
 
                     <TextView
-                        android:layout_toRightOf="@+id/img"
-                        android:layout_marginLeft="20sp"
-                        android:layout_centerVertical="true"
-                        android:textStyle="bold"
-                        android:textSize="@dimen/_16sdp"
-                        android:textColor="@color/black"
-                        android:text="Change PIN of Spendright"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        />
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="20sp"
+                        android:layout_toRightOf="@+id/img"
+                        android:text="Change Password"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_16sdp"
+                        android:textStyle="bold" />
 
                     <ImageView
-                        android:layout_marginRight="@dimen/_10sdp"
-                        android:src="@drawable/back_orange"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
                         android:layout_width="@dimen/_20sdp"
                         android:layout_height="@dimen/_20sdp"
-                        >
-                    </ImageView>
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/_10sdp"
+                        android:src="@drawable/back_orange"></ImageView>
 
 
                 </RelativeLayout>
 
                 <RelativeLayout
-                    android:layout_margin="@dimen/_10sdp"
-                    android:layout_alignParentBottom="true"
-                    android:layout_gravity="bottom"
-                    android:layout_marginTop="@dimen/_20sdp"
-                    android:background="@drawable/border_white_gray"
+                    android:id="@+id/RRMyProfile"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_50sdp"
-                    >
+                    android:layout_gravity="bottom"
+                    android:layout_margin="@dimen/_5sdp"
+                    android:background="@drawable/border_white_gray">
 
                     <ImageView
-                        android:layout_marginLeft="@dimen/_10sdp"
-                        android:id="@+id/Contact"
-                        android:src="@drawable/mail"
-                        android:layout_alignParentLeft="true"
-                        android:layout_centerVertical="true"
+                        android:id="@+id/imgPRofile"
                         android:layout_width="@dimen/_25sdp"
                         android:layout_height="@dimen/_25sdp"
-                        >
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/_10sdp"
+                        android:src="@drawable/terms">
+
                     </ImageView>
 
                     <TextView
-                        android:layout_toRightOf="@+id/Contact"
-                        android:layout_marginLeft="20sp"
-                        android:layout_centerVertical="true"
-                        android:textStyle="bold"
-                        android:textSize="@dimen/_16sdp"
-                        android:textColor="@color/black"
-                        android:text="Contact"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        />
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="20sp"
+                        android:layout_toRightOf="@+id/imgPRofile"
+                        android:text="My Profile"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_16sdp"
+                        android:textStyle="bold" />
 
                     <ImageView
-                        android:layout_marginRight="@dimen/_10sdp"
-                        android:src="@drawable/back_orange"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
                         android:layout_width="@dimen/_20sdp"
                         android:layout_height="@dimen/_20sdp"
-                        >
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/_10sdp"
+                        android:src="@drawable/back_orange"></ImageView>
+
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/RRMyAccount"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_50sdp"
+                    android:layout_gravity="bottom"
+                    android:layout_margin="@dimen/_5sdp"
+                    android:background="@drawable/border_white_gray">
+
+                    <ImageView
+                        android:id="@+id/imgAccount"
+                        android:layout_width="@dimen/_25sdp"
+                        android:layout_height="@dimen/_25sdp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/_10sdp"
+                        android:src="@drawable/terms">
+
                     </ImageView>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="20sp"
+                        android:layout_toRightOf="@+id/imgAccount"
+                        android:text="My Account"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_16sdp"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/_10sdp"
+                        android:src="@drawable/back_orange"></ImageView>
+
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/RRContact"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_50sdp"
+                    android:layout_margin="@dimen/_5sdp"
+                    android:background="@drawable/border_white_gray">
+
+                    <ImageView
+                        android:id="@+id/Contact"
+                        android:layout_width="@dimen/_25sdp"
+                        android:layout_height="@dimen/_25sdp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/_10sdp"
+                        android:src="@drawable/mail"></ImageView>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="20sp"
+                        android:layout_toRightOf="@+id/Contact"
+                        android:text="Contact"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_16sdp"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/_10sdp"
+                        android:src="@drawable/back_orange"></ImageView>
 
 
                 </RelativeLayout>
 
                 <RelativeLayout
                     android:id="@+id/RRterms"
-                    android:layout_margin="@dimen/_10sdp"
-                    android:layout_alignParentBottom="true"
-                    android:layout_gravity="bottom"
-                    android:layout_marginTop="@dimen/_20sdp"
-                    android:background="@drawable/border_white_gray"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_50sdp"
-                    >
+                    android:layout_gravity="bottom"
+                    android:layout_margin="@dimen/_5sdp"
+                    android:background="@drawable/border_white_gray">
 
                     <ImageView
-                        android:layout_marginLeft="@dimen/_10sdp"
                         android:id="@+id/Contact1"
-                        android:src="@drawable/terms"
-                        android:layout_alignParentLeft="true"
-                        android:layout_centerVertical="true"
                         android:layout_width="@dimen/_25sdp"
                         android:layout_height="@dimen/_25sdp"
-                        >
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/_10sdp"
+                        android:src="@drawable/terms"></ImageView>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="20sp"
+                        android:layout_toRightOf="@+id/Contact1"
+                        android:text="Terms &amp; Conditions"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_16sdp"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/_10sdp"
+                        android:src="@drawable/back_orange"></ImageView>
+
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/RRChangePassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_50sdp"
+                    android:layout_gravity="bottom"
+                    android:layout_margin="@dimen/_5sdp"
+                    android:background="@drawable/border_white_gray">
+
+                    <ImageView
+                        android:id="@+id/imgChangePassword"
+                        android:layout_width="@dimen/_25sdp"
+                        android:layout_height="@dimen/_25sdp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/_10sdp"
+                        android:src="@drawable/terms"></ImageView>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="20sp"
+                        android:layout_toRightOf="@+id/imgChangePassword"
+                        android:text="Change Password"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_16sdp"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/_10sdp"
+                        android:src="@drawable/back_orange">
+
+                    </ImageView>
+
+
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:visibility="gone"
+                    android:id="@+id/RRVtpasLogout"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_50sdp"
+                    android:layout_gravity="bottom"
+                    android:layout_margin="@dimen/_5sdp"
+                    android:background="@drawable/border_white_gray">
+
+                    <ImageView
+                        android:id="@+id/imgVtLogout"
+                        android:layout_width="@dimen/_25sdp"
+                        android:layout_height="@dimen/_25sdp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/_10sdp"
+                        android:src="@drawable/terms">
+
                     </ImageView>
 
                     <TextView
-                        android:layout_toRightOf="@+id/Contact1"
-                        android:layout_marginLeft="20sp"
-                        android:layout_centerVertical="true"
-                        android:textStyle="bold"
-                        android:textSize="@dimen/_16sdp"
-                        android:textColor="@color/black"
-                        android:text="Terms &amp; Conditions"
+                        android:id="@+id/txtVtpassLogout"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        />
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="20sp"
+                        android:layout_toRightOf="@+id/imgVtLogout"
+                        android:text="Payment Logout"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_16sdp"
+                        android:textStyle="bold" />
 
                     <ImageView
-                        android:layout_marginRight="@dimen/_10sdp"
-                        android:src="@drawable/back_orange"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
                         android:layout_width="@dimen/_20sdp"
                         android:layout_height="@dimen/_20sdp"
-                        >
-                    </ImageView>
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/_10sdp"
+                        android:src="@drawable/back_orange"></ImageView>
+
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/RRLogout"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_50sdp"
+                    android:layout_gravity="bottom"
+                    android:layout_margin="@dimen/_5sdp"
+                    android:background="@drawable/border_white_gray">
+
+                    <ImageView
+                        android:id="@+id/logout"
+                        android:layout_width="@dimen/_25sdp"
+                        android:layout_height="@dimen/_25sdp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/_10sdp"
+                        android:src="@drawable/terms"></ImageView>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="20sp"
+                        android:layout_toRightOf="@+id/logout"
+                        android:text="Logout"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_16sdp"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/_10sdp"
+                        android:src="@drawable/back_orange"></ImageView>
 
 
                 </RelativeLayout>

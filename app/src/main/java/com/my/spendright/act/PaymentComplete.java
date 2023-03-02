@@ -19,6 +19,7 @@ public class PaymentComplete extends AppCompatActivity {
 
         binding.RRComplete.setOnClickListener(v -> {
             startActivity(new Intent(PaymentComplete.this,HomeActivity.class));
+            finish();
         });
     }
 }

@@ -16,7 +16,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/_6sdp">
+           >
 
             <TextView
                 android:id="@+id/txtBudget"
@@ -33,25 +33,185 @@
 
 
         <TextView
-            android:id="@+id/txtAccountName"
+            android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:text="Expense categories"
+            android:text="My Account Overview"
             android:textColor="@color/black"
             android:textSize="@dimen/_18sdp"
             android:textStyle="bold" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Cash"
-            android:textColor="@color/black"
-            android:textSize="@dimen/_14sdp" />
+        <RelativeLayout
+            android:padding="@dimen/_5sdp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+            <TextView
+                android:id="@+id/tv1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:text="Today’s Expense:"
+                android:textColor="@color/black"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_total_expense"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_toEndOf="@+id/tv1"
+                android:layout_toRightOf="@+id/tv1"
+                android:gravity="center"
+                android:text="=N= 100"
+                android:textColor="@color/black"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv1"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:text="Today’s Income:"
+                android:textColor="@color/black"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_total_income"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_total_expense"
+                android:layout_marginStart="15dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_toRightOf="@+id/tv2"
+                android:gravity="center"
+                android:text="=N= 100"
+                android:textColor="@color/black"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:layout_toEndOf="@+id/tv2" />
+
+            <TextView
+                android:id="@+id/tv3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv2"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:text="Number of Tracking \naccount:"
+                android:textColor="@color/black"
+                android:textSize="17dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_no_tracking_account"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_total_income"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_toEndOf="@+id/tv3"
+                android:layout_toRightOf="@+id/tv3"
+                android:gravity="center"
+                android:text="=N= 100"
+                android:textColor="@color/black"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+
+
+            <RelativeLayout
+                android:id="@+id/RRone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true">
+
+                <LinearLayout
+                    android:id="@+id/llvalue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/_2sdp">
+
+                    <TextView
+                        android:id="@+id/txtAmt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:drawableLeft="@drawable/doller"
+                        android:drawablePadding="@dimen/_2sdp"
+                        android:gravity="center_vertical"
+                        android:text="0.0"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_18sdp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="-5dp"
+                        android:text="Current Budget "
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_10sdp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llvalue1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:orientation="vertical"
+                    android:padding="@dimen/_2sdp">
+
+                    <TextView
+                        android:id="@+id/txtAmt1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:drawableLeft="@drawable/doller"
+                        android:drawablePadding="@dimen/_2sdp"
+                        android:gravity="center_vertical"
+                        android:text="0.0"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_18sdp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="-5dp"
+                        android:text="Wallet Balance "
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_10sdp" />
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
 
         <RelativeLayout
+            android:visibility="gone"
+            android:layout_marginTop="@dimen/_5sdp"
             android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -120,33 +280,6 @@
                 android:layout_width="@dimen/_15sdp"
                 android:layout_height="@dimen/_15sdp"
                 android:src="@drawable/gr" />
-
-            <LinearLayout
-                android:padding="@dimen/_2sdp"
-                android:layout_alignParentBottom="true"
-                android:id="@+id/llvalue"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/txtAmt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="7.451,00"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_18sdp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_marginTop="-5dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Total Expense"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_10sdp" />
-
-            </LinearLayout>
 
         </RelativeLayout>
 

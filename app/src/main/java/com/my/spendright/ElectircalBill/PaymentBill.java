@@ -15,23 +15,14 @@ import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import com.my.spendright.ElectircalBill.Model.GetMerchatAcocunt;
-import com.my.spendright.ElectircalBill.Model.GetService;
 import com.my.spendright.ElectircalBill.Model.GetServiceElectricialModel;
-import com.my.spendright.ElectircalBill.Model.GetVtsWalletBalnce;
-import com.my.spendright.ElectircalBill.UtilRetro.RetrofitSetup;
-import com.my.spendright.Model.GetAccountCategory;
 import com.my.spendright.R;
-import com.my.spendright.act.AddActivity;
 import com.my.spendright.act.PaymentInformation;
-import com.my.spendright.act.VtpassActivityLogin;
-import com.my.spendright.adapter.CategoryAdapter;
 import com.my.spendright.adapter.ServicesAdapter;
 import com.my.spendright.databinding.ActivityPaymentBillBinding;
-import com.my.spendright.utils.ApiNew;
+import com.my.spendright.utils.Preference;
+import com.my.spendright.utils.RetrofitClients;
 import com.my.spendright.utils.SessionManager;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -43,7 +34,7 @@ public class PaymentBill extends AppCompatActivity {
 
     ActivityPaymentBillBinding binding;
       String type="prepaid";
-    String BillNumber="1111111111111";
+    String BillNumber="";
 
     private ArrayList<GetServiceElectricialModel.Content> modelListCategory = new ArrayList<>();
     String ServicesId="";
@@ -101,12 +92,10 @@ public class PaymentBill extends AppCompatActivity {
                     }else
                     {
                         binding.progressBar.setVisibility(View.VISIBLE);
-
-                        MerchantAccounCheck("harshit.ixora89@gmail.com","harshit89@");
+                        MerchantAccounCheck();
 
                     }
 
-                    //startActivity(new Intent(PaymentBill.this, PaymentInformation.class));
                 }
             }
         });
@@ -128,7 +117,7 @@ public class PaymentBill extends AppCompatActivity {
 
         if (sessionManager.isNetworkAvailable()) {
             binding.progressBar.setVisibility(View.VISIBLE);
-            ServiceApi("harshit.ixora89@gmail.com","harshit89@");
+            ServiceApi();
         }else {
             Toast.makeText(PaymentBill.this, R.string.checkInternet, Toast.LENGTH_SHORT).show();
         }
@@ -137,53 +126,57 @@ public class PaymentBill extends AppCompatActivity {
     }
 
 
-    private void MerchantAccounCheck(final String username, final String password) {
-        ApiNew loginService =
-                RetrofitSetup.createService(ApiNew.class, username, password);
-        Call<GetMerchatAcocunt> call = loginService.Api_merchant_verify(BillNumber,ServicesId,type);
+    private void MerchantAccounCheck() {
+        Call<GetMerchatAcocunt> call = RetrofitClients.getInstance().getApi().Api_merchant_verify(BillNumber,ServicesId,type);
         call.enqueue(new Callback<GetMerchatAcocunt>() {
             @Override
             public void onResponse(@NonNull Call<GetMerchatAcocunt> call, @NonNull Response<GetMerchatAcocunt> response) {
                 binding.progressBar.setVisibility(View.GONE);
                 if (response.isSuccessful()) {
                     // user object available
-                    GetMerchatAcocunt finallyPr = response.body();
-                    Toast.makeText(PaymentBill.this, ""+finallyPr.getCode(), Toast.LENGTH_SHORT).show();
-                    if(!finallyPr.getContent().getCustomerName().equals(""))
+                    try
                     {
-                        startActivity(new Intent(PaymentBill.this, PaymentInformation.class)
-                                .putExtra("Customer_Name",finallyPr.getContent().getCustomerName()+"")
-                                .putExtra("Meter_Number",finallyPr.getContent().getMeterNumber()+"")
-                                .putExtra("ServicesId",ServicesId)
-                                .putExtra("ServicesName",ServicesName)
-                                .putExtra("type",type)
-                                .putExtra("myWalletBalace",myWalletBalace)
-                                .putExtra("miniAmt",miniAmt)
-                                .putExtra("maxAmt",maxAmt)
-                                .putExtra("Address",finallyPr.getContent().getAddress()+""));
+                        GetMerchatAcocunt finallyPr = response.body();
+                        if(!finallyPr.getContent().getCustomerName().equals(""))
+                        {
+                            startActivity(new Intent(PaymentBill.this, PaymentInformation.class)
+                                    .putExtra("Customer_Name",finallyPr.getContent().getCustomerName()+"")
+                                    .putExtra("Meter_Number",BillNumber+"")
+                                    .putExtra("ServicesId",ServicesId)
+                                    .putExtra("ServicesName",ServicesName)
+                                    .putExtra("type",type)
+                                    .putExtra("myWalletBalace",myWalletBalace)
+                                    .putExtra("miniAmt",miniAmt)
+                                    .putExtra("maxAmt",maxAmt)
+                                    .putExtra("Address",finallyPr.getContent().getAddress()+""));
 
-                    }else
+                        }else
+                        {
+//                            Toast.makeText(PaymentBill.this,""+finallyPr.getContent().getCustomerName() , Toast.LENGTH_SHORT).show();
+                        }
+                    }catch (Exception e)
                     {
-                        Toast.makeText(PaymentBill.this,""+finallyPr.getContent().getCustomerName() , Toast.LENGTH_SHORT).show();
+                        Toast.makeText(PaymentBill.this, "Please Currect Meter Number.", Toast.LENGTH_SHORT).show();
                     }
+
                 } else {
 
-                    Toast.makeText(PaymentBill.this, response.message(), Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(PaymentBill.this, response.message(), Toast.LENGTH_SHORT).show();
 
                 }
             }
             @Override
             public void onFailure(@NonNull Call<GetMerchatAcocunt> call, @NonNull Throwable t) {
                 binding.progressBar.setVisibility(View.GONE);
+                Toast.makeText(PaymentBill.this, "PLease check your Network", Toast.LENGTH_SHORT).show();
+
             }
         });
     }
 
 
-    private void ServiceApi(final String username, final String password) {
-        ApiNew loginService =
-                RetrofitSetup.createService(ApiNew.class, username, password);
-        Call<GetServiceElectricialModel> call = loginService.Api_service_electricity_bill();
+    private void ServiceApi() {
+        Call<GetServiceElectricialModel> call = RetrofitClients.getInstance().getApi().Api_service_electricity_bill();
         call.enqueue(new Callback<GetServiceElectricialModel>() {
             @Override
             public void onResponse(@NonNull Call<GetServiceElectricialModel> call, @NonNull Response<GetServiceElectricialModel> response) {

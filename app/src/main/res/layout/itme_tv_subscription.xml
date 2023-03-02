@@ -21,6 +21,8 @@
             >
 
             <TextView
+                android:drawableLeft="@drawable/doller"
+                android:drawablePadding="@dimen/_3sdp"
                 android:id="@+id/txtAmt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

@@ -60,6 +60,9 @@ public class ReportModal {
         @SerializedName("user_id")
         @Expose
         private String userId;
+        @SerializedName("budget_account_id")
+        @Expose
+        private String budgetAccountId;
         @SerializedName("request_id")
         @Expose
         private String requestId;
@@ -78,9 +81,15 @@ public class ReportModal {
         @SerializedName("check_status")
         @Expose
         private String checkStatus;
-        @SerializedName("current_date")
+        @SerializedName("transaction_date")
         @Expose
-        private String currentDate;
+        private String transactionDate;
+        @SerializedName("transaction_time")
+        @Expose
+        private String transactionTime;
+        @SerializedName("date_time")
+        @Expose
+        private String dateTime;
 
         public String getId() {
             return id;
@@ -96,6 +105,14 @@ public class ReportModal {
 
         public void setUserId(String userId) {
             this.userId = userId;
+        }
+
+        public String getBudgetAccountId() {
+            return budgetAccountId;
+        }
+
+        public void setBudgetAccountId(String budgetAccountId) {
+            this.budgetAccountId = budgetAccountId;
         }
 
         public String getRequestId() {
@@ -146,14 +163,31 @@ public class ReportModal {
             this.checkStatus = checkStatus;
         }
 
-        public String getCurrentDate() {
-            return currentDate;
+        public String getTransactionDate() {
+            return transactionDate;
         }
 
-        public void setCurrentDate(String currentDate) {
-            this.currentDate = currentDate;
+        public void setTransactionDate(String transactionDate) {
+            this.transactionDate = transactionDate;
+        }
+
+        public String getTransactionTime() {
+            return transactionTime;
+        }
+
+        public void setTransactionTime(String transactionTime) {
+            this.transactionTime = transactionTime;
+        }
+
+        public String getDateTime() {
+            return dateTime;
+        }
+
+        public void setDateTime(String dateTime) {
+            this.dateTime = dateTime;
         }
 
     }
+
 }
 

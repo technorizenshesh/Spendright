@@ -2,128 +2,163 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout
-        android:padding="@dimen/_5sdp"
-        android:orientation="vertical"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         >
 
-        <androidx.cardview.widget.CardView
-            app:cardCornerRadius="@dimen/_10sdp"
-            android:layout_margin="@dimen/_5sdp"
+        <ProgressBar
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerInParent="true"
+            android:id="@+id/progressBar"
+            android:background="@drawable/progresh_background"
+            android:elevation="6dp"
+            android:padding="5dp"
+            android:indeterminate="true"
+            android:indeterminateTintMode="src_atop"
+            android:indeterminateTint="@color/purple_200"
+            android:visibility="gone"
+            />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycleGiving"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_55sdp"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_5sdp">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+        <LinearLayout
+            android:visibility="gone"
+            android:padding="@dimen/_5sdp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             >
 
-            <RelativeLayout
-                android:padding="@dimen/_10sdp"
-                android:layout_gravity="center"
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardOne"
+                app:cardCornerRadius="@dimen/_10sdp"
+                android:layout_margin="@dimen/_5sdp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/_55sdp"
                 >
 
-                <ImageView
-                    android:src="@drawable/chirity"
-                    android:layout_width="@dimen/_35sdp"
-                    android:layout_height="@dimen/_35sdp"
-                    >
-                </ImageView>
-
-                <TextView
-                    android:layout_centerInParent="true"
-                    android:textStyle="bold"
-                    android:fontFamily="@font/poppinsregular"
-                    android:textSize="@dimen/_14sdp"
-                    android:textColor="@color/black"
-                    android:text="Charity"
-                    android:layout_width="wrap_content"
+                <RelativeLayout
+                    android:padding="@dimen/_10sdp"
+                    android:layout_gravity="center"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    />
-
-                <ImageView
-                    android:src="@drawable/arrow_right"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_width="@dimen/_20sdp"
-                    android:layout_height="@dimen/_20sdp"
                     >
 
-                </ImageView>
+                    <ImageView
+                        android:src="@drawable/chirity"
+                        android:layout_width="@dimen/_35sdp"
+                        android:layout_height="@dimen/_35sdp"
+                        >
+                    </ImageView>
 
-            </RelativeLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:fontFamily="@font/poppinsregular"
+                        android:text="Charity (Pay Now)"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_14sdp"
+                        />
 
-        </androidx.cardview.widget.CardView>
+                    <ImageView
+                        android:src="@drawable/arrow_right"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        >
 
-        <androidx.cardview.widget.CardView
-            app:cardCornerRadius="@dimen/_10sdp"
-            android:layout_margin="@dimen/_5sdp"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_55sdp"
-            >
+                    </ImageView>
 
-            <RelativeLayout
-                android:padding="@dimen/_10sdp"
-                android:layout_gravity="center"
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardTwo"
+                app:cardCornerRadius="@dimen/_10sdp"
+                android:layout_margin="@dimen/_5sdp"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="@dimen/_55sdp"
                 >
 
-                <ImageView
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/titl"
-                    android:layout_width="@dimen/_35sdp"
-                    android:layout_height="@dimen/_35sdp"
+                <RelativeLayout
+                    android:padding="@dimen/_10sdp"
+                    android:layout_gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     >
-                </ImageView>
 
-                <TextView
-                    android:layout_centerInParent="true"
-                    android:textStyle="bold"
-                    android:fontFamily="@font/poppinsregular"
-                    android:textSize="@dimen/_14sdp"
-                    android:textColor="@color/black"
-                    android:text="Tithe"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    />
+                    <ImageView
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/titl"
+                        android:layout_width="@dimen/_35sdp"
+                        android:layout_height="@dimen/_35sdp"
+                        >
+                    </ImageView>
 
-                <ImageView
-                    android:src="@drawable/arrow_right"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_width="@dimen/_20sdp"
-                    android:layout_height="@dimen/_20sdp"
-                    >
-                </ImageView>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:fontFamily="@font/poppinsregular"
+                        android:text="Tithe (Pay Now)"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_14sdp"
+                        />
 
-            </RelativeLayout>
+                    <ImageView
+                        android:src="@drawable/arrow_right"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        >
+                    </ImageView>
 
-        </androidx.cardview.widget.CardView>
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
+
+
+
+        </LinearLayout>
 
         <RelativeLayout
             android:visibility="gone"
-            android:layout_alignParentBottom="true"
-            android:layout_margin="@dimen/_15sdp"
-            android:id="@+id/RRlogin"
-            android:background="@drawable/border_btn"
-            android:layout_width="match_parent"
+            android:id="@+id/RRSchdule"
+            android:layout_width="@dimen/_50sdp"
             android:layout_height="@dimen/_50sdp"
-            >
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="@dimen/_15sdp"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:layout_marginEnd="@dimen/_15sdp"
+            android:layout_marginBottom="@dimen/_15sdp"
+            android:background="@drawable/border_btn">
 
             <TextView
-                android:layout_marginLeft="20sp"
-                android:layout_centerInParent="true"
-                android:textStyle="bold"
-                android:textSize="@dimen/_16sdp"
-                android:textColor="@color/white"
-                android:text="Pay Now"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                />
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="20sp"
+                android:text="+"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_25sdp"
+                android:textStyle="bold" />
 
         </RelativeLayout>
 
-    </LinearLayout>
+    </RelativeLayout>
+
 
 </layout>

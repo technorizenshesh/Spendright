@@ -9,23 +9,9 @@
         android:padding="@dimen/_5sdp"
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:background="@color/white"
         android:layout_height="match_parent"
         >
 
-        <ProgressBar
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_centerInParent="true"
-            android:id="@+id/progressBar"
-            android:background="@drawable/progresh_background"
-            android:elevation="6dp"
-            android:padding="5dp"
-            android:indeterminate="true"
-            android:indeterminateTintMode="src_atop"
-            android:indeterminateTint="@color/purple_200"
-            android:visibility="gone"
-            />
 
         <RelativeLayout
             android:layout_marginRight="@dimen/_10sdp"
@@ -73,21 +59,19 @@
                 android:text="Total Expenses : 0.00"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_16sdp"
-                android:textStyle="bold"
-                />
+                android:textStyle="bold" />
 
             <TextView
-                android:layout_alignParentRight="true"
                 android:id="@+id/txtDate"
-                android:layout_gravity="right"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
                 android:layout_centerInParent="true"
+                android:layout_gravity="right"
                 android:padding="@dimen/_10sdp"
                 android:text="@string/date_wise_statement"
                 android:textColor="@color/black"
-                android:textSize="@dimen/_12sdp"
-                />
+                android:textSize="@dimen/_12sdp" />
 
         </RelativeLayout>
 
@@ -206,6 +190,19 @@
 
         </LinearLayout>
 
+        <ProgressBar
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerInParent="true"
+            android:id="@+id/progressBar"
+            android:background="@drawable/progresh_background"
+            android:elevation="6dp"
+            android:padding="5dp"
+            android:indeterminate="true"
+            android:indeterminateTintMode="src_atop"
+            android:indeterminateTint="@color/purple_200"
+            android:visibility="gone"
+            />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycleViewReport"

@@ -6,7 +6,6 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
         android:orientation="vertical"
         >
 
@@ -17,7 +16,7 @@
             android:textSize="@dimen/_14sdp"
             android:layout_centerInParent="true"
             android:textColor="@color/black"
-            android:text="No data Found"
+            android:text="No Data Found"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             />
@@ -38,38 +37,32 @@
 
 
         <RelativeLayout
-        android:id="@+id/RRtoolbaar"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_50sdp"
-        >
+            android:id="@+id/RRtoolbaar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_50sdp">
 
-          <RelativeLayout
-              android:id="@+id/imgBack"
-              android:layout_width="@dimen/_50sdp"
-              android:layout_height="match_parent"
-              >
+            <RelativeLayout
+                android:id="@+id/imgBack"
+                android:layout_width="@dimen/_50sdp"
+                android:layout_height="match_parent">
 
-              <ImageView
-                  android:layout_centerInParent="true"
-                  android:src="@drawable/back"
-                  android:layout_width="@dimen/_20sdp"
-                  android:layout_height="@dimen/_20sdp"
-                  >
-              </ImageView>
+                <ImageView
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/back"></ImageView>
 
-          </RelativeLayout>
+            </RelativeLayout>
 
 
-
-        <TextView
-            android:textStyle="bold"
-            android:textSize="@dimen/_14sdp"
-            android:layout_centerInParent="true"
-            android:textColor="@color/black"
-            android:text="Estimate Expenses and Budget"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="Estimate Expenses &amp; Set Budget"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_14sdp"
+                android:textStyle="bold" />
 
         </RelativeLayout>
 

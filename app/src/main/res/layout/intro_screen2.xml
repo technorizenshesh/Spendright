@@ -6,45 +6,44 @@
     >
 
     <RelativeLayout
-        android:layout_marginTop="@dimen/_10sdp"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_50sdp"
-        >
+        android:layout_marginTop="@dimen/_10sdp">
 
         <ImageView
-            android:layout_marginLeft="@dimen/_10sdp"
-            android:layout_centerVertical="true"
-            android:src="@drawable/back_left"
+            android:visibility="gone"
             android:layout_width="@dimen/_20sdp"
             android:layout_height="@dimen/_20sdp"
-            >
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:src="@drawable/back_left">
 
         </ImageView>
 
 
         <TextView
-            android:fontFamily="@font/poppinsregular"
-            android:textSize="@dimen/_14sdp"
-            android:layout_centerInParent="true"
-            android:textColor="@color/white"
-            android:text="What's New"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:fontFamily="@font/poppinsregular"
+            android:text="What's New"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_14sdp">
 
         </TextView>
 
         <TextView
-            android:fontFamily="@font/poppinsregular"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:layout_marginRight="@dimen/_10sdp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:textSize="@dimen/_14sdp"
-            android:textColor="@color/white"
-            android:text="Skip"
+            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            />
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:fontFamily="@font/poppinsregular"
+            android:text="Skip"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_14sdp" />
 
     </RelativeLayout>
 

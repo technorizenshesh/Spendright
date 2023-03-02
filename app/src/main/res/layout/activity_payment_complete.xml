@@ -63,7 +63,7 @@
                 android:textStyle="bold"
                 android:textSize="@dimen/_22sdp"
                 android:textColor="@color/white"
-                android:text="Payment complete"
+                android:text="Payment Complete"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 />

@@ -14,16 +14,13 @@ import android.widget.AdapterView;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
-import com.my.spendright.ElectircalBill.Model.GetMerchatAcocunt;
 import com.my.spendright.ElectircalBill.Model.GetServiceElectricialModel;
-import com.my.spendright.ElectircalBill.PaymentBill;
-import com.my.spendright.ElectircalBill.UtilRetro.RetrofitSetup;
 import com.my.spendright.R;
 import com.my.spendright.TvCabelBill.Model.GetMerchatAcocuntTv;
-import com.my.spendright.act.PaymentInformation;
 import com.my.spendright.adapter.ServicesAdapter;
 import com.my.spendright.databinding.ActivityPayMentCabilBillBinding;
-import com.my.spendright.utils.ApiNew;
+import com.my.spendright.utils.Preference;
+import com.my.spendright.utils.RetrofitClients;
 import com.my.spendright.utils.SessionManager;
 
 import java.util.ArrayList;
@@ -43,9 +40,10 @@ public class PayMentCabilBillAct extends AppCompatActivity {
 
     String myWalletBalace="";
 
-    String subscription_type="Bouquest Renewal";
+    String subscription_type="Bouquet Renewal";
 
-    String BillNumber="1212121212";
+    String BillNumber="";
+    public static String serviceId ="";
 
     @RequiresApi(api = Build.VERSION_CODES.HONEYCOMB)
     @Override
@@ -76,10 +74,10 @@ public class PayMentCabilBillAct extends AppCompatActivity {
                 public boolean onMenuItemClick(MenuItem item) {
                     int id = item.getItemId();
                     if (id == R.id.BouquestChange) {
-                        subscription_type="Bouquest Change";
+                        subscription_type="Bouquet Change";
                         binding.txttype.setText(subscription_type);
                     }if (id == R.id.BouquestRenewal) {
-                        subscription_type="Bouquest Renewal";
+                        subscription_type="Bouquet Renewal";
                         binding.txttype.setText(subscription_type);
                     }
                     return true;
@@ -91,6 +89,7 @@ public class PayMentCabilBillAct extends AppCompatActivity {
         binding.spinnerSubscription.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View arg1, int pos, long arg3){
                 ServicesSubscriptionId = modelListCategory.get(pos).getServiceID();
+                serviceId = modelListCategory.get(pos).getServiceID();
                 ServicesSubscriptionName = modelListCategory.get(pos).getName();
             }
             @Override
@@ -109,24 +108,22 @@ public class PayMentCabilBillAct extends AppCompatActivity {
             }else
             {
                 binding.progressBar.setVisibility(View.VISIBLE);
-                MerchantAccounCheck("harshit.ixora89@gmail.com","harshit89@");
+                MerchantAccounCheck();
 
             }
         });
 
         if (sessionManager.isNetworkAvailable()) {
             binding.progressBar.setVisibility(View.VISIBLE);
-            ServiceApi("harshit.ixora89@gmail.com","harshit89@");
+            ServiceApi();
         }else {
             Toast.makeText(PayMentCabilBillAct.this, R.string.checkInternet, Toast.LENGTH_SHORT).show();
         }
 
     }
 
-    private void ServiceApi(final String username, final String password) {
-        ApiNew loginService =
-                RetrofitSetup.createService(ApiNew.class, username, password);
-        Call<GetServiceElectricialModel> call = loginService.Api_service_tv_subscription();
+    private void ServiceApi() {
+        Call<GetServiceElectricialModel> call = RetrofitClients.getInstance().getApi().Api_service_tv_subscription();
         call.enqueue(new Callback<GetServiceElectricialModel>() {
             @Override
             public void onResponse(@NonNull Call<GetServiceElectricialModel> call, @NonNull Response<GetServiceElectricialModel> response) {
@@ -152,10 +149,8 @@ public class PayMentCabilBillAct extends AppCompatActivity {
     }
 
 
-    private void MerchantAccounCheck(final String username, final String password) {
-        ApiNew loginService =
-                RetrofitSetup.createService(ApiNew.class, username, password);
-        Call<GetMerchatAcocuntTv> call = loginService.Api_merchant_verify_Tv(BillNumber,ServicesSubscriptionId);
+    private void MerchantAccounCheck() {
+        Call<GetMerchatAcocuntTv> call = RetrofitClients.getInstance().getApi().Api_merchant_verify_Tv(BillNumber,ServicesSubscriptionId);
         call.enqueue(new Callback<GetMerchatAcocuntTv>() {
             @Override
             public void onResponse(@NonNull Call<GetMerchatAcocuntTv> call, @NonNull Response<GetMerchatAcocuntTv> response) {
@@ -166,32 +161,48 @@ public class PayMentCabilBillAct extends AppCompatActivity {
 
                     if(finallyPr.getCode().equalsIgnoreCase("000"))
                     {
-                        if(subscription_type.equalsIgnoreCase("Bouquest Renewal"))
-                        {
-                            startActivity(new Intent(PayMentCabilBillAct.this, PaymentInformationTvAct.class)
-                                    .putExtra("Meter_Number",BillNumber+"")
-                                    .putExtra("CustomerName",finallyPr.getContent().getCustomerName()+"")
-                                    .putExtra("CustomerType",finallyPr.getContent().getCustomerType()+"")
-                                    .putExtra("RenewalAmt",finallyPr.getContent().getRenewalAmount()+"")
-                                    .putExtra("ServicesSubscriptionId",ServicesSubscriptionId+"")
-                                    .putExtra("ServicesSubscriptionName",ServicesSubscriptionName+"")
-                                    .putExtra("myWalletBalace",myWalletBalace+"")
-                            );
-
-
-                        }else
+                        if(subscription_type.equalsIgnoreCase("Bouquet Renewal"))
                         {
 
-                            startActivity(new Intent(PayMentCabilBillAct.this, PaymentInformationTvChangeAct.class)
-                                    .putExtra("Meter_Number",BillNumber+"")
-                                    .putExtra("CustomerName",finallyPr.getContent().getCustomerName()+"")
-                                    .putExtra("CustomerType",finallyPr.getContent().getCustomerType()+"")
-                                    .putExtra("RenewalAmt",finallyPr.getContent().getRenewalAmount()+"")
-                                    .putExtra("ServicesSubscriptionId",ServicesSubscriptionId+"")
-                                    .putExtra("ServicesSubscriptionName",ServicesSubscriptionName+"")
-                                    .putExtra("myWalletBalace",myWalletBalace+"")
-                            );
+                            try {
+                                if(!finallyPr.getContent().getCustomerName().equalsIgnoreCase(""))
+                                {
+                                    startActivity(new Intent(PayMentCabilBillAct.this, PaymentInformationTvAct.class)
+                                            .putExtra("Meter_Number",BillNumber+"")
+                                            .putExtra("CustomerName",finallyPr.getContent().getCustomerName()+"")
+                                            .putExtra("CustomerType",finallyPr.getContent().getCustomerType()+"")
+                                            .putExtra("RenewalAmt",finallyPr.getContent().getRenewalAmount()+"")
+                                            .putExtra("ServicesSubscriptionId",ServicesSubscriptionId+"")
+                                            .putExtra("ServicesSubscriptionName",ServicesSubscriptionName+"")
+                                            .putExtra("myWalletBalace",myWalletBalace+"")
+                                    );
 
+                                }
+                            }catch (Exception e)
+                            {
+                                Toast.makeText(PayMentCabilBillAct.this, "Customer Unique Number is Wrong..", Toast.LENGTH_SHORT).show();
+                            }
+
+                        }else if(subscription_type.equalsIgnoreCase("Bouquet Change"))
+                        {
+                            try {
+                                if(!finallyPr.getContent().getCustomerName().equalsIgnoreCase(""))
+                                {
+                                    startActivity(new Intent(PayMentCabilBillAct.this, PaymentInformationTvChangeAct.class)
+                                            .putExtra("Meter_Number",BillNumber+"")
+                                            .putExtra("CustomerName",finallyPr.getContent().getCustomerName()+"")
+                                            .putExtra("CustomerType",finallyPr.getContent().getCustomerType()+"")
+                                            .putExtra("RenewalAmt",finallyPr.getContent().getRenewalAmount()+"")
+                                            .putExtra("ServicesSubscriptionId",ServicesSubscriptionId+"")
+                                            .putExtra("ServicesSubscriptionName",ServicesSubscriptionName+"")
+                                            .putExtra("myWalletBalace",myWalletBalace+"")
+                                    );
+
+                                }
+                            }catch (Exception e)
+                            {
+                                Toast.makeText(PayMentCabilBillAct.this, "Customer Unique Number is Wrong..", Toast.LENGTH_SHORT).show();
+                            }
                         }
                     }else
                     {
@@ -206,6 +217,7 @@ public class PayMentCabilBillAct extends AppCompatActivity {
             @Override
             public void onFailure(@NonNull Call<GetMerchatAcocuntTv> call, @NonNull Throwable t) {
                 binding.progressBar.setVisibility(View.GONE);
+                Toast.makeText(PayMentCabilBillAct.this, "Please check Network..", Toast.LENGTH_SHORT).show();
             }
         });
     }

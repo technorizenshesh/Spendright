@@ -28,7 +28,7 @@
                 android:textSize="@dimen/_14sdp"
                 android:layout_centerInParent="true"
                 android:textColor="@color/white"
-                android:text="Select Account"
+                android:text="Authentication"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 />
@@ -62,7 +62,7 @@
                 android:textStyle="bold"
                 android:textSize="@dimen/_18sdp"
                 android:textColor="@color/black"
-                android:text="Please select the option to proceed further with the application"
+                android:text="Please choose an option to get started"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 />

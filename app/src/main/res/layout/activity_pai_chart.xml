@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/blue">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+
+        <RelativeLayout
+            android:id="@+id/RRtoolbaar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_50sdp"
+            android:visibility="visible">
+
+            <RelativeLayout
+                android:id="@+id/RRimgback"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true">
+
+                <ImageView
+                    android:id="@+id/imgSetting"
+                    android:layout_width="@dimen/_15sdp"
+                    android:layout_height="@dimen/_15sdp"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/back_left">
+
+                </ImageView>
+
+            </RelativeLayout>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="Income and Expense Report"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_14sdp"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:padding="@dimen/_10sdp"
+            android:layout_margin="@dimen/_10sdp"
+            android:background="@drawable/border_white"
+            android:weightSum="2"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_80sdp"
+            >
+
+            <LinearLayout
+                android:layout_gravity="center"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+                <TextView
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppinsregular"
+                    android:text="Income"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_16sdp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:gravity="center_vertical"
+                    android:drawablePadding="@dimen/_3sdp"
+                    android:drawableLeft="@drawable/doller"
+                    android:id="@+id/txtIncome"
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0.0"
+                    android:textColor="@color/green"
+                    android:textSize="@dimen/_16sdp"
+                    android:textStyle="bold" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_gravity="center"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+                <TextView
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppinsregular"
+                    android:text="Expense"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_16sdp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:gravity="center_vertical"
+                    android:drawablePadding="@dimen/_3sdp"
+                    android:drawableLeft="@drawable/doller"
+                    android:id="@+id/txtExpence"
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0.0"
+                    android:textColor="@color/red"
+                    android:textSize="@dimen/_16sdp"
+                    android:textStyle="bold"
+                    />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+            <com.github.mikephil.charting.charts.PieChart
+            android:id="@+id/chart1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/seekBar1" />
+
+    </LinearLayout>
+
+
+
+    <SeekBar
+        android:visibility="gone"
+        android:id="@+id/seekBar2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_margin="8dp"
+        android:layout_toLeftOf="@+id/tvYMax"
+        android:layout_marginRight="5dp"
+        android:max="200"
+        android:paddingBottom="12dp" />
+
+    <SeekBar
+        android:visibility="gone"
+        android:id="@+id/seekBar1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/seekBar2"
+        android:layout_margin="8dp"
+        android:layout_marginBottom="35dp"
+        android:layout_toLeftOf="@+id/tvXMax"
+        android:layout_marginRight="5dp"
+        android:max="25"
+        android:paddingBottom="12dp" />
+
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/tvXMax"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/seekBar1"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="15dp"
+        android:gravity="right"
+        android:text="dash"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/tvYMax"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/seekBar2"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="15dp"
+        android:gravity="right"
+        android:text="dash"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+</RelativeLayout>

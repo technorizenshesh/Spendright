@@ -35,8 +35,14 @@ import com.my.spendright.utils.AddCategoryModel;
 import com.my.spendright.utils.RetrofitClients;
 import com.my.spendright.utils.SessionManager;
 
+import org.eazegraph.lib.charts.ValueLineChart;
+import org.eazegraph.lib.models.ValueLinePoint;
+import org.eazegraph.lib.models.ValueLineSeries;
+
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -77,22 +83,23 @@ public class MyAccountHomeAdapter extends RecyclerView.Adapter<RecyclerView.View
 
             sessionManager = new SessionManager((Activity) mContext);
 
-          genericViewHolder.txtAccountName.setText(model.getHolderName());
+//          genericViewHolder.txtAccountName.setText(model.getHolderName());
 
-          genericViewHolder.txtAmt.setText(model.getCurrentBalance());
+          genericViewHolder.txtAmt.setText(model.getTotal());
+
+            String FinalAmt = getFormatedNumber(model.getCurrentBalance());
+
+            genericViewHolder.txtAmt1.setText(FinalAmt+".00");
 
           genericViewHolder.txtBudget.setOnClickListener(v -> {
-
-              Toast.makeText(mContext, ""+model.getAccountId(), Toast.LENGTH_SHORT).show();
-
-              sessionManager.saveAccountId(model.getAccountId());
-
+              sessionManager.saveAccountId(model.getId());
               mContext.startActivity(new Intent(mContext, SetBudgetActivity.class));
-
           });
 
+//          setMEthod(genericViewHolder.cubiclinechart);
         }
     }
+
 
     @Override
     public int getItemCount()
@@ -120,6 +127,8 @@ public class MyAccountHomeAdapter extends RecyclerView.Adapter<RecyclerView.View
         TextView txtAccountName;
         TextView txtBudget;
         TextView txtAmt;
+        TextView txtAmt1;
+//        ValueLineChart cubiclinechart;
 
         public ViewHolder(final View itemView) {
             super(itemView);
@@ -127,6 +136,8 @@ public class MyAccountHomeAdapter extends RecyclerView.Adapter<RecyclerView.View
             txtAccountName=itemView.findViewById(R.id.txtAccountName);
             txtBudget=itemView.findViewById(R.id.txtBudget);
             txtAmt=itemView.findViewById(R.id.txtAmt);
+            txtAmt1=itemView.findViewById(R.id.txtAmt1);
+//            cubiclinechart=itemView.findViewById(R.id.cubiclinechart);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -137,11 +148,40 @@ public class MyAccountHomeAdapter extends RecyclerView.Adapter<RecyclerView.View
         }
     }
 
-   
-   
+
+//    private void setMEthod(ValueLineChart cubiclinechart) {
+//
+//        ValueLineSeries series = new ValueLineSeries();
+//        series.setColor(0xFF56B7F1);
+//
+//        series.addPoint(new ValueLinePoint("Jan", 0.4f));
+//        series.addPoint(new ValueLinePoint("Feb", 3.4f));
+//        series.addPoint(new ValueLinePoint("Mar", 1.2f));
+//        series.addPoint(new ValueLinePoint("Apr", .4f));
+//        series.addPoint(new ValueLinePoint("Mai", 2.6f));
+//        series.addPoint(new ValueLinePoint("Jun", 1.0f));
+//        series.addPoint(new ValueLinePoint("Jul", 3.5f));
+//        series.addPoint(new ValueLinePoint("Aug", 2.4f));
+//        series.addPoint(new ValueLinePoint("Sep", 2.4f));
+//        series.addPoint(new ValueLinePoint("Oct", 3.4f));
+//        series.addPoint(new ValueLinePoint("Nov", .4f));
+//        series.addPoint(new ValueLinePoint("Dec", 1.3f));
+//
+//        cubiclinechart.addSeries(series);
+//        cubiclinechart.startAnimation();
+//    }
 
 
-  
+
+    @RequiresApi(api = Build.VERSION_CODES.GINGERBREAD)
+    public static String getFormatedNumber(String number){
+        if(!number.isEmpty()) {
+            double val = Double.parseDouble(number);
+            return NumberFormat.getNumberInstance(Locale.US).format(val);
+        }else{
+            return "0";
+        }
+    }
 
 }
 

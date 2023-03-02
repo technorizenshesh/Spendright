@@ -226,7 +226,7 @@ public class GetAmountAirtimeModel {
             private String variationAmountMax;
             @SerializedName("variation_rate")
             @Expose
-            private Object variationRate;
+            private String variationRate;
             @SerializedName("charged_amount")
             @Expose
             private String chargedAmount;
@@ -282,11 +282,11 @@ public class GetAmountAirtimeModel {
                 this.variationAmountMax = variationAmountMax;
             }
 
-            public Object getVariationRate() {
+            public String getVariationRate() {
                 return variationRate;
             }
 
-            public void setVariationRate(Object variationRate) {
+            public void setVariationRate(String variationRate) {
                 this.variationRate = variationRate;
             }
 

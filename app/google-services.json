@@ -1,41 +1,33 @@
 {
   "project_info": {
-    "project_number": "847345692278",
-    "project_id": "spenright-7ade9",
-    "storage_bucket": "spenright-7ade9.appspot.com"
+    "project_number": "666340017626",
+    "project_id": "spenright-b6336",
+    "storage_bucket": "spenright-b6336.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:847345692278:android:e9dd544909cf338dce3957",
+        "mobilesdk_app_id": "1:666340017626:android:7e1009e45a7bd3fb786ce3",
         "android_client_info": {
           "package_name": "com.my.spendright"
         }
       },
       "oauth_client": [
         {
-          "client_id": "847345692278-accme53ooa80bltigqqohhmcrlj48kgr.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.my.spendright",
-            "certificate_hash": "07601957272bd2cdcf2c4b144175d46a1c7cc098"
-          }
-        },
-        {
-          "client_id": "847345692278-vcj9kde6e347rk2rvppqgjgaghm7eo4e.apps.googleusercontent.com",
+          "client_id": "666340017626-ad98dqoi8muqdd1hao5rhfq1ioeqmm75.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBrht7VKbyQW_7ZL644ytBtH5VcPp5-f5Y"
+          "current_key": "AIzaSyAJxi6HZ_-_XWKuEwEBgKFzeMLy_XM1erc"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "847345692278-vcj9kde6e347rk2rvppqgjgaghm7eo4e.apps.googleusercontent.com",
+              "client_id": "666340017626-ad98dqoi8muqdd1hao5rhfq1ioeqmm75.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

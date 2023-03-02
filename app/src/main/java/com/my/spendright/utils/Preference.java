@@ -6,29 +6,19 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.text.ParseException;
+import java.util.Locale;
+
 public class Preference {
 
 public static final String APP_PREF = "KapsiePreferences";
 
 public static SharedPreferences sp;
-public static String KEY_USER_ID = "user_id";
-public static String KEY_User_name = "User_name";
-public static String KEY_User_email = "User_email";
-public static String KEY_USer_img = "USer_img";
-public static String KEY_Product_add = "product";
-public static String KEY_Value = "value";
-public static String KEY_check_status = "check_status";
-public static String KEY_UserName = "user_name";
-public static String KEY_address = "address";
-public static String KEY_battery = "batery";
-public static String KEY_UserCode = "UserCode";
-public static String KEY_CircleName = "circleName";
-public static String KEY_CircleCode = "circlCode";
-public static String KEY_Supplier_id = "Supplier_id";
-public static String KEY_Supplier_Order_id = "Supplier_Order_id";
-public static String KEY_add_productType = "add_productType";
-
-
+public static String KEY_VTPASS_UserName = "VtpassUname";
+public static String KEY_VTPASS_pass = "VtpassPass";
+public static String key_switch_shift_change = "shift_change";
 
 private Activity activity;
 private Context context;
@@ -105,4 +95,13 @@ public static void clearPreference(Context context) {
     edit.clear();
     edit.apply();
 }
+
+
+    public static String doubleToStringNoDecimal(double d) {
+    DecimalFormat formatter = (DecimalFormat) NumberFormat.getInstance(Locale.US);
+        if(d==0) d = 0.00;
+        else formatter.applyPattern("#,###.00");
+        return formatter.format(d);
+    }
+
 }

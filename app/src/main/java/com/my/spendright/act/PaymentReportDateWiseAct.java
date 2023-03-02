@@ -155,7 +155,7 @@ public class PaymentReportDateWiseAct extends AppCompatActivity {
 
     private void setAdapter(ArrayList<ReportModal.Result> modelList)
     {
-        mAdapter = new PaymentReportAdapter(PaymentReportDateWiseAct.this, this.modelList);
+        mAdapter = new PaymentReportAdapter(PaymentReportDateWiseAct.this,modelList);
         binding.recycleViewReport.setHasFixedSize(true);
         // use a linear layout manager
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(PaymentReportDateWiseAct.this);

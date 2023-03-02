@@ -1,6 +1,5 @@
 package com.my.spendright.act;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -9,38 +8,22 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.DatePicker;
 import android.widget.Toast;
 
-import com.my.spendright.ElectircalBill.Model.GetMerchatAcocunt;
-import com.my.spendright.ElectircalBill.Model.PayFinalModel;
-import com.my.spendright.ElectircalBill.PaymentBill;
-import com.my.spendright.ElectircalBill.UtilRetro.RetrofitSetup;
-import com.my.spendright.Model.GetAccountCategory;
 import com.my.spendright.Model.GetCategoryModelNew;
+import com.my.spendright.NumberTextWatcher;
 import com.my.spendright.R;
-import com.my.spendright.adapter.CategoryAdapter;
 import com.my.spendright.adapter.CategoryAdapterNew;
 import com.my.spendright.databinding.ActivityPaymentInformationBinding;
-import com.my.spendright.databinding.ActivityRegistrationBinding;
-import com.my.spendright.utils.ApiNew;
 import com.my.spendright.utils.RetrofitClients;
 import com.my.spendright.utils.SessionManager;
 
-import java.text.DateFormat;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
 import java.util.TimeZone;
 
 import retrofit2.Call;
@@ -75,6 +58,8 @@ public class PaymentInformation extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding= DataBindingUtil.setContentView(this,R.layout.activity_payment_information);
 
+        binding.edtAmount.addTextChangedListener(new NumberTextWatcher(binding.edtAmount,"#,###"));
+
         Log.d("Request_ID:>>",get_current_Time());
         Request_ID=get_current_Time();
         //Toast.makeText(this, ""+get_current_Time(), Toast.LENGTH_SHORT).show();
@@ -99,6 +84,8 @@ public class PaymentInformation extends AppCompatActivity {
             binding.txtMaximum.setText(maxAmt+"");
 
             binding.edtServicesId.setText(ServicesId+"");
+
+            binding.txtCountry.setCountryForPhoneCode(234);
 
         }
 
@@ -142,18 +129,19 @@ public class PaymentInformation extends AppCompatActivity {
 
         binding.RRPay.setOnClickListener(v -> {
 
-            amount=binding.edtAmount.getText().toString();
-            phone=binding.edtCMobile.getText().toString();
+            amount = binding.edtAmount.getText().toString();
+            phone =  binding.edtCMobile.getText().toString();
 
             if(phone.equalsIgnoreCase("")){
 
-                Toast.makeText(this, "PLease enter phone Number.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Please enter phone Number.", Toast.LENGTH_SHORT).show();
 
             }else if(amount.equalsIgnoreCase(""))
             {
-                Toast.makeText(this, "PLease enter Amoun", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Please enter Amount", Toast.LENGTH_SHORT).show();
 
             } else {
+                phone= binding.txtCountry.getSelectedCountryCodeWithPlus()+ binding.edtCMobile.getText().toString();
 
                 startActivity(new Intent(PaymentInformation.this, ConfirmPaymentAct.class)
                         .putExtra("Request_ID",Request_ID)
@@ -166,6 +154,7 @@ public class PaymentInformation extends AppCompatActivity {
                         .putExtra("paymentdate",paymentdate)
                         .putExtra("MyCuurentBlance",myWalletBalace)
                         );
+                GetAccountCategoryMethod();
 /*
                 if (sessionManager.isNetworkAvailable()) {
                     binding.progressBar.setVisibility(View.VISIBLE);

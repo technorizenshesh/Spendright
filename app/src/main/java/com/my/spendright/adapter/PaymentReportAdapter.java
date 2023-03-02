@@ -55,7 +55,7 @@ public class PaymentReportAdapter extends RecyclerView.Adapter<RecyclerView.View
             final ViewHolder genericViewHolder = (ViewHolder) holder;
 
           genericViewHolder.txtRequestId.setText(model.getRequestId());
-          genericViewHolder.txtDate.setText(model.getCurrentDate());
+          genericViewHolder.txtDate.setText(model.getTransactionDate());
           genericViewHolder.txtpayment.setText(model.getAmount());
           genericViewHolder.txtType.setText(model.getType());
 

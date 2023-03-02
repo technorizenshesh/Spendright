@@ -13,18 +13,23 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.my.spendright.Model.CreateGroupModel;
+import com.my.spendright.Model.GetMainGrpCategory;
 import com.my.spendright.Model.GetSetbudgetExpence;
 import com.my.spendright.Model.HomeModal;
 import com.my.spendright.Model.LoginModel;
 import com.my.spendright.R;
 import com.my.spendright.act.LoginActivity;
 import com.my.spendright.act.LoginOne;
+import com.my.spendright.adapter.GetCategoryGrpAdapter;
 import com.my.spendright.adapter.SetBudgetAdapter;
+import com.my.spendright.adapter.WeekdaysDaysAdapter;
 import com.my.spendright.databinding.ActivitySetBudgetBinding;
 import com.my.spendright.utils.RetrofitClients;
 import com.my.spendright.utils.SessionManager;
@@ -43,7 +48,16 @@ public class SetBudgetActivity extends AppCompatActivity {
     private AlertDialog alertDialog;
     private SetBudgetAdapter mAdapter;
     ArrayList<GetSetbudgetExpence.Result> modelList=new ArrayList<>();
+    ArrayList<GetMainGrpCategory.Result> modelList_GrpCategory=new ArrayList<>();
     private SessionManager sessionManager;
+
+    ///
+    LayoutInflater li;
+    RelativeLayout RRAdd;
+    EditText edtName;
+    Spinner spinnerGrpCategory;
+    private String GrpName1New="";
+    private String GrpName1NewId="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +76,8 @@ public class SetBudgetActivity extends AppCompatActivity {
 
         if (sessionManager.isNetworkAvailable()) {
             getExpenceMethod();
+
+            GetGrpCategoryMethod();
         }else {
             Toast.makeText(this, R.string.checkInternet, Toast.LENGTH_SHORT).show();
         }
@@ -87,40 +103,53 @@ public class SetBudgetActivity extends AppCompatActivity {
 
             }
         });
+
     }
 
     private void AlertDaliogArea() {
-
-        LayoutInflater li;
-        RelativeLayout RRAdd;
-        EditText edtName;
         AlertDialog.Builder alertDialogBuilder;
         li = LayoutInflater.from(SetBudgetActivity.this);
         promptsView = li.inflate(R.layout.alert_grp_add, null);
         RRAdd = (RelativeLayout) promptsView.findViewById(R.id.RRAdd);
         edtName = (EditText) promptsView.findViewById(R.id.edtName);
+        spinnerGrpCategory = (Spinner) promptsView.findViewById(R.id.spinnerGrpCategory);
         alertDialogBuilder = new AlertDialog.Builder(SetBudgetActivity.this);
         alertDialogBuilder.setView(promptsView);
+
+        GetCategoryGrpAdapter customAdapter=new GetCategoryGrpAdapter(SetBudgetActivity.this,modelList_GrpCategory);
+        spinnerGrpCategory.setAdapter(customAdapter);
+
+        spinnerGrpCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, View arg1, int pos, long arg3){
+
+                 GrpName1NewId = modelList_GrpCategory.get(pos).getId();
+                 GrpName1New = modelList_GrpCategory.get(pos).getSubCatName();
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
+                // TODO Auto-generated method stub
+            }
+        });
+
 
         RRAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                String GrpName=edtName.getText().toString();
-                if(GrpName.equalsIgnoreCase(""))
+                //String GrpName=edtName.getText().toString();
+                if(GrpName1New.equalsIgnoreCase(""))
                 {
-                    Toast.makeText(SetBudgetActivity.this, "Please Enter Group Name.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SetBudgetActivity.this, "Please Select Group Name.", Toast.LENGTH_SHORT).show();
 
                 }else
                 {
-                    alertDialog.dismiss();
-
                     if (sessionManager.isNetworkAvailable()) {
                         binding.progressBar.setVisibility(View.VISIBLE);
-                        AddGrpMethod(GrpName);
+                        AddGrpMethod(GrpName1New);
                     }else {
                         Toast.makeText(SetBudgetActivity.this, R.string.checkInternet, Toast.LENGTH_SHORT).show();
                     }
+
+                    alertDialog.dismiss();
                 }
             }
         });
@@ -170,7 +199,6 @@ public class SetBudgetActivity extends AppCompatActivity {
     }
 
     public void getExpenceMethod(){
-
         binding.progressBar.setVisibility(View.VISIBLE);
         Call<GetSetbudgetExpence> call = RetrofitClients.getInstance().getApi()
                 .Api_get_group_expence(sessionManager.getUserID(),sessionManager.getAccontId());
@@ -180,7 +208,6 @@ public class SetBudgetActivity extends AppCompatActivity {
             public void onResponse(Call<GetSetbudgetExpence> call, Response<GetSetbudgetExpence> response) {
                 binding.progressBar.setVisibility(View.GONE);
                 try {
-
                     GetSetbudgetExpence finallyPr = response.body();
 
                     if (finallyPr.getStatus().equalsIgnoreCase("1")) {
@@ -207,7 +234,6 @@ public class SetBudgetActivity extends AppCompatActivity {
     }
 
     public void DeleteGrpMethod(String id){
-
         binding.progressBar.setVisibility(View.VISIBLE);
         Call<ResponseBody> call = RetrofitClients.getInstance().getApi()
                 .Api_delete_group(id);
@@ -230,6 +256,35 @@ public class SetBudgetActivity extends AppCompatActivity {
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 binding.progressBar.setVisibility(View.GONE);
                 binding.txtEmty.setVisibility(View.VISIBLE);
+            }
+        });
+    }
+
+
+    private void GetGrpCategoryMethod(){
+        binding.progressBar.setVisibility(View.VISIBLE);
+        Call<GetMainGrpCategory> call = RetrofitClients.getInstance().getApi()
+                .GetGrpCategory();
+        call.enqueue(new Callback<GetMainGrpCategory>() {
+            @RequiresApi(api = Build.VERSION_CODES.GINGERBREAD)
+            @Override
+            public void onResponse(Call<GetMainGrpCategory> call, Response<GetMainGrpCategory> response) {
+                binding.progressBar.setVisibility(View.GONE);
+                try {
+                    GetMainGrpCategory finallyPr = response.body();
+                    if (finallyPr.getStatus().equalsIgnoreCase("1")) {
+
+                        modelList_GrpCategory = (ArrayList<GetMainGrpCategory.Result>) finallyPr.getResult();
+
+                    }
+                }catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
+            }
+            @Override
+            public void onFailure(Call<GetMainGrpCategory> call, Throwable t) {
+                binding.progressBar.setVisibility(View.GONE);
             }
         });
     }

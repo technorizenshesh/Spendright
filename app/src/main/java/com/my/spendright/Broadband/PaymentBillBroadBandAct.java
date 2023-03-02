@@ -14,23 +14,16 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.my.spendright.ElectircalBill.Model.GetServiceElectricialModel;
-import com.my.spendright.ElectircalBill.UtilRetro.RetrofitSetup;
 import com.my.spendright.Model.TvSuscriptionServiceModel;
 import com.my.spendright.R;
-import com.my.spendright.TvCabelBill.PaymentInformationTvChangeAct;
-import com.my.spendright.TvCabelBill.PaymentInformationTvChangeInformationAct;
 import com.my.spendright.TvCabelBill.adapter.TvSusCriptionChnageAdapter;
 import com.my.spendright.adapter.ServicesAdapter;
-import com.my.spendright.airetime.ConfirmPaymentAireTimeAct;
-import com.my.spendright.databinding.ActivityPaymentBillAiretimeBinding;
 import com.my.spendright.databinding.ActivityPaymentBillBroadbandBinding;
-import com.my.spendright.utils.ApiNew;
+import com.my.spendright.utils.Preference;
+import com.my.spendright.utils.RetrofitClients;
 import com.my.spendright.utils.SessionManager;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -60,6 +53,8 @@ public class PaymentBillBroadBandAct extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding= DataBindingUtil.setContentView(this,R.layout.activity_payment_bill_broadband);
 
+
+
         sessionManager = new SessionManager(PaymentBillBroadBandAct.this);
 
         Intent intent=getIntent();
@@ -68,6 +63,8 @@ public class PaymentBillBroadBandAct extends AppCompatActivity {
         {
              myWalletBalace = intent.getStringExtra("Balance");
             binding.txtCurrentBalnce.setText(myWalletBalace);
+            binding.txtCountry.setCountryForPhoneCode(234);
+
         }
 
 
@@ -88,6 +85,7 @@ public class PaymentBillBroadBandAct extends AppCompatActivity {
 
                     }else
                     {
+                        phoneNumber = binding.txtCountry.getSelectedCountryCodeWithPlus()+ binding.edtPhone.getText().toString();
                         startActivity(new Intent(PaymentBillBroadBandAct.this, ConfirmPaymentBroadBandAct.class)
                                 .putExtra("ServicesId",ServicesId)
                                 .putExtra("ServicesName",ServicesName)
@@ -107,9 +105,8 @@ public class PaymentBillBroadBandAct extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View arg1, int pos, long arg3){
               ServicesId = modelListCategory.get(pos).getServiceID();
               ServicesName = modelListCategory.get(pos).getName();
-
-                binding.progressBar.setVisibility(View.VISIBLE);
-                ServiceSubscriptionPlanApi("harshit.ixora89@gmail.com","harshit89@");
+              binding.progressBar.setVisibility(View.VISIBLE);
+                ServiceSubscriptionPlanApi();
 
             }
             @Override
@@ -120,12 +117,11 @@ public class PaymentBillBroadBandAct extends AppCompatActivity {
 
         if (sessionManager.isNetworkAvailable()) {
             binding.progressBar.setVisibility(View.VISIBLE);
-            ServiceApi("harshit.ixora89@gmail.com","harshit89@");
+            ServiceApi();
+
         }else {
             Toast.makeText(PaymentBillBroadBandAct.this, R.string.checkInternet, Toast.LENGTH_SHORT).show();
         }
-
-
     }
 
 
@@ -150,10 +146,8 @@ public class PaymentBillBroadBandAct extends AppCompatActivity {
 
 
 
-    private void ServiceApi(final String username, final String password) {
-        ApiNew loginService =
-                RetrofitSetup.createService(ApiNew.class, username, password);
-        Call<GetServiceElectricialModel> call = loginService.Api_service_data();
+    private void ServiceApi() {
+        Call<GetServiceElectricialModel> call = RetrofitClients.getInstance().getApi().Api_service_data();
         call.enqueue(new Callback<GetServiceElectricialModel>() {
             @Override
             public void onResponse(@NonNull Call<GetServiceElectricialModel> call, @NonNull Response<GetServiceElectricialModel> response) {
@@ -179,10 +173,8 @@ public class PaymentBillBroadBandAct extends AppCompatActivity {
     }
 
 
-    private void ServiceSubscriptionPlanApi(final String username, final String password) {
-        ApiNew loginService =
-                RetrofitSetup.createService(ApiNew.class, username, password);
-        Call<TvSuscriptionServiceModel> call = loginService.Api_service_data_plan(ServicesId);
+    private void ServiceSubscriptionPlanApi() {
+        Call<TvSuscriptionServiceModel> call = RetrofitClients.getInstance().getApi().Api_service_data_plan(ServicesId);
         call.enqueue(new Callback<TvSuscriptionServiceModel>() {
             @Override
             public void onResponse(@NonNull Call<TvSuscriptionServiceModel> call, @NonNull Response<TvSuscriptionServiceModel> response) {

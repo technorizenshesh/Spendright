@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.Toast;
 import com.my.spendright.Model.AddAcountModel;
 import com.my.spendright.Model.GetAccountCategory;
+import com.my.spendright.NumberTextWatcher;
 import com.my.spendright.R;
 import com.my.spendright.act.SetBudget.SetBudgetActivity;
 import com.my.spendright.adapter.CategoryAdapter;
@@ -41,6 +42,8 @@ public class AddActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding= DataBindingUtil.setContentView(this,R.layout.activity_add);
 
+        binding.edtHolderBalnce.addTextChangedListener(new NumberTextWatcher(binding.edtHolderBalnce,"#,###"));
+
         sessionManager = new SessionManager(AddActivity.this);
 
          binding.imgBack.setOnClickListener(v -> {
@@ -53,12 +56,11 @@ public class AddActivity extends AppCompatActivity {
 
           binding.spinnerCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View arg1, int pos, long arg3){
-
                CategoryAccountId = modelListCategory.get(pos).getId();
-
             }
             @Override
-            public void onNothingSelected(AdapterView<?> arg0) {
+            public void onNothingSelected(AdapterView<?> arg0)
+            {
                 // TODO Auto-generated method stub
             }
         });
@@ -95,7 +97,6 @@ public class AddActivity extends AppCompatActivity {
 
     private void GetAccountCategoryMethod()
     {
-
         Call<GetAccountCategory> call = RetrofitClients.getInstance().getApi()
                 .Api_get_account_category();
         call.enqueue(new Callback<GetAccountCategory>() {
@@ -126,6 +127,7 @@ public class AddActivity extends AppCompatActivity {
                 Toast.makeText(AddActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+
     }
 
     private void AddAccountMethod(){
@@ -143,8 +145,7 @@ public class AddActivity extends AppCompatActivity {
                     if (finallyPr.getStatus().equalsIgnoreCase("1")) {
 
                         sessionManager.saveAccountId(finallyPr.getResult().getId());
-                        startActivity(new Intent(AddActivity.this, SetBudgetActivity.class));
-
+                        startActivity(new Intent(AddActivity.this, HomeActivity.class));
                         Toast.makeText(AddActivity.this, ""+finallyPr.getMessage(), Toast.LENGTH_SHORT).show();
 
                     } else {

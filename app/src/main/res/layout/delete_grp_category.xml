@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/blue"
+    >
+
+    <RelativeLayout
+        android:id="@+id/RRtolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_50sdp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Delete"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_18sdp"
+            android:textStyle="bold">
+
+        </TextView>
+
+        <RelativeLayout
+            android:id="@+id/RRcross"
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true">
+
+            <ImageView
+                android:layout_width="@dimen/_25sdp"
+                android:layout_height="@dimen/_25sdp"
+                android:layout_centerInParent="true"
+                android:src="@drawable/close_blue"></ImageView>
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/RRtolbar"
+        android:orientation="vertical"
+        android:padding="@dimen/_10sdp">
+
+        <RelativeLayout
+            android:id="@+id/RRSelctDay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/MontEnd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:text="Select Monthly End Date"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_14sdp"
+                android:textStyle="bold">
+
+            </TextView>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_45sdp"
+                android:layout_below="@+id/MontEnd"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/btn_new">
+
+                <Spinner
+                    android:id="@+id/spinnerMonthDays"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_toLeftOf="@+id/imgmonth"
+                    android:background="@android:color/transparent"
+                    android:backgroundTint="@color/black"
+                    android:visibility="visible" />
+
+                <ImageView
+                    android:id="@+id/imgmonth"
+                    android:layout_width="@dimen/_12sdp"
+                    android:layout_height="@dimen/_12sdp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/_10sdp"
+                    android:src="@drawable/arrow_btm">
+
+                </ImageView>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/RRselectWeeks"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/WeekEnd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:text="Select Weekly End Day"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_14sdp"
+                android:textStyle="bold">
+
+            </TextView>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_45sdp"
+                android:layout_below="@+id/WeekEnd"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/btn_new">
+
+                <Spinner
+                    android:id="@+id/spinnerWeeks"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_toLeftOf="@+id/imgWeeks"
+                    android:background="@android:color/transparent"
+                    android:backgroundTint="@color/black"
+                    android:visibility="visible" />
+
+                <ImageView
+                    android:id="@+id/imgWeeks"
+                    android:layout_width="@dimen/_12sdp"
+                    android:layout_height="@dimen/_12sdp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/_10sdp"
+                    android:src="@drawable/arrow_btm">
+
+                </ImageView>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+
+        <TextView
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Do you want to delete this category"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_14sdp"
+            android:textStyle="bold">
+
+        </TextView>
+
+        <RelativeLayout
+            android:id="@+id/RRDelete"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:background="@drawable/border_btn">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="20sp"
+                android:text="Delete"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_16sdp"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

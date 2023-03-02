@@ -38,6 +38,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.my.spendright.Model.LoginModel;
 import com.my.spendright.R;
 import com.my.spendright.databinding.ActivityLoginBinding;
@@ -67,13 +68,20 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     LoginButton loginButton;
 
     private SessionManager sessionManager;
+    String newToken="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         binding= DataBindingUtil.setContentView(this,R.layout.activity_login);
 
         sessionManager = new SessionManager(LoginActivity.this);
+
+        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(runnable -> {
+            newToken = runnable.getToken();
+            Log.e( "Tokennnn" ,newToken);
+        });
 
         try {
             PackageInfo info = this.getPackageManager().getPackageInfo(this.getPackageName(), PackageManager.GET_SIGNATURES);
@@ -151,7 +159,9 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         });
 
         binding.txtRegistration.setOnClickListener(v -> {
+
             startActivity(new Intent(LoginActivity.this,Registration.class));
+
         });
     }
 
@@ -179,8 +189,17 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         if (result.isSuccess()) {
             GoogleSignInAccount account = result.getSignInAccount();
             String UserName=account.getDisplayName();
-            startActivity(new Intent(LoginActivity.this,HomeActivity.class));
-            Toast.makeText(LoginActivity.this, "successful"+UserName, Toast.LENGTH_SHORT).show();
+            String email=account.getEmail();
+            String phone="";
+            String SocialId=account.getIdToken();
+
+            if (sessionManager.isNetworkAvailable()) {
+                binding.progressBar.setVisibility(View.VISIBLE);
+                SocialLoginMethod(SocialId,phone,email,UserName,"Google");
+            }else {
+                Toast.makeText(LoginActivity.this, R.string.checkInternet, Toast.LENGTH_SHORT).show();
+            }
+
         } else {
             Toast.makeText( this, "Login Unsuccessful", Toast.LENGTH_SHORT ).show();
         }
@@ -205,7 +224,15 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                             String UsernAME=user.getDisplayName();
                             String email=user.getEmail();
                             String SocialId=user.getUid();
+                            String mobile=user.getPhoneNumber();
                             Uri Url=user.getPhotoUrl();
+
+                            if (sessionManager.isNetworkAvailable()) {
+                                binding.progressBar.setVisibility(View.VISIBLE);
+                                SocialLoginMethod(SocialId,mobile,email,UsernAME,"Facebook");
+                            }else {
+                                Toast.makeText(LoginActivity.this, R.string.checkInternet, Toast.LENGTH_SHORT).show();
+                            }
 
                          /*   Socilal_FirstName=user.getDisplayName();
                             Socilal_last_name="";
@@ -230,9 +257,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                                 Toast.makeText(LoginActivity.this, R.string.checkInternet, Toast.LENGTH_SHORT).show();
                             }
 */
-                            startActivity(new Intent(LoginActivity.this,HomeActivity.class));
-
-                            Toast.makeText(LoginActivity.this, ""+UsernAME, Toast.LENGTH_SHORT).show();
+                           // startActivity(new Intent(LoginActivity.this,HomeActivity.class));
                         } else {
 
                             Toast.makeText(LoginActivity.this, ""+task.getException(), Toast.LENGTH_SHORT).show();
@@ -265,7 +290,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
     private void loginMethod(){
         Call<LoginModel> call = RetrofitClients.getInstance().getApi()
-                .Api_login(binding.edtEmail.getText().toString(),binding.edtPassword.getText().toString());
+                .Api_login(binding.edtEmail.getText().toString(),binding.edtPassword.getText().toString(),newToken);
         call.enqueue(new Callback<LoginModel>() {
             @RequiresApi(api = Build.VERSION_CODES.GINGERBREAD)
             @Override
@@ -275,8 +300,8 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                     LoginModel finallyPr = response.body();
 
                     if (finallyPr.getStatus().equalsIgnoreCase("1")) {
-                      sessionManager.saveUserId(finallyPr.getResult().getId());
-                        startActivity(new Intent(LoginActivity.this,LoginOne.class));
+                        sessionManager.saveUserId(finallyPr.getResult().getId());
+                        startActivity(new Intent(LoginActivity.this,HomeActivity.class));
                         finish();
                     } else {
                         Toast.makeText(LoginActivity.this, ""+finallyPr.getMessage(), Toast.LENGTH_SHORT).show();
@@ -286,6 +311,40 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 }catch (Exception e)
                 {
                     Toast.makeText(LoginActivity.this, "Don't match email/mobile password", Toast.LENGTH_SHORT).show();
+                    e.printStackTrace();
+                }
+            }
+            @Override
+            public void onFailure(Call<LoginModel> call, Throwable t) {
+                binding.progressBar.setVisibility(View.GONE);
+                Toast.makeText(LoginActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void SocialLoginMethod(String SocilId,String mobile,String email,String Fname,String type){
+        Call<LoginModel> call = RetrofitClients.getInstance().getApi()
+                .Api_social_login(SocilId,mobile,email,Fname,type,newToken,"75.00","75.00","img.png");
+        call.enqueue(new Callback<LoginModel>() {
+            @RequiresApi(api = Build.VERSION_CODES.GINGERBREAD)
+            @Override
+            public void onResponse(Call<LoginModel> call, Response<LoginModel> response) {
+                binding.progressBar.setVisibility(View.GONE);
+                try {
+                    LoginModel finallyPr = response.body();
+                    String status = finallyPr.getStatus();
+
+                    if (status.equalsIgnoreCase("1")) {
+                        sessionManager.saveUserId(finallyPr.getResult().getId());
+                        //startActivity(new Intent(Registration.this,RegistrationOne.class));
+                        startActivity(new Intent(LoginActivity.this,HomeActivity.class));
+                        finish();
+                    } else {
+                        Toast.makeText(LoginActivity.this, ""+finallyPr.getStatus(), Toast.LENGTH_SHORT).show();
+                        binding.progressBar.setVisibility(View.GONE);
+                    }
+                }catch (Exception e)
+                {
                     e.printStackTrace();
                 }
             }

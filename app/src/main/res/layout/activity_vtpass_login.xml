@@ -34,13 +34,15 @@
                 android:layout_height="@dimen/_20sdp"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/_10sdp"
-                android:src="@drawable/left_arraow"></ImageView>
+                android:src="@drawable/left_arraow">
+
+            </ImageView>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:text="Vtpass Login"
+                android:text="Payment Login"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_14sdp"
                 android:textStyle="bold" />
@@ -69,7 +71,8 @@
                 android:text="Please enter UserName Password"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_20sdp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:visibility="gone" />
 
 
             <TextView
@@ -106,9 +109,11 @@
                     android:hint="Your email/ phone number"
                     android:inputType="text"
                     android:padding="@dimen/_5sdp"
-                    android:text="harshit.ixora89@gmail.com"
+                    android:text=""
                     android:textColor="@color/black"
-                    android:textColorHint="@color/black"></EditText>
+                    android:textColorHint="@color/black">
+
+                </EditText>
 
             </LinearLayout>
 
@@ -149,10 +154,10 @@
                     android:layout_gravity="center"
                     android:layout_marginLeft="@dimen/_5sdp"
                     android:background="@null"
-                    android:hint="****************"
+                    android:hint="password"
                     android:inputType="textPassword"
                     android:padding="@dimen/_5sdp"
-                    android:text="harshit89@"
+                    android:text=""
                     android:textColor="@color/black"
                     android:textColorHint="@color/black">
 
@@ -180,7 +185,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="20sp"
-                    android:text="Vts Login"
+                    android:text="Payment Login"
                     android:textColor="@color/white"
                     android:textSize="@dimen/_16sdp"
                     android:textStyle="bold" />

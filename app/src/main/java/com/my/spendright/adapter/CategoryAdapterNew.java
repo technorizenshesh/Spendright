@@ -52,7 +52,7 @@ public class CategoryAdapterNew extends BaseAdapter {
        countrycode = (TextView) view.findViewById(R.id.textview);
         // icon.setImageResource(flags[i]);
       //countrycode.setText(code[i]);
-       countrycode.setText(code.get(i).getAccountName());
+       countrycode.setText(code.get(i).getHolderName());
 
         return view;
 

@@ -7,6 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         >
+
         <ProgressBar
             android:layout_width="40dp"
             android:layout_height="40dp"
@@ -64,6 +65,7 @@
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:visibility="gone"
                     android:elevation="@dimen/_15sdp"
                     android:background="@drawable/border_white_one"
                     android:layout_margin="@dimen/_10sdp"
@@ -72,18 +74,119 @@
                     >
 
                     <ImageView
-                        android:layout_centerInParent="true"
-                        android:src="@drawable/reminder"
-                        android:layout_marginTop="@dimen/_10sdp"
                         android:layout_width="@dimen/_100sdp"
                         android:layout_height="@dimen/_100sdp"
-                        >
+                        android:layout_centerInParent="true"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:src="@drawable/reminder">
+
+                    </ImageView>
+
+                </RelativeLayout>
+
+                <TextView
+                    android:text="Payment Name"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:textSize="@dimen/_12sdp"
+                    android:textColor="@color/black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    />
+
+                <EditText
+                    android:id="@+id/edtPaymentType"
+                    android:hint=""
+                    android:layout_margin="@dimen/_5sdp"
+                    android:padding="@dimen/_10sdp"
+                    android:elevation="@dimen/_10sdp"
+                    android:inputType="text"
+                    android:textColorHint="@color/black"
+                    android:textColor="@color/black"
+                    android:background="@drawable/border_white_one"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_45sdp"
+                    >
+                </EditText>
+
+
+                <RelativeLayout
+                    android:visibility="gone"
+                    android:layout_margin="@dimen/_5sdp"
+                    android:elevation="@dimen/_10sdp"
+                    android:layout_below="@+id/month"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@drawable/btn_new"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_45sdp"
+                    >
+
+                    <Spinner
+                        android:id="@+id/spinnerTypePayment"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_toLeftOf="@+id/imgtype"
+                        android:background="@android:color/transparent"
+                        android:backgroundTint="@color/black"
+                        android:visibility="visible" />
+
+                    <ImageView
+                        android:layout_marginRight="@dimen/_10sdp"
+                        android:id="@+id/imgtype"
+                        android:layout_width="@dimen/_12sdp"
+                        android:layout_height="@dimen/_12sdp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/arrow_btm">
+
+                    </ImageView>
+
+                </RelativeLayout>
+
+                <TextView
+                    android:text="Category"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:textSize="@dimen/_12sdp"
+                    android:textColor="@color/black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    />
+
+                <RelativeLayout
+                    android:layout_margin="@dimen/_5sdp"
+                    android:elevation="@dimen/_10sdp"
+                    android:layout_below="@+id/month"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@drawable/btn_new"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_45sdp"
+                    >
+
+                    <Spinner
+                        android:id="@+id/spinnerCategory1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_toLeftOf="@+id/imgCategory"
+                        android:background="@android:color/transparent"
+                        android:backgroundTint="@color/black"
+                        android:visibility="visible" />
+
+                    <ImageView
+                        android:layout_marginRight="@dimen/_10sdp"
+                        android:id="@+id/imgCategory"
+                        android:layout_width="@dimen/_12sdp"
+                        android:layout_height="@dimen/_12sdp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/arrow_btm">
 
                     </ImageView>
 
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:visibility="gone"
                     android:background="@drawable/border_white_one"
                     android:layout_margin="@dimen/_5sdp"
                     android:elevation="@dimen/_10sdp"
@@ -105,7 +208,7 @@
                     </TextView>
 
                     <Spinner
-                        android:layout_toRightOf="@+id/img"
+                        android:layout_toRightOf="@+id/imgType"
                         android:layout_toLeftOf="@+id/imgType"
                         android:visibility="gone"
                         android:id="@+id/spinnerCategoryType"
@@ -129,19 +232,8 @@
                 </RelativeLayout>
 
 
-
-                <TextView
-                    android:text="Category"
-                    android:layout_marginLeft="@dimen/_10sdp"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    android:textSize="@dimen/_12sdp"
-                    android:textColor="@color/black"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    />
-
-
                 <EditText
+                    android:visibility="gone"
                     android:drawableRight="@drawable/bottom_arrow"
                     android:hint="Investment"
                     android:layout_margin="@dimen/_5sdp"
@@ -168,11 +260,14 @@
                     />
 
                 <EditText
+                    android:drawableLeft="@drawable/doller"
+                    android:drawablePadding="@dimen/_3sdp"
+                    android:id="@+id/edtAmt"
                     android:hint="10.00"
                     android:layout_margin="@dimen/_5sdp"
                     android:padding="@dimen/_10sdp"
                     android:elevation="@dimen/_10sdp"
-                    android:inputType="number"
+                    android:inputType="numberDecimal"
                     android:textColorHint="@color/black"
                     android:textColor="@color/black"
                     android:background="@drawable/border_white_one"
@@ -209,6 +304,7 @@
                 </TextView>
 
                 <TextView
+                    android:visibility="gone"
                     android:layout_marginLeft="@dimen/_10sdp"
                     android:text="Frequency:"
                     android:layout_marginTop="@dimen/_5sdp"
@@ -219,6 +315,7 @@
                     />
 
                 <EditText
+                    android:visibility="gone"
                     android:drawablePadding="@dimen/_10sdp"
                     android:drawableRight="@drawable/bottom_arrow"
                     android:hint="Daily"
@@ -256,15 +353,13 @@
 
 
                     <Spinner
-                        android:layout_toRightOf="@+id/img"
-                        android:layout_toLeftOf="@+id/imgState"
-                        android:visibility="visible"
                         android:id="@+id/spinnerCategory"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:layout_toLeftOf="@+id/imgState"
                         android:background="@android:color/transparent"
                         android:backgroundTint="@color/black"
-                        />
+                        android:visibility="visible" />
 
                     <ImageView
                         android:layout_marginRight="@dimen/_5sdp"

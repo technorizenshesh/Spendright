@@ -17,12 +17,12 @@ public class FIlterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
        binding= DataBindingUtil.setContentView(this,R.layout.activity_filter);
 
-       binding.imgBack.setOnClickListener(v -> {
+      /* binding.imgBack.setOnClickListener(v -> {
            finish();
        });
 
        binding.RRFilter.setOnClickListener(v -> {
            finish();
-       });
+       });*/
     }
 }

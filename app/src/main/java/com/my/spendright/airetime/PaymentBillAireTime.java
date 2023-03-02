@@ -3,10 +3,8 @@ package com.my.spendright.airetime;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -14,16 +12,14 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
-import com.my.spendright.ElectircalBill.Model.GetMerchatAcocunt;
 import com.my.spendright.ElectircalBill.Model.GetServiceElectricialModel;
 import com.my.spendright.ElectircalBill.UtilRetro.RetrofitSetup;
+import com.my.spendright.NumberTextWatcher;
 import com.my.spendright.R;
-import com.my.spendright.act.PaymentInformation;
-import com.my.spendright.adapter.ServicesAdapter;
 import com.my.spendright.airetime.adapter.ServicesAireAdapter;
 import com.my.spendright.databinding.ActivityPaymentBillAiretimeBinding;
-import com.my.spendright.databinding.ActivityPaymentBillBinding;
-import com.my.spendright.utils.ApiNew;
+import com.my.spendright.utils.Preference;
+import com.my.spendright.utils.RetrofitClients;
 import com.my.spendright.utils.SessionManager;
 
 import java.util.ArrayList;
@@ -51,22 +47,27 @@ public class PaymentBillAireTime extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding= DataBindingUtil.setContentView(this,R.layout.activity_payment_bill_airetime);
 
+        binding.edtAmt.addTextChangedListener(new NumberTextWatcher(binding.edtAmt,"#,###"));
+
         sessionManager = new SessionManager(PaymentBillAireTime.this);
 
         Intent intent=getIntent();
 
         if(intent!=null)
         {
-             myWalletBalace = intent.getStringExtra("Balance");
+            myWalletBalace = intent.getStringExtra("Balance");
             binding.txtCurrentBalnce.setText(myWalletBalace);
+            binding.txtCountry.setCountryForPhoneCode(234);
+
         }
 
         binding.RRPay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 {
-                     phoneNumber = binding.edtPhone.getText().toString();
-                     Amount = binding.edtAmt.getText().toString();
+
+                    phoneNumber =  binding.edtPhone.getText().toString();
+                    Amount = binding.edtAmt.getText().toString();
 
                     if(phoneNumber.equalsIgnoreCase(""))
                     {
@@ -78,6 +79,8 @@ public class PaymentBillAireTime extends AppCompatActivity {
 
                     }else
                     {
+                        phoneNumber = binding.txtCountry.getSelectedCountryCodeWithPlus()+ binding.edtPhone.getText().toString();
+
                         startActivity(new Intent(PaymentBillAireTime.this, ConfirmPaymentAireTimeAct.class)
                                 .putExtra("ServicesId",ServicesId)
                                 .putExtra("ServicesName",ServicesName)
@@ -96,8 +99,11 @@ public class PaymentBillAireTime extends AppCompatActivity {
 
                 if(modelListCategory.get(pos).getServiceID().equalsIgnoreCase("foreign-airtime"))
                 {
+
+
                     Intent intent1=new Intent(PaymentBillAireTime.this,PaymentBillInterNational.class);
                     intent1.putExtra("MyCuurentBlance",myWalletBalace);
+                    intent1.putExtra("SerVicesName",modelListCategory.get(pos).getName());
                     startActivity(intent1);
                     finish();
 
@@ -121,16 +127,16 @@ public class PaymentBillAireTime extends AppCompatActivity {
 
         if (sessionManager.isNetworkAvailable()) {
             binding.progressBar.setVisibility(View.VISIBLE);
-            ServiceApi("harshit.ixora89@gmail.com","harshit89@");
+
+
+            ServiceApi();
         }else {
             Toast.makeText(PaymentBillAireTime.this, R.string.checkInternet, Toast.LENGTH_SHORT).show();
         }
     }
 
-    private void ServiceApi(final String username, final String password) {
-        ApiNew loginService =
-                RetrofitSetup.createService(ApiNew.class, username, password);
-        Call<GetServiceElectricialModel> call = loginService.Api_service_airtime();
+    private void ServiceApi() {
+        Call<GetServiceElectricialModel> call = RetrofitClients.getInstance().getApi().Api_service_airtime();
         call.enqueue(new Callback<GetServiceElectricialModel>() {
             @Override
             public void onResponse(@NonNull Call<GetServiceElectricialModel> call, @NonNull Response<GetServiceElectricialModel> response) {

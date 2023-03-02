@@ -42,16 +42,16 @@
                 >
 
                 <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
-                    android:textStyle="bold"
+                    android:layout_gravity="center"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:gravity="center"
-                    android:layout_gravity="center"
+                    android:text="Do you want to delete this group?"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/_18sdp"
-                    android:text="Are you sure delete this group."
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:textSize="@dimen/_16sdp"
+                   >
 
                 </TextView>
 

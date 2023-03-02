@@ -117,6 +117,56 @@ public class GetProfileModel {
         @Expose
         private String dateTime;
 
+        @SerializedName("monnify_accountReference")
+        @Expose
+        private String monnifyAccountReference;
+
+        @SerializedName("batch_id")
+        @Expose
+        private String batchId;
+
+        @SerializedName("check_user")
+        @Expose
+        private String checkUser;
+
+        @SerializedName("payment_wallet")
+        @Expose
+        private String paymentWallet;
+
+        public String getPaymentWallet() {
+            return paymentWallet;
+        }
+
+        public void setPaymentWallet(String paymentWallet) {
+            this.paymentWallet = paymentWallet;
+        }
+
+        public String getCheckUser() {
+            return checkUser;
+        }
+
+        public void setCheckUser(String checkUser) {
+            this.checkUser = checkUser;
+        }
+
+        public String getBatchId() {
+            return batchId;
+        }
+
+        public void setBatchId(String batchId) {
+            this.batchId = batchId;
+        }
+
+        public String getMonnifyAccountReference() {
+            return monnifyAccountReference;
+        }
+
+        public void setMonnifyAccountReference(String monnifyAccountReference) {
+            this.monnifyAccountReference = monnifyAccountReference;
+        }
+
+
+
         public String getId() {
             return id;
         }
@@ -289,6 +339,7 @@ public class GetProfileModel {
 
     public class AccountDetail {
 
+
         @SerializedName("id")
         @Expose
         private String id;
@@ -307,6 +358,9 @@ public class GetProfileModel {
         @SerializedName("account_name")
         @Expose
         private String accountName;
+        @SerializedName("total")
+        @Expose
+        private String total;
 
         public String getId() {
             return id;
@@ -354,6 +408,14 @@ public class GetProfileModel {
 
         public void setAccountName(String accountName) {
             this.accountName = accountName;
+        }
+
+        public String getTotal() {
+            return total;
+        }
+
+        public void setTotal(String total) {
+            this.total = total;
         }
 
     }

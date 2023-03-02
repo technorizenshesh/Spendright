@@ -36,7 +36,7 @@
                     android:layout_gravity="center"
                     android:layout_marginTop="@dimen/_5sdp"
                     android:fontFamily="@font/poppinsregular"
-                    android:text="Add Your Bank Accounts"
+                    android:text="Add Your Accounts"
                     android:textColor="@color/white"
                     android:textSize="@dimen/_14sdp" />
 
@@ -47,7 +47,7 @@
                     android:fontFamily="@font/poppinsregular"
                     android:gravity="center"
                     android:padding="@dimen/_7sdp"
-                    android:text="Now That You’ve Estimated Some expenses lets see how much money you have right now."
+                    android:text="Set your budget and start tracking your expenses."
                     android:textColor="@color/white"
                     android:textSize="@dimen/_10sdp" />
 

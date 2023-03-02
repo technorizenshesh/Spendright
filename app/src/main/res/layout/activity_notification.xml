@@ -8,7 +8,6 @@
     <RelativeLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:background="@color/white"
         android:layout_height="wrap_content"
         >
 
@@ -37,7 +36,7 @@
                 android:textSize="@dimen/_14sdp"
                 android:layout_centerInParent="true"
                 android:textColor="@color/black"
-                android:text="Add Account"
+                android:text="Notifications"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 />
@@ -112,7 +111,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="Read More"
-                                    android:textColor="@color/orange"
+                                    android:textColor="@color/black"
                                     android:textSize="@dimen/_12sdp"
                                     />
 
@@ -188,7 +187,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="Read More"
-                                    android:textColor="@color/orange"
+                                    android:textColor="@color/black"
                                     android:textSize="@dimen/_12sdp"
                                     />
 
@@ -265,7 +264,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="Read More"
-                                    android:textColor="@color/orange"
+                                    android:textColor="@color/black"
                                     android:textSize="@dimen/_12sdp"
                                     />
 
@@ -341,7 +340,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="Read More"
-                                    android:textColor="@color/orange"
+                                    android:textColor="@color/black"
                                     android:textSize="@dimen/_12sdp"
                                     />
 

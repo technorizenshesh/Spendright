@@ -19,7 +19,7 @@
             android:textStyle="bold"
             android:textColor="@color/white"
             android:textSize="@dimen/_18sdp"
-            android:text="Category Add"
+            android:text="Add Category"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
@@ -31,17 +31,16 @@
             android:layout_width="@dimen/_50sdp"
             android:layout_height="match_parent"
             >
+
             <ImageView
                 android:layout_centerInParent="true"
                 android:src="@drawable/close_blue"
                 android:layout_width="@dimen/_25sdp"
                 android:layout_height="@dimen/_25sdp"
                 >
-
             </ImageView>
 
         </RelativeLayout>
-
 
 
     </RelativeLayout>
@@ -54,11 +53,86 @@
         android:layout_height="match_parent"
         >
 
+        <RelativeLayout
+            android:layout_marginTop="@dimen/_10sdp"
+            android:id="@+id/RRselectMOnth"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
 
+            <TextView
+                android:id="@+id/month"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:text="Current Month"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_14sdp"
+                android:textStyle="bold">
+
+            </TextView>
+
+            <RelativeLayout
+                android:layout_below="@+id/month"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_45sdp"
+                android:background="@drawable/btn_new"
+                >
+
+                <TextView
+                    android:id="@+id/txtCurrentMonth"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:inputType="text"
+                    android:maxLength="11"
+                    android:padding="@dimen/_10sdp"
+                    android:text=""
+                    android:textColor="@color/gray"
+                    android:textSize="@dimen/_14sdp">
+
+                </TextView>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:visibility="gone"
+                android:layout_below="@+id/month"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/btn_new"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_45sdp"
+                >
+
+                <Spinner
+                    android:id="@+id/spinnerMonth"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_toLeftOf="@+id/imgMnth"
+                    android:background="@android:color/transparent"
+                    android:backgroundTint="@color/black"
+                    android:visibility="visible" />
+
+                <ImageView
+                    android:layout_marginRight="@dimen/_10sdp"
+                    android:id="@+id/imgMnth"
+                    android:layout_width="@dimen/_12sdp"
+                    android:layout_height="@dimen/_12sdp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/arrow_btm">
+
+                </ImageView>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
 
         <TextView
             android:textStyle="bold"
-            android:layout_marginTop="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_10sdp"
             android:textColor="@color/white"
             android:inputType="text"
             android:layout_width="wrap_content"
@@ -77,14 +151,14 @@
             >
 
             <TextView
-                android:textColor="@color/black"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/_10sdp"
                 android:id="@+id/txtSelectMonth"
-                android:inputType="text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:inputType="text"
                 android:text="Select Monthly/Weekly"
+                android:textColor="@color/black"
                 android:textSize="@dimen/_14sdp">
 
             </TextView>
@@ -104,7 +178,6 @@
 
         <RelativeLayout
             android:layout_marginTop="@dimen/_10sdp"
-            android:visibility="gone"
             android:id="@+id/RRSelctDay"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -117,7 +190,7 @@
                 android:inputType="text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Select End Monthly Date"
+                android:text="Select Monthly End Date"
                 android:textSize="@dimen/_14sdp">
 
             </TextView>
@@ -131,14 +204,13 @@
                 >
 
                 <Spinner
-                    android:layout_toLeftOf="@+id/imgmonth"
-                    android:visibility="visible"
                     android:id="@+id/spinnerMonthDays"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_toLeftOf="@+id/imgmonth"
                     android:background="@android:color/transparent"
                     android:backgroundTint="@color/black"
-                    />
+                    android:visibility="visible" />
 
                 <ImageView
                     android:layout_marginRight="@dimen/_10sdp"
@@ -170,7 +242,7 @@
                 android:inputType="text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Select End Weekly Day"
+                android:text="Select Weekly End Day"
                 android:textSize="@dimen/_14sdp">
 
             </TextView>
@@ -208,11 +280,6 @@
 
         </RelativeLayout>
 
-
-
-
-
-
         <RelativeLayout
             android:layout_marginTop="@dimen/_10sdp"
             android:layout_width="match_parent"
@@ -221,15 +288,15 @@
             >
 
             <EditText
-                android:textColor="@color/black"
                 android:id="@+id/edtCategoryName"
-                android:maxLength="11"
-                android:inputType="text"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@null"
                 android:hint="Category Name"
+                android:inputType="text"
+                android:maxLength="30"
                 android:padding="@dimen/_10sdp"
+                android:textColor="@color/black"
                 android:textSize="@dimen/_14sdp">
 
             </EditText>
@@ -244,15 +311,17 @@
             >
 
             <EditText
-                android:textColor="@color/black"
                 android:id="@+id/edtAmt"
-                android:maxLength="11"
-                android:inputType="number"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@null"
+                android:drawableLeft="@drawable/doller"
+                android:drawablePadding="@dimen/_3sdp"
                 android:hint="Budget Amount"
+                android:inputType="number"
+                android:maxLength="11"
                 android:padding="@dimen/_10sdp"
+                android:textColor="@color/black"
                 android:textSize="@dimen/_14sdp">
 
             </EditText>

@@ -52,7 +52,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
-                        android:text="Verification Bill Number"
+                        android:text="Enter Details"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_14sdp"
                         android:textStyle="bold" />
@@ -62,14 +62,15 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:visibility="gone">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_10sdp"
                         android:gravity="center"
-                        android:text="Current Balnce Vtpass : "
+                        android:text="Current Balance Vtpass : "
                         android:textColor="@color/black"
                         android:textSize="@dimen/_14sdp" />
 
@@ -90,7 +91,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_20sdp"
                     android:gravity="center"
-                    android:text="Select One-"
+                    android:text="Meter Number"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_14sdp"
                     android:textStyle="bold" />
@@ -108,6 +109,7 @@
 
                     </ImageView>
 
+                    <!-- 1111111111111-->
                     <EditText
                         android:id="@+id/edtBillNumber"
                         android:layout_width="match_parent"
@@ -115,9 +117,9 @@
                         android:layout_gravity="center"
                         android:layout_marginLeft="@dimen/_5sdp"
                         android:background="@null"
-                        android:text="1111111111111"
                         android:inputType="text"
                         android:padding="@dimen/_5sdp"
+                        android:text=""
                         android:textColor="@color/black"
                         android:textColorHint="@color/gray"
                         android:textSize="@dimen/_12sdp"
@@ -136,7 +138,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_20sdp"
                     android:gravity="center"
-                    android:text="Services id"
+                    android:text="Service ID"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_14sdp"
                     android:textStyle="bold" />
@@ -192,7 +194,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_20sdp"
                     android:gravity="center"
-                    android:text="Type"
+                    android:text="Service Type"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_14sdp"
                     android:textStyle="bold" />
@@ -222,7 +224,7 @@
                         android:layout_toRightOf="@+id/type"
                         android:gravity="center_vertical"
                         android:paddingLeft="@dimen/_10sdp"
-                        android:text="prepaid"
+                        android:text="Prepaid"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_16sdp"
                         android:visibility="visible" />

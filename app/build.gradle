@@ -3,16 +3,16 @@ plugins {
 }
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 31
     buildToolsVersion "30.0.3"
 
     defaultConfig {
         applicationId "com.my.spendright"
         minSdkVersion 21
-        targetSdkVersion 30
-        versionCode 1
-        versionName "1.0"
-
+        targetSdkVersion 31
+        versionCode 3
+        versionName "1.0.3"
+        multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -45,15 +45,15 @@ allprojects {
 }
 
 dependencies {
-    implementation 'androidx.core:core-ktx:1.7.0-alpha01'
+ //   implementation 'androidx.core:core-ktx:1.7.0-alpha01'
     implementation 'androidx.appcompat:appcompat:1.3.0'
-    implementation 'com.google.android.material:material:1.4.0'
+    implementation 'com.google.android.material:material:1.3.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.2'
     implementation 'androidx.navigation:navigation-fragment:2.2.2'
     implementation 'androidx.navigation:navigation-ui:2.2.2'
-    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.1'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1'
-    implementation 'com.android.support:appcompat-v7:30.0.0'
+   // implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.1'
+  //  implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1'
+    implementation 'com.android.support:appcompat-v7:31.0.0'
     implementation 'com.android.support.constraint:constraint-layout:2.0.4'
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
@@ -86,6 +86,35 @@ dependencies {
 
     //circle
     implementation 'de.hdodenhof:circleimageview:3.0.0'
+//
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+
+    //Firebase Token
+    implementation 'com.google.firebase:firebase-messaging:21.0.1'
+
+    //chat
+    implementation "com.google.firebase:firebase-database:18.0.1"
+    implementation 'com.google.firebase:firebase-messaging:20.1.0'
+    implementation 'com.google.firebase:firebase-core:18.0.0'
+ //   implementation 'com.github.shadowalker77:wp7progressbar:1.0.5'
+
+    implementation 'com.jjoe64:graphview:4.2.2'
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+    implementation 'com.github.blackfizz:eazegraph:1.2.5l@aar'
+    implementation 'com.nineoldandroids:library:2.4.0'
+
+    implementation 'com.hbb20:ccp:2.5.0'
+
+
+    // Monnify payment Gateway
+    implementation "com.monnify.android-sdk:monnify-android-sdk:1.1.4"
+
+
+    // Flutterwave payment Gateway
+    implementation 'com.github.flutterwave.rave-android:rave_android:2.1.39'
+
+    implementation 'androidx.multidex:multidex:2.0.1'
+
 
 }
 apply plugin: 'com.google.gms.google-services'

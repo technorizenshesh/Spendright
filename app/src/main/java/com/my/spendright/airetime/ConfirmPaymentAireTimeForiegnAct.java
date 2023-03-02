@@ -1,55 +1,74 @@
 package com.my.spendright.airetime;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
-import com.my.spendright.ElectircalBill.UtilRetro.RetrofitSetup;
-import com.my.spendright.Model.AddReportModal;
+import com.google.gson.Gson;
+import com.my.spendright.Model.GetCategoryModelNew;
+import com.my.spendright.Model.GetCommisionModel;
+import com.my.spendright.Model.GetProfileModel;
 import com.my.spendright.R;
+import com.my.spendright.act.HomeActivity;
 import com.my.spendright.act.PaymentComplete;
-import com.my.spendright.airetime.model.PayAirtimeModel;
+import com.my.spendright.adapter.CategoryAdapterNew;
 import com.my.spendright.databinding.ActivityConfirmForiengnBinding;
-import com.my.spendright.databinding.ActivityConfirmPaymentAirtimeBinding;
-import com.my.spendright.utils.ApiNew;
+import com.my.spendright.utils.Preference;
 import com.my.spendright.utils.RetrofitClients;
 import com.my.spendright.utils.SessionManager;
 
+import org.json.JSONObject;
+
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 import java.util.TimeZone;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ConfirmPaymentAireTimeForiegnAct extends AppCompatActivity {
-
+    public String TAG = "ConfirmPaymentAireTimeForiegnAct";
     ActivityConfirmForiengnBinding binding;
 
     String Request_IDNew="";
     private SessionManager sessionManager;
-    String serviceID="";
+    String serviceID="foreign-airtime";
     //String serviceID_sadBox="airtel-data";
     String billersCode="";
     String variation_code="";
     String Amount="";
+    String Finalamount="";
     String phone="";
     String operator_id="";
     String country_code="";
     String product_type_id="";
     String Email="";
-    String myWalletBalace="";
+    String myWalletBalace="0.0";
+    String SerVicesName="";
+    double walletAmount ;
+    GetProfileModel finallyPr;
+
+
+    private ArrayList<GetCategoryModelNew.Result> modelListCategory = new ArrayList<>();
+    String BudgetAccountId="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,21 +85,27 @@ public class ConfirmPaymentAireTimeForiegnAct extends AppCompatActivity {
 
         if(intent !=null)
         {
-            serviceID =intent.getStringExtra("ServicesId");
+            serviceID = "foreign-airtime";//intent.getStringExtra("ServicesId");
             billersCode =intent.getStringExtra("billersCode");
             variation_code =intent.getStringExtra("variation_code");
             Amount =intent.getStringExtra("amount");
-            phone =intent.getStringExtra("phone");
+            Finalamount =intent.getStringExtra("Finalamount");
+            String phone1 =intent.getStringExtra("phone");
+            phone ="+"+phone1;
             operator_id =intent.getStringExtra("operator_id");
             country_code =intent.getStringExtra("country_code");
             product_type_id =intent.getStringExtra("product_type_id");
             Email =intent.getStringExtra("email");
             myWalletBalace =intent.getStringExtra("myWalletBalace");
+            SerVicesName =intent.getStringExtra("SerVicesName");
 
-             binding.MyCuurentBlance.setText(myWalletBalace);
-             binding.AmountPay.setText(Amount);
-             binding.totalAmountPay.setText(Amount);
+             if(myWalletBalace == null || myWalletBalace.equalsIgnoreCase("")) myWalletBalace = "0.0";
+
+             binding.MyCuurentBlance.setText(Preference.doubleToStringNoDecimal(Double.parseDouble(myWalletBalace.replace(",",""))));
+             binding.AmountPay.setText(Preference.doubleToStringNoDecimal(Double.parseDouble(Finalamount.replace(",",""))));
+             binding.totalAmountPay.setText(Preference.doubleToStringNoDecimal(Double.parseDouble(Finalamount.replace(",",""))));
              binding.txtMobile.setText(phone);
+             binding.ServiceName.setText(SerVicesName);
         }
 
         binding.imgBack.setOnClickListener(v -> {
@@ -94,46 +119,115 @@ public class ConfirmPaymentAireTimeForiegnAct extends AppCompatActivity {
         binding.RRConfirm.setOnClickListener(v -> {
             if (sessionManager.isNetworkAvailable()) {
                 binding.progressBar.setVisibility(View.VISIBLE);
-                PyaAccoun("harshit.ixora89@gmail.com","harshit89@");
+                double t=0.0;
+                if(!binding.tax.getText().toString().equalsIgnoreCase("0.00"))
+                {
+                    t = Double.parseDouble(binding.tax.getText().toString()) + Double.parseDouble(Amount);
+                }
+                else t =  Double.parseDouble(Amount);
+
+                if(walletAmount >= t ) PyaAccoun();
+                else  AlertDialogStatus(getString(R.string.your_wallet_bal_is_low));
+
             }else {
                 Toast.makeText(this, R.string.checkInternet, Toast.LENGTH_SHORT).show();
             }
         });
+
+        if (sessionManager.isNetworkAvailable()) {
+            binding.progressBar.setVisibility(View.VISIBLE);
+            GetAccountBudgetMethod();
+            GetCommisionValue();
+        }else {
+            Toast.makeText(this, R.string.checkInternet, Toast.LENGTH_SHORT).show();
+        }
+
+        binding.spinnerBudgetAct.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, View arg1, int pos, long arg3){
+
+                BudgetAccountId = modelListCategory.get(pos).getId();
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
+                // TODO Auto-generated method stub
+            }
+        });
     }
 
-    private void PyaAccoun(final String username, final String password) {
+    @Override
+    protected void onResume() {
+        super.onResume();
+        GetProfileMethod();
+    }
 
-        ApiNew loginService =
-                RetrofitSetup.createService(ApiNew.class, username, password);
-        Call<PayAirtimeModel> call = loginService.Api_pay_airtime_forin(Request_IDNew,serviceID,billersCode
-        ,variation_code,Amount,phone,operator_id,country_code,product_type_id,Email);
-        call.enqueue(new Callback<PayAirtimeModel>() {
+    private void GetAccountBudgetMethod()
+    {
+        Call<GetCategoryModelNew> call = RetrofitClients.getInstance().getApi()
+                .Api_get_account_detail(sessionManager.getUserID());
+        call.enqueue(new Callback<GetCategoryModelNew>() {
             @Override
-            public void onResponse(@NonNull Call<PayAirtimeModel> call, @NonNull Response<PayAirtimeModel> response) {
+            public void onResponse(Call<GetCategoryModelNew> call, Response<GetCategoryModelNew> response) {
+
                 binding.progressBar.setVisibility(View.GONE);
-                if (response.isSuccessful()) {
-                    // user object available
-                    PayAirtimeModel finallyPr = response.body();
 
-                    if(finallyPr.getCode().equals("000"))
-                    {
-                        binding.progressBar.setVisibility(View.VISIBLE);
-                        AddReportMethod(finallyPr.getResponseDescription());
-                        Toast.makeText(ConfirmPaymentAireTimeForiegnAct.this, "SuccessFully Bill pay", Toast.LENGTH_SHORT).show();
+                GetCategoryModelNew finallyPr = response.body();
 
-                    }else
-                    {
-                        Toast.makeText(ConfirmPaymentAireTimeForiegnAct.this,finallyPr.getResponseDescription(), Toast.LENGTH_SHORT).show();
-                    }
+                if (finallyPr.getStatus().equalsIgnoreCase("1"))
+                {
+                    modelListCategory = (ArrayList<GetCategoryModelNew.Result>) finallyPr.getResult();
 
-                } else {
+                    CategoryAdapterNew customAdapter=new CategoryAdapterNew(ConfirmPaymentAireTimeForiegnAct.this,modelListCategory);
+                    binding.spinnerBudgetAct.setAdapter(customAdapter);
 
-                    Toast.makeText(ConfirmPaymentAireTimeForiegnAct.this, response.message(), Toast.LENGTH_SHORT).show();
+                }else {
 
+                    binding.progressBar.setVisibility(View.GONE);
                 }
             }
             @Override
-            public void onFailure(@NonNull Call<PayAirtimeModel> call, @NonNull Throwable t) {
+            public void onFailure(Call<GetCategoryModelNew> call, Throwable t)
+            {
+                binding.progressBar.setVisibility(View.GONE);
+            }
+        });
+    }
+
+    private void PyaAccoun() {
+        Call<ResponseBody> call = RetrofitClients.getInstance().getApi().Api_pay_airtime_forin(Request_IDNew,serviceID,billersCode
+        ,variation_code,Amount,phone,operator_id,country_code,product_type_id,Email);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
+                binding.progressBar.setVisibility(View.GONE);
+                if (response.isSuccessful()) {
+                    try {
+                        // user object available
+                        String stringResponse = response.body().string();
+                        JSONObject jsonObject = new JSONObject(stringResponse);
+                        Log.e("Payment", "Payment Response :" + stringResponse);
+                        if(jsonObject.getString("code").equals("000"))
+                        {
+                            // PayFinalModel finallyPr =  new Gson().fromJson(stringResponse,PayFinalModel.class); // response.body();
+                            binding.progressBar.setVisibility(View.VISIBLE);
+                            AddReportMethod(jsonObject.getString("response_description"),stringResponse);
+
+                            Toast.makeText(ConfirmPaymentAireTimeForiegnAct.this, "SuccessFully Bill pay", Toast.LENGTH_SHORT).show();
+
+                        }else
+                        {
+                            Toast.makeText(ConfirmPaymentAireTimeForiegnAct.this, jsonObject.getString("response_description"), Toast.LENGTH_SHORT).show();
+                        }
+
+                    }catch (Exception e)
+                    {
+                        Toast.makeText(ConfirmPaymentAireTimeForiegnAct.this, "Transaction Failed.", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(ConfirmPaymentAireTimeForiegnAct.this, response.message(), Toast.LENGTH_SHORT).show();
+                }
+            }
+            @Override
+            public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
                 binding.progressBar.setVisibility(View.GONE);
             }
         });
@@ -141,37 +235,40 @@ public class ConfirmPaymentAireTimeForiegnAct extends AppCompatActivity {
 
 
 
-    private void AddReportMethod(String status){
+    private void AddReportMethod(String status,String response){
 
         String Current_date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
-        //sessionManager.getUserID();
-        Call<AddReportModal> call = RetrofitClients.getInstance().getApi()
-                .Api_add_vtpass_book_payment(sessionManager.getUserID(),Request_IDNew,Amount,serviceID,"foreign-airtime",
-                        "airtime_forin",status,Current_date);
-        call.enqueue(new Callback<AddReportModal>() {
+        Call<ResponseBody> call = RetrofitClients.getInstance().getApi()
+                .Api_add_vtpass_book_payment(sessionManager.getUserID(),Request_IDNew,Amount,serviceID,"airtime",
+                        "airtime",status,Current_date,BudgetAccountId,"",binding.edtDescription.getText().toString(),"",binding.tax.getText().toString(),response);
+        call.enqueue(new Callback<ResponseBody>() {
             @RequiresApi(api = Build.VERSION_CODES.GINGERBREAD)
             @Override
-            public void onResponse(Call<AddReportModal> call, Response<AddReportModal> response) {
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 binding.progressBar.setVisibility(View.GONE);
                 try {
-                    AddReportModal finallyPr = response.body();
-                    binding.progressBar.setVisibility(View.GONE);
+                    String stringResponse = response.body().string();
+                    JSONObject jsonObject = new JSONObject(stringResponse);
+                    Log.e("Report", "Report Response :" + stringResponse);
+                    if (jsonObject.getString("status").equalsIgnoreCase("1")) {
+                        // AddReportModal finallyPr = response.body();
+                        startActivity(new Intent(ConfirmPaymentAireTimeForiegnAct.this,PaymentComplete.class));
+                        finish();
 
-                    if (finallyPr.getStatus().equalsIgnoreCase("1")) {
-
-                        startActivity(new Intent(ConfirmPaymentAireTimeForiegnAct.this, PaymentComplete.class));
-                                     finish();
                     } else
                     {
-                        Toast.makeText(ConfirmPaymentAireTimeForiegnAct.this, ""+finallyPr.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ConfirmPaymentAireTimeForiegnAct.this, ""+jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
                     }
+
+
+
                 }catch (Exception e)
                 {
                     e.printStackTrace();
                 }
             }
             @Override
-            public void onFailure(Call<AddReportModal> call, Throwable t) {
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
             }
         });
     }
@@ -212,5 +309,106 @@ public class ConfirmPaymentAireTimeForiegnAct extends AppCompatActivity {
         }
         return YEar+monthFinal+Day+mHour+mMinute+SECOND;
     }
+
+
+    private void GetCommisionValue(){
+        Call<ResponseBody> call = RetrofitClients.getInstance().getApi()
+                .getPaymentCommission(sessionManager.getCatId(),serviceID);
+        call.enqueue(new Callback<ResponseBody>() {
+            @RequiresApi(api = Build.VERSION_CODES.GINGERBREAD)
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                binding.progressBar.setVisibility(View.GONE);
+
+                try {
+                    if (response.code() == 200) {
+                        String stringResponse = response.body().string();
+                        JSONObject jsonObject = new JSONObject(stringResponse);
+                        Log.e(TAG, "Fre commission  Response = " + stringResponse);
+                        if (jsonObject.getString("status").equalsIgnoreCase("1")) {
+                            GetCommisionModel finallyPr = new Gson().fromJson(stringResponse,GetCommisionModel.class);
+                            String CommisionAmount = finallyPr.getResult().getCommisionAmount();
+                            Double CmAmt= Double.valueOf(CommisionAmount);
+                            Double TotalAmt= Double.valueOf(Finalamount);
+
+                            Double FInalAmt=CmAmt+TotalAmt;
+                       //     binding.tax.setText(CommisionAmount+"");
+                        //    binding.totalAmountPay.setText(FInalAmt+"");
+                            binding.tax.setText(Preference.doubleToStringNoDecimal(Double.parseDouble(CommisionAmount))+"");
+                            binding.totalAmountPay.setText(Preference.doubleToStringNoDecimal(Double.parseDouble(FInalAmt+""))+"");
+                        }
+
+                        else {
+
+                            binding.progressBar.setVisibility(View.GONE);
+                        }
+
+                    }
+                }
+                catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
+            }
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                binding.progressBar.setVisibility(View.GONE);
+            }
+        });
+    }
+
+    private void GetProfileMethod() {
+        Call<GetProfileModel> call = RetrofitClients.getInstance ().getApi ()
+                .Api_get_profile_data (sessionManager.getUserID ());
+        call.enqueue (new Callback<GetProfileModel> () {
+            @RequiresApi(api = Build.VERSION_CODES.GINGERBREAD)
+            @Override
+            public void onResponse(Call<GetProfileModel> call, Response<GetProfileModel> response) {
+                binding.progressBar.setVisibility (View.GONE);
+                try {
+                    finallyPr = response.body ();
+                    if (finallyPr.getStatus ().equalsIgnoreCase ("1")) {
+                        walletAmount =   Double.parseDouble(finallyPr.getResult().getPaymentWallet());
+                    } else {
+                        Toast.makeText (ConfirmPaymentAireTimeForiegnAct.this, "" + finallyPr.getMessage (), Toast.LENGTH_SHORT).show ();
+                        binding.progressBar.setVisibility (View.GONE);
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace ();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<GetProfileModel> call, Throwable t) {
+                binding.progressBar.setVisibility (View.GONE);
+            }
+        });
+
+    }
+    public void AlertDialogStatus(String msg){
+
+        AlertDialog.Builder  builder1 = new AlertDialog.Builder(ConfirmPaymentAireTimeForiegnAct.this);
+        builder1.setMessage(msg);
+        builder1.setCancelable(false);
+
+
+        builder1.setPositiveButton(
+                getString(R.string.go),
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.dismiss();
+                        startActivity(new Intent(ConfirmPaymentAireTimeForiegnAct.this, HomeActivity.class)
+                                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                        finish();
+                    }
+                });
+
+
+        AlertDialog alert11 = builder1.create();
+        alert11.show();
+
+    }
+
 
 }

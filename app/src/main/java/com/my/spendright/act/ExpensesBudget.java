@@ -23,7 +23,6 @@ public class ExpensesBudget extends AppCompatActivity {
        });
 
        binding.imgEdit.setOnClickListener(v -> {
-
            startActivity(new Intent(ExpensesBudget.this,EditExpensen.class));
        });
     }

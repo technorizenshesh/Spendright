@@ -44,33 +44,31 @@
                         android:layout_alignParentLeft="true"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="@dimen/_10sdp"
-                        android:src="@drawable/back"
-                        >
-                    </ImageView>
+                        android:src="@drawable/back"></ImageView>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
-                        android:text="Verification Bill Number"
+                        android:text="Enter Details"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_14sdp"
-                        android:textStyle="bold"
-                        />
+                        android:textStyle="bold" />
 
                 </RelativeLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:visibility="gone">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_10sdp"
                         android:gravity="center"
-                        android:text="Current Balnce Vtpass : "
+                        android:text="Current Balance Vtpass : "
                         android:textColor="@color/black"
                         android:textSize="@dimen/_14sdp" />
 
@@ -91,7 +89,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_20sdp"
                     android:gravity="center"
-                    android:text="Bill Number"
+                    android:text="Customer Unique Number"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_14sdp"
                     android:textStyle="bold" />
@@ -116,13 +114,15 @@
                         android:layout_gravity="center"
                         android:layout_marginLeft="@dimen/_5sdp"
                         android:background="@null"
-                        android:text="1212121212"
                         android:inputType="text"
+                        android:hint="Customer Unique Number"
                         android:padding="@dimen/_5sdp"
                         android:textColor="@color/black"
                         android:textColorHint="@color/gray"
                         android:textSize="@dimen/_12sdp"
-                        android:textStyle="bold"></EditText>
+                        android:textStyle="bold">
+
+                    </EditText>
 
                 </LinearLayout>
 
@@ -136,11 +136,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_20sdp"
                     android:gravity="center"
-                    android:text="Select Subscription Tv"
+                    android:text="Select Biller"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_14sdp"
-                    android:textStyle="bold"
-                    />
+                    android:textStyle="bold" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -194,7 +193,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_20sdp"
                     android:gravity="center"
-                    android:text="Purchase Product"
+                    android:text="Select Product"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_14sdp"
                     android:textStyle="bold" />
@@ -224,7 +223,7 @@
                         android:layout_toRightOf="@+id/type"
                         android:gravity="center_vertical"
                         android:paddingLeft="@dimen/_10sdp"
-                        android:text="Bouquest Renewal"
+                        android:text="Bouquet Renewal"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_16sdp"
                         android:visibility="visible" />

@@ -9,6 +9,20 @@
         android:background="@color/blue"
         >
 
+        <ProgressBar
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerInParent="true"
+            android:id="@+id/progressBar"
+            android:background="@drawable/progresh_background"
+            android:elevation="6dp"
+            android:padding="5dp"
+            android:indeterminate="true"
+            android:indeterminateTintMode="src_atop"
+            android:indeterminateTint="@color/purple_200"
+            android:visibility="gone"
+            />
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -78,22 +92,58 @@
                 >
 
                 <TextView
+                    android:id="@+id/txtEmail"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:gravity="center"
                     android:textStyle="bold"
                     android:textSize="@dimen/_20sdp"
                     android:textColor="@color/black"
-                    android:text="Confirmation code has been sent to your mobile."
+                    android:text="Confirmation code has been sent to your mobile number."
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     />
 
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:gravity="center"
+                    >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_gravity="center"
+                        android:textStyle="bold"
+                        android:textSize="20sp"
+                        android:textColor="@color/black"
+                        android:text="0"/>
+
+                    <TextView
+                        android:id="@+id/tv_email"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_gravity="center"
+                        android:textStyle="bold"
+                        android:textSize="20sp"
+                        android:textColor="@color/black"
+                        android:text="Mobile Number"/>
+
+
+                </LinearLayout>
+
+
                 <TextView
+                    android:layout_gravity="center"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:gravity="center"
                     android:textSize="@dimen/_14sdp"
                     android:textColor="@color/black"
-                    android:text="The code has been sent to +44916540021. Please enter the code below."
+                    android:text="Please enter the code below."
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     />
@@ -160,6 +210,87 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:padding="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    >
+                    <EditText
+                        android:id="@+id/et1"
+                        android:layout_width="@dimen/_45sdp"
+                        android:layout_height="@dimen/_45sdp"
+                        android:background="@drawable/et_bg"
+                        android:gravity="center"
+                        android:inputType="number"
+                        android:textSize="@dimen/_16sdp"
+                        android:maxLength="1"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginEnd="10dp" />
+                    <EditText
+                        android:maxLength="1"
+                        android:id="@+id/et2"
+                        android:layout_width="@dimen/_45sdp"
+                        android:layout_height="@dimen/_45sdp"
+                        android:background="@drawable/et_bg"
+                        android:gravity="center"
+                        android:inputType="number"
+                        android:textSize="@dimen/_16sdp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginEnd="10dp" />
+                    <EditText
+                        android:maxLength="1"
+                        android:id="@+id/et3"
+                        android:layout_width="@dimen/_45sdp"
+                        android:layout_height="@dimen/_45sdp"
+                        android:gravity="center"
+                        android:textSize="@dimen/_16sdp"
+                        android:background="@drawable/et_bg"
+                        android:textColor="@color/black"
+                        android:inputType="number"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginEnd="10dp" />
+                    <EditText
+                        android:maxLength="1"
+                        android:id="@+id/et4"
+                        android:layout_width="@dimen/_45sdp"
+                        android:layout_height="@dimen/_45sdp"
+                        android:background="@drawable/et_bg"
+                        android:gravity="center"
+                        android:textSize="@dimen/_16sdp"
+                        android:inputType="number"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginEnd="10dp" />
+
+                    <EditText
+                        android:visibility="gone"
+                        android:id="@+id/et5"
+                        android:layout_width="@dimen/_45sdp"
+                        android:layout_height="@dimen/_45sdp"
+                        android:background="@drawable/et_bg"
+                        android:gravity="center"
+                        android:textSize="@dimen/_16sdp"
+                        android:inputType="number"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginEnd="10dp" />
+
+                    <EditText
+                        android:visibility="gone"
+                        android:id="@+id/et6"
+                        android:layout_width="@dimen/_45sdp"
+                        android:layout_height="@dimen/_45sdp"
+                        android:background="@drawable/et_bg"
+                        android:gravity="center"
+                        android:textSize="@dimen/_16sdp"
+                        android:inputType="number"
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:visibility="gone"
                     android:weightSum="6"
                     android:orientation="horizontal"
                     android:layout_marginTop="@dimen/_100sdp"
@@ -249,50 +380,49 @@
                 </LinearLayout>
 
                 <TextView
-                    android:id="@+id/RRResend"
-                    android:layout_marginTop="@dimen/_20sdp"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:textSize="@dimen/_14sdp"
-                    android:textColor="@color/blue"
-                    android:text="Resend code again"
+
+                    android:padding="@dimen/_10sdp"
+                    android:id="@+id/tvResend"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    />
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:gravity="center"
+                    android:text="Resend code"
+                    android:textColor="@color/blue"
+                    android:textSize="@dimen/_14sdp" />
 
             </LinearLayout>
 
             <RelativeLayout
-                android:layout_margin="@dimen/_15sdp"
-                android:layout_alignParentBottom="true"
-                android:layout_gravity="bottom"
                 android:id="@+id/RRNext"
-                android:layout_marginTop="@dimen/_20sdp"
-                android:background="@drawable/border_btn"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_50sdp"
-                >
+                android:layout_alignParentBottom="true"
+                android:layout_gravity="bottom"
+                android:layout_marginStart="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:layout_marginEnd="@dimen/_15sdp"
+                android:layout_marginBottom="@dimen/_15sdp"
+                android:background="@drawable/border_btn">
 
                 <TextView
-                    android:layout_marginLeft="20sp"
-                    android:layout_centerVertical="true"
-                    android:textStyle="bold"
-                    android:textSize="@dimen/_16sdp"
-                    android:textColor="@color/white"
-                    android:text="Next"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    />
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="20sp"
+                    android:text="Next"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_16sdp"
+                    android:textStyle="bold" />
 
                 <ImageView
-                    android:layout_marginRight="@dimen/_20sdp"
-                    android:src="@drawable/right_back"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
                     android:layout_width="@dimen/_20sdp"
                     android:layout_height="@dimen/_20sdp"
-                    >
-                </ImageView>
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/_20sdp"
+                    android:src="@drawable/right_back"></ImageView>
 
 
             </RelativeLayout>
