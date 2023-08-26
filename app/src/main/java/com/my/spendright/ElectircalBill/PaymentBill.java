@@ -8,12 +8,14 @@ import androidx.databinding.DataBindingUtil;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.my.spendright.ElectircalBill.Model.GetMerchatAcocunt;
 import com.my.spendright.ElectircalBill.Model.GetServiceElectricialModel;
 import com.my.spendright.R;
@@ -24,14 +26,19 @@ import com.my.spendright.utils.Preference;
 import com.my.spendright.utils.RetrofitClients;
 import com.my.spendright.utils.SessionManager;
 
-import java.util.ArrayList;
+import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class PaymentBill extends AppCompatActivity {
-
+    public String TAG ="PaymentBill";
     ActivityPaymentBillBinding binding;
       String type="prepaid";
     String BillNumber="";
@@ -127,36 +134,48 @@ public class PaymentBill extends AppCompatActivity {
 
 
     private void MerchantAccounCheck() {
-        Call<GetMerchatAcocunt> call = RetrofitClients.getInstance().getApi().Api_merchant_verify(BillNumber,ServicesId,type);
-        call.enqueue(new Callback<GetMerchatAcocunt>() {
+        Call<ResponseBody> call = RetrofitClients.getInstance().getApi().Api_merchant_verify(BillNumber,ServicesId,type);
+        Map<String,String>map = new HashMap<>();
+        map.put("billersCode",BillNumber);
+        map.put("serviceID",ServicesId);
+        map.put("type",type);
+        Log.e("checkMerchantRequest===",map+"");
+        call.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(@NonNull Call<GetMerchatAcocunt> call, @NonNull Response<GetMerchatAcocunt> response) {
+            public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
                 binding.progressBar.setVisibility(View.GONE);
                 if (response.isSuccessful()) {
                     // user object available
                     try
                     {
-                        GetMerchatAcocunt finallyPr = response.body();
-                        if(!finallyPr.getContent().getCustomerName().equals(""))
-                        {
-                            startActivity(new Intent(PaymentBill.this, PaymentInformation.class)
-                                    .putExtra("Customer_Name",finallyPr.getContent().getCustomerName()+"")
-                                    .putExtra("Meter_Number",BillNumber+"")
-                                    .putExtra("ServicesId",ServicesId)
-                                    .putExtra("ServicesName",ServicesName)
-                                    .putExtra("type",type)
-                                    .putExtra("myWalletBalace",myWalletBalace)
-                                    .putExtra("miniAmt",miniAmt)
-                                    .putExtra("maxAmt",maxAmt)
-                                    .putExtra("Address",finallyPr.getContent().getAddress()+""));
+                        String stringResponse = response.body().string();
+                        JSONObject jsonObject = new JSONObject(stringResponse);
+                        Log.e(TAG, "Marchent Verify Response = " + stringResponse);
+                        if (jsonObject.getString("code").equalsIgnoreCase("000")) {
+                            GetMerchatAcocunt finallyPr = new Gson().fromJson(stringResponse,GetMerchatAcocunt.class);
+                            if (!finallyPr.getContent().getCustomerName().equals("")) {
+                                startActivity(new Intent(PaymentBill.this, PaymentInformation.class)
+                                        .putExtra("Customer_Name", finallyPr.getContent().getCustomerName() + "")
+                                        .putExtra("Meter_Number", BillNumber + "")
+                                        .putExtra("ServicesId", ServicesId)
+                                        .putExtra("ServicesName", ServicesName)
+                                        .putExtra("type", type)
+                                        .putExtra("myWalletBalace", myWalletBalace)
+                                        .putExtra("miniAmt", miniAmt)
+                                        .putExtra("maxAmt", maxAmt)
+                                        .putExtra("Address", finallyPr.getContent().getAddress() + ""));
 
-                        }else
+                            }
+                        }
+
+                        else
                         {
-//                            Toast.makeText(PaymentBill.this,""+finallyPr.getContent().getCustomerName() , Toast.LENGTH_SHORT).show();
+                          Toast.makeText(PaymentBill.this,""+jsonObject.getString("response_description") , Toast.LENGTH_SHORT).show();
                         }
                     }catch (Exception e)
                     {
-                        Toast.makeText(PaymentBill.this, "Please Currect Meter Number.", Toast.LENGTH_SHORT).show();
+                        e.printStackTrace();
+                        Toast.makeText(PaymentBill.this, "Please enter Correct Meter Number.", Toast.LENGTH_SHORT).show();
                     }
 
                 } else {
@@ -166,9 +185,9 @@ public class PaymentBill extends AppCompatActivity {
                 }
             }
             @Override
-            public void onFailure(@NonNull Call<GetMerchatAcocunt> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
                 binding.progressBar.setVisibility(View.GONE);
-                Toast.makeText(PaymentBill.this, "PLease check your Network", Toast.LENGTH_SHORT).show();
+                Toast.makeText(PaymentBill.this, "Please check your Network", Toast.LENGTH_SHORT).show();
 
             }
         });

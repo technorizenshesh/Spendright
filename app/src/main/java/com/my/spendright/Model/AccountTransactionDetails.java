@@ -69,6 +69,30 @@ public class AccountTransactionDetails {
         @Expose
         private String description;
 
+        @SerializedName("expense_traking_category_id")
+        @Expose
+        private String expenseTrakingCategoryId;
+
+        @SerializedName("main_category_id")
+        @Expose
+        private String mainCategoryId;
+
+        public String getMainCategoryId() {
+            return mainCategoryId;
+        }
+
+        public void setMainCategoryId(String mainCategoryId) {
+            this.mainCategoryId = mainCategoryId;
+        }
+
+        public String getExpenseTrakingCategoryId() {
+            return expenseTrakingCategoryId;
+        }
+
+        public void setExpenseTrakingCategoryId(String expenseTrakingCategoryId) {
+            this.expenseTrakingCategoryId = expenseTrakingCategoryId;
+        }
+
         public String getId() {
             return id;
         }

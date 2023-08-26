@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.core.widget.NestedScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none"
+        android:background="@drawable/rounded_white_top_bg">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/_10sdp"
+            android:orientation="vertical"
+           >
+
+
+            <TextView
+                android:id="@+id/tvText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_20sdp"
+                android:text="@string/card_details"
+                android:textSize="@dimen/_16sdp"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center_horizontal"
+                android:textColor="@color/black"
+                android:fontFamily="@font/poppinsregular"
+                />
+
+            <TextView
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:text="@string/card_name"
+                android:textSize="@dimen/_11sdp"
+                android:textColor="@color/gray1"
+                android:fontFamily="@font/poppinsregular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_45sdp"
+                android:background="@drawable/border_white_one"
+                android:elevation="@dimen/_10sdp"
+                android:layout_margin="@dimen/_5sdp"
+                android:padding="@dimen/_10sdp"
+                >
+                <EditText
+                    android:id="@+id/edCardName"
+                    android:inputType="text"
+                    android:textColorHint="@color/black"
+                    android:background="@null"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/poppinsregular"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_45sdp"
+                    android:textSize="@dimen/_12sdp"
+                    android:text="John Smith"
+                    android:layout_toLeftOf="@+id/ivName"
+                    />
+
+
+                <ImageView
+                    android:id="@+id/ivName"
+                    android:layout_width="@dimen/_17sdp"
+                    android:layout_height="@dimen/_17sdp"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/ic_cop"/>
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:text="@string/card_pan"
+                android:textSize="@dimen/_11sdp"
+                android:textColor="@color/gray1"
+                android:fontFamily="@font/poppinsregular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_45sdp"
+                android:background="@drawable/border_white_one"
+                android:elevation="@dimen/_10sdp"
+                android:layout_margin="@dimen/_5sdp"
+                android:padding="@dimen/_10sdp"
+                >
+                <EditText
+                    android:id="@+id/edCardPAN"
+                    android:inputType="text"
+                    android:textColorHint="@color/black"
+                    android:background="@null"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/poppinsregular"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_45sdp"
+                    android:textSize="@dimen/_12sdp"
+                    android:text="1234 2345 4567 4567"
+                    android:layout_toLeftOf="@+id/ivPan"
+                    />
+
+
+                <ImageView
+                    android:id="@+id/ivPan"
+                    android:layout_width="@dimen/_17sdp"
+                    android:layout_height="@dimen/_17sdp"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/ic_cop"/>
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:text="@string/expiry_date"
+                android:textSize="@dimen/_11sdp"
+                android:textColor="@color/gray1"
+                android:fontFamily="@font/poppinsregular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_45sdp"
+                android:background="@drawable/border_white_one"
+                android:elevation="@dimen/_10sdp"
+                android:layout_margin="@dimen/_5sdp"
+                android:padding="@dimen/_10sdp"
+                >
+                <EditText
+                    android:id="@+id/edCardExpiry"
+                    android:inputType="text"
+                    android:textColorHint="@color/black"
+                    android:background="@null"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/poppinsregular"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_45sdp"
+                    android:textSize="@dimen/_12sdp"
+                    android:text="1/28"
+                    android:layout_toLeftOf="@+id/ivExpiry"
+                    />
+
+
+                <ImageView
+                    android:id="@+id/ivExpiry"
+                    android:layout_width="@dimen/_17sdp"
+                    android:layout_height="@dimen/_17sdp"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/ic_cop"/>
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:text="@string/cvv"
+                android:textSize="@dimen/_11sdp"
+                android:textColor="@color/gray1"
+                android:fontFamily="@font/poppinsregular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_45sdp"
+                android:background="@drawable/border_white_one"
+                android:elevation="@dimen/_10sdp"
+                android:layout_margin="@dimen/_5sdp"
+                android:padding="@dimen/_10sdp"
+                >
+                <EditText
+                    android:id="@+id/edCardCvv"
+                    android:inputType="text"
+                    android:textColorHint="@color/black"
+                    android:background="@null"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/poppinsregular"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_45sdp"
+                    android:textSize="@dimen/_12sdp"
+                    android:text="856"
+                    android:layout_toLeftOf="@+id/ivCvv"
+                    />
+
+
+                <ImageView
+                    android:id="@+id/ivCvv"
+                    android:layout_width="@dimen/_17sdp"
+                    android:layout_height="@dimen/_17sdp"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/ic_cop"/>
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:text="@string/billing_address"
+                android:textSize="@dimen/_11sdp"
+                android:textColor="@color/gray1"
+                android:fontFamily="@font/poppinsregular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_45sdp"
+                android:background="@drawable/border_white_one"
+                android:elevation="@dimen/_10sdp"
+                android:layout_margin="@dimen/_5sdp"
+                android:padding="@dimen/_10sdp"
+                >
+                <EditText
+                    android:id="@+id/edBillingAddress"
+                    android:inputType="text"
+                    android:textColorHint="@color/black"
+                    android:background="@null"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/poppinsregular"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_45sdp"
+                    android:textSize="@dimen/_12sdp"
+                    android:text="956 Fremont Street"
+                    android:layout_toLeftOf="@+id/ivBillingAddress"
+                    />
+
+
+                <ImageView
+                    android:id="@+id/ivBillingAddress"
+                    android:layout_width="@dimen/_17sdp"
+                    android:layout_height="@dimen/_17sdp"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/ic_cop"/>
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/RRClose"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_50sdp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_marginBottom="@dimen/_20sdp"
+                android:background="@drawable/blue_rounded_border">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:fontFamily="@font/poppinsregular"
+                    android:text="@string/close"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_14sdp"
+                    android:textStyle="bold" />
+
+
+
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+
+
+    </androidx.core.widget.NestedScrollView>
+
+</layout>

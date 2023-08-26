@@ -34,6 +34,7 @@ import com.my.spendright.utils.ApiClient;
 import com.my.spendright.utils.ApiMonnify;
 import com.my.spendright.utils.Constant;
 import com.my.spendright.utils.RetrofitClients;
+import com.my.spendright.utils.RetrofitClientsOne;
 import com.my.spendright.utils.SessionManager;
 
 import org.json.JSONObject;
@@ -63,9 +64,10 @@ public class Registration extends AppCompatActivity {
     private SessionManager sessionManager;
     String newToken="";
     private static final String ALLOWED_CHARACTERS ="0123456789qwertyuiopasdfghjklzxcvbnm";
-
+    public  String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
 
     private ArrayList<GetCountryModel.Result> modelListCategory = new ArrayList<>();
+
 
     @RequiresApi(api = Build.VERSION_CODES.HONEYCOMB)
     @Override
@@ -79,7 +81,7 @@ public class Registration extends AppCompatActivity {
             Log.e( "Tokennnn" ,newToken);
         });
 
-        binding.txtCountry.setCountryForPhoneCode(234);
+        binding.CpCountry.setCountryForPhoneCode(234);
 
 
         binding.spinnerCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -99,11 +101,11 @@ public class Registration extends AppCompatActivity {
             onBackPressed();
         });
 
-        binding.layTerms.setOnClickListener(v -> {
+       /* binding.layTerms.setOnClickListener(v -> {
           fullscreenDialog(Registration.this);
-        });
+        });*/
 
-        binding.txtLogin.setOnClickListener(v ->
+        binding.txLogin.setOnClickListener(v ->
         {
            startActivity(new Intent(Registration.this,LoginActivity.class));
            finish();
@@ -137,63 +139,54 @@ public class Registration extends AppCompatActivity {
 
          binding.RRRegis.setOnClickListener(v ->
         {
-            Validation();
-          // startActivity(new Intent(Registration.this,RegistrationOne.class));
+           Validation();
+          // startActivity(new Intent(Registration.this,RegistrationSecondAct.class));
         });
 
-        if (sessionManager.isNetworkAvailable()) {
+      /*  if (sessionManager.isNetworkAvailable()) {
             binding.progressBar.setVisibility(View.VISIBLE);
             GetCountryMethod();
         }else {
             Toast.makeText(this, R.string.checkInternet, Toast.LENGTH_SHORT).show();
-        }
+        }*/
+
+       // generateToken();
 
     }
 
     private void Validation() {
 
-        if(binding.edtMobile.getText().toString().equalsIgnoreCase(""))
-        {
-           Toast.makeText(this, "Please Enter Mobile Number.", Toast.LENGTH_SHORT).show();
-
-        }else if(binding.edtemail.getText().toString().equalsIgnoreCase(""))
-        {
+        if(binding.edUsername.getText().toString().equalsIgnoreCase(""))
+            Toast.makeText(this, "Please Enter User name.", Toast.LENGTH_SHORT).show();
+            else if(binding.edLastName.getText().toString().equalsIgnoreCase(""))
+            Toast.makeText(this, "Please Enter Last name.", Toast.LENGTH_SHORT).show();
+            else if(binding.edOtherName.getText().toString().equalsIgnoreCase(""))
+            Toast.makeText(this, "Please Enter Other name.", Toast.LENGTH_SHORT).show();
+            else if(binding.edEmail.getText().toString().equalsIgnoreCase(""))
             Toast.makeText(this, "Please Enter Email.", Toast.LENGTH_SHORT).show();
-
-        }else if(binding.edtFName.getText().toString().equalsIgnoreCase(""))
-        {
-            Toast.makeText(this, "Please Enter First Name.", Toast.LENGTH_SHORT).show();
-
-        }else if(binding.edtLName.getText().toString().equalsIgnoreCase(""))
-        {
-            Toast.makeText(this, "Please Enter Last Name.", Toast.LENGTH_SHORT).show();
-
-        }else if(binding.edtStreetAddress.getText().toString().equalsIgnoreCase(""))
-        {
-            Toast.makeText(this, "Please Enter Street Address.", Toast.LENGTH_SHORT).show();
-
-        }else if(binding.edtCity.getText().toString().equalsIgnoreCase(""))
-        {
-            Toast.makeText(this, "Please Enter City.", Toast.LENGTH_SHORT).show();
-
-        }else if(dob.equalsIgnoreCase(""))
-        {
-            Toast.makeText(this, "Please Enter dob.", Toast.LENGTH_SHORT).show();
-
-        }else if(binding.edtPassword.getText().toString().equalsIgnoreCase(""))
-        {
-            Toast.makeText(this, "Please Enter Password.", Toast.LENGTH_SHORT).show();
-
-        }else if(!binding.checEdTerms.isChecked())
-        {
-            Toast.makeText(this, "I accept Terms &amp; Conditions.", Toast.LENGTH_SHORT).show();
-
-        }else
+        else if(!binding.edEmail.getText().toString().matches(emailPattern))
+            Toast.makeText(this, "Wrong Email.", Toast.LENGTH_SHORT).show();
+            else if(binding.edPhoneNumber.getText().toString().equalsIgnoreCase(""))
+            Toast.makeText(this, "Please Enter Phone number.", Toast.LENGTH_SHORT).show();
+            else
         {
             if (sessionManager.isNetworkAvailable()) {
-                binding.progressBar.setVisibility(View.VISIBLE);
+               // binding.progressBar.setVisibility(View.VISIBLE);
                // generateToken();
-                generateFlAccount();
+              //  generateFlAccount();
+             //   signUpMethod_one("");
+                HashMap<String,String> map = new HashMap<>();
+                map.put("user_name",binding.edUsername.getText().toString());
+                map.put("first_name","");
+                map.put("last_name",binding.edLastName.getText().toString());
+                map.put("other_legal_name",binding.edOtherName.getText().toString());
+                map.put("email",binding.edEmail.getText().toString());
+                map.put("phone_number",binding.edPhoneNumber.getText().toString() );
+                map.put("country_code",binding.CpCountry.getSelectedCountryCodeWithPlus());
+                startActivity(new Intent(Registration.this,RegistrationSecondAct.class).putExtra("phone_number",binding.edPhoneNumber.getText().toString())
+                        .putExtra("countryCode",binding.CpCountry.getSelectedCountryCodeWithPlus()).putExtra("hashMaps",map));
+
+
             }else {
                 Toast.makeText(this, R.string.checkInternet, Toast.LENGTH_SHORT).show();
             }
@@ -214,6 +207,10 @@ public class Registration extends AppCompatActivity {
                 .Api_signup(binding.edtFName.getText().toString(),binding.edtLName.getText().toString(),binding.edtemail.getText().toString(),binding.edtPassword.getText().toString(),
                         binding.edtMobile.getText().toString(),"75.00","75.00",binding.edtCity.getText().toString(),Country,dob,"True",newToken,binding.txtCountry.getSelectedCountryCodeWithPlus()
                         ,"","","","","","",batchId,getCurrentTime123());
+
+
+
+
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -255,6 +252,43 @@ public class Registration extends AppCompatActivity {
     }
 
 
+    private void signUpMethod_one(String batchId){
+        Call<ResponseBody> call = RetrofitClientsOne.getInstance().getApi()
+                .Api_signup_one(binding.edUsername.getText().toString(),"",binding.edLastName.getText().toString(),binding.edOtherName.getText().toString(),binding.edEmail.getText().toString(),
+                        binding.CpCountry.getSelectedCountryCodeWithPlus(),binding.edPhoneNumber.getText().toString());
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                binding.progressBar.setVisibility(View.GONE);
+                try {
+
+                    String stringResponse = response.body().string();
+                    JSONObject jsonObject = new JSONObject(stringResponse);
+                    Log.e(TAG, "Signup one  Response :" + stringResponse);
+
+                    if (jsonObject.getString("status").equalsIgnoreCase("1")) {
+
+                        startActivity(new Intent(Registration.this,RegistrationSecondAct.class).putExtra("phone_number",jsonObject.getJSONObject("result").getString("mobile"))
+                                .putExtra("countryCode",jsonObject.getJSONObject("result").getString("country_code"))
+                                .putExtra("user_id",jsonObject.getJSONObject("result").getString("id")));
+                        finish();
+
+                    } else {
+                        Toast.makeText(Registration.this, ""+jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                        binding.progressBar.setVisibility(View.GONE);
+                    }
+                }catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
+            }
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                binding.progressBar.setVisibility(View.GONE);
+                Toast.makeText(Registration.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
 
 
@@ -369,27 +403,6 @@ public class Registration extends AppCompatActivity {
 
 
 
-    public static String getRandomNumberString() {
-        // It will generate 6 digit random Number.
-        // from 0 to 999999
-        Random rnd = new Random();
-        int number = rnd.nextInt(999999);
-
-        // this will convert any number sequence into 6 character.
-        return String.format("%06d", number);
-    }
-
-
-
-    public  String toBase64(String message) {
-        byte[] data;
-        // data = message.getBytes("UTF-8");
-        String base64Sms = Base64.encodeToString(message.getBytes(), Base64.NO_WRAP);
-        // Base64.encodeToString(data, Base64.NO_WRAP);
-        return base64Sms;
-
-       // return null;
-    }
 
 
     public void fullscreenDialog(Context context){
@@ -413,4 +426,146 @@ public class Registration extends AppCompatActivity {
     }
 
 
+
+
+    private void generateToken() {
+        ApiMonnify apiInterface = ApiClient.getClient().create(ApiMonnify.class);
+        Log.e("encode====",toBase64(Constant.MONNIFY_SANDBOX_API_KEY + ":" + Constant.MONNIFY_SANDBOX_SECRET_KEY));
+        Call<ResponseBody> loginCall = apiInterface.Api_generate_monnify_token("Basic " + toBase64(Constant.MONNIFY_SANDBOX_API_KEY + ":" + Constant.MONNIFY_SANDBOX_SECRET_KEY).replace("/n", "") );
+        loginCall.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                binding.progressBar.setVisibility(View.GONE);
+                try {
+                    String stringResponse = response.body().string();
+                    JSONObject jsonObject = new JSONObject(stringResponse);
+                    Log.e(TAG, "generate token Response = " + stringResponse);
+                    if (jsonObject.getBoolean("requestSuccessful") == true) {
+                        JSONObject object = jsonObject.getJSONObject("responseBody");
+                        String accessToken = object.getString("accessToken");
+                        if (sessionManager.isNetworkAvailable()) {
+                            binding.progressBar.setVisibility(View.VISIBLE);
+                            generateMonnifyAccount(accessToken);
+                        }else {
+                            Toast.makeText(Registration.this, R.string.checkInternet, Toast.LENGTH_SHORT).show();
+                        }
+
+                    } else {
+                        Toast.makeText(Registration.this, jsonObject.getString("responseMessage"), Toast.LENGTH_SHORT).show();
+
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                call.cancel();
+                binding.progressBar.setVisibility(View.GONE);
+            }
+        });
+    }
+
+
+
+    private void generateMonnifyAccount(String token) {
+        ApiMonnify apiInterface = ApiClient.getClient1().create(ApiMonnify.class);
+        Map<String, String> headers = new HashMap<>();
+        headers.put("Content-Type", "application/json");
+        headers.put("Authorization", "Bearer " + token);
+
+        Map<String, String> requestBody = new HashMap<>();
+        requestBody.put("accountReference","reference"+getRandomNumberString());
+        requestBody.put("accountName","Test Reserved Account" );
+        requestBody.put("currencyCode", "NGN");
+        requestBody.put("contractCode", Constant.MONNIFY_CONTRACT_CODE);
+        requestBody.put("customerEmail",binding.edtemail.getText().toString() );
+        requestBody.put("customerName", binding.edtFName.getText().toString() + " " + binding.edtLName.getText().toString());
+        requestBody.put("getAllAvailableBanks", String.valueOf(true));
+        Log.e("MonnifyReservedAccount",requestBody.toString());
+
+        Call<ResponseBody> loginCall = apiInterface.Api_generate_account(headers,requestBody);
+        loginCall.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                binding.progressBar.setVisibility(View.GONE);
+                try {
+                    String stringResponse = response.body().string();
+                    JSONObject jsonObject = new JSONObject(stringResponse);
+                    Log.e(TAG, "MonnifyReservedAccount Response = " + stringResponse);
+                    if (jsonObject.getBoolean("requestSuccessful") == true) {
+                        JSONObject object = jsonObject.getJSONObject("responseBody");
+                        if (sessionManager.isNetworkAvailable()) {
+                            binding.progressBar.setVisibility(View.VISIBLE);
+                        /*    signUpMethod(object.getString("contractCode"),object.getString("accountReference"),
+                                    object.getString("accountName"),object.getString("currencyCode"),object.getString("customerEmail"),
+                                    object.getString("customerName"));*/
+                        }else {
+                            Toast.makeText(Registration.this, R.string.checkInternet, Toast.LENGTH_SHORT).show();
+                        }
+
+                    } else {
+                        Toast.makeText(Registration.this, jsonObject.getString("responseMessage"), Toast.LENGTH_SHORT).show();
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                call.cancel();
+                binding.progressBar.setVisibility(View.GONE);
+            }
+        });
+    }
+
+
+
+    private static String getRandomString(final int sizeOfRandomString)
+    {
+        final Random random=new Random();
+        final StringBuilder sb=new StringBuilder(sizeOfRandomString);
+        for(int i=0;i<sizeOfRandomString;++i)
+            sb.append(ALLOWED_CHARACTERS.charAt(random.nextInt(ALLOWED_CHARACTERS.length())));
+        return sb.toString();
+    }
+
+    public static String getRandomNumberString() {
+        // It will generate 6 digit random Number.
+        // from 0 to 999999
+        Random rnd = new Random();
+        int number = rnd.nextInt(999999);
+
+        // this will convert any number sequence into 6 character.
+        return String.format("%06d", number);
+    }
+
+
+
+    public  String toBase64(String message) {
+        byte[] data;
+        // data = message.getBytes("UTF-8");
+        String base64Sms = Base64.encodeToString(message.getBytes(), Base64.NO_WRAP);
+        // Base64.encodeToString(data, Base64.NO_WRAP);
+        return base64Sms;
+
+        // return null;
+    }
+
+
+
+
+
 }
+
+
+
+
+
+
+
+

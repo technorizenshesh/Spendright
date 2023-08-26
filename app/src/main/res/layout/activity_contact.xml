@@ -2,11 +2,8 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-    <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
 
-        <LinearLayout
+    <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -24,6 +21,7 @@
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="@dimen/_10sdp"
+                    android:padding="@dimen/_2sdp"
                     android:src="@drawable/back">
 
                 </ImageView>
@@ -33,31 +31,130 @@
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:fontFamily="@font/poppinsregular"
-                    android:text="Contact Info"
+                    android:text="@string/contact"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_14sdp"
                     android:textStyle="bold" />
 
             </RelativeLayout>
 
+        <ProgressBar
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerInParent="true"
+            android:id="@+id/progressBar"
+            android:background="@drawable/progresh_background"
+            android:elevation="6dp"
+            android:padding="5dp"
+            android:indeterminate="true"
+            android:indeterminateTintMode="src_atop"
+            android:indeterminateTint="@color/purple_200"
+            android:visibility="gone"
+            />
+
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_15sdp"
                 android:orientation="vertical"
+                android:layout_below="@+id/RRtoolbaar"
                 >
 
 
+             <!--   <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_45sdp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:background="@drawable/border_blue"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    >
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:text="Facebook"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_16sdp"
-                    android:textStyle="bold" />
+                    <ImageView
+                        android:layout_width="@dimen/_15sdp"
+                        android:layout_height="@dimen/_15sdp"
+                        android:src="@drawable/ic_whatsapp"
+                        android:layout_marginLeft="@dimen/_80sdp"
+                        android:layout_marginRight="@dimen/_10sdp"/>
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/whatsApp"
+                        android:textColor="@color/white"
+                        android:fontFamily="@font/poppinsregular"
+                        android:textSize="@dimen/_12sdp"
+                        android:textStyle="bold"
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_45sdp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:background="@drawable/border_blue"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    >
+
+                    <ImageView
+                        android:layout_width="@dimen/_15sdp"
+                        android:layout_height="@dimen/_15sdp"
+                        android:src="@drawable/ic_add_book"
+                        android:layout_marginLeft="@dimen/_80sdp"
+                        android:layout_marginRight="@dimen/_10sdp"/>
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:text="81-0000 000"
+                        android:fontFamily="@font/poppinsregular"
+                        android:textSize="@dimen/_12sdp"
+                        android:textStyle="bold"
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_45sdp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:background="@drawable/border_blue"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    >
+
+                    <ImageView
+                        android:layout_width="@dimen/_15sdp"
+                        android:layout_height="@dimen/_15sdp"
+                        android:src="@drawable/ic_emails"
+                        android:layout_marginLeft="@dimen/_80sdp"
+                        android:layout_marginRight="@dimen/_10sdp"/>
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/facebook"
+                        android:fontFamily="@font/poppinsregular"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_12sdp"
+                        android:textStyle="bold"
+                        />
+
+                </LinearLayout>-->
+
+
+             <androidx.recyclerview.widget.RecyclerView
+                 android:id="@+id/rvContact"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                 tools:listitem="@layout/item_contact"/>
 
 
 
@@ -68,23 +165,16 @@
                     android:text="https://m.facebook.com/100085101074519/"
                     android:textColor="@color/blue"
                     android:textSize="@dimen/_12sdp"
+                    android:visibility="gone"
                     />
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
 
-                    android:background="@color/blue"/>
+                    android:background="@color/blue"
+                    android:visibility="gone"/>
 
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:text="WhatsApp contact"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_16sdp"
-                    android:textStyle="bold"
-                    android:layout_marginTop="@dimen/_15sdp"/>
 
 
 
@@ -95,6 +185,7 @@
                     android:text="0703 316 6259"
                     android:textColor="@color/blue"
                     android:textSize="@dimen/_12sdp"
+                    android:visibility="gone"
                     />
 
 
@@ -110,8 +201,7 @@
 
 
 
-        </LinearLayout>
+        </RelativeLayout>
 
-    </androidx.core.widget.NestedScrollView>
 
 </layout>

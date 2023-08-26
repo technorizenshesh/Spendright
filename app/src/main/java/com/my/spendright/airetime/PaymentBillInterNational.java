@@ -53,7 +53,7 @@ public class PaymentBillInterNational extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding= DataBindingUtil.setContentView(this,R.layout.activity_airetime_international);
 
-        sessionManager = new SessionManager(PaymentBillInterNational.this);
+       sessionManager = new SessionManager(PaymentBillInterNational.this);
 
         Intent intent=getIntent();
 
@@ -125,6 +125,8 @@ public class PaymentBillInterNational extends AppCompatActivity {
                         .putExtra("CurrenCy",CurrenCy)
                 );
             }
+            //startActivity(new Intent(PaymentBillInterNational.this,ForeignAirtimeActivity.class));
+
         });
 
         if (sessionManager.isNetworkAvailable()) {

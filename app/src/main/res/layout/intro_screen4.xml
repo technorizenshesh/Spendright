@@ -6,7 +6,7 @@
     >
 
     <RelativeLayout
-        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_20sdp"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_50sdp"
         >
@@ -22,16 +22,13 @@
 
         </ImageView>
 
-        <TextView
-            android:fontFamily="@font/poppinsregular"
-            android:textSize="@dimen/_14sdp"
-            android:layout_centerInParent="true"
-            android:textColor="@color/white"
-            android:text="What's New"
+        <ImageView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-        </TextView>
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/logo_welcome"
+            android:padding="@dimen/_12sdp"
+            />
 
         <TextView
             android:visibility="gone"
@@ -72,11 +69,14 @@
             android:gravity="center"
             android:layout_below="@+id/imgLogo"
             android:textStyle="bold"
-            android:textSize="@dimen/_22sdp"
+            android:textSize="@dimen/_17sdp"
             android:textColor="@color/white"
             android:text="Enjoy cheap airtime and data top up"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_marginEnd="@dimen/_5sdp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/poppinsregular"
             />
 
     </LinearLayout>

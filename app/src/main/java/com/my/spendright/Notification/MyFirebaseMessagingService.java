@@ -1,17 +1,27 @@
 package com.my.spendright.Notification;
 
+import static androidx.core.app.NotificationCompat.BADGE_ICON_SMALL;
+
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.CustomTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.my.spendright.R;
@@ -21,6 +31,10 @@ import com.my.spendright.utils.Preference;
 
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.Map;
 import java.util.Random;
 
@@ -33,7 +47,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     String amount ="";
     String Title ="";
     String key ="";
-    
+    static int count = 0 ;
+
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
@@ -47,30 +62,20 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         if (remoteMessage.getData().size() > 0) {
             Log.d(TAG, "Message data payload" + remoteMessage.getData());
             Map<String, String> data = remoteMessage.getData();
-            String jobType = data.get("type");
-
-
-            /* Check the message contains data If needs to be processed by long running job
-               so check if data needs to be processed by long running job */
-
-            // Handle message within 10 seconds
             handleNow(data);
-
-             /* if (jobType.equalsIgnoreCase(JobType.LONG.name())) {
-                 // For long-running tasks (10 seconds or more) use WorkManager.
-                 scheduleLongRunningJob();
-            } else {} */
-
         }
 
         // if message contains a notification payload.
-        if (remoteMessage.getNotification() != null) {
+       /* if (remoteMessage.getNotification() != null) {
 
             sendNotification(remoteMessage.getNotification().getTitle(), remoteMessage.getNotification().getBody(), remoteMessage.getData());
             // Log.d(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
-        }
+        }*/
 
     }
+
+
+
 
     @Override
     public void onNewToken(String token) {
@@ -91,25 +96,20 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     }
 
     private void sendNotification(String title, String messageBody, Map<String, String> data) {
-
+        JSONObject object = null;
             Log.e("title", "title = " + title);
             Log.e("title", "messageBody = " + messageBody);
-            try
-            {
-                JSONObject object = new JSONObject(data.get("message"));
-                 status = object.optString("result");
-                 Msg = object.optString("type_of_payment");
-                // Title = object.optString("title");
-                Title = object.optString("key");
+            try {
+                object = new JSONObject(data.get("message"));
+                status = object.optString("result");
+                //  = object.optString("type_of_payment");
+                Title = object.optString("title"); //messageBody;
+                Msg = object.optString("key");
                 amount = object.optString("amount");
                 //  Intent intent;
 
-            }catch (Exception e)
-            {
-                e.printStackTrace();
-            }
 
-            int requestCode = (int) System.currentTimeMillis();
+                int requestCode = (int) System.currentTimeMillis();
 
 
        /*     if (status.equals("Accept")) {
@@ -214,54 +214,112 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 }
             }
 */
-            // msg = object.getString("key");
+                // msg = object.getString("key");
 
-            //            Drawable drawable = getApplicationInfo().loadIcon(getPackageManager());
+                //            Drawable drawable = getApplicationInfo().loadIcon(getPackageManager());
 //            Bitmap bitmap = ((BitmapDrawable)drawable).getBitmap();
 
 
-       boolean importantShift = Preference.getBool(this, Preference.key_switch_shift_change);
+                boolean importantShift = Preference.getBool(this, Preference.key_switch_shift_change);
 
    /*    if(importantShift)
        {*/
-           Intent intent = new Intent(this, HomeActivity.class);
-           intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                Intent intent = new Intent(this, HomeActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
-           PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 , intent,
-                   PendingIntent.FLAG_ONE_SHOT);
+                PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent,
+                        PendingIntent.FLAG_IMMUTABLE);
 
-           String channelId = "1";
-           Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-           NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, channelId)
-                   .setStyle(new NotificationCompat.BigTextStyle().bigText(Msg))
-                   .setSmallIcon(R.mipmap.logo)
-                   //.setLargeIcon(bitmap)
-                   .setContentTitle(Title)
-                   .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                   .setContentText(Msg)
-                   .setContentText(amount)
-                   .setAutoCancel(true)
-                   .setSound(defaultSoundUri)
-                   .setContentIntent(pendingIntent);
+                Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+                NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, getString(R.string.channelId))
+                        .setStyle(new NotificationCompat.BigTextStyle().bigText(Msg))
+                        .setSmallIcon(R.drawable.ic_noti)
+                        .setContentTitle(Title)
+                        .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                        .setContentText(Msg)
+                        // .setContentText(amount)
+                        .setAutoCancel(true)
+                        .setSound(defaultSoundUri)
+                        .setVibrate(new long[]{1000, 1000})
+                         .setBadgeIconType(NotificationCompat.BADGE_ICON_LARGE)
+                         .setNumber(count)
+                        .setColor(getResources().getColor(R.color.noti_logo_color))
+                        .setContentIntent(pendingIntent);
 
-           NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-           // Since android Oreo notification channel is needed.
-           if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-               // Channel human readable title
-               NotificationChannel channel = new NotificationChannel(channelId,
-                       "Cloud Messaging Service",
-                       NotificationManager.IMPORTANCE_DEFAULT);
+                NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                // Since android Oreo notification channel is needed.
 
-               notificationManager.createNotificationChannel(channel);
-           }
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    // Channel human readable title
+                    NotificationChannel channel = new NotificationChannel(getString(R.string.channelId),
+                            "Cloud Messaging Service",
+                            NotificationManager.IMPORTANCE_DEFAULT);
+
+                    notificationManager.createNotificationChannel(channel);
+                }
+
+                if (!object.getString("userimage").equalsIgnoreCase("")){
+                /*    Glide.with(getApplicationContext())
+                            .asBitmap()
+                            .load(object.getString("userimage"))
+                            .into(new CustomTarget<Bitmap>() {
+                                @Override
+                                public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                                    //largeIcon
+                                    notificationBuilder.setLargeIcon(resource);
+                                    //Big Picture
+                                //    notificationBuilder.setStyle(new NotificationCompat.BigPictureStyle().bigPicture(resource));
+
+                                }
+
+                                @Override
+                                public void onLoadCleared(@Nullable Drawable placeholder) {
+                                }
+
+                                @Override
+                                public void onLoadFailed(@Nullable Drawable errorDrawable) {
+                                    super.onLoadFailed(errorDrawable);
+                                }
+                            });*/
+                    notificationBuilder.setLargeIcon(getBitmapFromURL(object.getString("userimage")));
+                    //Big Picture
+                      // notificationBuilder.setStyle(new NotificationCompat.BigPictureStyle().bigPicture(getBitmapFromURL(object.getString("userimage"))));
+            }
+                else {
+                                            notificationBuilder.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.logo_one));
+
+                }
+
+
+
 
            notificationManager.notify(getNotificationId(), notificationBuilder.build());
-
+            }catch (Exception e)
+            {
+                e.printStackTrace();
+            }
     }
 
             private static int getNotificationId () {
                 Random rnd = new Random();
                 return 100 + rnd.nextInt(9000);
             }
+
+
+    public Bitmap getBitmapFromURL(String strURL) {
+        try {
+            URL url = new URL(strURL);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setDoInput(true);
+            connection.connect();
+            InputStream input = connection.getInputStream();
+            Bitmap myBitmap = BitmapFactory.decodeStream(input);
+            return myBitmap;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }
 

@@ -188,6 +188,56 @@ public class GetBudgetActTransaction {
             @Expose
             private String description;
 
+            @SerializedName("emoji")
+            @Expose
+            private String emoji;
+
+            @SerializedName("cat_name")
+            @Expose
+            private String catName;
+
+            @SerializedName("refrence_no")
+            @Expose
+            private String refrenceNo;
+
+
+            public String getRefrenceNo() {
+                return refrenceNo;
+            }
+
+
+            @SerializedName("admin_fee")
+            @Expose
+            private String adminFee;
+
+            public String getAdminFee() {
+                return adminFee;
+            }
+
+            public void setAdminFee(String adminFee) {
+                this.adminFee = adminFee;
+            }
+
+            public void setRefrenceNo(String refrenceNo) {
+                this.refrenceNo = refrenceNo;
+            }
+
+            public String getCatName() {
+                return catName;
+            }
+
+            public void setCatName(String catName) {
+                this.catName = catName;
+            }
+
+            public String getEmoji() {
+                return emoji;
+            }
+
+            public void setEmoji(String emoji) {
+                this.emoji = emoji;
+            }
+
             public String getId() {
                 return id;
             }

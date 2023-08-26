@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
 import android.app.DatePickerDialog;
-import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -13,14 +12,11 @@ import android.widget.AdapterView;
 import android.widget.DatePicker;
 import android.widget.Toast;
 
-import com.my.spendright.Model.AddAcountModel;
 import com.my.spendright.Model.GetCategoryModelNew;
 import com.my.spendright.Model.SchdulepAymentModel;
 import com.my.spendright.NumberTextWatcher;
 import com.my.spendright.R;
-import com.my.spendright.act.SetBudget.SetBudgetActivity;
 import com.my.spendright.adapter.CategoryAdapterNew;
-import com.my.spendright.adapter.MonthDaysAdapter;
 import com.my.spendright.adapter.SchdulePaymenCategorytAdapter;
 import com.my.spendright.adapter.SchdulePaymentAdapter;
 import com.my.spendright.databinding.ActivitySchdulePaymentBinding;
@@ -29,7 +25,6 @@ import com.my.spendright.utils.SessionManager;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;

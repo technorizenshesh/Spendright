@@ -9,27 +9,27 @@
         />
 
     <item
-        android:id="@+id/navigation_dashboard"
-        android:icon="@drawable/walletone"
-        android:title="@string/title_dashboard"
+        android:id="@+id/navigation_setBudget"
+        android:icon="@drawable/ic_bud"
+        android:title="@string/budget"
         />
 
     <item
-        android:id="@+id/navigation_notifications"
+        android:id="@+id/navigation_expense"
+        android:icon="@drawable/ic_expense"
+        android:title="@string/expense"
+        />
+
+    <item
+        android:id="@+id/navigation_report"
         android:icon="@drawable/graph"
-        android:title="@string/title_notifications"
+        android:title="@string/repor"
         />
 
     <item
-        android:id="@+id/navigation_notifications1"
-        android:icon="@drawable/new_icon"
-        android:title="@string/THIS_MONTH"
-        />
-
-    <item
-        android:id="@+id/navigation_Schdule"
-        android:icon="@drawable/schedule_payment"
-        android:title="Scheduled payment"
+        android:id="@+id/navigation_settings"
+        android:icon="@drawable/ic_settings"
+        android:title="@string/settings"
         />
 
 </menu>

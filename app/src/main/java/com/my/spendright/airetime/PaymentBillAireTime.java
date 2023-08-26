@@ -3,8 +3,11 @@ package com.my.spendright.airetime;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -47,6 +50,8 @@ public class PaymentBillAireTime extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding= DataBindingUtil.setContentView(this,R.layout.activity_payment_bill_airetime);
 
+      //  binding.RRPay.setOnClickListener(view ->   startActivity(new Intent(PaymentBillAireTime.this,PaymentBillInterNational.class)));
+
         binding.edtAmt.addTextChangedListener(new NumberTextWatcher(binding.edtAmt,"#,###"));
 
         sessionManager = new SessionManager(PaymentBillAireTime.this);
@@ -61,7 +66,7 @@ public class PaymentBillAireTime extends AppCompatActivity {
 
         }
 
-        binding.RRPay.setOnClickListener(new View.OnClickListener() {
+       binding.RRPay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 {
@@ -119,7 +124,38 @@ public class PaymentBillAireTime extends AppCompatActivity {
             }
         });
 
+
+        binding.edtPhone.addTextChangedListener(mMoneyWatcher);
+
+
+
     }
+
+    private TextWatcher mMoneyWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            if (!s.toString().isEmpty()) {
+                binding.edtPhone.removeTextChangedListener(mMoneyWatcher);
+                if (s.toString().charAt(0)=='0') {
+                    binding.edtPhone.setText(s.toString().substring(1,s.length()));
+                }
+
+                binding.edtPhone.addTextChangedListener(mMoneyWatcher);
+            }
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+
+        }
+    };
+
 
     @Override
     protected void onResume() {

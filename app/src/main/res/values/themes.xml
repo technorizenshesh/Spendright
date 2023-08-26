@@ -45,6 +45,14 @@
         <item name="colorSwitchThumbNormal">#06FF01</item>
     </style>
 
+
+    <style name="control_new" parent="Theme.AppCompat.Light">
+        <!-- active thumb & track color (30% transparency) -->
+        <item name="colorControlActivated">@color/blue</item>
+        <item name="colorSwitchThumbNormal">@color/orange</item>
+    </style>
+
+
     <style name="tab_text"
         parent="@android:style/TextAppearance.Widget.TabWidget">
         <item name="android:textAllCaps" tools:targetApi="ice_cream_sandwich">false</item>
@@ -52,5 +60,20 @@
         <item name="android:textColor">@color/black</item>
     </style>
 
+    <style name="AppBottomSheetDialogTheme"
+        parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/AppModalStyle</item>
+    </style>
+
+    <style name="AppModalStyle"
+        parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/rounded_white_top_bg</item>
+    </style>
+
+
+    <style name="BottomNavigationText" parent="@android:style/TextAppearance"/>
+    <style name="BottomNavigationText.Selected">
+        <item name="android:textStyle">bold</item>
+    </style>
 
 </resources>

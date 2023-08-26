@@ -1,6 +1,5 @@
 package com.my.spendright.adapter;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -11,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,23 +20,12 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.my.spendright.Model.GetAllAccountModel;
-import com.my.spendright.Model.GetProfileModel;
 import com.my.spendright.R;
-import com.my.spendright.act.HomeActivity;
-import com.my.spendright.act.MyAccountAct;
-import com.my.spendright.act.SetBudget.SetBudgetActivity;
+import com.my.spendright.act.ui.settings.MyAccountAct;
 import com.my.spendright.act.UpdateMyAccountAct;
-import com.my.spendright.airetime.ConfirmPaymentAireTimeForiegnAct;
 import com.my.spendright.utils.Preference;
-import com.my.spendright.utils.RetrofitClients;
-import com.my.spendright.utils.SessionManager;
 
 import java.util.ArrayList;
-
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class MyAccoutAllAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
@@ -75,14 +64,14 @@ public class MyAccoutAllAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             genericViewHolder.txtActName.setText(model.getHolderName());
 
 
-            genericViewHolder.txtMyBudget.setText(Preference.doubleToStringNoDecimal(Double.parseDouble(model.getCurrentBalance())));
+            genericViewHolder.txtMyBudget.setText("₦"+Preference.doubleToStringNoDecimal(Double.parseDouble(model.getCurrentBalance())));
 
-            genericViewHolder.RRDeleteAccount.setOnClickListener(v -> {
+            genericViewHolder.ivDelete.setOnClickListener(v -> {
                if(modelList.size() > 1) AlertDaliogDelete(position,model.getId());
                  else  accountDeleteAlert();
             });
 
-            genericViewHolder.RREdit.setOnClickListener(v -> {
+            genericViewHolder.ivEdit.setOnClickListener(v -> {
 
                 Toast.makeText(mContext, ""+model.getId(), Toast.LENGTH_SHORT).show();
                 mContext.startActivity(new Intent(mContext, UpdateMyAccountAct.class)
@@ -141,6 +130,7 @@ public class MyAccoutAllAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         TextView txtMyBudget;
         RelativeLayout RRDeleteAccount;
         RelativeLayout RREdit;
+        ImageView ivEdit,ivDelete;
 
         public ViewHolder(final View itemView) {
             super(itemView);
@@ -149,6 +139,11 @@ public class MyAccoutAllAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             txtMyBudget=itemView.findViewById(R.id.txtMyBudget);
             RRDeleteAccount=itemView.findViewById(R.id.RRDeleteAccount);
             RREdit=itemView.findViewById(R.id.RREdit);
+            ivEdit=itemView.findViewById(R.id.ivEdit);
+            ivDelete=itemView.findViewById(R.id.ivDelete);
+
+
+
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

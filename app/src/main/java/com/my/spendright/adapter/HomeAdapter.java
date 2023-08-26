@@ -19,10 +19,10 @@ import java.util.ArrayList;
 
 public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MyViewHolder> {
     Context context;
-    ArrayList<HomeCatModel.Result>arrayList;
+    ArrayList<HomeCatModel>arrayList;
     HomeListener listener;
 
-    public HomeAdapter(Context context, ArrayList<HomeCatModel.Result> arrayList, HomeListener listener) {
+    public HomeAdapter(Context context, ArrayList<HomeCatModel> arrayList, HomeListener listener) {
         this.context = context;
         this.arrayList = arrayList;
         this.listener = listener;
@@ -37,8 +37,13 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MyViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        holder.binding.tvName.setText(arrayList.get(position).getCategoryName());
-        Picasso.get().load(arrayList.get(position).getCategoryImage()).into(holder.binding.ivImg);
+       if(!arrayList.get(position).getName().equals("")){
+           holder.binding.tvName.setVisibility(View.VISIBLE);
+           holder.binding.tvName.setText(arrayList.get(position).getName());
+       }
+       else holder.binding.tvName.setVisibility(View.GONE);
+
+        Picasso.get().load(arrayList.get(position).getImage()).into(holder.binding.ivImg);
     }
 
     @Override
@@ -52,7 +57,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MyViewHolder> 
             super(itemView.getRoot());
             binding = itemView;
 
-            binding.llMain.setOnClickListener(view -> listener.home(arrayList.get(getAbsoluteAdapterPosition()).getId(),arrayList.get(getAbsoluteAdapterPosition()).getCategoryName()));
+         //   binding.llMain.setOnClickListener(view -> listener.home(arrayList.get(getAbsoluteAdapterPosition()).getId(),arrayList.get(getAbsoluteAdapterPosition()).getCategoryName()));
         }
     }
 }

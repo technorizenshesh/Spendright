@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Build;
@@ -14,13 +13,8 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.Toast;
 
-import com.my.spendright.Broadband.PaymentBillBroadBandAct;
-import com.my.spendright.Model.GetProfileModel;
-import com.my.spendright.Model.HomeModal;
 import com.my.spendright.Model.ReportModal;
-import com.my.spendright.Model.TvSuscriptionServiceModel;
 import com.my.spendright.R;
-import com.my.spendright.TvCabelBill.adapter.TvSusCriptionChnageAdapter;
 import com.my.spendright.adapter.PaymentReportAdapter;
 import com.my.spendright.databinding.ActivityPaymentReportBinding;
 import com.my.spendright.utils.RetrofitClients;

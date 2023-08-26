@@ -4,6 +4,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -20,25 +22,26 @@ import androidx.navigation.ui.NavigationUI;
 public class HomeActivity extends AppCompatActivity {
 
     boolean doubleBackToExitPressedOnce = false;
+   public static RelativeLayout container;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        BottomNavigationView navView = findViewById(R.id.nav_view);
+        container = findViewById(R.id.container);
+        container.setBackgroundColor(getResources().getColor(R.color.blue));
 
+        BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
 
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications, R.id.navigation_notifications1)
-                .build();
+        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(R.id.navigation_home, R.id.navigation_setBudget, R.id.navigation_expense, R.id.navigation_report,R.id.navigation_settings).build();
 
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
 
-        // NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+      //   NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
 
-        NavigationUI.setupWithNavController(navView, navController);
+       NavigationUI.setupWithNavController(navView, navController);
 
     }
 

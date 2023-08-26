@@ -3,6 +3,7 @@ package com.my.spendright.act;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -18,12 +19,15 @@ import com.my.spendright.databinding.ActivityRegistrationOneBinding;
 import com.my.spendright.utils.RetrofitClients;
 import com.my.spendright.utils.SessionManager;
 
+import org.json.JSONObject;
+
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ChangePassword extends AppCompatActivity {
-
+    public String TAG ="ChangePassword";
     ActivityChangePasswordBinding binding;
     private SessionManager sessionManager;
     String CnewPassword="";
@@ -65,21 +69,27 @@ public class ChangePassword extends AppCompatActivity {
 
 
     private void ChnagePasswordMethod(){
+        binding.progressBar.setVisibility(View.VISIBLE);
 
-        Call<ChangePasswordModel> call = RetrofitClients.getInstance().getApi()
+        Call<ResponseBody> call = RetrofitClients.getInstance().getApi()
                 .change_password(sessionManager.getUserID(),CnewPassword);
-        call.enqueue(new Callback<ChangePasswordModel>() {
+        call.enqueue(new Callback<ResponseBody>() {
             @RequiresApi(api = Build.VERSION_CODES.GINGERBREAD)
             @Override
-            public void onResponse(Call<ChangePasswordModel> call, Response<ChangePasswordModel> response) {
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 binding.progressBar.setVisibility(View.GONE);
                 try {
-                    ChangePasswordModel finallyPr = response.body();
-
-                    if (finallyPr.getStatus().equalsIgnoreCase("1")) {
-
+                    String stringResponse = response.body().string();
+                    JSONObject jsonObject = new JSONObject(stringResponse);
+                    Log.e(TAG, "ChangePassword Response = " + stringResponse);
+                    if (jsonObject.getString("status").equalsIgnoreCase("1")) {
+                        Toast.makeText(ChangePassword.this, getString(R.string.password_change_successfully), Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(ChangePassword.this,HomeActivity.class));
                         finish();
+                    }
+                    else {
+                        Toast.makeText(ChangePassword.this,jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+
                     }
                 }catch (Exception e)
                 {
@@ -87,7 +97,7 @@ public class ChangePassword extends AppCompatActivity {
                 }
             }
             @Override
-            public void onFailure(Call<ChangePasswordModel> call, Throwable t) {
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
                 binding.progressBar.setVisibility(View.GONE);
             }
         });

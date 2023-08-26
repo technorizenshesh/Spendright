@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
     >
 
@@ -44,12 +44,11 @@
                     >
 
                     <ImageView
-                        android:layout_centerInParent="true"
-                        android:src="@drawable/back"
                         android:layout_width="@dimen/_20sdp"
                         android:layout_height="@dimen/_20sdp"
-                        >
-                    </ImageView>
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/back"
+                        android:padding="@dimen/_3sdp"/>
 
                 </RelativeLayout>
 
@@ -68,22 +67,23 @@
             </RelativeLayout>
 
             <TextView
-                android:text="Please add an account to set budget and start tracking your expenses."
-                android:layout_marginTop="@dimen/_10sdp"
-                android:gravity="center"
-                android:layout_gravity="center"
-                android:textSize="@dimen/_12sdp"
-                android:textColor="@color/black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                />
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:gravity="center"
+                android:fontFamily="@font/poppinsregular"
+                android:text="Please choose your preferred name for this account and enter the amount you want to track. This can be edited later."
+                android:textColor="@color/black"
+                android:textSize="@dimen/_11sdp" />
 
             <TextView
                 android:layout_marginLeft="@dimen/_10sdp"
                 android:text="What type of account are you adding?"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:textSize="@dimen/_12sdp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:textSize="@dimen/_11sdp"
                 android:textColor="@color/gray"
+                android:fontFamily="@font/poppinsregular"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 />
@@ -113,7 +113,8 @@
                     android:layout_height="@dimen/_15sdp"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:src="@drawable/arrow_btm">
+                    android:src="@drawable/arrow_btm"
+                    app:tint="@color/black">
 
                 </ImageView>
 
@@ -141,10 +142,11 @@
 
             <TextView
                 android:layout_marginLeft="@dimen/_10sdp"
-                android:text="Give it a nickname?"
+                android:text="Give it a name?"
                 android:layout_marginTop="@dimen/_10sdp"
-                android:textSize="@dimen/_12sdp"
+                android:textSize="@dimen/_11sdp"
                 android:textColor="@color/gray"
+                android:fontFamily="@font/poppinsregular"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 />
@@ -166,10 +168,12 @@
 
             <TextView
                 android:layout_marginLeft="@dimen/_10sdp"
-                android:text="What is your opening balance?"
+                android:text="What is your current balance?"
                 android:layout_marginTop="@dimen/_10sdp"
-                android:textSize="@dimen/_12sdp"
+                android:textSize="@dimen/_11sdp"
                 android:textColor="@color/gray"
+                android:fontFamily="@font/poppinsregular"
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 />
@@ -190,41 +194,43 @@
                 >
             </EditText>
 
-            <RelativeLayout
-                android:layout_marginRight="@dimen/_5sdp"
-                android:layout_marginLeft="@dimen/_5sdp"
-                android:id="@+id/RRAdd"
-                android:layout_marginTop="@dimen/_30sdp"
-                android:background="@drawable/border_btn"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_50sdp"
-                >
-
-                <TextView
-                    android:layout_marginLeft="20sp"
-                    android:layout_centerVertical="true"
-                    android:textStyle="bold"
-                    android:textSize="@dimen/_16sdp"
-                    android:textColor="@color/white"
-                    android:text="Next"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    />
-
-                <ImageView
-                    android:layout_marginRight="@dimen/_20sdp"
-                    android:src="@drawable/right_back"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_width="@dimen/_20sdp"
-                    android:layout_height="@dimen/_20sdp"
-                    >
-                </ImageView>
-
-
-            </RelativeLayout>
 
         </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/RRAdd"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_50sdp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="@dimen/_20sdp"
+            android:layout_marginLeft="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:layout_marginEnd="@dimen/_20sdp"
+            android:layout_marginRight="@dimen/_5sdp"
+            android:layout_marginBottom="@dimen/_20sdp"
+            android:background="@drawable/blue_rounded_border">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20sp"
+                android:text="Next"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_16sdp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/_20sdp"
+                android:src="@drawable/right_back"></ImageView>
+
+
+        </RelativeLayout>
+
 
     </RelativeLayout>
 

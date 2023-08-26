@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+
+
+
+        <LinearLayout
+            android:id="@+id/RRtoll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:padding="@dimen/_15sdp"
+            android:orientation="vertical"
+            >
+
+
+            <TextView
+                android:textStyle="bold"
+                android:textSize="@dimen/_14sdp"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/black"
+                android:text="@string/rate_this_app"
+                android:fontFamily="@font/poppinsregular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+
+
+            <RatingBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:progressTint="@color/yellow"
+                android:rating="4"
+                android:layout_marginTop="@dimen/_5sdp"
+
+                />
+
+
+
+
+
+    </LinearLayout>
+
+</layout>
+

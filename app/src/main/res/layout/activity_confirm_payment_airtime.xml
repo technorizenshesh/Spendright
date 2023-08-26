@@ -355,12 +355,11 @@
                                 android:layout_gravity="right"
                                 android:id="@+id/AmountPay"
                                 android:drawablePadding="@dimen/_3sdp"
-                                  android:drawableLeft="@drawable/doller"
                                 android:gravity="center_vertical"
                                 android:textStyle="bold"
                                 android:textSize="@dimen/_18sdp"
                                 android:textColor="@color/black"
-                                android:text="6.725,00"
+                                android:text="₦6.725,00"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 />
@@ -369,12 +368,11 @@
                                 android:layout_gravity="right"
                                 android:id="@+id/tax"
                                 android:drawablePadding="@dimen/_3sdp"
-                                  android:drawableLeft="@drawable/doller"
                                 android:gravity="center_vertical"
                                 android:textStyle="bold"
                                 android:textSize="@dimen/_18sdp"
                                 android:textColor="@color/black"
-                                android:text="0.00"
+                                android:text="₦0.00"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 />
@@ -393,11 +391,10 @@
                                 android:layout_gravity="center_vertical"
                                 android:id="@+id/totalAmountPay"
                                 android:drawablePadding="@dimen/_3sdp"
-                                android:drawableLeft="@drawable/doller_orangeee"
                                 android:textStyle="bold"
                                 android:textSize="@dimen/_30sdp"
                                 android:textColor="@color/orange"
-                                android:text="6.727,00"
+                                android:text="₦6.727,00"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 />
@@ -465,7 +462,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
-                        android:text="Description"
+                        android:text="Expense Category"
                         android:textColor="@color/white"
                         android:textSize="@dimen/_14sdp"
                         />
@@ -479,14 +476,29 @@
                         android:layout_height="@dimen/_45sdp"
                         >
 
-                        <EditText
+                        <TextView
                             android:id="@+id/edtDescription"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="@android:color/transparent"
-                            android:backgroundTint="@color/black"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/poppinsregular"
                             android:padding="@dimen/_10sdp"
+                            android:gravity="center_vertical"
+                            android:textSize="@dimen/_11sdp"
+                            android:text="dddd"
                             android:visibility="visible" />
+
+
+                        <ImageView
+                            android:layout_marginRight="@dimen/_5sdp"
+                            android:id="@+id/imgState11"
+                            android:layout_width="@dimen/_10sdp"
+                            android:layout_height="@dimen/_10sdp"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:src="@drawable/bottom_arrow"/>
+
+
 
                     </RelativeLayout>
 

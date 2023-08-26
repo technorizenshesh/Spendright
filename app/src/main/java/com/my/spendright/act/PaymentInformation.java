@@ -8,6 +8,8 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -173,7 +175,39 @@ public class PaymentInformation extends AppCompatActivity {
         }else {
             Toast.makeText(this, R.string.checkInternet, Toast.LENGTH_SHORT).show();
         }*/
+
+
+
+
+        binding.edtCMobile.addTextChangedListener(mMoneyWatcher);
+
     }
+
+
+    private TextWatcher mMoneyWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            if (!s.toString().isEmpty()) {
+                binding.edtCMobile.removeTextChangedListener(mMoneyWatcher);
+                if (s.toString().charAt(0)=='0') {
+                    binding.edtCMobile.setText(s.toString().substring(1,s.length()));
+                }
+
+                binding.edtCMobile.addTextChangedListener(mMoneyWatcher);
+            }
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+
+        }
+    };
 
 
     private void GetAccountCategoryMethod()

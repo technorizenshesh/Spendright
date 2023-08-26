@@ -2,25 +2,228 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.my.spendright">
 
-    <uses-sdk
+<!--    <uses-sdk
         android:minSdkVersion="8"
-        android:targetSdkVersion="19" />
+        android:targetSdkVersion="19" />-->
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
    <!-- <uses-permission android:name="android.permission.SEND_SMS" />-->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+    <uses-permission android:name="android.permission.USE_BIOMETRIC" />
 
 
     <application
+        android:name=".utils.SpendrightApplication"
         android:allowBackup="true"
         android:icon="@mipmap/logo_one"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/logo_one"
         android:supportsRtl="true"
         android:usesCleartextTraffic="true">
+
+
+        <activity
+            android:name=".act.ui.settings.KycSuccessfulAct"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"/>
+
+        <activity
+            android:name=".act.ui.NumberVerifyAct"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"/>
+
+        <activity
+            android:name=".act.ui.budget.withdraw.WithdrawMyWalletConfirmAct"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"/>
+
+
+        <activity
+            android:name=".act.ui.budget.withdraw.WithdrawOtherWalletConfirmAct"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"/>
+
+
+        <activity
+            android:name=".act.ui.home.wallet.WalletToBankConfirmAct"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"/>
+
+        <activity
+            android:name=".act.ui.home.wallet.WalletToWalletConfirmAct"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"/>
+
+        <activity
+            android:name=".act.ui.settings.EditExpenseCategoryAct"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"/>
+
+        <activity
+            android:name=".act.ui.budget.withdraw.WithdrawMyWalletAct"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"/>
+
+
+        <activity
+            android:name=".act.ManageBeneficiaryAct"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"/>
+
+        <activity
+            android:name=".act.ui.budget.withdraw.WithdrawCompleteAct"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"/>
+
+
+        <activity
+            android:name=".act.ui.budget.withdraw.WithdrawPaymentConfirmAct"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"/>
+
+        <activity
+            android:name=".act.ui.budget.withdraw.WithdrawAnotherWalletAct"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"/>
+
+
+        <activity
+            android:name=".act.ui.budget.withdraw.WithdrawYourBankAct"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"/>
+
+
+        <activity
+            android:name=".act.ui.budget.withdraw.WithdrawAct"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"/>
+
+
+        <activity
+            android:name=".act.ui.settings.IncomeCatAct"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"/>
+
+        <activity
+            android:name=".act.ui.budget.BudgetGrpAct"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"/>
+
+        <activity
+            android:name=".act.ui.settings.ProfileUpdateAct"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"/>
+
+        <activity
+            android:name=".act.ui.settings.KYCUpdateAct"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"/>
+
+        <activity
+            android:name=".act.ui.settings.ExpenseCatAct"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"/>
+
+        <activity
+            android:name=".act.ui.settings.AddBudgetCatAct"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"/>
+
+        <activity
+            android:name=".act.ui.settings.BudgetGroupAct"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"/>
+
+        <activity
+            android:name=".act.ui.settings.AddBudgetGroupAct"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"/>
+
+
+        <activity
+            android:name=".act.ui.home.virtualcards.CardCreateSuccessAct"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"/>
+
+        <activity
+            android:name=".act.ui.home.virtualcards.TopupVirtualAct"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"/>
+
+        <activity
+            android:name=".act.ui.home.virtualcards.WithdrawVirtualAct"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"/>
+
+        <activity
+            android:name=".act.ui.home.virtualcards.MyVirtualCardAct"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"/>
+
+        <activity
+            android:name=".act.ui.home.virtualcards.CreateVirtualAct"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"/>
+
+        <activity
+            android:name=".act.ui.home.wallet.TransferFundAct"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"/>
+
+        <activity
+            android:name=".act.ui.home.wallet.WalletToWalletAct"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"/>
+
+        <activity
+            android:name=".act.ui.home.wallet.WalletToBankAct"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"/>
+
+
+        <activity
+            android:name=".act.ui.home.wallet.WalletToVirtualAct"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"/>
+
         <activity
             android:name=".act.PaymentReportPageAct"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"/>
+
         <activity
             android:name=".act.MyProfileAct"
             android:exported="false"
@@ -38,7 +241,7 @@
             android:exported="false"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".act.MyAccountAct"
+            android:name=".act.ui.settings.MyAccountAct"
             android:exported="false"
             android:theme="@style/AppTheme" />
         <activity
@@ -137,7 +340,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".act.SetBudget.SetBudgetActivity"
+            android:name=".act.ui.budget.SetBudgetActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
@@ -146,8 +349,22 @@
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
+
+
         <activity
-            android:name=".MainActivity"
+            android:name=".act.KYCAct"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+
+        <activity
+            android:name=".act.RegistrationSecondAct"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+
+        <activity
+            android:name=".SplashAct"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme">
@@ -165,16 +382,6 @@
             />
         <activity
             android:name=".act.ExpensesBudget"
-            android:exported="false"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme" />
-        <activity
-            android:name=".act.MyBudgets"
-            android:exported="false"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme" />
-        <activity
-            android:name=".act.EstimateExpenseBudget"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
@@ -318,7 +525,7 @@
             android:exported="false"/>
 
         <activity
-            android:name=".act.ui.ContactInfoAct"
+            android:name=".act.ui.settings.ContactInfoAct"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
 
@@ -353,6 +560,18 @@
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
             </intent-filter>
         </service>
+
+     <!--   <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@mipmap/logo_one" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/orange" />
+
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="@string/channelId" />-->
+
     </application>
 
 </manifest>

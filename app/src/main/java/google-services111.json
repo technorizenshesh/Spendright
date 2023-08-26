@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "666340017626",
+    "project_id": "spenright-b6336",
+    "storage_bucket": "spenright-b6336.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:666340017626:android:7e1009e45a7bd3fb786ce3",
+        "android_client_info": {
+          "package_name": "com.my.spendright"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "666340017626-ad98dqoi8muqdd1hao5rhfq1ioeqmm75.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAJxi6HZ_-_XWKuEwEBgKFzeMLy_XM1erc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "666340017626-ad98dqoi8muqdd1hao5rhfq1ioeqmm75.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -2,13 +2,13 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/blue"
+    android:background="@color/purple_200"
     >
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/_50sdp"
-        android:layout_marginTop="@dimen/_10sdp">
+        android:layout_marginTop="@dimen/_20sdp">
 
         <ImageView
             android:visibility="gone"
@@ -16,21 +16,17 @@
             android:layout_height="@dimen/_20sdp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/_10sdp"
-            android:src="@drawable/back_left">
-
-        </ImageView>
+            android:src="@drawable/back_left"/>
 
 
-        <TextView
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:fontFamily="@font/poppinsregular"
-            android:text="What's New"
-            android:textColor="@color/white"
-            android:textSize="@dimen/_14sdp">
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/logo_welcome"
+            android:padding="@dimen/_12sdp"
+            />
 
-        </TextView>
 
         <TextView
             android:visibility="gone"
@@ -63,17 +59,19 @@
             android:src="@drawable/welcome_two"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_200sdp"
-            >
-        </ImageView>
+            />
 
         <TextView
             android:padding="@dimen/_10sdp"
             android:gravity="center"
             android:layout_below="@+id/imgLogo"
             android:textStyle="bold"
-            android:textSize="@dimen/_22sdp"
+            android:textSize="@dimen/_17sdp"
+            android:fontFamily="@font/poppinsregular"
             android:textColor="@color/white"
             android:text="Give every naira a job."
+            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_marginEnd="@dimen/_5sdp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             />

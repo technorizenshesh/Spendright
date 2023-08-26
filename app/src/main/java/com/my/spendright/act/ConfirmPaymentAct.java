@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.PopupMenu;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -20,10 +22,13 @@ import com.my.spendright.Model.GetCategoryModelNew;
 import com.my.spendright.Model.GetCommisionModel;
 import com.my.spendright.Model.GetProfileModel;
 import com.my.spendright.R;
+import com.my.spendright.act.ui.settings.model.IncomeExpenseCatModel;
 import com.my.spendright.adapter.CategoryAdapterNew;
+import com.my.spendright.airetime.ConfirmPaymentAireTimeAct;
 import com.my.spendright.databinding.ActivityConfirmPaymentNewBinding;
 import com.my.spendright.utils.Preference;
 import com.my.spendright.utils.RetrofitClients;
+import com.my.spendright.utils.RetrofitClientsOne;
 import com.my.spendright.utils.SessionManager;
 
 import org.json.JSONObject;
@@ -33,6 +38,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
@@ -61,7 +67,10 @@ public class ConfirmPaymentAct extends AppCompatActivity {
     double walletAmount ;
     String Current_date="";
     private ArrayList<GetCategoryModelNew.Result> modelListCategory = new ArrayList<>();
-     String BudgetAccountId="";
+     String BudgetAccountId="",selectBugCategoryId;
+    ArrayList<IncomeExpenseCatModel.Category> arrayList = new ArrayList<>();;
+    IncomeExpenseCatModel incomeExpenseCatModel;
+    Double CmAmt =0.0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,10 +100,10 @@ public class ConfirmPaymentAct extends AppCompatActivity {
              MyCuurentBlance =intent.getStringExtra("MyCuurentBlance");
 
              binding.meterNumber.setText(billersCode);
-             binding.MyCuurentBlance.setText(MyCuurentBlance);
+             binding.MyCuurentBlance.setText("₦"+MyCuurentBlance);
              binding.Date.setText(paymentdate);
-             binding.AmountPay.setText(amount);
-             binding.totalAmountPay.setText(amount);
+             binding.AmountPay.setText("₦"+amount);
+             binding.totalAmountPay.setText("₦"+amount);
         }
 
         if(amount.contains(",")) amount = amount.replace(",","");
@@ -108,6 +117,10 @@ public class ConfirmPaymentAct extends AppCompatActivity {
            finish();
         });
 
+        binding.edtDescription.setOnClickListener(v -> {
+            if (arrayList.size()>0)showDropDownCategory(v,binding.edtDescription,arrayList);
+        });
+
         binding.RRConfirm.setOnClickListener(v -> {
             if (sessionManager.isNetworkAvailable()) {
                 binding.progressBar.setVisibility(View.VISIBLE);
@@ -115,9 +128,9 @@ public class ConfirmPaymentAct extends AppCompatActivity {
                 String UserName= Preference.get(this,Preference.KEY_VTPASS_UserName);
                 String UserPassword= Preference.get(this,Preference.KEY_VTPASS_pass);
                 double t=0.0;
-                if(!binding.tax.getText().toString().equalsIgnoreCase("0.00"))
+                if(!binding.tax.getText().toString().equalsIgnoreCase("₦0.00"))
                 {
-                    t = Double.parseDouble(binding.tax.getText().toString()) + Double.parseDouble(amount);
+                    t = CmAmt + Double.parseDouble(amount);
                 }
                 else t =  Double.parseDouble(amount);
 
@@ -135,6 +148,7 @@ public class ConfirmPaymentAct extends AppCompatActivity {
             binding.progressBar.setVisibility(View.VISIBLE);
             GetAccountBudgetMethod();
             GetCommisionValue();
+            getAllBudgetCategories();
         }else {
             Toast.makeText(this, R.string.checkInternet, Toast.LENGTH_SHORT).show();
         }
@@ -201,7 +215,7 @@ public class ConfirmPaymentAct extends AppCompatActivity {
         map.put("phone",phone);
 
         Log.e("ElectricityBillRequest=",map.toString());
-        Call<ResponseBody> call = RetrofitClients.getInstance().getApi().Api_pay(Request_IDNew,ServicesId,billersCode,variation_code,amount,phone);
+        Call<ResponseBody> call = RetrofitClients.getInstance().getApi().Api_pay(sessionManager.getUserID(),Request_IDNew,ServicesId,billersCode,variation_code,amount,phone);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
@@ -247,7 +261,25 @@ public class ConfirmPaymentAct extends AppCompatActivity {
         //sessionManager.getUserID();
         Call<ResponseBody> call = RetrofitClients.getInstance().getApi()
                 .Api_add_vtpass_book_payment11(sessionManager.getUserID(),Request_IDNew,amount,ServicesId,ServicesName,
-                        "Electricity",status,Current_date,BudgetAccountId,"",billersCode/*binding.edtDescription.getText().toString()*/,phone,binding.tax.getText().toString(),response);
+                        "Electricity",status,Current_date,selectBugCategoryId,BudgetAccountId,selectBugCategoryId,billersCode/*binding.edtDescription.getText().toString()*/,phone,binding.tax.getText().toString(),response);
+       Map<String,String> map = new HashMap<>();
+       map.put("user_id",sessionManager.getUserID()+"");
+        map.put("request_id",Request_IDNew+"");
+        map.put("amount",amount+"");
+        map.put("service_id",ServicesId+"");
+        map.put("service_name",ServicesName+"");
+        map.put("type","Electricity");
+        map.put("check_status",status+"");
+        map.put("transaction_date",Current_date+"");
+        map.put("budget_account_id",BudgetAccountId+"");
+        map.put("cat_id",selectBugCategoryId+"");
+        map.put("description",billersCode+"");
+        map.put("phone_number",phone+"");
+        map.put("payment_commision",binding.tax.getText().toString()+"");
+        map.put("response",response+"");
+
+        Log.e("electy====",map.toString());
+
         call.enqueue(new Callback<ResponseBody>() {
             @RequiresApi(api = Build.VERSION_CODES.GINGERBREAD)
             @Override
@@ -334,14 +366,14 @@ public class ConfirmPaymentAct extends AppCompatActivity {
                             GetCommisionModel finallyPr = new Gson().fromJson(stringResponse,GetCommisionModel.class);
                             String CommisionAmount = finallyPr.getResult().getCommisionAmount();
 
-                            Double CmAmt= Double.valueOf(CommisionAmount);
+                            CmAmt= Double.valueOf(CommisionAmount);
                             Double TotalAmt= Double.valueOf(amount);
 
                             Double FInalAmt=CmAmt+TotalAmt;
 
 
-                            binding.tax.setText(Preference.doubleToStringNoDecimal(Double.parseDouble(CommisionAmount))+"");
-                            binding.totalAmountPay.setText(Preference.doubleToStringNoDecimal(Double.parseDouble(FInalAmt+""))+"");
+                            binding.tax.setText("₦"+Preference.doubleToStringNoDecimal(Double.parseDouble(CommisionAmount))+"");
+                            binding.totalAmountPay.setText("₦"+Preference.doubleToStringNoDecimal(Double.parseDouble(FInalAmt+""))+"");
                         }
 
                         else {
@@ -423,5 +455,75 @@ public class ConfirmPaymentAct extends AppCompatActivity {
         super.onResume();
         GetProfileMethod();
     }
+
+
+
+    private void getAllBudgetCategories() {
+        binding.progressBar.setVisibility(View.VISIBLE);
+        Map<String, String> requestBody = new HashMap<>();
+        requestBody.put("cat_user_id", sessionManager.getUserID());
+        requestBody.put("cat_type","EXPENSE");
+        Log.e(TAG, "getAll category BudgetRequest==" + requestBody.toString());
+
+        Call<ResponseBody> loginCall = RetrofitClientsOne.getInstance().getApi().Api_get_budget_category(requestBody);
+        loginCall.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                binding.progressBar.setVisibility(View.GONE);
+                try {
+                    String stringResponse = response.body().string();
+                    JSONObject jsonObject = new JSONObject(stringResponse);
+                    Log.e(TAG, "getAll category BudgetResponse = " + stringResponse);
+                    if (jsonObject.getString("status").equalsIgnoreCase("1")) {
+                        incomeExpenseCatModel = new Gson().fromJson(stringResponse, IncomeExpenseCatModel.class);
+                        arrayList.clear();
+                        arrayList.addAll(incomeExpenseCatModel.getCategories());
+                        selectBugCategoryId = incomeExpenseCatModel.getCategories().get(0).getCatId();
+                        binding.edtDescription.setText(incomeExpenseCatModel.getCategories().get(0).getCatName());
+
+                    } else {
+                        arrayList.clear();
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                call.cancel();
+                binding.progressBar.setVisibility(View.GONE);
+            }
+        });
+    }
+
+
+    @RequiresApi(api = Build.VERSION_CODES.HONEYCOMB)
+    private void showDropDownCategory(View v, TextView textView, List<IncomeExpenseCatModel.Category> stringList) {
+        PopupMenu popupMenu = new PopupMenu(ConfirmPaymentAct.this, v);
+        for (int i = 0; i < stringList.size(); i++) {
+            popupMenu.getMenu().add(stringList.get(i).getCatName());
+        }
+
+        // popupMenu.getMenu().add(0,stringList.size()+1,0,R.string.add_new_category ).setIcon(R.drawable.ic_added);
+        popupMenu.setOnMenuItemClickListener(menuItem -> {
+
+            for (int i = 0; i < stringList.size(); i++) {
+                if(stringList.get(i).getCatName().equalsIgnoreCase(menuItem.getTitle().toString())) {
+                    selectBugCategoryId = stringList.get(i).getCatId();
+                    textView.setText(menuItem.getTitle());
+
+                }
+            }
+
+
+            return true;
+        });
+        popupMenu.show();
+    }
+
+
+
 
 }

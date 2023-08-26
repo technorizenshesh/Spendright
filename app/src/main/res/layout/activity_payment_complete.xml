@@ -13,64 +13,86 @@
             android:id="@+id/RRtoolbaar"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_50sdp"
-            android:visibility="visible">
+            android:visibility="visible"
+            android:layout_marginTop="@dimen/_10sdp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
+                android:fontFamily="@font/poppinsregular"
                 android:text="Success"
                 android:textColor="@color/white"
-                android:textSize="@dimen/_18sdp"
-                android:textStyle="bold">
+                android:textSize="@dimen/_16sdp"
+                android:textStyle="bold"/>
 
-            </TextView>
 
 
         </RelativeLayout>
 
-        <View
-            android:background="@color/white"
-            android:layout_below="@+id/RRtoolbaar"
+
+        <ImageView
+            android:id="@+id/imgLogo"
             android:layout_width="match_parent"
-            android:layout_height="1sp"
-            >
-
-        </View>
-
-        <LinearLayout
+            android:layout_height="@dimen/_200sdp"
+            android:layout_below="@+id/RRtoolbaar"
             android:layout_centerInParent="true"
-            android:orientation="vertical"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:src="@drawable/ic_success" />
+
+
+        <ImageView
+            android:id="@+id/imgRight"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_80sdp"
+            android:layout_below="@+id/imgLogo"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:padding="@dimen/_10sdp"
+
+            android:src="@drawable/ic_green_right" />
+
+
+
+
+        <TextView
+            android:id="@+id/tvStatus"
+            android:padding="@dimen/_10sdp"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="@dimen/_20sdp"
+            android:textColor="@color/white"
+            android:text="@string/payment_complete"
+            android:fontFamily="@font/poppinsregular"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_above="@+id/RRViewReceipt"
+
+            />
+
+        <RelativeLayout
+            android:id="@+id/RRViewReceipt"
+            android:layout_above="@+id/RRComplete"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@drawable/border_btn"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_50sdp"
             >
 
-
-            <ImageView
-                android:id="@+id/imgLogo"
-                android:padding="@dimen/_20sdp"
-                android:layout_centerInParent="true"
-                android:src="@drawable/loginsuccess"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_200sdp"
-                >
-            </ImageView>
-
             <TextView
-                android:padding="@dimen/_10sdp"
-                android:gravity="center"
-                android:layout_below="@+id/imgLogo"
-                android:textStyle="bold"
-                android:textSize="@dimen/_22sdp"
-                android:textColor="@color/white"
-                android:text="Payment Complete"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                />
+                android:layout_centerInParent="true"
+                android:fontFamily="@font/poppinsregular"
+                android:text="@string/view_receipt"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_14sdp"
+                android:textStyle="bold" />
 
+        </RelativeLayout>
 
-
-        </LinearLayout>
 
         <RelativeLayout
             android:layout_alignParentBottom="true"
@@ -78,21 +100,21 @@
             android:id="@+id/RRComplete"
             android:layout_marginRight="@dimen/_10sdp"
             android:layout_marginLeft="@dimen/_10sdp"
-            android:layout_marginTop="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_10sdp"
             android:background="@drawable/border_btn"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_50sdp"
             >
 
             <TextView
-                android:layout_centerInParent="true"
-                android:textStyle="bold"
-                android:textSize="@dimen/_16sdp"
-                android:textColor="@color/white"
-                android:text="Back to Home"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                />
+                android:layout_centerInParent="true"
+                android:fontFamily="@font/poppinsregular"
+                android:text="@string/done"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_14sdp"
+                android:textStyle="bold" />
 
         </RelativeLayout>
 

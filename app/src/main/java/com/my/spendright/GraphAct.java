@@ -5,16 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
 import com.my.spendright.Model.GetSetbudgetExpence;
-import com.my.spendright.act.SetBudget.SetBudgetActivity;
 import com.my.spendright.adapter.MySetBudgetAdapter;
-import com.my.spendright.adapter.SetBudgetAdapter;
 import com.my.spendright.databinding.ActivityGraphBinding;
 import com.my.spendright.utils.RetrofitClients;
 import com.my.spendright.utils.SessionManager;

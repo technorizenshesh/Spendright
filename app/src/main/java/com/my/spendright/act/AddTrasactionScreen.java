@@ -8,32 +8,44 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.my.spendright.Broadband.ConfirmPaymentBroadBandAct;
 import com.my.spendright.Model.GetCategoryModelNew;
 import com.my.spendright.Model.GetMainGrpCategory;
 import com.my.spendright.Model.SchdulepAymentModel;
 import com.my.spendright.NumberTextWatcher;
 import com.my.spendright.R;
+import com.my.spendright.act.ui.settings.model.IncomeExpenseCatModel;
 import com.my.spendright.adapter.CategoryAdapterNew;
 import com.my.spendright.adapter.GetCategoryGrpAdapter;
 import com.my.spendright.databinding.ActivityAddTrasactionScreenBinding;
 import com.my.spendright.utils.RetrofitClients;
+import com.my.spendright.utils.RetrofitClientsOne;
 import com.my.spendright.utils.SessionManager;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class AddTrasactionScreen extends AppCompatActivity
 {
+    private String TAG = "AddTrasactionScreen";
+
     ActivityAddTrasactionScreenBinding binding;
     private int mYear, mMonth,mDay;
 
@@ -43,12 +55,15 @@ public class AddTrasactionScreen extends AppCompatActivity
 
     String Amt="";
     String description ="";
-    String mainCategoryId="";
+    String mainCategoryId="",emoji="";
     String mainCategoryName="";
 
     private SessionManager sessionManager;
 
     private ArrayList<GetMainGrpCategory.Result> modelListCategory = new ArrayList<>();
+
+    ArrayList<IncomeExpenseCatModel.Category> arrayList = new ArrayList<>();
+    IncomeExpenseCatModel incomeExpenseCatModel;
 
     @RequiresApi(api = Build.VERSION_CODES.HONEYCOMB)
     @Override
@@ -111,11 +126,11 @@ public class AddTrasactionScreen extends AppCompatActivity
             {
                 Toast.makeText(this, "Please Select Date.", Toast.LENGTH_SHORT).show();
 
-            }else if(description .equalsIgnoreCase(""))
+            }/*else if(description .equalsIgnoreCase(""))
             {
                 Toast.makeText(this, "Please Select description.", Toast.LENGTH_SHORT).show();
 
-            }else
+            }*/else
             {
                 if(binding.SitchBtn.isChecked())
                 {
@@ -138,8 +153,10 @@ public class AddTrasactionScreen extends AppCompatActivity
         binding.spinnerBudgetAct.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View arg1, int pos, long arg3){
 
-                mainCategoryId = modelListCategory.get(pos).getId();
-                mainCategoryName = modelListCategory.get(pos).getSubCatName();
+                mainCategoryId = arrayList.get(pos).getCatId();
+                mainCategoryName = arrayList.get(pos).getCatName();
+                emoji = arrayList.get(pos).getCatEmoji();
+
             }
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
@@ -149,13 +166,39 @@ public class AddTrasactionScreen extends AppCompatActivity
 
         if (sessionManager.isNetworkAvailable()) {
             binding.progressBar.setVisibility(View.VISIBLE);
-            GetGrpCategoryMethod();
+            getAllBudgetCategories("EXPENSE");
         }else {
             Toast.makeText(this, R.string.checkInternet, Toast.LENGTH_SHORT).show();
         }
+
+
+        binding.SitchBtn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b== true){
+                    if (sessionManager.isNetworkAvailable()) {
+                        binding.progressBar.setVisibility(View.VISIBLE);
+                        getAllBudgetCategories("EXPENSE");
+                    }else {
+                        Toast.makeText(AddTrasactionScreen.this, R.string.checkInternet, Toast.LENGTH_SHORT).show();
+                    }
+                }
+                else {
+                    if (sessionManager.isNetworkAvailable()) {
+                        binding.progressBar.setVisibility(View.VISIBLE);
+                        getAllBudgetCategories("INCOME");
+                    }else {
+                        Toast.makeText(AddTrasactionScreen.this, R.string.checkInternet, Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        });
+
+
     }
 
 
+/*
     private void GetGrpCategoryMethod(){
         binding.progressBar.setVisibility(View.VISIBLE);
         Call<GetMainGrpCategory> call = RetrofitClients.getInstance().getApi()
@@ -186,6 +229,7 @@ public class AddTrasactionScreen extends AppCompatActivity
             }
         });
     }
+*/
 
 
     private void AddAccountInfoPaymentMethos(){
@@ -194,7 +238,7 @@ public class AddTrasactionScreen extends AppCompatActivity
 
         Call<SchdulepAymentModel> call = RetrofitClients.getInstance().getApi()
                 .add_account_info(UserId,Amt,TypePAyment,mainCategoryId,account_budget_id,
-                        paymentdate,description,"",mainCategoryName);
+                        paymentdate,description,"",mainCategoryName,emoji,"MANUAL");
         call.enqueue(new Callback<SchdulepAymentModel>() {
             @RequiresApi(api = Build.VERSION_CODES.GINGERBREAD)
             @Override
@@ -216,6 +260,54 @@ public class AddTrasactionScreen extends AppCompatActivity
             }
             @Override
             public void onFailure(Call<SchdulepAymentModel> call, Throwable t) {
+                binding.progressBar.setVisibility(View.GONE);
+            }
+        });
+    }
+
+    private void getAllBudgetCategories(String type) {
+        binding.progressBar.setVisibility(View.VISIBLE);
+        Map<String, String> requestBody = new HashMap<>();
+        requestBody.put("cat_user_id", sessionManager.getUserID());
+        requestBody.put("cat_type",type);
+        Log.e(TAG, "getAll category BudgetRequest==" + requestBody.toString());
+
+        Call<ResponseBody> loginCall = RetrofitClientsOne.getInstance().getApi().Api_get_budget_category(requestBody);
+        loginCall.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                binding.progressBar.setVisibility(View.GONE);
+                try {
+                    String stringResponse = response.body().string();
+                    JSONObject jsonObject = new JSONObject(stringResponse);
+                    Log.e(TAG, "getAll category BudgetResponse = " + stringResponse);
+                    if (jsonObject.getString("status").equalsIgnoreCase("1")) {
+                        incomeExpenseCatModel = new Gson().fromJson(stringResponse, IncomeExpenseCatModel.class);
+                        arrayList.clear();
+                        arrayList.addAll(incomeExpenseCatModel.getCategories());
+                      //  selectBugCategoryId = incomeExpenseCatModel.getCategories().get(0).getCatId();
+                    //    binding.tvCategoryName.setText(incomeExpenseCatModel.getCategories().get(0).getCatName());
+
+                        mainCategoryId = arrayList.get(0).getCatId();
+                        mainCategoryName = arrayList.get(0).getCatName();
+                        emoji = arrayList.get(0).getCatEmoji();
+
+                        GetCategoryGrpAdapter customAdapter=new GetCategoryGrpAdapter(AddTrasactionScreen.this,arrayList);
+                        binding.spinnerBudgetAct.setAdapter(customAdapter);
+
+
+                    } else {
+                        arrayList.clear();
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                call.cancel();
                 binding.progressBar.setVisibility(View.GONE);
             }
         });

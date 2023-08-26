@@ -3,9 +3,10 @@ package com.my.spendright.Model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class GetExpenSeReport {
+public class GetExpenSeReport implements Serializable {
 
     @SerializedName("result")
     @Expose
@@ -63,7 +64,7 @@ public class GetExpenSeReport {
         this.status = status;
     }
 
-    public class Result {
+    public class Result implements Serializable {
 
         @SerializedName("id")
         @Expose
@@ -95,6 +96,77 @@ public class GetExpenSeReport {
         @SerializedName("description")
         @Expose
         private String description;
+        @SerializedName("emoji")
+        @Expose
+        private String emoji;
+
+        @SerializedName("refrence_no")
+        @Expose
+        private String refrence_no;
+
+        @SerializedName("service")
+        @Expose
+        private String service;
+
+        @SerializedName("flag")
+        @Expose
+        private String flag;
+
+        @SerializedName("cat_name")
+        @Expose
+        private String cat_name;
+
+        @SerializedName("admin_fee")
+        @Expose
+        private String adminFee;
+
+        public String getAdminFee() {
+            return adminFee;
+        }
+
+        public void setAdminFee(String adminFee) {
+            this.adminFee = adminFee;
+        }
+
+        public String getCat_name() {
+            return cat_name;
+        }
+
+        public void setCat_name(String cat_name) {
+            this.cat_name = cat_name;
+        }
+
+        public String getFlag() {
+            return flag;
+        }
+
+        public void setFlag(String flag) {
+            this.flag = flag;
+        }
+
+        public String getService() {
+            return service;
+        }
+
+        public void setService(String service) {
+            this.service = service;
+        }
+
+        public String getRefrence_no() {
+            return refrence_no;
+        }
+
+        public void setRefrence_no(String refrence_no) {
+            this.refrence_no = refrence_no;
+        }
+
+        public String getEmoji() {
+            return emoji;
+        }
+
+        public void setEmoji(String emoji) {
+            this.emoji = emoji;
+        }
 
         public String getId() {
             return id;

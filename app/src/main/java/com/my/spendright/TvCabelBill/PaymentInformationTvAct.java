@@ -4,14 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
 import android.content.Intent;
-import android.database.DatabaseUtils;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.widget.Toast;
 
-import com.my.spendright.NumberTextWatcher;
 import com.my.spendright.R;
-import com.my.spendright.act.ConfirmPaymentAct;
-import com.my.spendright.act.PaymentInformation;
 import com.my.spendright.databinding.ActivityPaymentInformationTvBinding;
 import com.my.spendright.utils.SessionManager;
 
@@ -84,5 +82,37 @@ public class PaymentInformationTvAct extends AppCompatActivity {
             }
 
         });
+
+        binding.edtCMobile.addTextChangedListener(mMoneyWatcher);
+
+
+
     }
+
+
+    private TextWatcher mMoneyWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            if (!s.toString().isEmpty()) {
+                binding.edtCMobile.removeTextChangedListener(mMoneyWatcher);
+                if (s.toString().charAt(0)=='0') {
+                    binding.edtCMobile.setText(s.toString().substring(1,s.length()));
+                }
+
+                binding.edtCMobile.addTextChangedListener(mMoneyWatcher);
+            }
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+
+        }
+    };
+
 }

@@ -14,7 +14,6 @@ import com.my.spendright.Model.TvSuscriptionServiceModel;
 import com.my.spendright.R;
 import com.my.spendright.TvCabelBill.adapter.TvSusCriptionChnageAdapter;
 import com.my.spendright.databinding.ActivityPaymentInformationTvChangeBinding;
-import com.my.spendright.utils.Preference;
 import com.my.spendright.utils.RetrofitClients;
 import com.my.spendright.utils.SessionManager;
 

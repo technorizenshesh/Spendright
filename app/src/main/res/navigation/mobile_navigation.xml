@@ -11,31 +11,47 @@
         android:id="@+id/navigation_home"
         android:name="com.my.spendright.act.ui.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home">
+
+        <action
+                android:id="@+id/action_home_fragment_to_setBudget"
+                app:destination="@id/navigation_setBudget" />
+
+
+        <action
+            android:id="@+id/action_home_fragment_to_report"
+            app:destination="@id/navigation_report" />
+
+    </fragment>
+
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.my.spendright.act.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
-
-    <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.my.spendright.act.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
-
-   <fragment
-        android:id="@+id/navigation_notifications1"
-        android:name="com.my.spendright.act.ui.thismonth.ThisMonthFragment"
+        android:id="@+id/navigation_setBudget"
+        android:name="com.my.spendright.act.ui.budget.BudgetFragment"
         android:label="@string/THIS_MONTH"
-        tools:layout="@layout/fragment_notifications" />
+        tools:layout="@layout/fragment_budget" />
+
+
 
     <fragment
-        android:id="@+id/navigation_Schdule"
-        android:name="com.my.spendright.Fragment.SchdulePaymentFragment"
-        android:label="Scheduled Payments"
-        tools:layout="@layout/fragment_schdule_payment" />
+        android:id="@+id/navigation_expense"
+        android:name="com.my.spendright.act.ui.expense.ExpenseFragment"
+        android:label="@string/title_dashboard"
+        tools:layout="@layout/fragment_expense" />
+
+    <fragment
+        android:id="@+id/navigation_report"
+        android:name="com.my.spendright.act.ui.report.ReportFragment"
+        android:label="@string/title_notifications"
+        tools:layout="@layout/fragment_report" />
+
+
+
+    <fragment
+        android:id="@+id/navigation_settings"
+        android:name="com.my.spendright.act.ui.settings.SettingsFragment"
+        android:label="@string/settings"
+        tools:layout="@layout/fragment_settings" />
 
 
 </navigation>

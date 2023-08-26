@@ -20,13 +20,12 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import com.my.spendright.MainActivity;
+import com.my.spendright.SplashAct;
 import com.my.spendright.R;
 
 import java.security.MessageDigest;
@@ -200,7 +199,7 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.btn_next) {
-            Intent intentSign = new Intent(WelcomeActivity.this, MainActivity.class);
+            Intent intentSign = new Intent(WelcomeActivity.this, SplashAct.class);
             startActivity(intentSign);
             finish();
         }

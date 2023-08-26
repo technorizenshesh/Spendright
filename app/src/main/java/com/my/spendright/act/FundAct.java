@@ -1,7 +1,6 @@
 package com.my.spendright.act;
 
-import static com.my.spendright.act.Registration.getRandomNumberString;
-
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -17,37 +16,31 @@ import androidx.databinding.DataBindingUtil;
 
 import com.flutterwave.raveandroid.RavePayActivity;
 import com.flutterwave.raveandroid.RaveUiManager;
-import com.flutterwave.raveandroid.rave_java_commons.Meta;
 import com.flutterwave.raveandroid.rave_java_commons.RaveConstants;
+import com.google.gson.Gson;
 import com.my.spendright.Model.AccountModel;
 import com.my.spendright.Model.GetProfileModel;
-import com.my.spendright.NumberTextWatcher;
+import com.my.spendright.Model.vAccountModel;
 import com.my.spendright.R;
+import com.my.spendright.act.ui.home.wallet.TransferFundAct;
+import com.my.spendright.act.ui.home.wallet.WalletToBankAct;
 import com.my.spendright.adapter.AccountAdapter;
 import com.my.spendright.databinding.ActivityWalletFundBinding;
 import com.my.spendright.utils.ApiClient;
 import com.my.spendright.utils.ApiMonnify;
 import com.my.spendright.utils.Constant;
 import com.my.spendright.utils.RetrofitClients;
+import com.my.spendright.utils.RetrofitClientsOne;
 import com.my.spendright.utils.SessionManager;
-import com.teamapt.monnify.sdk.Monnify;
-import com.teamapt.monnify.sdk.MonnifyTransactionResponse;
-import com.teamapt.monnify.sdk.data.model.TransactionDetails;
-import com.teamapt.monnify.sdk.model.PaymentMethod;
-import com.teamapt.monnify.sdk.rest.data.request.SubAccountDetails;
-import com.teamapt.monnify.sdk.service.ApplicationMode;
 
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -60,22 +53,22 @@ public class FundAct extends AppCompatActivity {
     public String TAG = "FundAct";
     ActivityWalletFundBinding binding;
     private SessionManager sessionManager;
-    ArrayList<AccountModel>arrayList;
+    ArrayList<AccountModel> arrayList;
     AccountAdapter adapter;
     GetProfileModel finallyPr;
-    String fName="",lName="",email="",amount,phoneNumber="";
+    String fName = "", lName = "", email = "", amount, phoneNumber = "";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_wallet_fund);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_wallet_fund);
         initViews();
 
     }
 
     private void initViews() {
 
-         if(getIntent()!=null) amount = getIntent().getStringExtra("amount");
+        if (getIntent() != null) amount = getIntent().getStringExtra("amount");
         // binding.edAmount.addTextChangedListener(new NumberTextWatcher(binding.edAmount,"#,###"));
 
 
@@ -85,21 +78,42 @@ public class FundAct extends AppCompatActivity {
 
         binding.imgBack.setOnClickListener(v -> finish());
 
-        adapter = new AccountAdapter(FundAct.this,arrayList);
+        adapter = new AccountAdapter(FundAct.this, arrayList);
         binding.rvFund.setAdapter(adapter);
 
         if (sessionManager.isNetworkAvailable()) {
             binding.progressBar.setVisibility(View.VISIBLE);
-            getFLAccount();
-        }else {
+            // getFLAccount();
+
+        } else {
             Toast.makeText(FundAct.this, R.string.checkInternet, Toast.LENGTH_SHORT).show();
         }
 
-        binding.RRPay.setOnClickListener(v -> {
-            if(binding.edAmount.getText().toString().equalsIgnoreCase("")){
-                Toast.makeText(this, getString(R.string.please_enter_amount), Toast.LENGTH_SHORT).show();
+
+        binding.RRKYC.setOnClickListener(view -> {
+            if (finallyPr != null) {
+                if (finallyPr.getResult().getKycStatus().equalsIgnoreCase("0")) {
+                    startActivity(new Intent(this, KYCAct.class)
+                            .putExtra("user_id", finallyPr.getResult().getId())
+                            .putExtra("mobile", finallyPr.getResult().getMobile())
+                            .putExtra("name", finallyPr.getResult().getLastName() + finallyPr.getResult().getOtherLegalName())
+                            .putExtra("from", "FundScreen"));
+                }
+
             }
-            else {
+        });
+
+        binding.RRGenerateAcct.setOnClickListener(view -> {
+            if (sessionManager.isNetworkAvailable()) generateMAccount();
+            else Toast.makeText(FundAct.this, R.string.checkInternet, Toast.LENGTH_SHORT).show();
+        });
+
+
+        binding.RRPay.setOnClickListener(v -> {
+            if (binding.edAmount.getText().toString().equalsIgnoreCase("")) {
+                Toast.makeText(this, getString(R.string.please_enter_amount), Toast.LENGTH_SHORT).show();
+            } else {
+
 
 // 08060210309
                 new RaveUiManager(FundAct.this).setAmount(Double.parseDouble(binding.edAmount.getText().toString().trim()))
@@ -110,7 +124,7 @@ public class FundAct extends AppCompatActivity {
                         .setNarration(fName + " " + lName)
                         .setPublicKey(Constant.FL_LIVE_PUBLIC_KEY)
                         .setEncryptionKey(Constant.FL_LIVE_ENCRYPTION_KEY)
-                        .setTxRef("reference"+getCurrentDate())
+                        .setTxRef("reference" + getCurrentDate())
                         .setPhoneNumber(phoneNumber, true)
                         .setCountry("NG")
                         .acceptAccountPayments(true)
@@ -133,26 +147,44 @@ public class FundAct extends AppCompatActivity {
                         .showStagingLabel(true)
                         .allowSaveCardFeature(true)
                         .initialize();
-            }
-        } );
 
-        binding.btnDone.setOnClickListener(view -> {
-            startActivity(new Intent(FundAct.this,HomeActivity.class)
-                    .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP));
-            finish();
+
+            }
+
+            // startActivity(new Intent(this, TransferFundAct.class));
+
         });
+
+       /* binding.btnDone.setOnClickListener(view -> {
+            startActivity(new Intent(FundAct.this,HomeActivity.class )
+                    .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Inte nt.FLAG_ACTIVITY_CLEAR_TOP));
+            finish();
+        });*/
+
+
+        binding.ivCopy1.setOnClickListener(view ->setClipboard(this,binding.tvAccountNo1.getText().toString().trim()));
+
+        binding.ivCopy2.setOnClickListener(view ->setClipboard(this,binding.tvAccountNo2.getText().toString().trim()));
+
+        binding.ivCopy3.setOnClickListener(view ->setClipboard(this,binding.tvAccountNo3.getText().toString().trim()));
+
 
         GetProfileMethod();
 
     }
 
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        GetProfileMethod();
+    }
 
     private void getFLAccount() {
         ApiMonnify apiInterface = ApiClient.getClient1().create(ApiMonnify.class);
         Map<String, String> headers = new HashMap<>();
         headers.put("Authorization", "Bearer " + Constant.FL_LIVE_SECRET_KEY);
-        Call<ResponseBody> loginCall = apiInterface.Api_get_account(headers,sessionManager.getAccountReference());
+        Call<ResponseBody> loginCall = apiInterface.Api_get_account(headers, sessionManager.getAccountReference());
         loginCall.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -163,35 +195,33 @@ public class FundAct extends AppCompatActivity {
                         JSONObject jsonObject = new JSONObject(stringResponse);
                         Log.e(TAG, "FLGetAccount Response = " + stringResponse);
                         if (jsonObject.getString("status").equalsIgnoreCase("success")) {
-                          //  JSONArray array = jsonObject.getJSONArray("data");
-                            binding.llAccount.setVisibility(View.VISIBLE);
+                            //  JSONArray array = jsonObject.getJSONArray("data");
+                            //  binding.llAccount.setVisibility(View.VISIBLE);
                             JSONObject object = jsonObject.getJSONObject("data");
                             Log.e("obj====", object.getString("account_number"));
                             Log.e("obj====", object.getString("bank_name"));
                             Log.e("obj====", object.getString("order_ref"));
                             Log.e("obj====", object.getString("amount"));
 
-                          binding.tvAccountNo.setText(object.getString("account_number"));
-                            binding.tvBankName.setText(object.getString("bank_name"));
+                            // binding.tvAccountNo.setText(object.getString("account_number"));
+                            //   binding.tvBankName.setText(object.getString("bank_name"));
                         } else {
                             // arrayList.clear();
                             //   adapter.notifyDataSetChanged();
-                            binding.llAccount.setVisibility(View.GONE);
+                            //  binding.llAccount.setVisibility(View.GONE);
                             Toast.makeText(FundAct.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
                         }
-                    }
-                    else {
+                    } else {
                         String stringResponse = response.body().string();
                         JSONObject jsonObject = new JSONObject(stringResponse);
                         Log.e(TAG, "FlutterwaveAccount Response = " + stringResponse);
-                        binding.llAccount.setVisibility(View.GONE);
+                        //  binding.llAccount.setVisibility(View.GONE);
                         Toast.makeText(FundAct.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
                     }
 
-                    } catch(Exception e){
-                        e.printStackTrace();
-                    }
-
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
 
             }
@@ -205,7 +235,7 @@ public class FundAct extends AppCompatActivity {
     }
 
 
-    public  String toBase64(String message) {
+    public String toBase64(String message) {
         byte[] data;
         // data = message.getBytes("UTF-8");
         String base64Sms = Base64.encodeToString(message.getBytes(), Base64.NO_WRAP);
@@ -214,10 +244,6 @@ public class FundAct extends AppCompatActivity {
 
         // return null;
     }
-
-
-
-
 
 
     @Override
@@ -230,28 +256,23 @@ public class FundAct extends AppCompatActivity {
             String message = data.getStringExtra("response");
 
             if (resultCode == RavePayActivity.RESULT_SUCCESS) {
-              //  Toast.makeText(FundAct.this, "SUCCESS " + message, Toast.LENGTH_SHORT).show();
-                Log.e("Payment response===",message);
+                //  Toast.makeText(FundAct.this, "SUCCESS " + message, Toast.LENGTH_SHORT).show();
+                Log.e("Payment response===", message);
                 UpdateWalletAccount(message);
-            }
-            else if (resultCode == RavePayActivity.RESULT_ERROR) {
-              //  Toast.makeText(FundAct.this, "ERROR " + message, Toast.LENGTH_SHORT).show();
-                Log.e("Payment response===",message);
+            } else if (resultCode == RavePayActivity.RESULT_ERROR) {
+                //  Toast.makeText(FundAct.this, "ERROR " + message, Toast.LENGTH_SHORT).show();
+                Log.e("Payment response===", message);
                 Toast.makeText(FundAct.this, "Payment failed error " + message, Toast.LENGTH_SHORT).show();
 
-            }
-            else if (resultCode == RavePayActivity.RESULT_CANCELLED) {
-            //    Toast.makeText(FundAct.this, "CANCELLED " + message, Toast.LENGTH_SHORT).show();
-                Toast.makeText(FundAct.this, "Payment Cancelled error " , Toast.LENGTH_SHORT).show();
+            } else if (resultCode == RavePayActivity.RESULT_CANCELLED) {
+                //    Toast.makeText(FundAct.this, "CANCELLED " + message, Toast.LENGTH_SHORT).show();
+                Toast.makeText(FundAct.this, "Payment Cancelled error ", Toast.LENGTH_SHORT).show();
 
             }
-        }
-        else {
+        } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
     }
-
-
 
 
     public static String getCurrentTime123() {
@@ -264,40 +285,56 @@ public class FundAct extends AppCompatActivity {
     }
 
     private void GetProfileMethod() {
-        Call<GetProfileModel> call = RetrofitClients.getInstance ().getApi ()
-                .Api_get_profile_data (sessionManager.getUserID ());
-        call.enqueue (new Callback<GetProfileModel> () {
+        Call<GetProfileModel> call = RetrofitClients.getInstance().getApi()
+                .Api_get_profile_data(sessionManager.getUserID());
+        call.enqueue(new Callback<GetProfileModel>() {
             @RequiresApi(api = Build.VERSION_CODES.GINGERBREAD)
             @Override
             public void onResponse(Call<GetProfileModel> call, Response<GetProfileModel> response) {
-                binding.progressBar.setVisibility (View.GONE);
+                binding.progressBar.setVisibility(View.GONE);
                 try {
-                    finallyPr = response.body ();
-                    if (finallyPr.getStatus ().equalsIgnoreCase ("1")) {
-                        fName = finallyPr.getResult().getFirstName() ;
+                    finallyPr = response.body();
+                    getAccount();
+                    if (finallyPr.getStatus().equalsIgnoreCase("1")) {
+                        fName = finallyPr.getResult().getFirstName();
                         lName = finallyPr.getResult().getLastName();
                         email = finallyPr.getResult().getEmail();
-                        phoneNumber = "234"+finallyPr.getResult().getMobile();
+                        phoneNumber = "234" + finallyPr.getResult().getMobile();
                     } else {
 
-                        Toast.makeText (FundAct.this, "" + finallyPr.getMessage (), Toast.LENGTH_SHORT).show ();
-                        binding.progressBar.setVisibility (View.GONE);
+                        Toast.makeText(FundAct.this, "" + finallyPr.getMessage(), Toast.LENGTH_SHORT).show();
+                        binding.progressBar.setVisibility(View.GONE);
                     }
 
                 } catch (Exception e) {
 //                    binding.recyclermyAccount.setVisibility(View.GONE);
-                    e.printStackTrace ();
+                    e.printStackTrace();
                 }
             }
 
             @Override
             public void onFailure(Call<GetProfileModel> call, Throwable t) {
-                binding.progressBar.setVisibility (View.GONE);
+                binding.progressBar.setVisibility(View.GONE);
 //                binding.recyclermyAccount.setVisibility(View.GONE);
             }
         });
 
     }
+
+    private void setClipboard(Context context, String text) {
+        if(android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.HONEYCOMB) {
+            android.text.ClipboardManager clipboard = (android.text.ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+            clipboard.setText(text);
+            Toast.makeText(context, getString(R.string.click_copy), Toast.LENGTH_SHORT).show();
+        } else {
+            android.content.ClipboardManager clipboard = (android.content.ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+            android.content.ClipData clip = android.content.ClipData.newPlainText("Copied", text);
+            clipboard.setPrimaryClip(clip);
+            Toast.makeText(context, getString(R.string.click_copy), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
 
     private void UpdateWalletAccount(String js) {
         Map<String, String> map = new HashMap<>();
@@ -306,7 +343,7 @@ public class FundAct extends AppCompatActivity {
         map.put("json_response", js);
         Log.e(TAG, "Send Wallet Request  = " + map);
 
-        Call<ResponseBody> call = RetrofitClients.getInstance ().getApi().Api_updateWallet(map);
+        Call<ResponseBody> call = RetrofitClients.getInstance().getApi().Api_updateWallet(map);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -318,22 +355,20 @@ public class FundAct extends AppCompatActivity {
                         Log.e(TAG, "Send Wallet Request Response = " + stringResponse);
                         if (jsonObject.getString("status").equalsIgnoreCase("1")) {
 
-                            startActivity(new Intent(FundAct.this,PaymentComplete.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                            startActivity(new Intent(FundAct.this, PaymentComplete.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP));
                             finish();
 
                         } else {
                             Toast.makeText(FundAct.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
-                          //  startActivity(new Intent(FundAct.this,PaymentComplete.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP));
-                         //   finish();
+                            //  startActivity(new Intent(FundAct.this,PaymentComplete.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                            //   finish();
                         }
-                    }
-                    else {
+                    } else {
                     }
 
-                } catch(Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
-
 
 
             }
@@ -347,11 +382,132 @@ public class FundAct extends AppCompatActivity {
     }
 
 
-    public String getCurrentDate(){
+    public String getCurrentDate() {
         Date todayDate = Calendar.getInstance().getTime();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         String todayString = formatter.format(todayDate);
-        return  todayString;
+        return todayString;
+
+    }
+
+
+    private void  getAccount() {
+        binding.progressBar.setVisibility(View.VISIBLE);
+        HashMap<String, String> map = new HashMap<>();
+        map.put("id", sessionManager.getUserID());
+        Log.e(TAG, "get account Request  = " + map);
+        Call<ResponseBody> call = RetrofitClientsOne.getInstance().getApi().Api_get_account(map);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                binding.progressBar.setVisibility(View.GONE);
+                try {
+                    if (response.code() == 200) {
+                        String stringResponse = response.body().string();
+                        JSONObject jsonObject = new JSONObject(stringResponse);
+                        Log.e(TAG, "get account Response = " + stringResponse);
+                        if (jsonObject.getString("status").equalsIgnoreCase("1")) {
+                            vAccountModel model = new Gson().fromJson(stringResponse, vAccountModel.class);
+                            if (model.getResult().getBank().size() > 0) {
+                                for (int i = 0; i < model.getResult().getBank().size(); i++) {
+                                    if (model.getResult().getBank().get(i).getType().equalsIgnoreCase("monnify") && !model.getResult().getBank().get(i).getAccountNumber().equalsIgnoreCase("")) {
+                                        if (i == 0) {
+                                            binding.llOne.setVisibility(View.VISIBLE);
+                                            binding.ll21.setVisibility(View.VISIBLE);
+                                            binding.RRGenerateAcct.setVisibility(View.GONE);
+                                            binding.tvAccountNo1.setText(model.getResult().getBank().get(i).getAccountNumber());
+                                            binding.tvbankName1.setText(model.getResult().getBank().get(i).getBankName());
+                                        } else {
+                                            binding.llTwo.setVisibility(View.VISIBLE);
+                                            binding.RRGenerateAcct.setVisibility(View.GONE);
+                                            binding.tvAccountNo2.setText(model.getResult().getBank().get(i).getAccountNumber());
+                                            binding.tvbankName2.setText(model.getResult().getBank().get(i).getBankName());
+                                        }
+                                    } else if (model.getResult().getBank().get(i).getType().equalsIgnoreCase("flutterwave")) {
+                                        if (!model.getResult().getBank().get(i).getAccountNumber().equalsIgnoreCase("") && finallyPr.getResult().getKycStatus().equalsIgnoreCase("1")) {
+                                            binding.rlFlutterWave.setVisibility(View.VISIBLE);
+                                            binding.llThree.setVisibility(View.VISIBLE);
+                                            binding.v1.setVisibility(View.VISIBLE);
+                                            binding.ll41.setVisibility(View.VISIBLE);
+                                            binding.RRKYC.setVisibility(View.GONE);
+                                            binding.tvAccountNo3.setText(model.getResult().getBank().get(i).getAccountNumber());
+                                            binding.tvbankName3.setText(model.getResult().getBank().get(i).getBankName());
+                                        } else if (model.getResult().getBank().get(i).getAccountNumber().equalsIgnoreCase("") && finallyPr.getResult().getKycStatus().equalsIgnoreCase("0")) {
+                                            binding.rlFlutterWave.setVisibility(View.VISIBLE);
+                                            binding.llThree.setVisibility(View.GONE);
+                                            binding.v1.setVisibility(View.GONE);
+                                            binding.ll41.setVisibility(View.GONE);
+                                            binding.RRKYC.setVisibility(View.VISIBLE);
+                                        }
+
+                                    } else {
+                                        binding.llOne.setVisibility(View.GONE);
+                                        binding.ll21.setVisibility(View.GONE);
+                                        binding.llTwo.setVisibility(View.GONE);
+                                        binding.RRGenerateAcct.setVisibility(View.VISIBLE);
+
+                                    }
+                                }
+                            }
+
+
+                        } else {
+                            Toast.makeText(FundAct.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                            //  startActivity(new Intent(FundAct.this,PaymentComplete.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                            //   finish();
+                        }
+                    } else {
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                call.cancel();
+                binding.progressBar.setVisibility(View.GONE);
+            }
+        });
+    }
+
+
+    private void generateMAccount() {
+        binding.progressBar.setVisibility(View.VISIBLE);
+        Map<String, String> requestBody = new HashMap<>();
+        requestBody.put("user_id", sessionManager.getUserID());
+
+        Log.e(TAG, "Generate MAccount Request==" + requestBody.toString());
+
+        Call<ResponseBody> loginCall = RetrofitClientsOne.getInstance().getApi().Api_for_exiting_user(requestBody);
+        loginCall.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                binding.progressBar.setVisibility(View.GONE);
+                try {
+                    String stringResponse = response.body().string();
+                    JSONObject jsonObject = new JSONObject(stringResponse);
+                    Log.e(TAG, "Generate MAccount Response = " + stringResponse);
+                    if (jsonObject.getString("status").equalsIgnoreCase("1")) {
+                        getAccount();
+                    } else {
+                        Toast.makeText(FundAct.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                call.cancel();
+                binding.progressBar.setVisibility(View.GONE);
+            }
+        });
     }
 
 

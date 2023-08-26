@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.my.spendright.Model.GetMainGrpCategory;
 import com.my.spendright.R;
+import com.my.spendright.act.ui.settings.model.IncomeExpenseCatModel;
 
 import java.util.ArrayList;
 
@@ -22,9 +23,9 @@ public class GetCategoryGrpAdapter extends BaseAdapter {
     TextView countrycode;
     ImageView icon;
    // String[] code;
-   ArrayList<GetMainGrpCategory.Result> code;
+   ArrayList<IncomeExpenseCatModel.Category> code;
 
-    public GetCategoryGrpAdapter(Context applicationContext,ArrayList<GetMainGrpCategory.Result> code) {
+    public GetCategoryGrpAdapter(Context applicationContext,ArrayList<IncomeExpenseCatModel.Category> code) {
         this.context = applicationContext;
         this.code = code;
         inflter = (LayoutInflater.from(applicationContext));
@@ -52,7 +53,7 @@ public class GetCategoryGrpAdapter extends BaseAdapter {
        countrycode = (TextView) view.findViewById(R.id.textview);
         // icon.setImageResource(flags[i]);
       //countrycode.setText(code[i]);
-       countrycode.setText(code.get(i).getSubCatName()+"");
+       countrycode.setText(code.get(i).getCatName()+"");
 
 
         return view;

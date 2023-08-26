@@ -2,13 +2,13 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/blue"
+    android:background="@color/purple_200"
     >
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/_50sdp"
-        android:layout_marginTop="@dimen/_10sdp">
+        android:layout_marginTop="@dimen/_20sdp">
 
         <ImageView
             android:visibility="gone"
@@ -20,16 +20,13 @@
 
         </ImageView>
 
-        <TextView
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:fontFamily="@font/poppinsregular"
-            android:text="What's New"
-            android:textColor="@color/white"
-            android:textSize="@dimen/_14sdp">
-
-        </TextView>
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/logo_welcome"
+            android:padding="@dimen/_12sdp"
+            />
 
         <TextView
             android:layout_width="wrap_content"
@@ -61,8 +58,7 @@
             android:src="@drawable/welcome_three"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_200sdp"
-            >
-        </ImageView>
+            />
 
         <TextView
             android:layout_width="match_parent"
@@ -71,8 +67,11 @@
             android:gravity="center"
             android:padding="@dimen/_10sdp"
             android:text="Explore secure and fast payments"
+            android:fontFamily="@font/poppinsregular"
             android:textColor="@color/white"
-            android:textSize="@dimen/_22sdp"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:textSize="@dimen/_17sdp"
             android:textStyle="bold" />
 
     </LinearLayout>

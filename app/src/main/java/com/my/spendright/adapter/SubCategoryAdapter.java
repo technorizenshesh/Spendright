@@ -3,40 +3,28 @@ package com.my.spendright.adapter;
 import static com.my.spendright.adapter.MyAccountHomeAdapter.getFormatedNumber;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.widget.PopupMenu;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.my.spendright.Model.GetSetbudgetExpence;
-import com.my.spendright.Model.HomeModal;
 import com.my.spendright.Model.UpdateSchdulepAymentModel;
 import com.my.spendright.NumberTextWatcher;
 import com.my.spendright.R;
-import com.my.spendright.act.SetBudget.SetBudgetActivity;
+import com.my.spendright.act.ui.budget.SetBudgetActivity;
 import com.my.spendright.utils.AddCategoryModel;
 import com.my.spendright.utils.RetrofitClients;
 
-import java.text.NumberFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;

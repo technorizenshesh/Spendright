@@ -19,4 +19,50 @@ public class Constant {
 
     public static String FL_LIVE_ENCRYPTION_KEY = "f07aa51827f7e8c8a9db9acd";
 
+
+
+
+
+
+    public static String MONNIFY_SANDBOX_API_KEY = "MK_TEST_NPHNQN2Q2R";
+
+    public static String MONNIFY_SANDBOX_SECRET_KEY = "Q9FZ0DAU4WU5GYFB4559VJSV0J0T3EJL";
+
+    public static String MONNIFY_SANDBOX_BASE_URL = "https://sandbox.monnify.com/";
+
+    public static String MONNIFY_GENERATE_TOKEN_URL = MONNIFY_SANDBOX_BASE_URL + "api/v1/auth/";
+
+    public static String MONNIFY_GENERATE_ACCOUNT = MONNIFY_SANDBOX_BASE_URL + "api/v2/bank-transfer/";
+
+    public static String MONNIFY_CONTRACT_CODE = "7572056475";
+
+
+
+
+    public static String AUTHENTICATION_FAILED = "Authentication failed";
+   public static String AUTHENTICATION_SUCCEEDED = "Authentication succeeded";
+   public static String AUTHENTICATION_ERROR = "Authentication error";
+
+   public static String BIOMETRIC_AUTHENTICATION = "Biometric Authentication";
+
+    public static String ENABLE_BIOMETRIC_AUTHENTICATION = "Enable Biometric Authentication";
+
+    public static String USE_DEVICE_PASSWORD = "Use Pin";
+   public static String BIOMETRIC_AUTHENTICATION_SUBTITLE = "Use your fingerprint to authenticate";
+   public static String BIOMETRIC_AUTHENTICATION_DESCRIPTION = "This app uses your makes use of device biometrics (user fingerprint) to authenticate the dialog.";
+
+   public static String AUTHENTICATE_OTHER="Authenticate using Device Password/PIN";
+   public static String AUTHENTICATE_FINGERPRINT="Authenticate using Fingerprint";
+
+   public static String AVAILABLE="Available";
+   public static String UNAVAILABLE="Unavailable";
+   public static String TRUE="True";
+   public static String FALSE="False";
+   public static String CANCEL="Cancel";
+
+   public static String PASSWORD_PIN_AUTHENTICATION = "Password/PIN Authentication";
+   public static String PASSWORD_PIN_AUTHENTICATION_SUBTITLE = "Authenticate using Device Password/PIN";
+   public static String PASSWORD_PIN_AUTHENTICATION_DESCRIPTION = "This app uses your makes use of device password/pin to authenticate the dialog.";
+
+
 }

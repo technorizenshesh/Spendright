@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.my.spendright.Model.GetSetbudgetExpence;
 import com.my.spendright.Model.UpdateSchdulepAymentModel;
 import com.my.spendright.R;
-import com.my.spendright.act.SetBudget.SetBudgetActivity;
+import com.my.spendright.act.ui.budget.SetBudgetActivity;
 import com.my.spendright.utils.AddCategoryModel;
 import com.my.spendright.utils.RetrofitClients;
 

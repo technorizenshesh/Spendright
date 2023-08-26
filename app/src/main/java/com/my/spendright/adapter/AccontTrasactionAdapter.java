@@ -6,6 +6,7 @@ import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.my.spendright.Model.GetBudgetActTransaction;
 import com.my.spendright.Model.GetSetbudgetExpence;
 import com.my.spendright.R;
+import com.my.spendright.utils.Preference;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -59,23 +61,45 @@ public class AccontTrasactionAdapter extends RecyclerView.Adapter<RecyclerView.V
                        if(model.getType().equalsIgnoreCase("income"))
                        {
                            genericViewHolder.txtPrice.setTextColor(ContextCompat.getColor(mContext, R.color.green));
-
-                           String FinalAmt = getFormatedNumber(model.getTransactionAmount());
-
-                           genericViewHolder.txtPrice.setText(FinalAmt+".00");
-
+                           String FinalAmt = Preference.doubleToStringNoDecimalSecond(Double.parseDouble(model.getTransactionAmount().replace(",","")));
+                           FinalAmt = String.valueOf(Double.parseDouble(FinalAmt.replace(",",""))); //+ Double.parseDouble(modelList.get(position).getAdminFee().replace(",","")));
+                           genericViewHolder.txtPrice.setText("₦"+Preference.doubleToStringNoDecimal(Double.parseDouble(FinalAmt)));
                        }else
                        {
                            genericViewHolder.txtPrice.setTextColor(ContextCompat.getColor(mContext, R.color.red));
-                           String FinalAmt = getFormatedNumber(model.getTransactionAmount());
-                           genericViewHolder.txtPrice.setText(FinalAmt+".00");
+                           String FinalAmt = Preference.doubleToStringNoDecimalSecond(Double.parseDouble(model.getTransactionAmount().replace(",","")));
+                           FinalAmt = String.valueOf(Double.parseDouble(FinalAmt.replace(",",""))); //+ Double.parseDouble(modelList.get(position).getAdminFee().replace(",","")));
+                           genericViewHolder.txtPrice.setText("₦"+Preference.doubleToStringNoDecimal(Double.parseDouble(FinalAmt)));
+
+
                        }
 
+            if(!model.getEmoji().equalsIgnoreCase("")){
+                genericViewHolder.tvImg.setVisibility(View.VISIBLE);
+                genericViewHolder.img1.setVisibility(View.GONE);
+                genericViewHolder.tvImg.setText(Preference.decodeEmoji(model.getEmoji()));
+                 // genericViewHolder.img1.setImageBitmap(Preference.drawTextToBitmap(mContext,R.id.img1,model.getEmoji()));
+            }
+            else {
+                genericViewHolder.tvImg.setVisibility(View.GONE);
+                genericViewHolder.img1.setVisibility(View.VISIBLE);
+            }
+
+           if(!model.getMainCategoryName().equalsIgnoreCase("")) genericViewHolder.txtName.setText(model.getMainCategoryName());
+           else genericViewHolder.txtName.setText(/*"Ref: "+*/model.getCatName());
+            genericViewHolder.txtDateTime.setText(Preference.convertDate(model.getDateTime()));
+
+            if(!model.getDescription().equalsIgnoreCase("")){
+                     genericViewHolder.txtDescription.setVisibility(View.VISIBLE);
+                        if(!model.getMainCategoryName().equalsIgnoreCase("")) genericViewHolder.txtDescription.setText(model.getMainCategoryName()+ "/"+model.getDescription());
+                        else genericViewHolder.txtDescription.setText(/*"Ref: "+*/model.getCatName() + "/" + model.getDescription());
 
 
-                  genericViewHolder.txtName.setText(model.getMainCategoryName());
-                  genericViewHolder.txtDescription.setText(model.getDescription());
-                  genericViewHolder.txtDateTime.setText(model.getDateTime());
+                      //  genericViewHolder.txtDescription.setText(model.getCatName()+"/"+model.getDescription());
+                 }else {
+                     genericViewHolder.txtDescription.setVisibility(View.GONE);
+
+                 }
         }
     }
 
@@ -104,8 +128,8 @@ public class AccontTrasactionAdapter extends RecyclerView.Adapter<RecyclerView.V
         TextView txtPrice;
         TextView txtName;
         TextView txtDateTime;
-        TextView txtDescription;
-
+        TextView txtDescription,tvImg;
+        ImageView img1;
 
         public ViewHolder(final View itemView) {
             super(itemView);
@@ -114,6 +138,9 @@ public class AccontTrasactionAdapter extends RecyclerView.Adapter<RecyclerView.V
             this.txtName=itemView.findViewById(R.id.txtName);
             this.txtDateTime=itemView.findViewById(R.id.txtDateTime);
             this.txtDescription=itemView.findViewById(R.id.txtDescription);
+            this.tvImg = itemView.findViewById(R.id.tvImg);
+            this.img1 = itemView.findViewById(R.id.img1);
+
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

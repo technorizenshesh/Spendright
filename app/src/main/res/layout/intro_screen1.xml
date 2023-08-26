@@ -3,24 +3,22 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/blue"
+    android:background="@color/purple_200"
     >
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/_50sdp"
-        android:layout_marginTop="@dimen/_10sdp">
+        android:layout_marginTop="@dimen/_20sdp">
 
-        <TextView
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:fontFamily="@font/poppinsregular"
-            android:text="What's New"
-            android:textColor="@color/white"
-            android:textSize="@dimen/_14sdp">
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/logo_welcome"
+            android:padding="@dimen/_12sdp"
+            />
 
-        </TextView>
 
         <TextView
             android:layout_width="wrap_content"
@@ -53,19 +51,21 @@
             android:src="@drawable/welcome_one"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_200sdp"
-            >
-        </ImageView>
+            />
 
         <TextView
             android:padding="@dimen/_10sdp"
             android:gravity="center"
             android:layout_below="@+id/imgLogo"
             android:textStyle="bold"
-            android:textSize="@dimen/_22sdp"
+            android:textSize="@dimen/_17sdp"
             android:textColor="@color/white"
             android:text="Track every income and expense."
+            android:fontFamily="@font/poppinsregular"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_marginEnd="@dimen/_5sdp"
             />
 
     </LinearLayout>

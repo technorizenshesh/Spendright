@@ -26,7 +26,8 @@ import com.my.spendright.ElectircalBill.Model.GetVtsWalletBalnce;
 import com.my.spendright.Model.GetVtpassLoginModel;
 import com.my.spendright.Model.GetVtpassMode;
 import com.my.spendright.R;
-import com.my.spendright.act.ui.ContactInfoAct;
+import com.my.spendright.act.ui.settings.ContactInfoAct;
+import com.my.spendright.act.ui.settings.MyAccountAct;
 import com.my.spendright.databinding.ActivitySettingBinding;
 import com.my.spendright.databinding.DialogFullscreenBinding;
 import com.my.spendright.utils.Preference;
@@ -64,7 +65,7 @@ public class SettingActivity extends AppCompatActivity {
        });
 
        binding.RRMyAccount.setOnClickListener(v -> {
-           startActivity(new Intent(SettingActivity.this,MyAccountAct.class));
+           startActivity(new Intent(SettingActivity.this, MyAccountAct.class));
        });
 
 

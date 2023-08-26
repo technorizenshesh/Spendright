@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.PopupMenu;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -22,10 +24,13 @@ import com.my.spendright.Model.GetProfileModel;
 import com.my.spendright.R;
 import com.my.spendright.act.HomeActivity;
 import com.my.spendright.act.PaymentComplete;
+import com.my.spendright.act.ui.budget.withdraw.WithdrawPaymentConfirmAct;
+import com.my.spendright.act.ui.settings.model.IncomeExpenseCatModel;
 import com.my.spendright.adapter.CategoryAdapterNew;
 import com.my.spendright.databinding.ActivityConfirmPaymentAirtimeBinding;
 import com.my.spendright.utils.Preference;
 import com.my.spendright.utils.RetrofitClients;
+import com.my.spendright.utils.RetrofitClientsOne;
 import com.my.spendright.utils.SessionManager;
 
 import org.json.JSONObject;
@@ -35,6 +40,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
@@ -43,6 +49,7 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.http.Field;
 
 public class ConfirmPaymentAireTimeAct extends AppCompatActivity {
     public String TAG = "ConfirmPaymentAireTimeAct";
@@ -53,13 +60,18 @@ public class ConfirmPaymentAireTimeAct extends AppCompatActivity {
     String amount="";
     String phone="";
     String MyCuurentBlance="";
-    String ServicesName="";
+    String ServicesName="",selectBugCategoryId;
     GetProfileModel finallyPr;
     double walletAmount ;
 
     private SessionManager sessionManager;
     private ArrayList<GetCategoryModelNew.Result> modelListCategory = new ArrayList<>();
     String BudgetAccountId="";
+
+    ArrayList<IncomeExpenseCatModel.Category> arrayList = new ArrayList<>();;
+    IncomeExpenseCatModel incomeExpenseCatModel;
+    Double CmAmt =0.0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,10 +93,10 @@ public class ConfirmPaymentAireTimeAct extends AppCompatActivity {
             MyCuurentBlance =intent.getStringExtra("MyCuurentBlance");
 
           //   phone="+234"+phone1;
-             binding.MyCuurentBlance.setText(MyCuurentBlance);
+             binding.MyCuurentBlance.setText("₦"+MyCuurentBlance);
              binding.ServiceName.setText(ServicesName);
-             binding.AmountPay.setText(amount);
-             binding.totalAmountPay.setText(amount);
+             binding.AmountPay.setText("₦"+amount);
+             binding.totalAmountPay.setText("₦"+amount);
              binding.txtMobile.setText(phone);
             if(amount.contains(",")) amount = amount.replace(",","");
              Log.e("change value====",amount);
@@ -99,13 +111,19 @@ public class ConfirmPaymentAireTimeAct extends AppCompatActivity {
            finish();
         });
 
+        binding.edtDescription.setOnClickListener(v -> {
+           if (arrayList.size()>0)showDropDownCategory(v,binding.edtDescription,arrayList);
+        });
+
+
+
         binding.RRConfirm.setOnClickListener(v -> {
            if (sessionManager.isNetworkAvailable()) {
                 binding.progressBar.setVisibility(View.VISIBLE);
                 double t=0.0;
-               if(!binding.tax.getText().toString().equalsIgnoreCase("0.00"))
+               if(CmAmt!=0 || CmAmt!=0.0 )
                {
-                   t = Double.parseDouble(binding.tax.getText().toString()) + Double.parseDouble(amount);
+                   t = CmAmt + Double.parseDouble(amount);
                }
                else t =  Double.parseDouble(amount);
 
@@ -122,6 +140,8 @@ public class ConfirmPaymentAireTimeAct extends AppCompatActivity {
             binding.progressBar.setVisibility(View.VISIBLE);
             GetAccountBudgetMethod();
             GetCommisionValue();
+            getAllBudgetCategories();
+
         }else {
             Toast.makeText(this, R.string.checkInternet, Toast.LENGTH_SHORT).show();
         }
@@ -174,7 +194,7 @@ public class ConfirmPaymentAireTimeAct extends AppCompatActivity {
     }
 
     private void PyaAccoun() {
-        Call<ResponseBody> call = RetrofitClients.getInstance().getApi().Api_pay_airtime(Request_IDNew,ServicesId,amount,phone);
+        Call<ResponseBody> call = RetrofitClients.getInstance().getApi().Api_pay_airtime(sessionManager.getUserID(),Request_IDNew,ServicesId,amount,phone);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
@@ -228,7 +248,23 @@ public class ConfirmPaymentAireTimeAct extends AppCompatActivity {
         String Current_date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
         Call<ResponseBody> call = RetrofitClients.getInstance().getApi()
                 .Api_add_vtpass_book_payment(sessionManager.getUserID(),Request_IDNew,amount,ServicesId,ServicesName,
-                        "airtime",status,Current_date,BudgetAccountId,"",phone/*binding.edtDescription.getText().toString()*/,phone,binding.tax.getText().toString(),response);
+                        "airtime",status,Current_date,BudgetAccountId,selectBugCategoryId,phone/*binding.edtDescription.getText().toString()*/,phone,binding.tax.getText().toString(),response);
+             Map<String,String> map = new HashMap<>();
+             map.put("user_id",sessionManager.getUserID());
+        map.put("request_id",Request_IDNew);
+        map.put("amount",amount);
+        map.put("service_id",ServicesId);
+        map.put("service_name",ServicesName);
+        map.put("type","airtime");
+        map.put("check_status",status);
+        map.put("transaction_date",Current_date);
+        map.put("budget_account_id",BudgetAccountId);
+        map.put("transaction_time",selectBugCategoryId);
+        map.put("description",phone);
+        map.put("payment_commision",binding.tax.getText().toString());
+        map.put("response",response);
+        Log.e("paymentServerRequest===",map.toString());
+
         call.enqueue(new Callback<ResponseBody>() {
             @RequiresApi(api = Build.VERSION_CODES.GINGERBREAD)
             @Override
@@ -316,15 +352,15 @@ public class ConfirmPaymentAireTimeAct extends AppCompatActivity {
                             GetCommisionModel finallyPr = new Gson().fromJson(stringResponse,GetCommisionModel.class);
                             String CommisionAmount = finallyPr.getResult().getCommisionAmount();
 
-                            Double CmAmt= Double.valueOf(CommisionAmount);
+                            CmAmt = Double.valueOf(CommisionAmount);
                             Double TotalAmt= Double.valueOf(amount);
 
                             Double FInalAmt=CmAmt+TotalAmt;
 
                           //  binding.tax.setText(CommisionAmount+"");
                          //   binding.totalAmountPay.setText(FInalAmt+"");
-                            binding.tax.setText(Preference.doubleToStringNoDecimal(Double.parseDouble(CommisionAmount))+"");
-                            binding.totalAmountPay.setText(Preference.doubleToStringNoDecimal(Double.parseDouble(FInalAmt+""))+"");
+                            binding.tax.setText("₦"+Preference.doubleToStringNoDecimal(Double.parseDouble(CommisionAmount))+"");
+                            binding.totalAmountPay.setText("₦"+Preference.doubleToStringNoDecimal(Double.parseDouble(FInalAmt+""))+"");
                         }
 
                         else {
@@ -402,6 +438,73 @@ public class ConfirmPaymentAireTimeAct extends AppCompatActivity {
         alert11.show();
 
     }
+
+
+    private void getAllBudgetCategories() {
+        binding.progressBar.setVisibility(View.VISIBLE);
+        Map<String, String> requestBody = new HashMap<>();
+        requestBody.put("cat_user_id", sessionManager.getUserID());
+        requestBody.put("cat_type","EXPENSE");
+        Log.e(TAG, "getAll category BudgetRequest==" + requestBody.toString());
+
+        Call<ResponseBody> loginCall = RetrofitClientsOne.getInstance().getApi().Api_get_budget_category(requestBody);
+        loginCall.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                binding.progressBar.setVisibility(View.GONE);
+                try {
+                    String stringResponse = response.body().string();
+                    JSONObject jsonObject = new JSONObject(stringResponse);
+                    Log.e(TAG, "getAll category BudgetResponse = " + stringResponse);
+                    if (jsonObject.getString("status").equalsIgnoreCase("1")) {
+                        incomeExpenseCatModel = new Gson().fromJson(stringResponse, IncomeExpenseCatModel.class);
+                        arrayList.clear();
+                        arrayList.addAll(incomeExpenseCatModel.getCategories());
+                        selectBugCategoryId = incomeExpenseCatModel.getCategories().get(0).getCatId();
+                        binding.edtDescription.setText(incomeExpenseCatModel.getCategories().get(0).getCatName());
+
+                    } else {
+                        arrayList.clear();
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                call.cancel();
+                binding.progressBar.setVisibility(View.GONE);
+            }
+        });
+    }
+
+
+    @RequiresApi(api = Build.VERSION_CODES.HONEYCOMB)
+    private void showDropDownCategory(View v, TextView textView, List<IncomeExpenseCatModel.Category> stringList) {
+        PopupMenu popupMenu = new PopupMenu(ConfirmPaymentAireTimeAct.this, v);
+        for (int i = 0; i < stringList.size(); i++) {
+            popupMenu.getMenu().add(stringList.get(i).getCatName());
+        }
+
+        // popupMenu.getMenu().add(0,stringList.size()+1,0,R.string.add_new_category ).setIcon(R.drawable.ic_added);
+        popupMenu.setOnMenuItemClickListener(menuItem -> {
+
+            for (int i = 0; i < stringList.size(); i++) {
+                if(stringList.get(i).getCatName().equalsIgnoreCase(menuItem.getTitle().toString())) {
+                    selectBugCategoryId = stringList.get(i).getCatId();
+                    textView.setText(menuItem.getTitle());
+
+                }
+            }
+
+
+            return true;
+        });
+        popupMenu.show();
+    }
+
 
 
 }

@@ -12,7 +12,7 @@ public class ApiClient {
 
     public static Retrofit retrofit = null;
 
-    /*public static Retrofit getClient() {
+    public static Retrofit getClient() {
         if (retrofit == null) {
             OkHttpClient client = new OkHttpClient.Builder()
                     .connectTimeout(300, TimeUnit.SECONDS)
@@ -27,7 +27,7 @@ public class ApiClient {
         }
 
         return retrofit;
-    }*/
+    }
 
 
 

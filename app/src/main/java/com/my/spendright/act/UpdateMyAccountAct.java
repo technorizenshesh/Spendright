@@ -55,6 +55,11 @@ public class UpdateMyAccountAct extends AppCompatActivity {
         }
 
 
+        binding.imgBack.setOnClickListener(v -> {
+           finish();
+
+        });
+
         binding.RRSave.setOnClickListener(v -> {
             validation();
 

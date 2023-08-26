@@ -115,6 +115,73 @@ public class LoginModel {
         @Expose
         private String batchId;
 
+
+        @SerializedName("kyc_status")
+        @Expose
+        private String kycStatus;
+
+
+        @SerializedName("other_legal_name")
+        @Expose
+        private String otherLegalName;
+
+
+        @SerializedName("my_referral_no")
+        @Expose
+        private String myReferralNo;
+
+        @SerializedName("message")
+        @Expose
+        private String message;
+
+
+        @SerializedName("payment_wallet")
+        @Expose
+        private String paymentWallet;
+
+        public String getPaymentWallet() {
+            return paymentWallet;
+        }
+
+        public void setPaymentWallet(String paymentWallet) {
+            this.paymentWallet = paymentWallet;
+        }
+
+        public String getMyReferralNo() {
+            return myReferralNo;
+        }
+
+
+
+
+        public void setMyReferralNo(String myReferralNo) {
+            this.myReferralNo = myReferralNo;
+        }
+
+        public String getMessage() {
+            return message;
+        }
+
+        public void setMessage(String message) {
+            this.message = message;
+        }
+
+        public String getOtherLegalName() {
+            return otherLegalName;
+        }
+
+        public void setOtherLegalName(String otherLegalName) {
+            this.otherLegalName = otherLegalName;
+        }
+
+        public String getKycStatus() {
+            return kycStatus;
+        }
+
+        public void setKycStatus(String kycStatus) {
+            this.kycStatus = kycStatus;
+        }
+
         public String getBatchId() {
             return batchId;
         }

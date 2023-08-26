@@ -14,42 +14,46 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
-import android.widget.EditText;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.my.spendright.Model.AccountTransactionDetails;
 import com.my.spendright.Model.DeleteAccountTrasaction;
-import com.my.spendright.Model.GetCategoryModelNew;
 import com.my.spendright.Model.GetMainGrpCategory;
 import com.my.spendright.Model.SchdulepAymentModel;
 import com.my.spendright.NumberTextWatcher;
 import com.my.spendright.R;
-import com.my.spendright.act.SetBudget.SetBudgetActivity;
-import com.my.spendright.adapter.CategoryAdapterNew;
+import com.my.spendright.act.ui.settings.model.IncomeExpenseCatModel;
 import com.my.spendright.adapter.GetCategoryGrpAdapter;
 import com.my.spendright.databinding.ActivityUpdatedAccountInfoTrasactionBinding;
 import com.my.spendright.utils.RetrofitClients;
+import com.my.spendright.utils.RetrofitClientsOne;
 import com.my.spendright.utils.SessionManager;
+
+import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class UpdatedAccountInfoTrasaction extends AppCompatActivity {
-
+    public String TAG ="UpdatedAccountInfoTrasaction";
     ActivityUpdatedAccountInfoTrasactionBinding binding;
     private String trasaction_Id="";
     private SessionManager sessionManager;
-    private ArrayList<GetMainGrpCategory.Result> modelListCategory = new ArrayList<>();
+  //  private ArrayList<GetMainGrpCategory.Result> modelListCategory = new ArrayList<>();
+    private ArrayList<IncomeExpenseCatModel.Category> modelListCategory = new ArrayList<>();
 
     String paymentdate="";
     String account_budget_id="";
@@ -59,12 +63,14 @@ public class UpdatedAccountInfoTrasaction extends AppCompatActivity {
     String Amt="";
     String description ="";
     String CategoryId="";
-    String CategoryName="";
+    String CategoryName="",emoji= "";
 
     private int mYear, mMonth,mDay;
 
     private View promptsView;
     private AlertDialog alertDialog;
+
+
 
     @RequiresApi(api = Build.VERSION_CODES.HONEYCOMB)
     @Override
@@ -126,11 +132,11 @@ public class UpdatedAccountInfoTrasaction extends AppCompatActivity {
            {
                Toast.makeText(this, "Please Select Date.", Toast.LENGTH_SHORT).show();
 
-           }else if(description .equalsIgnoreCase(""))
+           }/*else if(description .equalsIgnoreCase(""))
            {
                Toast.makeText(this, "Please Select description.", Toast.LENGTH_SHORT).show();
 
-           }else
+           }*/else
            {
                if(binding.SitchBtn.isChecked())
                {
@@ -160,8 +166,9 @@ public class UpdatedAccountInfoTrasaction extends AppCompatActivity {
         binding.spinnerBudgetAct.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View arg1, int pos, long arg3){
 
-                CategoryId = modelListCategory.get(pos).getId();
-                CategoryName = modelListCategory.get(pos).getSubCatName();
+                CategoryId = modelListCategory.get(pos).getCatId();
+                CategoryName = modelListCategory.get(pos).getCatName();
+                emoji = modelListCategory.get(pos).getCatEmoji();
 
             }
             @Override
@@ -170,16 +177,35 @@ public class UpdatedAccountInfoTrasaction extends AppCompatActivity {
                 // TODO Auto-generated method stub
             }
         });
-        if (sessionManager.isNetworkAvailable()) {
-            binding.progressBar.setVisibility(View.VISIBLE);
-            GetGrpCategoryMethod();
-        }else {
-            Toast.makeText(this, R.string.checkInternet, Toast.LENGTH_SHORT).show();
-        }
+
+        binding.SitchBtn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b== true){
+                    if (sessionManager.isNetworkAvailable()) {
+                        binding.progressBar.setVisibility(View.VISIBLE);
+                        getAllBudgetCategories("EXPENSE");
+                    }else {
+                        Toast.makeText(UpdatedAccountInfoTrasaction.this, R.string.checkInternet, Toast.LENGTH_SHORT).show();
+                    }
+                }
+                else {
+                    if (sessionManager.isNetworkAvailable()) {
+                        binding.progressBar.setVisibility(View.VISIBLE);
+                        getAllBudgetCategories("INCOME");
+                    }else {
+                        Toast.makeText(UpdatedAccountInfoTrasaction.this, R.string.checkInternet, Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        });
+
+
+        GetAccountInfoDetailsMethod();
 
     }
 
-    private void GetGrpCategoryMethod(){
+  /*  private void GetGrpCategoryMethod(){
         binding.progressBar.setVisibility(View.VISIBLE);
         Call<GetMainGrpCategory> call = RetrofitClients.getInstance().getApi()
                 .GetGrpCategory();
@@ -209,7 +235,67 @@ public class UpdatedAccountInfoTrasaction extends AppCompatActivity {
                 binding.progressBar.setVisibility(View.GONE);
             }
         });
+    }*/
+
+
+    private void getAllBudgetCategories(String type) {
+        binding.progressBar.setVisibility(View.VISIBLE);
+        Map<String, String> requestBody = new HashMap<>();
+        requestBody.put("cat_user_id", sessionManager.getUserID());
+        requestBody.put("cat_type",type);
+        Log.e(TAG, "getAll category BudgetRequest==" + requestBody.toString());
+
+        Call<ResponseBody> loginCall = RetrofitClientsOne.getInstance().getApi().Api_get_budget_category(requestBody);
+        loginCall.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                binding.progressBar.setVisibility(View.GONE);
+                try {
+                    String stringResponse = response.body().string();
+                    JSONObject jsonObject = new JSONObject(stringResponse);
+                    Log.e(TAG, "getAll category BudgetResponse = " + stringResponse);
+                    if (jsonObject.getString("status").equalsIgnoreCase("1")) {
+                        IncomeExpenseCatModel   incomeExpenseCatModel = new Gson().fromJson(stringResponse, IncomeExpenseCatModel.class);
+                        modelListCategory.clear();
+                        modelListCategory.addAll(incomeExpenseCatModel.getCategories());
+                        //  selectBugCategoryId = incomeExpenseCatModel.getCategories().get(0).getCatId();
+                        //    binding.tvCategoryName.setText(incomeExpenseCatModel.getCategories().get(0).getCatName());
+
+                        int pos =0;
+
+                        for (int i =0;i<modelListCategory.size();i++){
+                            if(CategoryId.equalsIgnoreCase(modelListCategory.get(i).getCatId()))pos = i;
+
+                        }
+                        Log.e("cat id====",pos+"");
+
+                        CategoryId = modelListCategory.get(pos).getCatId();
+                        CategoryName = modelListCategory.get(pos).getCatName();
+                        emoji = modelListCategory.get(pos).getCatEmoji();
+
+                        GetCategoryGrpAdapter customAdapter=new GetCategoryGrpAdapter(UpdatedAccountInfoTrasaction.this,modelListCategory);
+                        binding.spinnerBudgetAct.setAdapter(customAdapter);
+                        binding.spinnerBudgetAct.setSelection(pos);
+
+
+
+                    } else {
+                        modelListCategory.clear();
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                call.cancel();
+                binding.progressBar.setVisibility(View.GONE);
+            }
+        });
     }
+
 
 
 
@@ -232,11 +318,13 @@ public class UpdatedAccountInfoTrasaction extends AppCompatActivity {
 
                      PayName=finallyPr.getResult().getPayName();
                      description =finallyPr.getResult().getDescription();
-                     CategoryId=finallyPr.getResult().getCategoryId();
+                     CategoryId=finallyPr.getResult().getMainCategoryId();
 
                      TypePAyment=finallyPr.getResult().getType();
 
-                       binding.txtDate.setText(paymentdate);
+                    Log.e("cat 111id====",CategoryId);
+
+                    binding.txtDate.setText(paymentdate);
                        binding.edtAmt.setText(Amt);
                        binding.edtName.setText(PayName);
                        binding.edtFlags.setText(description);
@@ -245,9 +333,25 @@ public class UpdatedAccountInfoTrasaction extends AppCompatActivity {
                        {
                            binding.SitchBtn.setChecked(false);
 
+                           if (sessionManager.isNetworkAvailable()) {
+                               binding.progressBar.setVisibility(View.VISIBLE);
+                               // GetGrpCategoryMethod();
+                               getAllBudgetCategories("INCOME");
+                           }else {
+                               Toast.makeText(UpdatedAccountInfoTrasaction.this, R.string.checkInternet, Toast.LENGTH_SHORT).show();
+                           }
+
+
                        }else
                        {
                            binding.SitchBtn.setChecked(true);
+                           if (sessionManager.isNetworkAvailable()) {
+                               binding.progressBar.setVisibility(View.VISIBLE);
+                               // GetGrpCategoryMethod();
+                               getAllBudgetCategories("EXPENSE");
+                           }else {
+                               Toast.makeText(UpdatedAccountInfoTrasaction.this, R.string.checkInternet, Toast.LENGTH_SHORT).show();
+                           }
                        }
 
 
@@ -268,7 +372,7 @@ public class UpdatedAccountInfoTrasaction extends AppCompatActivity {
         String UserId=sessionManager.getUserID();
         Call<SchdulepAymentModel> call = RetrofitClients.getInstance().getApi()
                 .edit_account_info(trasaction_Id,PayName,Amt,TypePAyment,CategoryId,CategoryName,paymentdate
-                ,description);
+                ,description,emoji);
         call.enqueue(new Callback<SchdulepAymentModel>() {
             @RequiresApi(api = Build.VERSION_CODES.GINGERBREAD)
             @Override

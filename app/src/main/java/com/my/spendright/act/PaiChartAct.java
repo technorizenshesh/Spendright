@@ -1,7 +1,6 @@
 package com.my.spendright.act;
 
 import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
@@ -20,6 +19,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.PopupMenu;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -37,32 +38,51 @@ import com.github.mikephil.charting.interfaces.datasets.IDataSet;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.github.mikephil.charting.utils.MPPointF;
+import com.google.gson.Gson;
 import com.my.spendright.DemoBase;
-import com.my.spendright.Model.GetMainGrpCategory;
+import com.my.spendright.Model.GetExpenSeReport;
 import com.my.spendright.Model.GetMyPercentageModel;
 import com.my.spendright.R;
-import com.my.spendright.act.SetBudget.SetBudgetActivity;
-import com.my.spendright.adapter.GetCategoryGrpAdapter;
+import com.my.spendright.act.ui.home.virtualcards.TransactionAdapter;
+import com.my.spendright.act.ui.report.PieChartModel;
+import com.my.spendright.utils.Preference;
 import com.my.spendright.utils.RetrofitClients;
 import com.my.spendright.utils.SessionManager;
 
-import java.util.ArrayList;
+import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class PaiChartAct extends DemoBase implements SeekBar.OnSeekBarChangeListener,
-        OnChartValueSelectedListener {
+public class PaiChartAct extends DemoBase implements SeekBar.OnSeekBarChangeListener, OnChartValueSelectedListener
+{
 
     private PieChart chart;
     private SeekBar seekBarX, seekBarY;
-    private TextView tvX, tvY,txtIncome,txtExpence;
+    private TextView tvX, tvY,txtIncome,txtExpence,tvFilter;
     private RelativeLayout RRimgback;
 
     private ArrayList<GetMyPercentageModel.AccountDetail> modelListCategory = new ArrayList<>();
 
+    ArrayList<PieChartModel.Result> sendToServerList = new ArrayList<>();
+
     private SessionManager sessionManager;
+    // Color.rgb(27,172,250),
+    //int [] colors={  Color.rgb(245,121,59)};
+    ArrayList<Integer>colors = new ArrayList<>();
+    double totalIncomes=0.0,totalExpemce=0.0;
+    ProgressBar progressBar;
+    public String TAG ="PaiChartAct";
+    String filterText;
+    ArrayList<String> filterList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,16 +93,33 @@ public class PaiChartAct extends DemoBase implements SeekBar.OnSeekBarChangeList
         sessionManager = new SessionManager(PaiChartAct.this);
 
         txtIncome = findViewById(R.id.txtIncome);
+        progressBar = findViewById(R.id.progressBar11);
+
         txtExpence = findViewById(R.id.txtExpence);
+        tvFilter = findViewById(R.id.tvFilter11);
 
         if(getIntent()!=null)
         {
-            String totalIncomes= getIntent().getStringExtra("income").toString();
-            String totalExpemce= getIntent().getStringExtra("expence").toString();
+          //  totalIncomes= Double.parseDouble(getIntent().getStringExtra("income"));
+            totalExpemce= Double.parseDouble(getIntent().getStringExtra("expence"));
+           // sendToServerList = (ArrayList<GetExpenSeReport.Result>) getIntent().getSerializableExtra("list");
 
-            txtIncome.setText(totalIncomes);
-            txtExpence.setText(totalExpemce);
+           // txtIncome.setText(totalIncomes+"");
+            txtExpence.setText("₦"+totalExpemce);
+
+
         }
+
+        filterList.add("Daily");
+        filterList.add("Weekly");
+        filterList.add("Monthly");
+        filterList.add("Yearly");
+        filterList.add("All");
+
+        tvFilter.setOnClickListener(view -> showDropDownFilterList(view, tvFilter, filterList, sendToServerList));
+
+
+
 
         tvX = findViewById(R.id.tvXMax);
         tvY = findViewById(R.id.tvYMax);
@@ -106,9 +143,9 @@ public class PaiChartAct extends DemoBase implements SeekBar.OnSeekBarChangeList
 
         chart.setDragDecelerationFrictionCoef(0.95f);
 
-      //  chart.setCenterTextTypeface(tfLight);
-       // chart.setCenterText(generateCenterSpannableText());
-        chart.setCenterText("Income and Expense");
+        //  chart.setCenterTextTypeface(tfLight);
+        // chart.setCenterText(generateCenterSpannableText());
+        chart.setCenterText("Total Expenses");
 
         chart.setDrawHoleEnabled(true);
         chart.setHoleColor(Color.WHITE);
@@ -156,28 +193,26 @@ public class PaiChartAct extends DemoBase implements SeekBar.OnSeekBarChangeList
 
 
         ////// APi Call
-
+        getReportData();
 
     }
 
-    private void setData(int count, float range, ArrayList<GetMyPercentageModel.AccountDetail> modelListCategory) {
+    @Override
+    protected void saveToGallery() {
+
+    }
+
+    private void setData(ArrayList<PieChartModel.Result> sendToServerList) {
         ArrayList<PieEntry> entries = new ArrayList<>();
 
         // NOTE: The order of the entries when being added to the entries array determines their position around the center of
         // the chart.
-        for (int i = 0; i < modelListCategory.size() ; i++) {
+        for (int i = 0; i < sendToServerList.size() ; i++) {
+            entries.add(new PieEntry(Float.parseFloat(sendToServerList.get(i).getTotal()),sendToServerList.get(i).getExpenseTrakingCategoryName()));
 
-            entries.add(new PieEntry(Float.parseFloat(modelListCategory.get(i).getCategoryPercentage()),
-                    modelListCategory.get(i).getSubCatName(),
-                    getResources().getDrawable(R.drawable.star)));
-
-
-           /* entries.add(new PieEntry((float) ((Math.random() * range) + range / 5),
-                    months[i % months.length],
-                    getResources().getDrawable(R.drawable.star)));*/
         }
 
-        PieDataSet dataSet = new PieDataSet(entries, "Election Results");
+        PieDataSet dataSet = new PieDataSet(entries, "Expense");
 
         dataSet.setDrawIcons(false);
 
@@ -186,30 +221,9 @@ public class PaiChartAct extends DemoBase implements SeekBar.OnSeekBarChangeList
         dataSet.setSelectionShift(5f);
         chart.getLegend().setEnabled(false);
 
-        // add a lot of colors
 
-        ArrayList<Integer> colors = new ArrayList<>();
-
-        for (int c : ColorTemplate.PASTEL_COLORS)
-            colors.add(c);
-
-        for (int c : ColorTemplate.PASTEL_COLORS)
-            colors.add(c);
-
-        for (int c : ColorTemplate.PASTEL_COLORS)
-            colors.add(c);
-
-        for (int c : ColorTemplate.PASTEL_COLORS)
-            colors.add(c);
-
-        for (int c : ColorTemplate.PASTEL_COLORS)
-            colors.add(c);
-
-        colors.add(ColorTemplate.getHoloBlue());
 
         dataSet.setColors(colors);
-        //dataSet.setSelectionShift(0f);
-
         PieData data = new PieData(dataSet);
         data.setValueFormatter(new PercentFormatter());
         data.setValueTextSize(8f);
@@ -223,189 +237,186 @@ public class PaiChartAct extends DemoBase implements SeekBar.OnSeekBarChangeList
         chart.invalidate();
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.pie, menu);
-        return true;
+    public int getRandomColor(){
+        Random rnd = new Random();
+        return Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
     }
+
+
+
+
+
+
+
+
+
+    private void getReportData() {
+        progressBar.setVisibility(View.GONE);
+        Call<ResponseBody> call = RetrofitClients.getInstance().getApi()
+                .Api_get_pie_chart_report(sessionManager.getUserID());
+        Map<String, String> requestBody = new HashMap<>();
+        requestBody.put("user_id", sessionManager.getUserID());
+        Log.e(TAG, " Report Transaction Request==" + requestBody.toString());
+        call.enqueue(new Callback<ResponseBody>() {
+            @RequiresApi(api = Build.VERSION_CODES.GINGERBREAD)
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                progressBar.setVisibility(View.GONE);
+                try {
+
+                    String stringResponse = response.body().string();
+                    JSONObject jsonObject = new JSONObject(stringResponse);
+                    Log.e(TAG, "Payment Report Transaction Response = " + stringResponse);
+                    if (jsonObject.getString("status").equalsIgnoreCase("1")) {
+                        PieChartModel finallyPr = new Gson().fromJson(stringResponse, PieChartModel.class);
+                        sendToServerList.clear();
+                        sendToServerList.addAll(finallyPr.getResult());
+
+                        for (int i=0;i<sendToServerList.size();i++){
+                            colors.add(getRandomColor());
+                        }
+
+                        setData(sendToServerList);
+
+
+                    } else if (jsonObject.getString("status").equalsIgnoreCase("0")) {
+                        sendToServerList.clear();
+                        txtIncome.setText("0.00");
+                        txtExpence.setText("0.00");
+
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+            }
+        });
+    }
+
+
 
     @RequiresApi(api = Build.VERSION_CODES.HONEYCOMB)
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        switch (item.getItemId()) {
-            case R.id.viewGithub: {
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse("https://github.com/PhilJay/MPAndroidChart/blob/master/MPChartExample/src/com/xxmassdeveloper/mpchartexample/PieChartActivity.java"));
-                startActivity(i);
-                break;
-            }
-            case R.id.actionToggleValues: {
-                for (IDataSet<?> set : chart.getData().getDataSets())
-                    set.setDrawValues(!set.isDrawValuesEnabled());
-
-                chart.invalidate();
-                break;
-            }
-            case R.id.actionToggleIcons: {
-                for (IDataSet<?> set : chart.getData().getDataSets())
-                    set.setDrawIcons(!set.isDrawIconsEnabled());
-
-                chart.invalidate();
-                break;
-            }
-            case R.id.actionToggleHole: {
-                if (chart.isDrawHoleEnabled())
-                    chart.setDrawHoleEnabled(false);
-                else
-                    chart.setDrawHoleEnabled(true);
-                chart.invalidate();
-                break;
-            }
-            case R.id.actionToggleMinAngles: {
-                if (chart.getMinAngleForSlices() == 0f)
-                    chart.setMinAngleForSlices(36f);
-                else
-                    chart.setMinAngleForSlices(0f);
-                chart.notifyDataSetChanged();
-                chart.invalidate();
-                break;
-            }
-            case R.id.actionToggleCurvedSlices: {
-                boolean toSet = !chart.isDrawRoundedSlicesEnabled() || !chart.isDrawHoleEnabled();
-                chart.setDrawRoundedSlices(toSet);
-                if (toSet && !chart.isDrawHoleEnabled()) {
-                    chart.setDrawHoleEnabled(true);
-                }
-                if (toSet && chart.isDrawSlicesUnderHoleEnabled()) {
-                    chart.setDrawSlicesUnderHole(false);
-                }
-                chart.invalidate();
-                break;
-            }
-            case R.id.actionDrawCenter: {
-                if (chart.isDrawCenterTextEnabled())
-                    chart.setDrawCenterText(false);
-                else
-                    chart.setDrawCenterText(true);
-                chart.invalidate();
-                break;
-            }
-            case R.id.actionToggleXValues: {
-
-                chart.setDrawEntryLabels(!chart.isDrawEntryLabelsEnabled());
-                chart.invalidate();
-                break;
-            }
-            case R.id.actionTogglePercent:
-                chart.setUsePercentValues(!chart.isUsePercentValuesEnabled());
-                chart.invalidate();
-                break;
-            case R.id.animateX: {
-                chart.animateX(1400);
-                break;
-            }
-            case R.id.animateY: {
-                chart.animateY(1400);
-                break;
-            }
-            case R.id.animateXY: {
-                chart.animateXY(1400, 1400);
-                break;
-            }
-            case R.id.actionToggleSpin: {
-                chart.spin(1000, chart.getRotationAngle(), chart.getRotationAngle() + 360, Easing.EaseInOutCubic);
-                break;
-            }
-            case R.id.actionSave: {
-                if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-                    saveToGallery();
-                } else {
-                    requestStoragePermission(chart);
-                }
-                break;
-            }
+    private void showDropDownFilterList(View v, TextView textView, List<String> stringList, ArrayList<PieChartModel.Result> mainList) {
+        PopupMenu popupMenu = new PopupMenu(PaiChartAct.this, v);
+        for (int i = 0; i < stringList.size(); i++) {
+            popupMenu.getMenu().add(stringList.get(i));
         }
-        return true;
+
+        //popupMenu.getMenu().add(0,stringList.size()+1,0,R.string.add_new_category ).setIcon(R.drawable.ic_added);
+        popupMenu.setOnMenuItemClickListener(menuItem -> {
+
+            for (int i = 0; i < stringList.size(); i++) {
+                if (stringList.get(i).equalsIgnoreCase(menuItem.getTitle().toString())) {
+                    filterText = stringList.get(i);
+                    textView.setText(menuItem.getTitle() + " " + "Payment Summary");
+                    //  listener.onExpense(filterText);
+
+                    if (filterText.equalsIgnoreCase("Daily")) {
+                        totalExpemce =0.0;
+                        //  sendToServerList.clear();
+                      //  sendToServerList.addAll(filterData(Preference.getCurrentDaily(), mainList));
+                         setData(filterData(Preference.getCurrentDaily(), mainList));
+                        for(int j=0;j<filterData(Preference.getCurrentDaily(), mainList).size();j++){
+                            totalExpemce = totalExpemce + (Double.parseDouble(filterData(Preference.getCurrentDaily(), mainList).get(j).getTotal()));
+                        }
+                        txtExpence.setText("₦" + Preference.doubleToStringNoDecimal(totalExpemce));
+
+                    } else if (filterText.equalsIgnoreCase("Weekly")) {
+                        totalExpemce =0.0;
+
+                      //  sendToServerList.clear();
+                       // sendToServerList.addAll(filterData(Preference.getCurrentWeek(), mainList));
+                        setData(filterData(Preference.getCurrentWeek(), mainList));
+                        for(int j=0;j<filterData(Preference.getCurrentWeek(), mainList).size();j++){
+                            totalExpemce = totalExpemce + (Double.parseDouble(filterData(Preference.getCurrentWeek(), mainList).get(j).getTotal()));
+                        }
+                        txtExpence.setText("₦" + Preference.doubleToStringNoDecimal(totalExpemce));
+                    } else if (filterText.equalsIgnoreCase("Monthly")) {
+                        totalExpemce =0.0;
+
+                        //sendToServerList.clear();
+                      // sendToServerList.addAll(filterData(Preference.getCurrentMonth(), mainList));
+                         setData(filterData(Preference.getCurrentMonth(), mainList));
+                        for(int j=0;j<filterData(Preference.getCurrentMonth(), mainList).size();j++){
+                            totalExpemce = totalExpemce + (Double.parseDouble(filterData(Preference.getCurrentMonth(), mainList).get(j).getTotal()));
+                        }
+                        txtExpence.setText("₦" + Preference.doubleToStringNoDecimal(totalExpemce));
+                    } else if (filterText.equalsIgnoreCase("Yearly")) {
+                        totalExpemce =0.0;
+
+                       // sendToServerList.clear();
+                      // sendToServerList.addAll(filterData(Preference.getCurrentYear(), mainList));
+                          setData(filterData(Preference.getCurrentYear(), mainList));
+                        for(int j=0;j<filterData(Preference.getCurrentYear(), mainList).size();j++){
+                            totalExpemce = totalExpemce + (Double.parseDouble(filterData(Preference.getCurrentYear(), mainList).get(j).getTotal()));
+                        }
+                        txtExpence.setText("₦" + Preference.doubleToStringNoDecimal(totalExpemce));
+                    } else {
+                        totalExpemce =0.0;
+
+                      // sendToServerList.clear();
+                        //sendToServerList = mainList;
+                      setData(sendToServerList);
+                        for(int j=0;j<sendToServerList.size();j++){
+                            totalExpemce = totalExpemce + (Double.parseDouble(sendToServerList.get(j).getTotal()));
+                        }
+                        txtExpence.setText("₦" + Preference.doubleToStringNoDecimal(totalExpemce));
+                    }
+                }
+            }
+            return true;
+        });
+        popupMenu.show();
+    }
+
+
+    public ArrayList<PieChartModel.Result> filterData(ArrayList<String> filterList, ArrayList<PieChartModel.Result> mainList) {
+        ArrayList<PieChartModel.Result> list = new ArrayList<>();
+        for (int i = 0; i < mainList.size(); i++) {
+            for (int j = 0; j < filterList.size(); j++) {
+                if (mainList.get(i).getDateTime().equalsIgnoreCase(filterList.get(j)))
+                    list.add((mainList.get(i)));
+
+            }
+
+
+        }
+
+        return list;
+
+    }
+
+
+
+
+
+
+
+    @Override
+    public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+
     }
 
     @Override
-    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+    public void onStartTrackingTouch(SeekBar seekBar) {
 
-        tvX.setText(String.valueOf(seekBarX.getProgress()));
-        tvY.setText(String.valueOf(seekBarY.getProgress()));
-
-        GetGrpCategoryMethod();
-
-       // setData(seekBarX.getProgress(), seekBarY.getProgress(),modelListCategory);
     }
 
     @Override
-    protected void saveToGallery() {
-        saveToGallery(chart, "PieChartActivity");
-    }
+    public void onStopTrackingTouch(SeekBar seekBar) {
 
-    private SpannableString generateCenterSpannableText() {
-
-        SpannableString s = new SpannableString("MPAndroidChart\ndeveloped by Philipp Jahoda");
-        s.setSpan(new RelativeSizeSpan(1.7f), 0, 14, 0);
-        s.setSpan(new StyleSpan(Typeface.NORMAL), 14, s.length() - 15, 0);
-        s.setSpan(new ForegroundColorSpan(Color.GRAY), 14, s.length() - 15, 0);
-        s.setSpan(new RelativeSizeSpan(.8f), 14, s.length() - 15, 0);
-        s.setSpan(new StyleSpan(Typeface.ITALIC), s.length() - 14, s.length(), 0);
-        s.setSpan(new ForegroundColorSpan(ColorTemplate.getHoloBlue()), s.length() - 14, s.length(), 0);
-
-        return s;
     }
 
     @Override
     public void onValueSelected(Entry e, Highlight h) {
 
-        if (e == null)
-            return;
-        Log.i("VAL SELECTED",
-                "Value: " + e.getY() + ", index: " + h.getX()
-                        + ", DataSet index: " + h.getDataSetIndex());
     }
 
     @Override
     public void onNothingSelected() {
-        Log.i("PieChart", "nothing selected");
-    }
 
-    @Override
-    public void onStartTrackingTouch(SeekBar seekBar) {}
-
-    @Override
-    public void onStopTrackingTouch(SeekBar seekBar) {}
-
-
-    private void GetGrpCategoryMethod(){
-
-        Call<GetMyPercentageModel> call = RetrofitClients.getInstance().getApi()
-                .getPercentageCategory(sessionManager.getUserID());
-        call.enqueue(new Callback<GetMyPercentageModel>() {
-            @RequiresApi(api = Build.VERSION_CODES.GINGERBREAD)
-            @Override
-            public void onResponse(Call<GetMyPercentageModel> call, Response<GetMyPercentageModel> response) {
-                try {
-                    GetMyPercentageModel finallyPr = response.body();
-                    if (finallyPr.getStatus().equalsIgnoreCase("1")) {
-
-                        modelListCategory = (ArrayList<GetMyPercentageModel.AccountDetail>) finallyPr.getAccountDetail();
-
-                        setData(seekBarX.getProgress(), seekBarY.getProgress(),modelListCategory);
-
-                    }
-                }catch (Exception e)
-                {
-                    e.printStackTrace();
-                }
-            }
-            @Override
-            public void onFailure(Call<GetMyPercentageModel> call, Throwable t) {
-              //  binding.progressBar.setVisibility(View.GONE);
-            }
-        });
     }
 }

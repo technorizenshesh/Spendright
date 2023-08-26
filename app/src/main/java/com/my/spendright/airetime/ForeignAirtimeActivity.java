@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Toast;
 
+import com.my.spendright.NumberTextWatcher;
 import com.my.spendright.R;
 import com.my.spendright.airetime.adapter.ServicesAdapterForienAmt;
 import com.my.spendright.airetime.model.GetAmountAirtimeModel;
@@ -54,7 +55,7 @@ public class ForeignAirtimeActivity extends AppCompatActivity {
      protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding= DataBindingUtil.setContentView(this,R.layout.activity_foreign_airtime);
-      //  binding.edtAmt.addTextChangedListener(new NumberTextWatcher(binding.edtAmt,"#,###"));
+        binding.edtAmt.addTextChangedListener(new NumberTextWatcher(binding.edtAmt,"#,###"));
 
         sessionManager = new SessionManager(ForeignAirtimeActivity.this);
 
@@ -93,7 +94,7 @@ public class ForeignAirtimeActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
                 if(isPayment)
                 {
-                   /* Amt= binding.edtAmt.getText().toString();
+                    Amt= binding.edtAmt.getText().toString();
                     if(!Amt.equalsIgnoreCase(""))
                     {
                         Double courrecyAmt = Double.valueOf(CurrenyAmt);
@@ -101,8 +102,8 @@ public class ForeignAirtimeActivity extends AppCompatActivity {
 
                         FinalAmt=courrecyAmt*Ammt;
 
-                        binding.setText(String.format("%.2f",FinalAmt)+"");
-                    }*/
+                        binding.edtAmtNaira.setText(String.format("%.2f",FinalAmt)+"");
+                    }
                 }else {
 
                     String Amount1 = binding.edtAmt.getText().toString();
@@ -163,13 +164,13 @@ public class ForeignAirtimeActivity extends AppCompatActivity {
                     isPayment =true;
 
                    // binding.edtAmtNaira.setText(String.format("%.2f",Charge_amount)+"");
-                    /*if(!Amt.equalsIgnoreCase(""))
+                    if(!Amt.equalsIgnoreCase(""))
                     {
                         Double courrecyAmt = Double.valueOf(CurrenyAmt);
                         Double Ammt = Double.valueOf(Amt);
                         FinalAmt=courrecyAmt*Ammt;
                        // binding.edtAmtNaira.setText(FinalAmt+"");
-                    }*/
+                    }
                 }else
                 {
                     binding.txtAmtMinMax.setText("Amount between "+modelListAmt.get(pos).getVariationAmountMin()+" - "+modelListAmt.get(pos).getVariationAmountMax()+" "+CurrenCy);
@@ -216,6 +217,8 @@ public class ForeignAirtimeActivity extends AppCompatActivity {
                     .putExtra("MyCuurentBlance",myWalletBalace));
 
             }
+         //   startActivity(new Intent(ForeignAirtimeActivity.this, ConfirmPaymentAireTimeForiegnAct.class));
+
         });
 
         if (sessionManager.isNetworkAvailable()) {

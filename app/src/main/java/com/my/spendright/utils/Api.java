@@ -6,7 +6,6 @@ import com.my.spendright.ElectircalBill.Model.GetServiceElectricialModel;
 import com.my.spendright.ElectircalBill.Model.GetVtsWalletBalnce;
 import com.my.spendright.Model.AccountTransactionDetails;
 import com.my.spendright.Model.AddAcountModel;
-import com.my.spendright.Model.AddReportModal;
 import com.my.spendright.Model.ChangePasswordModel;
 import com.my.spendright.Model.CreateGroupModel;
 import com.my.spendright.Model.CurencyModel;
@@ -15,11 +14,8 @@ import com.my.spendright.Model.DeletePaymentModel;
 import com.my.spendright.Model.ForGotPassword;
 import com.my.spendright.Model.GetAccountCategory;
 import com.my.spendright.Model.GetAllAccountModel;
-import com.my.spendright.Model.GetBudgetActTransaction;
 import com.my.spendright.Model.GetCategoryModelNew;
-import com.my.spendright.Model.GetCommisionModel;
 import com.my.spendright.Model.GetCountryModel;
-import com.my.spendright.Model.GetExpenSeReport;
 import com.my.spendright.Model.GetMainGrpCategory;
 import com.my.spendright.Model.GetMyAccountModel;
 import com.my.spendright.Model.GetMyPercentageModel;
@@ -31,7 +27,6 @@ import com.my.spendright.Model.GetVtpassLoginModel;
 import com.my.spendright.Model.GetVtpassMode;
 import com.my.spendright.Model.LoginModel;
 import com.my.spendright.Model.ReportModal;
-import com.my.spendright.Model.ResendOtpModel;
 import com.my.spendright.Model.SchdulepAymentModel;
 import com.my.spendright.Model.TvSuscriptionServiceModel;
 import com.my.spendright.Model.UpdateSchdulepAymentModel;
@@ -41,29 +36,109 @@ import com.my.spendright.airetime.model.GetInternationalModel;
 import com.my.spendright.airetime.model.GetOperatorModel;
 import com.my.spendright.airetime.model.GetProductTypeModel;
 
+import java.util.HashMap;
 import java.util.Map;
 
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
-import retrofit2.http.HeaderMap;
-import retrofit2.http.Multipart;
 import retrofit2.http.POST;
-import retrofit2.http.Part;
 import retrofit2.http.Query;
 
 public interface Api {
+
+    String Api_signup_one = "signup_screen_one";
+    String Api_signup_two = "signup_screen_two";
+    String Api_get_userInfo = "get_user_by_id";
+    String Api_signup_three = "otp_verification";
+    String Api_get_all_state = "states_get";
+
+    String Api_signup_user ="signup";
+    String Api_send_otp ="generate_otp";
+
+    String Api_get_account ="get_account_by_id";
+
+    String Api_create_budget_grp ="new_group";
+
+    String Api_get_all_grps ="get_list_group";
+
+    String Api_delete_budget_grp ="delete_group";
+
+    String Api_add_budget_category ="add_category";
+
+    String Api_get_budget_category ="get_categories_by_user_id";
+
+    String Api_create_budget_category ="create_budget_category";
+
+    String Api_all_budget_category ="get_budget_category_by_group_id";
+
+    String Api_share_unblock ="bcat_unlock_share_status";
+
+    String Api_update_budget_category ="update_budget_category_by_id";
+
+    String Api_delete_budget_grp_category ="delete_budget_category_by_id";
+    String Api_for_exiting_user ="recreate_monnify_account_if_not_exists";
+
+    String Api_for_bank_list ="bank_list";
+
+
+    String Api_add_beneficiary ="add_beneficiary";
+
+    String Api_get_beneficiary ="get_beneficiary";
+
+    String Api_check_beneficiary ="check_beneficiary";
+
+    String Api_withdraw_to_bank ="transfer_wallet_to_bank_monnify";
+
+    String Api_delete_beneficiary ="delete_beneficiary";
+
+    String Api_monnify_commission ="get_monnify_commission";
+
+    String Api_dashboard_category ="getMainCategory";
+
+    String Api_withdraw_to_my_wallet ="transfer_budget_category_to_wallet";
+
+
+    String Api_withdraw_my_wallet_to_another_wallet ="transfer_amount_to_another_users_main_wallet";
+
+    String Api_suggestion_user ="suggestion_for_user";
+    String Api_delete_budget_category ="delete_category";
+
+    String Api_update_expense_category ="update_category";
+
+    String Api_withdraw_wallet_to_wallet ="transfer_amount_from_main_wallet_to_another_users_main_wallet";
+
+
+    String Api_withdraw_wallet_to_bank ="transfer_amount_from_main_wallet_to_bank_account";
+
+    String Api_user_update_profile ="update_profile";
+
+    String Api_delete_user_profile ="delete_profile_by_user";
+
+    String Api_user_notification ="get_vtpass_history_notification";
+
+    String Api_contact_us ="get_social_share";
+
+    String Api_notification_counter ="get_notification_count";
+
+    String Api_get_pie_chart_report ="get_vtpass_history_search_pie_chart";
+
+    String Api_finger_print ="update_finger_print";
+
+
+
+
 
     String Api_signup = "signup";
     String Api_check_otp = "check_otp";
     String Api_resendOTP = "resendOTP";
     String Api_social_login = "social_login";
     String Api_login = "login";
+
+    String Api_login_biomatric = "login_finger_prints_key";
     String Api_get_profile = "get_profile";
     String Api_update_profile = "update_profile";
     String Api_forgot_password = "forgot_password";
@@ -75,7 +150,7 @@ public interface Api {
     String Api_delete_account_info = "delete_account_info";
     String Api_add_account= "add_account";
     String Api_editAccount= "editAccount";
-    String get_profile_data= "get_profile_data";
+    String get_profile_data= "get_profile_data";  //
     String get_getAllAccount= "getAllAccount";
     String getMonthBugdet= "getMonthBugdet";
     String change_currency= "change_currency";
@@ -132,6 +207,73 @@ public interface Api {
     String Api_pay_broadband = "vtpass_pay_broadband";
     String Api_pay_airtime_forin = "vtpass_pay_airtime_forin";
 
+    String Api_generate_token = "generateMonnifyToken";
+
+    String Api_verify_kyc = "bnv_verificatoin";
+
+
+
+
+    @FormUrlEncoded
+    @POST(Api_get_account)
+    Call<ResponseBody> Api_get_account(@FieldMap HashMap<String,String> hashMap);
+
+    @FormUrlEncoded
+    @POST(Api_signup_user)
+    Call<ResponseBody> Api_signup_user(@FieldMap HashMap<String,String> hashMap);
+
+
+    @FormUrlEncoded
+    @POST(Api_send_otp)
+    Call<ResponseBody> Api_send_otp(@Field("mobile") String mobile);
+
+
+
+    @FormUrlEncoded
+    @POST(Api_signup_one)
+    Call<ResponseBody> Api_signup_one(
+            @Field("user_name") String user_name,
+            @Field("first_name") String first_name,
+            @Field("last_name") String last_name,
+            @Field("other_legal_name") String other_legal_name,
+            @Field("email") String email,
+            @Field("phone_number") String phone_number,
+            @Field("country_code") String country_code
+
+    );
+
+    @FormUrlEncoded
+    @POST(Api_signup_two)
+    Call<ResponseBody> Api_signup_two(
+            @Field("user_id") String id,
+            @Field("referral_code") String referral_code,
+            @Field("full_address") String full_address,
+            @Field("state") String state,
+            @Field("password") String password
+
+    );
+
+
+    @FormUrlEncoded
+    @POST(Api_get_userInfo)
+    Call<ResponseBody> Api_get_userInfo(
+            @Field("user_id") String id);
+
+
+
+    @GET(Api_get_all_state)
+    Call<ResponseBody> Api_get_all_state();
+
+
+    @FormUrlEncoded
+    @POST(Api_signup_three)
+    Call<ResponseBody> Api_signup_three(
+            @Field("user_id") String user_id,
+            @Field("otp") String otp
+            );
+
+
+
     @FormUrlEncoded
     @POST(Api_signup)
     Call<ResponseBody> Api_signup(
@@ -160,7 +302,7 @@ public interface Api {
 
     );
 
-    @FormUrlEncoded
+   @FormUrlEncoded
     @POST(Api_update_profile)
     Call<LoginModel> Api_update_profile(
             @Field("user_id") String user_id,
@@ -183,6 +325,12 @@ public interface Api {
             @Field("password") String password,
             @Field("register_id") String register_id
     );
+
+    @FormUrlEncoded
+    @POST(Api_login_biomatric)
+    Call<LoginModel> Api_login_biomatric(
+            @Field("finger_prints_key") String finger_prints_key
+            );
 
     @FormUrlEncoded
     @POST(Api_get_profile)
@@ -215,7 +363,7 @@ public interface Api {
 
     @FormUrlEncoded
     @POST(Api_change_password)
-    Call<ChangePasswordModel> change_password(
+    Call<ResponseBody> change_password(
             @Field("user_id") String user_id,
             @Field("password") String password
     );
@@ -289,7 +437,8 @@ public interface Api {
             @Field("category_id") String category_id,
             @Field("category_name") String category_name,
             @Field("date_time") String date_time,
-            @Field("description") String description
+            @Field("description") String description,
+            @Field("emoji") String emoji
     );
 
 
@@ -411,7 +560,7 @@ public interface Api {
             @Field("check_status") String check_status,
             @Field("transaction_date") String transaction_date,
             @Field("budget_account_id") String budget_account_id,
-            @Field("transaction_time") String transaction_time,
+            @Field("transaction_time") String cat_id,
             @Field("description") String description,
             @Field("phone_number") String phone_number,
             @Field("payment_commision") String payment_commision,
@@ -431,8 +580,9 @@ public interface Api {
             @Field("type") String type,
             @Field("check_status") String check_status,
             @Field("transaction_date") String transaction_date,
-            @Field("budget_account_id") String budget_account_id,
             @Field("transaction_time") String transaction_time,
+            @Field("budget_account_id") String budget_account_id,
+            @Field("cat_id") String cat_id,
             @Field("description") String description,
             @Field("phone_number") String phone_number,
             @Field("payment_commision") String payment_commision,
@@ -503,21 +653,32 @@ public interface Api {
 
     @FormUrlEncoded
     @POST(get_budget_by_transaction)
-    Call<GetBudgetActTransaction> get_budget_by_transaction(
-            @Field("user_id") String user_id
+    Call<ResponseBody> get_budget_by_transaction(
+            @Field("user_id") String user_id,
+            @Field("id") String id,
+            @Field("start_date") String start_dated,
+            @Field("end_date") String end_date,
+            @Field("start_amount") String start_amount,
+            @Field("end_amount") String end_amount,
+            @Field("type") String transaction_type
+
     );
+
+
+
 
 
     @FormUrlEncoded
     @POST(get_vtpass_history_search)
-    Call<GetExpenSeReport> get_vtpass_history_search(
+    Call<ResponseBody> get_vtpass_history_search(
             @Field("user_id") String user_id,
             @Field("from_amount") String from_amount,
             @Field("to_amount") String to_amount,
             @Field("from_date") String from_date,
             @Field("to_date") String to_date,
             @Field("transaction_type") String transaction_type,
-            @Field("account_budget_id") String account_budget_id
+            @Field("account_budget_id") String account_budget_id,
+            @Field("trx_type") String trx_type
     );
 
 
@@ -532,7 +693,10 @@ public interface Api {
             @Field("date_time") String date_time,
             @Field("description") String description,
             @Field("pay_name") String pay_name,
-            @Field("main_category_name") String main_category_name
+            @Field("main_category_name") String main_category_name,
+            @Field("emoji") String emoji,
+            @Field("trx_type") String trx_type
+
     );
 
 
@@ -616,7 +780,7 @@ public interface Api {
 
     @FormUrlEncoded
     @POST(Api_merchant_verify)
-    Call<GetMerchatAcocunt> Api_merchant_verify(
+    Call<ResponseBody> Api_merchant_verify(
             @Field("billersCode") String billersCode,
             @Field("serviceID") String serviceID,
             @Field("type") String type
@@ -632,6 +796,7 @@ public interface Api {
     @FormUrlEncoded
     @POST(Api_pay)
     Call<ResponseBody> Api_pay(
+            @Field("user_id") String user_id,
             @Field("request_id") String request_id,
             @Field("serviceID") String serviceID,
             @Field("billersCode") String billersCode,
@@ -643,6 +808,7 @@ public interface Api {
     @FormUrlEncoded
     @POST(Api_pay_tv)
     Call<ResponseBody> Api_pay_tv(
+            @Field("user_id") String user_id,
             @Field("request_id") String request_id,
             @Field("serviceID") String serviceID,
             @Field("billersCode") String billersCode,
@@ -654,6 +820,7 @@ public interface Api {
     @FormUrlEncoded
     @POST(Api_pay_tv_change)
     Call<ResponseBody> Api_pay_tv_change(
+            @Field("user_id") String user_id,
             @Field("request_id") String request_id,
             @Field("serviceID") String serviceID,
             @Field("billersCode") String billersCode,
@@ -667,6 +834,7 @@ public interface Api {
     @FormUrlEncoded
     @POST(Api_pay_airtime)
     Call<ResponseBody> Api_pay_airtime(
+            @Field("user_id") String user_id,
             @Field("request_id") String request_id,
             @Field("serviceID") String serviceID,
             @Field("amount") String amount,
@@ -676,6 +844,7 @@ public interface Api {
     @FormUrlEncoded
     @POST(Api_pay_airtime_forin)
     Call<ResponseBody> Api_pay_airtime_forin(
+            @Field("user_id") String user_id,
             @Field("request_id") String request_id,
             @Field("serviceID") String serviceID,
             @Field("billersCode") String billersCode,
@@ -691,6 +860,7 @@ public interface Api {
     @FormUrlEncoded
     @POST(Api_pay_broadband)
     Call<ResponseBody> Api_pay_broadband(
+            @Field("user_id") String user_id,
             @Field("request_id") String request_id,
             @Field("serviceID") String serviceID,
             @Field("billersCode") String billersCode,
@@ -699,4 +869,176 @@ public interface Api {
             @Field("phone") String phone
     );
 
+    @FormUrlEncoded
+    @POST(Api_generate_token)
+    Call<ResponseBody> Api_generate_token(
+            @Field("type") String type);
+
+
+
+    @FormUrlEncoded
+    @POST(Api_verify_kyc)
+    Call<ResponseBody> Api_verify_kyc(@FieldMap Map<String, String> body);
+
+    @FormUrlEncoded
+    @POST(Api_create_budget_grp)
+    Call<ResponseBody> Api_create_budget_grp(@FieldMap Map<String, String> body);
+
+    @FormUrlEncoded
+    @POST(Api_get_all_grps)
+    Call<ResponseBody> Api_get_all_grps(@FieldMap Map<String, String> body);
+
+    @FormUrlEncoded
+    @POST(Api_delete_budget_grp)
+    Call<ResponseBody> Api_delete_budget_grp(@FieldMap Map<String, String> body);
+
+
+    @FormUrlEncoded
+    @POST(Api_add_budget_category)
+    Call<ResponseBody> Api_add_budget_category(@FieldMap Map<String, String> body);
+
+    @FormUrlEncoded
+    @POST(Api_get_budget_category)
+    Call<ResponseBody> Api_get_budget_category(@FieldMap Map<String, String> body);
+
+    @FormUrlEncoded
+    @POST(Api_create_budget_category)
+    Call<ResponseBody> Api_create_budget_category(@FieldMap Map<String, String> body);
+
+    @FormUrlEncoded
+    @POST(Api_all_budget_category)
+    Call<ResponseBody> Api_all_budget_category(@FieldMap Map<String, String> body);
+
+    @FormUrlEncoded
+    @POST(Api_share_unblock)
+    Call<ResponseBody> Api_share_unblock(@FieldMap Map<String, String> body);
+
+
+    @FormUrlEncoded
+    @POST(Api_update_budget_category)
+    Call<ResponseBody> Api_update_budget_category(@FieldMap Map<String, String> body);
+
+
+    @FormUrlEncoded
+    @POST(Api_delete_budget_grp_category)
+    Call<ResponseBody> Api_delete_budget_grp_category(@FieldMap Map<String, String> body);
+
+
+
+
+    @FormUrlEncoded
+    @POST(Api_for_exiting_user)
+    Call<ResponseBody> Api_for_exiting_user(@FieldMap Map<String, String> body);
+
+    @GET(Api_for_bank_list)
+    Call<ResponseBody> Api_for_bank_list();
+
+    @FormUrlEncoded
+    @POST(Api_add_beneficiary)
+    Call<ResponseBody> Api_add_beneficiary(@FieldMap Map<String, String> body);
+
+
+
+    @FormUrlEncoded
+    @POST(Api_get_beneficiary)
+    Call<ResponseBody> Api_get_beneficiary(@FieldMap Map<String, String> body);
+
+
+
+    @FormUrlEncoded
+    @POST(Api_check_beneficiary)
+    Call<ResponseBody> Api_check_beneficiary(@FieldMap Map<String, String> body);
+
+    @FormUrlEncoded
+    @POST(Api_withdraw_to_bank)
+    Call<ResponseBody> Api_withdraw_to_bank(@FieldMap Map<String, String> body);
+
+    @FormUrlEncoded
+    @POST(Api_delete_beneficiary)
+    Call<ResponseBody> Api_delete_beneficiary(@FieldMap Map<String, String> body);
+
+
+    @GET(Api_monnify_commission)
+    Call<ResponseBody> Api_monnify_commission();
+
+    @GET(Api_dashboard_category)
+    Call<ResponseBody> Api_dashboard_category();
+
+    @FormUrlEncoded
+    @POST(Api_withdraw_to_my_wallet)
+    Call<ResponseBody> Api_withdraw_to_my_wallet(@FieldMap Map<String, String> body);
+
+    @FormUrlEncoded
+    @POST(Api_withdraw_my_wallet_to_another_wallet)
+    Call<ResponseBody> Api_withdraw_my_wallet_to_another_wallet(@FieldMap Map<String, String> body);
+
+    @FormUrlEncoded
+    @POST(Api_suggestion_user)
+    Call<ResponseBody> Api_suggestion_user(@FieldMap Map<String, String> body);
+
+    @FormUrlEncoded
+    @POST(Api_delete_budget_category)
+    Call<ResponseBody> Api_delete_budget_category(@FieldMap Map<String, String> body);
+
+    @FormUrlEncoded
+    @POST(Api_update_expense_category)
+    Call<ResponseBody> Api_update_expense_category(@FieldMap Map<String, String> body);
+
+    @FormUrlEncoded
+    @POST(Api_withdraw_wallet_to_wallet)
+    Call<ResponseBody> Api_withdraw_wallet_to_wallet(@FieldMap Map<String, String> body);
+
+    @FormUrlEncoded
+    @POST(Api_withdraw_wallet_to_bank)
+    Call<ResponseBody> Api_withdraw_wallet_to_bank(@FieldMap Map<String, String> body);
+
+
+
+
+    @FormUrlEncoded
+    @POST(Api_user_update_profile)
+    Call<ResponseBody> Api_user_update_profile(
+            @Field("user_id") String user_id,
+            @Field("last_name") String last_name,
+            @Field("other_legal_name") String other_legal_name,
+            @Field("mobile") String mobile,
+            @Field("country_code") String country_code,
+            @Field("full_address") String full_address,
+            @Field("state") String state
+    );
+
+
+    @FormUrlEncoded
+    @POST(Api_delete_user_profile)
+    Call<ResponseBody> Api_delete_user_profile(
+            @Field("user_id") String user_id);
+
+
+    @FormUrlEncoded
+    @POST(Api_user_notification)
+    Call<ResponseBody> Api_user_notification(
+            @Field("user_id") String user_id);
+
+
+    @GET(Api_contact_us)
+    Call<ResponseBody> Api_contact_us();
+
+
+    @FormUrlEncoded
+    @POST(Api_notification_counter)
+    Call<ResponseBody> Api_notification_counter(
+            @Field("user_id") String user_id);
+
+
+    @FormUrlEncoded
+    @POST(Api_get_pie_chart_report)
+    Call<ResponseBody> Api_get_pie_chart_report(
+            @Field("user_id") String user_id);
+
+
+    @FormUrlEncoded
+    @POST(Api_finger_print)
+    Call<ResponseBody> Api_finger_print(
+            @Field("user_id") String user_id,
+    @Field("finger_prints_key") String finger_prints_key);
 }

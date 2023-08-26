@@ -170,6 +170,7 @@
                             <TextView
                                 android:text="Mobile Number"
                                 android:textSize="@dimen/_12sdp"
+                                android:fontFamily="@font/poppinsregular"
                                 android:textColor="@color/black"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -178,9 +179,10 @@
                             <TextView
                                 android:id="@+id/txtMobile"
                                 android:textStyle="bold"
-                                android:textSize="@dimen/_14sdp"
+                                android:textSize="@dimen/_13sdp"
                                 android:textColor="@color/black"
                                 android:text=""
+                                android:fontFamily="@font/poppinsregular"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 />
@@ -255,12 +257,15 @@
                                 android:layout_alignParentLeft="true"
                                 android:text="Description"
                                 android:textColor="@color/gray"
-                                android:textSize="@dimen/_12sdp" />
+                                android:textSize="@dimen/_12sdp"
+                                android:fontFamily="@font/poppinsregular"
+                                />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
+                                android:fontFamily="@font/poppinsregular"
                                 android:text="Service Name"
                                 android:textColor="@color/gray"
                                 android:textSize="@dimen/_12sdp" />
@@ -279,7 +284,9 @@
                                 android:layout_alignParentLeft="true"
                                 android:text="Airtime Purchase"
                                 android:textColor="@color/black"
-                                android:textSize="@dimen/_14sdp"
+                                android:textSize="@dimen/_13sdp"
+                                android:fontFamily="@font/poppinsregular"
+
                                 android:textStyle="bold" />
 
                             <TextView
@@ -289,7 +296,8 @@
                                 android:layout_alignParentRight="true"
                                 android:text=""
                                 android:textColor="@color/black"
-                                android:textSize="@dimen/_14sdp"
+                                android:textSize="@dimen/_13sdp"
+                                android:fontFamily="@font/poppinsregular"
                                 android:textStyle="bold" />
 
                         </RelativeLayout>
@@ -323,10 +331,11 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/poppinsregular"
                                 android:text="Amount"
                                 android:textColor="@color/gray"
-                                android:textSize="@dimen/_12sdp" />
+                                android:textSize="@dimen/_12sdp"
+                                android:fontFamily="@font/poppinsregular"
+                                />
 
 
                             <TextView
@@ -349,28 +358,29 @@
                             >
 
                             <TextView
-                                android:drawableLeft="@drawable/doller"
                                 android:layout_gravity="right"
                                 android:id="@+id/AmountPay"
                                 android:drawablePadding="@dimen/_3sdp"
                                 android:textStyle="bold"
-                                android:textSize="@dimen/_20sdp"
+                                android:textSize="@dimen/_18sdp"
                                 android:textColor="@color/black"
                                 android:text="6.725,00"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:fontFamily="@font/poppinsregular"
+
                                 />
 
                             <TextView
                                 android:layout_gravity="right"
                                 android:id="@+id/tax"
                                 android:drawablePadding="@dimen/_3sdp"
-                                  android:drawableLeft="@drawable/doller"
                                 android:gravity="center_vertical"
                                 android:textStyle="bold"
-                                android:textSize="@dimen/_18sdp"
+                                android:textSize="@dimen/_16sdp"
                                 android:textColor="@color/black"
                                 android:text="0.00"
+                                android:fontFamily="@font/poppinsregular"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 />
@@ -389,11 +399,11 @@
                                 android:layout_gravity="center_vertical"
                                 android:id="@+id/totalAmountPay"
                                 android:drawablePadding="@dimen/_3sdp"
-                                android:drawableLeft="@drawable/doller_orangeee"
                                 android:textStyle="bold"
-                                android:textSize="@dimen/_30sdp"
+                                android:textSize="@dimen/_25sdp"
                                 android:textColor="@color/orange"
                                 android:text="6.727,00"
+                                android:fontFamily="@font/poppinsregular"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 />
@@ -419,8 +429,9 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
                         android:text="Expense Tracking Account"
+                        android:fontFamily="@font/poppinsregular"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/_14sdp"
+                        android:textSize="@dimen/_13sdp"
                         />
 
                     <RelativeLayout
@@ -461,9 +472,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
-                        android:text="Description"
+                        android:text="Expense category"
+                        android:fontFamily="@font/poppinsregular"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/_14sdp"
+                        android:textSize="@dimen/_13sdp"
                         />
 
                     <RelativeLayout
@@ -473,6 +485,66 @@
                         android:layout_alignParentRight="true"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_45sdp"
+                        >
+
+
+                        <TextView
+                            android:id="@+id/tvCate"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:padding="@dimen/_10sdp"
+                            android:fontFamily="@font/poppinsregular"
+                            android:gravity="center_vertical"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_11sdp"
+                            android:visibility="visible" />
+
+
+                        <Spinner
+                            android:id="@+id/spinnerExCate"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_toLeftOf="@+id/imgState1"
+                            android:background="@android:color/transparent"
+                            android:backgroundTint="@color/black"
+                            android:visibility="gone"
+                            />
+
+                        <ImageView
+                            android:layout_marginRight="@dimen/_5sdp"
+                            android:id="@+id/imgState1"
+                            android:layout_width="@dimen/_10sdp"
+                            android:layout_height="@dimen/_10sdp"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:src="@drawable/bottom_arrow">
+
+                        </ImageView>
+
+                    </RelativeLayout>
+
+
+                    <TextView
+                        android:layout_marginLeft="@dimen/_10sdp"
+                        android:textStyle="bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:text="Description"
+                        android:textColor="@color/white"
+                        android:fontFamily="@font/poppinsregular"
+                        android:textSize="@dimen/_13sdp"
+                        android:visibility="gone"
+                        />
+
+                    <RelativeLayout
+                        android:background="@drawable/border_white_one"
+                        android:layout_margin="@dimen/_5sdp"
+                        android:elevation="@dimen/_10sdp"
+                        android:layout_alignParentRight="true"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_85sdp"
+                        android:visibility="gone"
                         >
 
                         <EditText
@@ -491,9 +563,10 @@
                 </LinearLayout>
 
                 <RelativeLayout
-                    android:layout_marginBottom="@dimen/_20sdp"
+                    android:layout_marginBottom="@dimen/_10sdp"
                     android:layout_marginRight="@dimen/_10sdp"
                     android:layout_marginLeft="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_20sdp"
                     android:id="@+id/RRConfirm"
                     android:background="@drawable/border_btn"
                     android:layout_width="match_parent"
