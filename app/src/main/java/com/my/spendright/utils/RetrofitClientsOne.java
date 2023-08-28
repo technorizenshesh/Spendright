@@ -7,7 +7,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitClientsOne {// private static final String BASE_URL ="https://www.lamavietech.ml/spendright/webservice/";
-    private static final String BASE_URL ="https://spendright.ng/spendright/api/";
+    private static final String BASE_URL ="https://spendright.ng/api/";  // https://spendright.ng/spendright/api/
 
     private static RetrofitClientsOne mInstance;
     private Retrofit retrofit;

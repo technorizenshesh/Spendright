@@ -101,11 +101,11 @@ public class KYCAct extends AppCompatActivity {
 
 
         binding.rdMale.setOnClickListener(view -> {
-            gender = "male";
+            gender = "MALE";
         });
 
         binding.rdFemale.setOnClickListener(view -> {
-            gender = "female";
+            gender = "FEMALE";
         });
 
 
@@ -216,6 +216,7 @@ public class KYCAct extends AppCompatActivity {
         requestBody.put("user_id", userId);
         requestBody.put("legal_last", binding.edtLegalLastName.getText().toString().trim());
         requestBody.put("legal_name", binding.edtLegalName.getText().toString().trim());
+        requestBody.put("gender", gender);
 
 
         Log.e("MonnifyKycRequest",requestBody.toString());
