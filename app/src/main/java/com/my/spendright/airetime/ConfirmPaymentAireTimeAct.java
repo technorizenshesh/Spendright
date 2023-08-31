@@ -127,7 +127,8 @@ public class ConfirmPaymentAireTimeAct extends AppCompatActivity {
                }
                else t =  Double.parseDouble(amount);
 
-               if(walletAmount >= t ) PyaAccoun();                else {
+               if(walletAmount >= t ) PyaAccoun();
+               else {
                     AlertDialogStatus(getString(R.string.your_wallet_bal_is_low));
                 }
             }else {

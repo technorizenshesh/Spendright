@@ -138,7 +138,7 @@ public class PaymentBill extends AppCompatActivity {
         Map<String,String>map = new HashMap<>();
         map.put("billersCode",BillNumber);
         map.put("serviceID",ServicesId);
-        map.put("type",type);
+        map.put("type",type.trim());
         Log.e("checkMerchantRequest===",map+"");
         call.enqueue(new Callback<ResponseBody>() {
             @Override
