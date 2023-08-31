@@ -55,6 +55,7 @@ public class KYCAct extends AppCompatActivity {
     private String name="";
     private String from="";
 
+
     private String userId="";
     private SessionManager sessionManager;
 
