@@ -476,6 +476,7 @@
                             android:visibility="visible"
                             android:fontFamily="@font/poppinsregular"
                             android:textSize="@dimen/_11sdp"
+                            android:text="Please add Expense Category"
                             android:textColor="@color/black"
                             android:gravity="center_vertical"/>
 

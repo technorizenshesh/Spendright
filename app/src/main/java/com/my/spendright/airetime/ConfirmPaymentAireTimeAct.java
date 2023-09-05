@@ -120,7 +120,7 @@ public class ConfirmPaymentAireTimeAct extends AppCompatActivity {
         binding.RRConfirm.setOnClickListener(v -> {
 
          if(selectBugCategoryId.equalsIgnoreCase("")){
-             Toast.makeText(this, "Please goes to setting to create Expense category.", Toast.LENGTH_SHORT).show();
+             Toast.makeText(this, "Please go to setting tab and add an expense category", Toast.LENGTH_SHORT).show();
 
          }
          else {

@@ -180,6 +180,7 @@ public class FundAct extends AppCompatActivity {
         GetProfileMethod();
     }
 
+/*
     private void getFLAccount() {
         ApiMonnify apiInterface = ApiClient.getClient1().create(ApiMonnify.class);
         Map<String, String> headers = new HashMap<>();
@@ -233,6 +234,7 @@ public class FundAct extends AppCompatActivity {
             }
         });
     }
+*/
 
 
     public String toBase64(String message) {

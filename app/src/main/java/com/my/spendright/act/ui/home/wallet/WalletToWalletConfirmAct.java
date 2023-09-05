@@ -104,18 +104,23 @@ public class WalletToWalletConfirmAct extends AppCompatActivity {
 
 
         binding.RRConfirm.setOnClickListener(v -> {
-            if (sessionManager.isNetworkAvailable()) {
-                binding.progressBar.setVisibility(View.VISIBLE);
-                double t = 0.0;
-                if (!binding.tax.getText().toString().equalsIgnoreCase("₦0.00")) {
-                    t = Double.parseDouble(binding.tax.getText().toString().replace("₦","")) + Double.parseDouble(amount);
-                } else
-                    t = Double.parseDouble(amount);
+            if(selectBugCategoryId.equalsIgnoreCase("")){
+                Toast.makeText(this, "Please go to setting tab and add an expense category", Toast.LENGTH_SHORT).show();
+            }
+           else {
+                if (sessionManager.isNetworkAvailable()) {
+                    binding.progressBar.setVisibility(View.VISIBLE);
+                    double t = 0.0;
+                    if (!binding.tax.getText().toString().equalsIgnoreCase("₦0.00")) {
+                        t = Double.parseDouble(binding.tax.getText().toString().replace("₦", "")) + Double.parseDouble(amount);
+                    } else
+                        t = Double.parseDouble(amount);
 
-                transferToAnotherWallet(t);
+                    transferToAnotherWallet(t);
 
-            } else {
-                Toast.makeText(this, R.string.checkInternet, Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, R.string.checkInternet, Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

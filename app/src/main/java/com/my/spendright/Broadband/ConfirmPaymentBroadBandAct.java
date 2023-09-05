@@ -62,7 +62,7 @@ public class ConfirmPaymentBroadBandAct extends AppCompatActivity {
     String variation_code="";
     String MyCuurentBlance="";
     String ServicesName="";
-    String Current_date="",selectBugCategoryId;
+    String Current_date="",selectBugCategoryId="";
     private SessionManager sessionManager;
 
     String BudgetAccountId="";
@@ -125,21 +125,25 @@ public class ConfirmPaymentBroadBandAct extends AppCompatActivity {
 
 
         binding.RRConfirm.setOnClickListener(v -> {
-            if (sessionManager.isNetworkAvailable()) {
-                binding.progressBar.setVisibility(View.VISIBLE);
-                double t=0.0;
-                if(!binding.tax.getText().toString().equalsIgnoreCase("₦0.00"))
-                {
-                    t = Double.parseDouble(binding.tax.getText().toString()) + Double.parseDouble(amount);
-                }
-                else t =  Double.parseDouble(amount);
+            if(selectBugCategoryId.equalsIgnoreCase("")){
+                Toast.makeText(this, "Please go to setting tab and add an expense category", Toast.LENGTH_SHORT).show();
+            }
+            else {
 
-                if(walletAmount >= t ) PyaAccoun();
-                else {
-                    AlertDialogStatus(getString(R.string.your_wallet_bal_is_low));
+                if (sessionManager.isNetworkAvailable()) {
+                    binding.progressBar.setVisibility(View.VISIBLE);
+                    double t = 0.0;
+                    if (!binding.tax.getText().toString().equalsIgnoreCase("₦0.00")) {
+                        t = Double.parseDouble(binding.tax.getText().toString()) + Double.parseDouble(amount);
+                    } else t = Double.parseDouble(amount);
+
+                    if (walletAmount >= t) PyaAccoun();
+                    else {
+                        AlertDialogStatus(getString(R.string.your_wallet_bal_is_low));
+                    }
+                } else {
+                    Toast.makeText(this, R.string.checkInternet, Toast.LENGTH_SHORT).show();
                 }
-            }else {
-                Toast.makeText(this, R.string.checkInternet, Toast.LENGTH_SHORT).show();
             }
         });
 

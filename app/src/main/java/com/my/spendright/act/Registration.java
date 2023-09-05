@@ -329,6 +329,7 @@ public class Registration extends AppCompatActivity {
 
 
 
+/*
     private void generateFlAccount() {
         ApiMonnify apiInterface = ApiClient.getClient1().create(ApiMonnify.class);
         Map<String, String> headers = new HashMap<>();
@@ -346,7 +347,9 @@ public class Registration extends AppCompatActivity {
         requestBody.put("lastname",binding.edtLName.getText().toString());
         requestBody.put("amount",1+"");
 
-        requestBody.put("narration",/*"new account created"*/ binding.edtFName.getText().toString() + " " + binding.edtLName.getText().toString() );
+        requestBody.put("narration",*/
+/*"new account created"*//*
+ binding.edtFName.getText().toString() + " " + binding.edtLName.getText().toString() );
 
         Log.e("FlutterwaveAccount",requestBody.toString());
 
@@ -398,6 +401,7 @@ public class Registration extends AppCompatActivity {
             }
         });
     }
+*/
 
 
 
@@ -428,6 +432,7 @@ public class Registration extends AppCompatActivity {
 
 
 
+/*
     private void generateToken() {
         ApiMonnify apiInterface = ApiClient.getClient().create(ApiMonnify.class);
         Log.e("encode====",toBase64(Constant.MONNIFY_SANDBOX_API_KEY + ":" + Constant.MONNIFY_SANDBOX_SECRET_KEY));
@@ -467,9 +472,11 @@ public class Registration extends AppCompatActivity {
             }
         });
     }
+*/
 
 
 
+/*
     private void generateMonnifyAccount(String token) {
         ApiMonnify apiInterface = ApiClient.getClient1().create(ApiMonnify.class);
         Map<String, String> headers = new HashMap<>();
@@ -499,9 +506,11 @@ public class Registration extends AppCompatActivity {
                         JSONObject object = jsonObject.getJSONObject("responseBody");
                         if (sessionManager.isNetworkAvailable()) {
                             binding.progressBar.setVisibility(View.VISIBLE);
-                        /*    signUpMethod(object.getString("contractCode"),object.getString("accountReference"),
+                        */
+/*    signUpMethod(object.getString("contractCode"),object.getString("accountReference"),
                                     object.getString("accountName"),object.getString("currencyCode"),object.getString("customerEmail"),
-                                    object.getString("customerName"));*/
+                                    object.getString("customerName"));*//*
+
                         }else {
                             Toast.makeText(Registration.this, R.string.checkInternet, Toast.LENGTH_SHORT).show();
                         }
@@ -522,6 +531,7 @@ public class Registration extends AppCompatActivity {
             }
         });
     }
+*/
 
 
 

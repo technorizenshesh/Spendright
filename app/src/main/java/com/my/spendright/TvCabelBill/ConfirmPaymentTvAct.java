@@ -66,7 +66,7 @@ public class ConfirmPaymentTvAct extends AppCompatActivity {
     private SessionManager sessionManager;
 
     private ArrayList<GetCategoryModelNew.Result> modelListCategory = new ArrayList<>();
-    String BudgetAccountId="",selectBugCategoryId;
+    String BudgetAccountId="",selectBugCategoryId="";
     ArrayList<IncomeExpenseCatModel.Category> arrayList = new ArrayList<>();;
     IncomeExpenseCatModel incomeExpenseCatModel;
     double FInalAmt = 0.0;
@@ -120,22 +120,25 @@ public class ConfirmPaymentTvAct extends AppCompatActivity {
 
 
         binding.RRConfirm.setOnClickListener(v -> {
-            if (sessionManager.isNetworkAvailable()) {
+            if (selectBugCategoryId.equalsIgnoreCase("")) {
+                Toast.makeText(this, "Please go to setting tab and add an expense category", Toast.LENGTH_SHORT).show();
+            } else {
+                if (sessionManager.isNetworkAvailable()) {
 
-                double t=0.0;
-                if(!binding.tax.getText().toString().equalsIgnoreCase("₦0.00"))
-                {
-                    t =  FInalAmt;  // Double.parseDouble(binding.tax.getText().toString().replace("₦","")) + Double.parseDouble(amount);
-                }
-                else t =  Double.parseDouble(amount);
+                    double t = 0.0;
+                    if (!binding.tax.getText().toString().equalsIgnoreCase("₦0.00")) {
+                        t = FInalAmt;  // Double.parseDouble(binding.tax.getText().toString().replace("₦","")) + Double.parseDouble(amount);
+                    } else t = Double.parseDouble(amount);
 
-                if(walletAmount >= t ) PyaAccoun();
-                else {
-                    AlertDialogStatus(getString(R.string.your_wallet_bal_is_low));
+                    if (walletAmount >= t) PyaAccoun();
+                    else {
+                        AlertDialogStatus(getString(R.string.your_wallet_bal_is_low));
+                    }
+                } else {
+                    Toast.makeText(this, R.string.checkInternet, Toast.LENGTH_SHORT).show();
                 }
-            }else {
-                Toast.makeText(this, R.string.checkInternet, Toast.LENGTH_SHORT).show();
             }
+
         });
 
 

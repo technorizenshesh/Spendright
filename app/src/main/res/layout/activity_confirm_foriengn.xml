@@ -497,6 +497,7 @@
                             android:gravity="center_vertical"
                             android:textColor="@color/black"
                             android:textSize="@dimen/_11sdp"
+                            android:text="Please add Expense Category"
                             android:visibility="visible" />
 
 

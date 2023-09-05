@@ -67,7 +67,7 @@ public class ConfirmPaymentAct extends AppCompatActivity {
     double walletAmount ;
     String Current_date="";
     private ArrayList<GetCategoryModelNew.Result> modelListCategory = new ArrayList<>();
-     String BudgetAccountId="",selectBugCategoryId;
+     String BudgetAccountId="",selectBugCategoryId="";
     ArrayList<IncomeExpenseCatModel.Category> arrayList = new ArrayList<>();;
     IncomeExpenseCatModel incomeExpenseCatModel;
     Double CmAmt =0.0;
@@ -122,25 +122,28 @@ public class ConfirmPaymentAct extends AppCompatActivity {
         });
 
         binding.RRConfirm.setOnClickListener(v -> {
-            if (sessionManager.isNetworkAvailable()) {
-                binding.progressBar.setVisibility(View.VISIBLE);
+            if(selectBugCategoryId.equalsIgnoreCase("")){
+                Toast.makeText(this, "Please go to setting tab and add an expense category", Toast.LENGTH_SHORT).show();
+            }
+           else {
+                if (sessionManager.isNetworkAvailable()) {
+                    binding.progressBar.setVisibility(View.VISIBLE);
 
-                String UserName= Preference.get(this,Preference.KEY_VTPASS_UserName);
-                String UserPassword= Preference.get(this,Preference.KEY_VTPASS_pass);
-                double t=0.0;
-                if(!binding.tax.getText().toString().equalsIgnoreCase("₦0.00"))
-                {
-                    t = CmAmt + Double.parseDouble(amount);
+                    String UserName = Preference.get(this, Preference.KEY_VTPASS_UserName);
+                    String UserPassword = Preference.get(this, Preference.KEY_VTPASS_pass);
+                    double t = 0.0;
+                    if (!binding.tax.getText().toString().equalsIgnoreCase("₦0.00")) {
+                        t = CmAmt + Double.parseDouble(amount);
+                    } else t = Double.parseDouble(amount);
+
+                    if (walletAmount >= t) PyaAccoun(UserName, UserPassword);
+                    else {
+                        AlertDialogStatus(getString(R.string.your_wallet_bal_is_low));
+                    }              //  PyaAccoun("harshit.ixora89@gmail.com","harshit89@");
+
+                } else {
+                    Toast.makeText(this, R.string.checkInternet, Toast.LENGTH_SHORT).show();
                 }
-                else t =  Double.parseDouble(amount);
-
-                if(walletAmount >= t ) PyaAccoun(UserName,UserPassword);
-                else {
-                    AlertDialogStatus(getString(R.string.your_wallet_bal_is_low));
-                }              //  PyaAccoun("harshit.ixora89@gmail.com","harshit89@");
-
-            }else {
-                Toast.makeText(this, R.string.checkInternet, Toast.LENGTH_SHORT).show();
             }
         });
 

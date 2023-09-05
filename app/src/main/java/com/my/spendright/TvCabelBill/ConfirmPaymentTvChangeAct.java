@@ -64,7 +64,7 @@ public class ConfirmPaymentTvChangeAct extends AppCompatActivity {
     String variation_code="";
     String variation_amount="";
     String variation_name="";
-    String phone="",selectBugCategoryId;
+    String phone="",selectBugCategoryId="";
 
     private ArrayList<GetCategoryModelNew.Result> modelListCategory = new ArrayList<>();
     String BudgetAccountId="";
@@ -123,11 +123,17 @@ public class ConfirmPaymentTvChangeAct extends AppCompatActivity {
 
 
         binding.RRConfirm.setOnClickListener(v -> {
-            if (sessionManager.isNetworkAvailable()) {
-                binding.progressBar.setVisibility(View.VISIBLE);
-                PyaAccoun();
-            }else {
-                Toast.makeText(this, R.string.checkInternet, Toast.LENGTH_SHORT).show();
+            if(selectBugCategoryId.equalsIgnoreCase("")){
+                Toast.makeText(this, "Please go to setting tab and add an expense category", Toast.LENGTH_SHORT).show();
+            }
+
+            else {
+                if (sessionManager.isNetworkAvailable()) {
+                    binding.progressBar.setVisibility(View.VISIBLE);
+                    PyaAccoun();
+                } else {
+                    Toast.makeText(this, R.string.checkInternet, Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

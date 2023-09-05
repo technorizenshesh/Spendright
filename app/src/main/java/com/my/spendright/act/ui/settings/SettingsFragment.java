@@ -73,12 +73,12 @@ public class SettingsFragment extends Fragment implements CreateVirtualListener 
 
         binding.RRTerms.setOnClickListener(v -> {
          //   fullscreenDialog(getActivity());
-            startActivity(new Intent(Intent.ACTION_VIEW,Uri.parse("https://spendright.ng/spendright/terms_conditions")));
+            startActivity(new Intent(Intent.ACTION_VIEW,Uri.parse("https://spendright.ng/terms_conditions")));
         });
 
         binding.RRPrivacy.setOnClickListener(v -> {
             //   fullscreenDialog(getActivity());
-            startActivity(new Intent(Intent.ACTION_VIEW,Uri.parse("https://spendright.ng/spendright/privacy_policy")));
+            startActivity(new Intent(Intent.ACTION_VIEW,Uri.parse("https://spendright.ng/privacy_policy")));
         });
 
         binding.RRMyAccount.setOnClickListener(v -> {
