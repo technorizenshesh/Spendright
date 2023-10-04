@@ -64,8 +64,8 @@ public class WalletToWalletAct extends AppCompatActivity {
     private void initViews() {
 
         if(getIntent()!=null){
-            if(Double.parseDouble(getIntent().getStringExtra("mainBal"))< 1)  mainAmount = String.format("%.2f", Double.parseDouble(getIntent().getStringExtra("mainBal")));
-            else mainAmount = Preference.doubleToStringNoDecimal(Double.parseDouble(getIntent().getStringExtra("mainBal")));
+            if(Double.parseDouble(getIntent().getStringExtra("mainBal").replace(",",""))< 1)  mainAmount = String.format("%.2f", Double.parseDouble(getIntent().getStringExtra("mainBal").replace(",","")));
+            else mainAmount = Preference.doubleToStringNoDecimal(Double.parseDouble(getIntent().getStringExtra("mainBal").replace(",","")));
 
             binding.tvAmount.setText("₦" + mainAmount);
         }
@@ -120,7 +120,7 @@ public class WalletToWalletAct extends AppCompatActivity {
             Toast.makeText(WalletToWalletAct.this,getString(R.string.enter_username),Toast.LENGTH_LONG).show();
         else if(binding.edAmount.getText().toString().equalsIgnoreCase(""))
             Toast.makeText(WalletToWalletAct.this,getString(R.string.please_enter_amount),Toast.LENGTH_LONG).show();
-        else if(Double.parseDouble(mainAmount) <= Double.parseDouble(binding.edAmount.getText().toString()))
+        else if(Double.parseDouble(mainAmount.replace(",","")) <= Double.parseDouble(binding.edAmount.getText().toString()))
             Toast.makeText(WalletToWalletAct.this,getString(R.string.withraw_bal_then_then)  ,Toast.LENGTH_LONG).show();
 
         else {
@@ -130,7 +130,8 @@ public class WalletToWalletAct extends AppCompatActivity {
                     .putExtra("name",firstName + " " + lastName)
                     .putExtra("mobile",mobile)
                     .putExtra("selectedUserId",selectedUserId)
-                    .putExtra("amount",binding.edAmount.getText().toString()));
+                    .putExtra("amount",binding.edAmount.getText().toString())
+                    .putExtra("ref",Preference.getAlphaNumericString(20)));
 
         }
 

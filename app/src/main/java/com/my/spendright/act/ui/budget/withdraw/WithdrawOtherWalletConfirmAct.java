@@ -42,7 +42,7 @@ import retrofit2.Response;
 public class WithdrawOtherWalletConfirmAct extends AppCompatActivity {
     private String TAG = "WithdrawMyWalletConfirmAct";
     private SessionManager sessionManager;
-    String catId="",selectBugCategoryId = "",userName ="",name="",mobile="",selectedUserId="",amount="",BudgetAccountId="";
+    String catId="",ref="",selectBugCategoryId = "",userName ="",name="",mobile="",selectedUserId="",amount="",BudgetAccountId="";
 
     ActivityWithdrawPaymentConfirmBinding binding;
 
@@ -70,6 +70,7 @@ public class WithdrawOtherWalletConfirmAct extends AppCompatActivity {
             mobile = getIntent().getStringExtra("mobile");
             selectedUserId = getIntent().getStringExtra("selectedUserId");
             amount = getIntent().getStringExtra("amount");
+            ref = getIntent().getStringExtra("ref");
 
             binding.tvBeneficiaryName.setText(name);
             binding.tvBeneficiaryUserName.setText(userName);
@@ -252,6 +253,8 @@ public class WithdrawOtherWalletConfirmAct extends AppCompatActivity {
         requestBody.put("other_user_id",selectedUserId);
         requestBody.put("expense_traking_account_id",BudgetAccountId);
         requestBody.put("expense_traking_category_id",selectBugCategoryId);
+        requestBody.put("reff_id",ref);
+
         Log.e(TAG, "Transfer to Another Wallet Request==" + requestBody.toString());
         Call<ResponseBody> loginCall = RetrofitClientsOne.getInstance().getApi().Api_withdraw_my_wallet_to_another_wallet(requestBody);
         loginCall.enqueue(new Callback<ResponseBody>() {

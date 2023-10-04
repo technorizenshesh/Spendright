@@ -231,6 +231,19 @@
                             android:textColor="@color/red"
                             android:textSize="@dimen/_9sdp" />
 
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="(Surname on BVN)"
+                            android:layout_marginStart="@dimen/_30sdp"
+                            android:textColor="@color/red"
+                            android:textSize="@dimen/_9sdp" />
+
+
+
                     </LinearLayout>
 
                     <LinearLayout
@@ -293,6 +306,17 @@
                             android:text=" *"
                             android:textColor="@color/red"
                             android:textSize="@dimen/_9sdp" />
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="(First Name and Middle Name on BVN)"
+                            android:layout_marginStart="@dimen/_30sdp"
+                            android:textColor="@color/red"
+                            android:textSize="@dimen/_9sdp"
+                            android:layout_marginBottom="@dimen/_6sdp"/>
 
                     </LinearLayout>
 
@@ -443,6 +467,17 @@
                             android:textColor="@color/red"
                             android:textSize="@dimen/_9sdp" />
 
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="(DOB on BVN)"
+                            android:layout_marginStart="@dimen/_30sdp"
+                            android:textColor="@color/red"
+                            android:textSize="@dimen/_9sdp" />
+
+
                     </LinearLayout>
 
                     <LinearLayout
@@ -506,6 +541,10 @@
                                 android:text=" *"
                                 android:textColor="@color/red"
                                 android:textSize="@dimen/_9sdp" />
+
+
+
+
 
                         </LinearLayout>
 

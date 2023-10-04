@@ -294,7 +294,7 @@
     <string name="expense_category">Expense Category</string>
     <string name="amount_must_be_lessthen_from_available_amount">Amount must be less or equal to this budget amount</string>
     <string name="withdraw_complete">Withdrawal Successful</string>
-    <string name="manage_beneficiary">Manage Benpeficiary</string>
+    <string name="manage_beneficiary">Manage Beneficiary</string>
     <string name="not_found">not available</string>
     <string name="are_you_sure_you_want_to_delete_this_beneficiary_account">Are you sure you want to delete this beneficiary account?</string>
   <string name="enter_username">Enter username</string>

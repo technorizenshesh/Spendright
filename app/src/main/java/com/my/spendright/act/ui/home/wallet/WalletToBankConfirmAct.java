@@ -48,7 +48,7 @@ import retrofit2.Response;
 public class WalletToBankConfirmAct extends AppCompatActivity {
     private String TAG = "WithdrawPaymentConfirmAct";
     private SessionManager sessionManager;
-    String catId="",mainAmount="",selectBugCategoryId = "",beneficiaryId ="",beneficiaryAccountNo="",beneficiaryName="",beneficiaryBank="",amount="",BudgetAccountId="";
+    String ref="",mainAmount="",selectBugCategoryId = "",beneficiaryId ="",beneficiaryAccountNo="",beneficiaryName="",beneficiaryBank="",amount="",BudgetAccountId="";
 
     ActivityWithdrawPaymentConfirmBinding binding;
 
@@ -75,11 +75,12 @@ public class WalletToBankConfirmAct extends AppCompatActivity {
             beneficiaryName = getIntent().getStringExtra("beneficiaryName");
             beneficiaryBank = getIntent().getStringExtra("beneficiaryBank");
             mainAmount = getIntent().getStringExtra("mainBal");
+            ref = getIntent().getStringExtra("ref");
 
 
            // amount = getIntent().getStringExtra("amount");
-            if(Double.parseDouble(getIntent().getStringExtra("amount"))< 1)  amount = String.format("%.2f", Double.parseDouble(getIntent().getStringExtra("amount")));
-            else amount = Preference.doubleToStringNoDecimal(Double.parseDouble(getIntent().getStringExtra("amount")));
+            if(Double.parseDouble(getIntent().getStringExtra("amount").replace(",",""))< 1)  amount = String.format("%.2f", Double.parseDouble(getIntent().getStringExtra("amount").replace(",","")));
+            else amount = Preference.doubleToStringNoDecimal(Double.parseDouble(getIntent().getStringExtra("amount").replace(",","")));
 
             binding.tvBeneficiaryName.setText(beneficiaryAccountNo);
             binding.tvBeneficiaryUserName.setText(beneficiaryName);
@@ -119,8 +120,8 @@ public class WalletToBankConfirmAct extends AppCompatActivity {
                     t = Double.parseDouble(binding.tax.getText().toString()) + Double.parseDouble(amount);
                 }
                 else*/
-                    t = Double.parseDouble(amount);
-                    if (FInalAmt <= Double.parseDouble(mainAmount)) transferToBank(t);
+                    t = Double.parseDouble(amount.replace(",",""));
+                    if (FInalAmt <= Double.parseDouble(mainAmount.replace(",",""))) transferToBank(t);
                     else AlertDialogStatus(getString(R.string.your_wallet_bal_is_low));
                 } else {
                     Toast.makeText(this, R.string.checkInternet, Toast.LENGTH_SHORT).show();
@@ -202,19 +203,19 @@ public class WalletToBankConfirmAct extends AppCompatActivity {
                                     chkCommision =  finallyPr.getResult().get(i).getAmount().split("-");
                                     Log.e("commission==1",chkCommision[0]);
                                     Log.e("commission==2",chkCommision[1]);
-                                    if(Double.parseDouble(chkCommision[0]) <= Double.parseDouble(amount) && Double.parseDouble(amount) <= Double.parseDouble(chkCommision[1]))
+                                    if(Double.parseDouble(chkCommision[0]) <= Double.parseDouble(amount.replace(",","")) && Double.parseDouble(amount.replace(",","")) <= Double.parseDouble(chkCommision[1]))
                                         CommisionAmount = finallyPr.getResult().get(i).getAdminFee();
 
                                 }
                                 else {
-                                    if(Double.parseDouble(finallyPr.getResult().get(i).getAmount()) <= Double.parseDouble(amount)) CommisionAmount =  finallyPr.getResult().get(i).getAmount();
+                                    if(Double.parseDouble(finallyPr.getResult().get(i).getAmount()) <= Double.parseDouble(amount.replace(",",""))) CommisionAmount =  finallyPr.getResult().get(i).getAmount();
                                 }
                             }
 
                             Double CmAmt= Double.valueOf(CommisionAmount);
                            // Double TotalAmt= (Double.valueOf(amount) - CmAmt );
                            // amount = String.valueOf(TotalAmt);
-                             FInalAmt=CmAmt+ Double.parseDouble(amount);
+                             FInalAmt=CmAmt+ Double.parseDouble(amount.replace(",",""));
 
 
                             binding.AmountPay.setText("₦"+amount);
@@ -286,6 +287,7 @@ public class WalletToBankConfirmAct extends AppCompatActivity {
         requestBody.put("amount",amount+"");
         requestBody.put("expense_traking_account_id",BudgetAccountId);
         requestBody.put("expense_traking_category_id",selectBugCategoryId);
+        requestBody.put("reff_id",ref);
         Log.e(TAG, "Transfer to Bank account Request==" + requestBody.toString());
         Call<ResponseBody> loginCall = RetrofitClientsOne.getInstance().getApi().Api_withdraw_wallet_to_bank(requestBody);
         loginCall.enqueue(new Callback<ResponseBody>() {

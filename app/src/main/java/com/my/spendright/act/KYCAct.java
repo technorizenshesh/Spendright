@@ -239,7 +239,9 @@ public class KYCAct extends AppCompatActivity {
                         String mobileMatch = object.getString("mobileNo");
                         if(nameMatch.equalsIgnoreCase("NO_MATCH"))
                             Toast.makeText(KYCAct.this, getText(R.string.name_not_matched), Toast.LENGTH_SHORT).show();
-                       else if(dobMatch.equalsIgnoreCase("NO_MATCH"))
+                        if(nameMatch.equalsIgnoreCase("PARTIAL_MATCH"))
+                            Toast.makeText(KYCAct.this, getText(R.string.name_not_matched), Toast.LENGTH_SHORT).show();
+                        else if(dobMatch.equalsIgnoreCase("NO_MATCH"))
                             Toast.makeText(KYCAct.this, getText(R.string.dob_not_matched), Toast.LENGTH_SHORT).show();
                        else if(mobileMatch.equalsIgnoreCase("NO_MATCH"))
                             Toast.makeText(KYCAct.this, getText(R.string.mobile_number_not_matched), Toast.LENGTH_SHORT).show();

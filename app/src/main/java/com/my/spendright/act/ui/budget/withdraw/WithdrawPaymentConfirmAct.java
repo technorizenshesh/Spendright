@@ -48,7 +48,7 @@ import retrofit2.Response;
 public class WithdrawPaymentConfirmAct extends AppCompatActivity {
     private String TAG = "WithdrawPaymentConfirmAct";
     private SessionManager sessionManager;
-    String catId="",selectBugCategoryId = "",beneficiaryId ="",beneficiaryAccountNo="",beneficiaryName="",beneficiaryBank="",amount="",BudgetAccountId="";
+    String catId="",ref="",selectBugCategoryId = "",beneficiaryId ="",beneficiaryAccountNo="",beneficiaryName="",beneficiaryBank="",amount="",BudgetAccountId="";
 
     ActivityWithdrawPaymentConfirmBinding binding;
 
@@ -74,6 +74,7 @@ public class WithdrawPaymentConfirmAct extends AppCompatActivity {
             beneficiaryName = getIntent().getStringExtra("beneficiaryName");
             beneficiaryBank = getIntent().getStringExtra("beneficiaryBank");
             amount = getIntent().getStringExtra("amount");
+            ref = getIntent().getStringExtra("ref");
 
             binding.tvBeneficiaryName.setText(beneficiaryAccountNo);
             binding.tvBeneficiaryUserName.setText(beneficiaryName);
@@ -257,6 +258,8 @@ public class WithdrawPaymentConfirmAct extends AppCompatActivity {
         requestBody.put("amount",amount+"");
         requestBody.put("expense_traking_account_id",BudgetAccountId);
         requestBody.put("expense_traking_category_id",selectBugCategoryId);
+        requestBody.put("reff_id",ref);
+
         Log.e(TAG, "Transfer to Bank account Request==" + requestBody.toString());
         Call<ResponseBody> loginCall = RetrofitClientsOne.getInstance().getApi().Api_withdraw_to_bank(requestBody);
         loginCall.enqueue(new Callback<ResponseBody>() {

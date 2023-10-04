@@ -80,7 +80,8 @@ public class WithdrawMyWalletAct extends AppCompatActivity {
                      .putExtra("userName",finallyPr.getResult().getUserName())
                      .putExtra("name",finallyPr.getResult().getFirstName()+ " " + finallyPr.getResult().getLastName())
                      .putExtra("mobile",finallyPr.getResult().getMobile())
-                     .putExtra("amount",Double.parseDouble(binding.edAmount.getText().toString())+""));
+                     .putExtra("amount",Double.parseDouble(binding.edAmount.getText().toString())+"")
+                     .putExtra("ref",Preference.getAlphaNumericString(20)));
         }
 
     }

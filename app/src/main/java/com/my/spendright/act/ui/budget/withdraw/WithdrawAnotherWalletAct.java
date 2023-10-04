@@ -153,7 +153,8 @@ public class WithdrawAnotherWalletAct extends AppCompatActivity {
                     .putExtra("name",firstName + " " + lastName)
                     .putExtra("mobile",mobile)
                     .putExtra("selectedUserId",selectedUserId)
-                    .putExtra("amount",Double.parseDouble(binding.edAmount.getText().toString())+""));
+                    .putExtra("amount",Double.parseDouble(binding.edAmount.getText().toString())+"")
+                    .putExtra("ref",Preference.getAlphaNumericString(20)));
         }
 
     }

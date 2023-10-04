@@ -45,7 +45,7 @@ import retrofit2.Response;
 public class WithdrawMyWalletConfirmAct extends AppCompatActivity {
     private String TAG = "WithdrawMyWalletConfirmAct";
     private SessionManager sessionManager;
-    String catId="",selectBugCategoryId = "",userName ="",name="",mobile="",beneficiaryBank="",amount="",BudgetAccountId="";
+    String catId="",ref="",selectBugCategoryId = "",userName ="",name="",mobile="",beneficiaryBank="",amount="",BudgetAccountId="";
 
     ActivityWithdrawPaymentConfirmBinding binding;
 
@@ -72,6 +72,7 @@ public class WithdrawMyWalletConfirmAct extends AppCompatActivity {
             name = getIntent().getStringExtra("name");
             mobile = getIntent().getStringExtra("mobile");
             amount = getIntent().getStringExtra("amount");
+            ref = getIntent().getStringExtra("ref");
 
             binding.tvBeneficiaryName.setText(name);
             binding.tvBeneficiaryUserName.setText(userName);
@@ -253,6 +254,8 @@ public class WithdrawMyWalletConfirmAct extends AppCompatActivity {
         requestBody.put("amount",transferAmt+"");
         requestBody.put("expense_traking_account_id",BudgetAccountId);
         requestBody.put("expense_traking_category_id",selectBugCategoryId);
+        requestBody.put("reff_id",ref);
+
         Log.e(TAG, "Transfer to My Wallet Request==" + requestBody.toString());
         Call<ResponseBody> loginCall = RetrofitClientsOne.getInstance().getApi().Api_withdraw_to_my_wallet(requestBody);
         loginCall.enqueue(new Callback<ResponseBody>() {

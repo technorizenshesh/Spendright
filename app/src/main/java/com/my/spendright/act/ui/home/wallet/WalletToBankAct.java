@@ -67,8 +67,8 @@ public class WalletToBankAct extends AppCompatActivity implements onGrpListener,
     private void initViews() {
 
         if(getIntent()!=null){
-            if(Double.parseDouble(getIntent().getStringExtra("mainBal"))< 1)  mainAmount = String.format("%.2f", Double.parseDouble(getIntent().getStringExtra("mainBal")));
-            else mainAmount = Preference.doubleToStringNoDecimal(Double.parseDouble(getIntent().getStringExtra("mainBal")));
+            if(Double.parseDouble(getIntent().getStringExtra("mainBal").replace(",",""))< 1)  mainAmount = String.format("%.2f", Double.parseDouble(getIntent().getStringExtra("mainBal").replace(",","")));
+            else mainAmount = Preference.doubleToStringNoDecimal(Double.parseDouble(getIntent().getStringExtra("mainBal").replace(",","")));
             binding.tvAmount.setText("₦" + mainAmount);
         }
 
@@ -77,14 +77,18 @@ public class WalletToBankAct extends AppCompatActivity implements onGrpListener,
 
 
         binding.btnContinue.setOnClickListener(view ->
-        {         double amtt = CmAmt + Double.parseDouble(binding.edAmount.getText().toString());
+        {         double amtt = 0.0;
+                  if(!binding.edAmount.getText().toString().equalsIgnoreCase("")) amtt = CmAmt + Double.parseDouble(binding.edAmount.getText().toString());
+                   else amtt =0.0;
+
+
             if(binding.edAmount.getText().toString().equalsIgnoreCase(""))
                 Toast.makeText(WalletToBankAct.this,getString(R.string.please_enter_amount),Toast.LENGTH_LONG).show();
             else if(CmAmt >= amtt)
                 Toast.makeText(WalletToBankAct.this,getString(R.string.withraw_bal_more_then_fees) + " " + CmAmt + "(fees.)",Toast.LENGTH_LONG).show();
             else if(beneficiaryId.equalsIgnoreCase(""))
                 Toast.makeText(WalletToBankAct.this,getString(R.string.select_beneficiary),Toast.LENGTH_LONG).show();
-            else if(Double.parseDouble(mainAmount) <= Double.parseDouble(binding.edAmount.getText().toString()))
+            else if(Double.parseDouble(mainAmount.replace(",","")) <= Double.parseDouble(binding.edAmount.getText().toString()))
                 Toast.makeText(WalletToBankAct.this,getString(R.string.withraw_bal_then_then)  ,Toast.LENGTH_LONG).show();
             else {
 
@@ -94,7 +98,8 @@ public class WalletToBankAct extends AppCompatActivity implements onGrpListener,
                         .putExtra("beneficiaryName",beneficiaryName)
                         .putExtra("beneficiaryBank",beneficiaryBank)
                         .putExtra("amount",binding.edAmount.getText().toString())
-                        .putExtra("mainBal",mainAmount+""));
+                        .putExtra("mainBal",mainAmount+"")
+                        .putExtra("ref",Preference.getAlphaNumericString(20)));
             }
         });
 
@@ -284,7 +289,7 @@ public class WalletToBankAct extends AppCompatActivity implements onGrpListener,
                                     chkCommision =  finallyPr.getResult().get(i).getAmount().split("-");
                                     Log.e("commission==1",chkCommision[0]);
                                     Log.e("commission==2",chkCommision[1]);
-                                    if(Double.parseDouble(chkCommision[0]) <= Double.parseDouble(mainAmount) && Double.parseDouble(mainAmount) <= Double.parseDouble(chkCommision[1]))
+                                    if(Double.parseDouble(chkCommision[0]) <= Double.parseDouble(mainAmount.replace(",","")) && Double.parseDouble(mainAmount.replace(",","")) <= Double.parseDouble(chkCommision[1]))
                                         CommisionAmount = finallyPr.getResult().get(i).getAdminFee();
 
                                 }

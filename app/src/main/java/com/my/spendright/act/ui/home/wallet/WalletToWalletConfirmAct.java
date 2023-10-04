@@ -45,7 +45,7 @@ import retrofit2.Response;
 public class WalletToWalletConfirmAct extends AppCompatActivity {
     private String TAG = "WithdrawMyWalletConfirmAct";
     private SessionManager sessionManager;
-    String catId = "", selectBugCategoryId = "", selectedUserId = "", userName="",name="",mobile="", amount = "", BudgetAccountId = "";
+    String ref = "", selectBugCategoryId = "", selectedUserId = "", userName="",name="",mobile="", amount = "", BudgetAccountId = "";
 
     ActivityWithdrawWalletPaymentConfirmBinding binding;
 
@@ -72,9 +72,11 @@ public class WalletToWalletConfirmAct extends AppCompatActivity {
             name = getIntent().getStringExtra("name");
             mobile = getIntent().getStringExtra("mobile");
             selectedUserId = getIntent().getStringExtra("selectedUserId");
+            ref = getIntent().getStringExtra("ref");
 
-            if(Double.parseDouble(getIntent().getStringExtra("amount"))< 1)  amount = String.format("%.2f", Double.parseDouble(getIntent().getStringExtra("amount")));
-            else amount = Preference.doubleToStringNoDecimal(Double.parseDouble(getIntent().getStringExtra("amount")));
+
+            if(Double.parseDouble(getIntent().getStringExtra("amount").replace(",",""))< 1)  amount = String.format("%.2f", Double.parseDouble(getIntent().getStringExtra("amount").replace(",","")));
+            else amount = Preference.doubleToStringNoDecimal(Double.parseDouble(getIntent().getStringExtra("amount").replace(",","")));
 
 
 
@@ -251,6 +253,7 @@ public class WalletToWalletConfirmAct extends AppCompatActivity {
         requestBody.put("other_user_id", selectedUserId);
         requestBody.put("expense_traking_account_id", BudgetAccountId);
         requestBody.put("expense_traking_category_id", selectBugCategoryId);
+        requestBody.put("reff_id",ref);
         Log.e(TAG, "Transfer to Another Wallet Request==" + requestBody.toString());
         Call<ResponseBody> loginCall = RetrofitClientsOne.getInstance().getApi().Api_withdraw_wallet_to_wallet(requestBody);
         loginCall.enqueue(new Callback<ResponseBody>() {

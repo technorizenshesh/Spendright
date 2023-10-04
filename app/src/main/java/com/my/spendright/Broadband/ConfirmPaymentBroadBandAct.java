@@ -104,10 +104,10 @@ public class ConfirmPaymentBroadBandAct extends AppCompatActivity {
 
 
 
-            binding.MyCuurentBlance.setText( "₦"+Preference.doubleToStringNoDecimal(Double.parseDouble(MyCuurentBlance)));
+            binding.MyCuurentBlance.setText( "₦"+Preference.doubleToStringNoDecimal(Double.parseDouble(MyCuurentBlance.replace(",",""))));
              binding.ServiceName.setText(ServicesName);
-             binding.AmountPay.setText("₦"+Preference.doubleToStringNoDecimal(Double.parseDouble(amount)));
-             binding.totalAmountPay.setText("₦"+ Preference.doubleToStringNoDecimal(Double.parseDouble(amount)));
+             binding.AmountPay.setText("₦"+Preference.doubleToStringNoDecimal(Double.parseDouble(amount.replace(",",""))));
+             binding.totalAmountPay.setText("₦"+ Preference.doubleToStringNoDecimal(Double.parseDouble(amount.replace(",",""))));
              binding.txtMobile.setText(phone);
         }
 
@@ -134,8 +134,8 @@ public class ConfirmPaymentBroadBandAct extends AppCompatActivity {
                     binding.progressBar.setVisibility(View.VISIBLE);
                     double t = 0.0;
                     if (!binding.tax.getText().toString().equalsIgnoreCase("₦0.00")) {
-                        t = Double.parseDouble(binding.tax.getText().toString()) + Double.parseDouble(amount);
-                    } else t = Double.parseDouble(amount);
+                        t = Double.parseDouble(binding.tax.getText().toString()) + Double.parseDouble(amount.replace(",",""));
+                    } else t = Double.parseDouble(amount.replace(",",""));
 
                     if (walletAmount >= t) PyaAccoun();
                     else {
@@ -334,7 +334,7 @@ public class ConfirmPaymentBroadBandAct extends AppCompatActivity {
                             GetCommisionModel finallyPr = new Gson().fromJson(stringResponse,GetCommisionModel.class);
                             String CommisionAmount = finallyPr.getResult().getCommisionAmount();
                             Double CmAmt= Double.valueOf(CommisionAmount);
-                            Double TotalAmt= Double.valueOf(amount);
+                            Double TotalAmt= Double.valueOf(amount.replace(",",""));
                             Double FInalAmt=CmAmt+TotalAmt;
 
                          //   binding.tax.setText(CommisionAmount+"");

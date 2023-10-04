@@ -107,7 +107,8 @@ public class WithdrawYourBankAct extends AppCompatActivity implements onGrpListe
                    .putExtra("beneficiaryAccountNo",beneficiaryAccount)
                    .putExtra("beneficiaryName",beneficiaryName)
                    .putExtra("beneficiaryBank",beneficiaryBank)
-                   .putExtra("amount",binding.edAmount.getText().toString()));
+                   .putExtra("amount",binding.edAmount.getText().toString())
+                   .putExtra("ref",Preference.getAlphaNumericString(20)));
          }
         });
 
