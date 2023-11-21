@@ -22,6 +22,7 @@ import com.my.spendright.Model.GetCategoryModelNew;
 import com.my.spendright.Model.GetCommisionModel;
 import com.my.spendright.Model.GetProfileModel;
 import com.my.spendright.R;
+import com.my.spendright.TvCabelBill.ConfirmPaymentTvAct;
 import com.my.spendright.act.ui.settings.model.IncomeExpenseCatModel;
 import com.my.spendright.adapter.CategoryAdapterNew;
 import com.my.spendright.airetime.ConfirmPaymentAireTimeAct;
@@ -136,7 +137,14 @@ public class ConfirmPaymentAct extends AppCompatActivity {
                         t = CmAmt + Double.parseDouble(amount);
                     } else t = Double.parseDouble(amount);
 
-                    if (walletAmount >= t) PyaAccoun(UserName, UserPassword);
+                    if (walletAmount >= t) {
+                        binding.RRConfirm.setClickable(false);
+                        binding.RRConfirm.setFocusable(false);
+                        binding.RRConfirm.setEnabled(false);
+                        binding.RRConfirm.setBackground(getDrawable(R.drawable.btn_inactive_bg));
+                        binding.txtCancel.setVisibility(View.GONE);
+                         PyaAccoun(UserName, UserPassword);
+                    }
                     else {
                         AlertDialogStatus(getString(R.string.your_wallet_bal_is_low));
                     }              //  PyaAccoun("harshit.ixora89@gmail.com","harshit89@");
@@ -239,6 +247,11 @@ public class ConfirmPaymentAct extends AppCompatActivity {
 
                         }else
                         {
+                            binding.RRConfirm.setClickable(true);
+                            binding.RRConfirm.setFocusable(true);
+                            binding.RRConfirm.setEnabled(true);
+                            binding.RRConfirm.setBackground(getDrawable(R.drawable.border_btn));
+                            binding.txtCancel.setVisibility(View.VISIBLE);
                             Toast.makeText(ConfirmPaymentAct.this, jsonObject.getString("response_description"), Toast.LENGTH_SHORT).show();
                         }
                     }catch (Exception e)
@@ -264,7 +277,7 @@ public class ConfirmPaymentAct extends AppCompatActivity {
         //sessionManager.getUserID();
         Call<ResponseBody> call = RetrofitClients.getInstance().getApi()
                 .Api_add_vtpass_book_payment11(sessionManager.getUserID(),Request_IDNew,amount,ServicesId,ServicesName,
-                        "Electricity",status,Current_date,selectBugCategoryId,BudgetAccountId,selectBugCategoryId,billersCode/*binding.edtDescription.getText().toString()*/,phone,binding.tax.getText().toString(),response);
+                        "Electricity",status,Current_date,selectBugCategoryId,BudgetAccountId,selectBugCategoryId,billersCode/*binding.edtDescription.getText().toString()*/,phone,binding.tax.getText().toString().replace("₦",""),response);
        Map<String,String> map = new HashMap<>();
        map.put("user_id",sessionManager.getUserID()+"");
         map.put("request_id",Request_IDNew+"");
@@ -278,7 +291,7 @@ public class ConfirmPaymentAct extends AppCompatActivity {
         map.put("cat_id",selectBugCategoryId+"");
         map.put("description",billersCode+"");
         map.put("phone_number",phone+"");
-        map.put("payment_commision",binding.tax.getText().toString()+"");
+        map.put("payment_commision",binding.tax.getText().toString().replace("₦","")+"");
         map.put("response",response+"");
 
         Log.e("electy====",map.toString());

@@ -16,6 +16,7 @@ import androidx.databinding.DataBindingUtil;
 
 import com.my.spendright.Model.GetProfileModel;
 import com.my.spendright.R;
+import com.my.spendright.TvCabelBill.ConfirmPaymentTvAct;
 import com.my.spendright.act.ui.settings.KycSuccessfulAct;
 import com.my.spendright.biomatriclogin.Utilitiesss;
 import com.my.spendright.databinding.ActivityKycBinding;
@@ -201,7 +202,14 @@ public class KYCAct extends AppCompatActivity {
         else if (!binding.checEdTerms.isChecked())
             Toast.makeText(KYCAct.this, getString(R.string.accept_terms_condition), Toast.LENGTH_LONG).show();
         else {
-            if (sessionManager.isNetworkAvailable()) kycVerification("");
+            if (sessionManager.isNetworkAvailable()) {
+                binding.btnVerify.setClickable(false);
+                binding.btnVerify.setFocusable(false);
+                binding.btnVerify.setEnabled(false);
+                binding.btnVerify.setBackground(getDrawable(R.drawable.btn_inactive_bg));
+
+                kycVerification("");
+            }
             else Toast.makeText(KYCAct.this, R.string.checkInternet, Toast.LENGTH_SHORT).show();
 
         }
@@ -261,6 +269,11 @@ public class KYCAct extends AppCompatActivity {
                         }
 
                     } else {
+                        binding.btnVerify.setClickable(true);
+                        binding.btnVerify.setFocusable(true);
+                        binding.btnVerify.setEnabled(true);
+                        binding.btnVerify.setBackground(getDrawable(R.drawable.border_btn));
+
                         Toast.makeText(KYCAct.this, jsonObject.getString("responseMessage"), Toast.LENGTH_SHORT).show();
                     }
 

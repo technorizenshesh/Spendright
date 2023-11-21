@@ -22,6 +22,7 @@ import com.my.spendright.Model.GetCategoryModelNew;
 import com.my.spendright.Model.GetCommisionModel;
 import com.my.spendright.Model.GetProfileModel;
 import com.my.spendright.R;
+import com.my.spendright.TvCabelBill.ConfirmPaymentTvAct;
 import com.my.spendright.act.HomeActivity;
 import com.my.spendright.act.PaymentComplete;
 import com.my.spendright.act.ui.settings.model.IncomeExpenseCatModel;
@@ -144,7 +145,14 @@ public class ConfirmPaymentAireTimeForiegnAct extends AppCompatActivity {
                     }
                     else t =  Double.parseDouble(Amount);
 
-                    if(walletAmount >= t ) PyaAccoun();
+                    if(walletAmount >= t ){
+                        binding.RRConfirm.setClickable(false);
+                        binding.RRConfirm.setFocusable(false);
+                        binding.RRConfirm.setEnabled(false);
+                        binding.RRConfirm.setBackground(getDrawable(R.drawable.btn_inactive_bg));
+                        binding.txtCancel.setVisibility(View.GONE);
+                        PyaAccoun();
+                    }
                     else  AlertDialogStatus(getString(R.string.your_wallet_bal_is_low));
 
                 }else {
@@ -234,11 +242,15 @@ public class ConfirmPaymentAireTimeForiegnAct extends AppCompatActivity {
                             // PayFinalModel finallyPr =  new Gson().fromJson(stringResponse,PayFinalModel.class); // response.body();
                             binding.progressBar.setVisibility(View.VISIBLE);
                             AddReportMethod(jsonObject.getString("response_description"),stringResponse);
-
                             Toast.makeText(ConfirmPaymentAireTimeForiegnAct.this, "SuccessFully Bill pay", Toast.LENGTH_SHORT).show();
 
                         }else
                         {
+                            binding.RRConfirm.setClickable(true);
+                            binding.RRConfirm.setFocusable(true);
+                            binding.RRConfirm.setEnabled(true);
+                            binding.RRConfirm.setBackground(getDrawable(R.drawable.border_btn));
+                            binding.txtCancel.setVisibility(View.VISIBLE);
                             Toast.makeText(ConfirmPaymentAireTimeForiegnAct.this, jsonObject.getString("response_description"), Toast.LENGTH_SHORT).show();
                         }
 
@@ -264,7 +276,7 @@ public class ConfirmPaymentAireTimeForiegnAct extends AppCompatActivity {
         String Current_date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
         Call<ResponseBody> call = RetrofitClients.getInstance().getApi()
                 .Api_add_vtpass_book_payment(sessionManager.getUserID(),Request_IDNew,Amount,serviceID,"airtime",
-                        "airtime",status,Current_date,BudgetAccountId,selectBugCategoryId,binding.edtDescription.getText().toString(),"",binding.tax.getText().toString(),response);
+                        "airtime",status,Current_date,BudgetAccountId,selectBugCategoryId,binding.edtDescription.getText().toString(),"",binding.tax.getText().toString().replace("₦",""),response);
         call.enqueue(new Callback<ResponseBody>() {
             @RequiresApi(api = Build.VERSION_CODES.GINGERBREAD)
             @Override

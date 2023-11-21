@@ -20,6 +20,7 @@ import androidx.databinding.DataBindingUtil;
 import com.google.gson.Gson;
 import com.my.spendright.Model.GetCategoryModelNew;
 import com.my.spendright.R;
+import com.my.spendright.TvCabelBill.ConfirmPaymentTvAct;
 import com.my.spendright.act.ConfirmPaymentAct;
 import com.my.spendright.act.HomeActivity;
 import com.my.spendright.act.ui.budget.model.MonnifyCommissionModel;
@@ -121,7 +122,14 @@ public class WalletToBankConfirmAct extends AppCompatActivity {
                 }
                 else*/
                     t = Double.parseDouble(amount.replace(",",""));
-                    if (FInalAmt <= Double.parseDouble(mainAmount.replace(",",""))) transferToBank(t);
+                    if (FInalAmt <= Double.parseDouble(mainAmount.replace(",",""))) {
+                        binding.RRConfirm.setClickable(false);
+                        binding.RRConfirm.setFocusable(false);
+                        binding.RRConfirm.setEnabled(false);
+                        binding.txtCancel.setVisibility(View.GONE);
+                        binding.RRConfirm.setBackground(getDrawable(R.drawable.btn_inactive_bg));
+                        transferToBank(t);
+                    }
                     else AlertDialogStatus(getString(R.string.your_wallet_bal_is_low));
                 } else {
                     Toast.makeText(this, R.string.checkInternet, Toast.LENGTH_SHORT).show();
@@ -304,7 +312,11 @@ public class WalletToBankConfirmAct extends AppCompatActivity {
                         finish();
 
                     } else {
-
+                        binding.RRConfirm.setClickable(true);
+                        binding.RRConfirm.setFocusable(true);
+                        binding.RRConfirm.setEnabled(true);
+                        binding.RRConfirm.setBackground(getDrawable(R.drawable.border_btn));
+                        binding.txtCancel.setVisibility(View.VISIBLE);
                         Toast.makeText(WalletToBankConfirmAct.this,jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
 
                     }

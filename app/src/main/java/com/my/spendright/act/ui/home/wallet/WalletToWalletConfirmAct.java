@@ -18,6 +18,7 @@ import androidx.databinding.DataBindingUtil;
 import com.google.gson.Gson;
 import com.my.spendright.Model.GetCategoryModelNew;
 import com.my.spendright.R;
+import com.my.spendright.TvCabelBill.ConfirmPaymentTvAct;
 import com.my.spendright.act.ui.budget.model.MonnifyCommissionModel;
 import com.my.spendright.act.ui.budget.withdraw.WithdrawCompleteAct;
 import com.my.spendright.act.ui.budget.withdraw.WithdrawMyWalletConfirmAct;
@@ -115,11 +116,15 @@ public class WalletToWalletConfirmAct extends AppCompatActivity {
                     double t = 0.0;
                     if (!binding.tax.getText().toString().equalsIgnoreCase("₦0.00")) {
                         t = Double.parseDouble(binding.tax.getText().toString().replace("₦", "")) + Double.parseDouble(amount);
-                    } else
+                    } else {
                         t = Double.parseDouble(amount);
-
-                    transferToAnotherWallet(t);
-
+                        binding.RRConfirm.setClickable(false);
+                        binding.RRConfirm.setFocusable(false);
+                        binding.RRConfirm.setEnabled(false);
+                        binding.RRConfirm.setBackground(getDrawable(R.drawable.btn_inactive_bg));
+                        binding.txtCancel.setVisibility(View.GONE);
+                        transferToAnotherWallet(t);
+                    }
                 } else {
                     Toast.makeText(this, R.string.checkInternet, Toast.LENGTH_SHORT).show();
                 }
@@ -270,7 +275,9 @@ public class WalletToWalletConfirmAct extends AppCompatActivity {
                         finish();
 
                     } else {
-
+                        binding.RRConfirm.setClickable(true);
+                        binding.RRConfirm.setFocusable(true);
+                        binding.RRConfirm.setEnabled(true);
                         Toast.makeText(WalletToWalletConfirmAct.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
 
                     }

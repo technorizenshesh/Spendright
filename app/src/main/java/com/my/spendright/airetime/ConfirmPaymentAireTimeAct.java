@@ -22,6 +22,7 @@ import com.my.spendright.Model.GetCategoryModelNew;
 import com.my.spendright.Model.GetCommisionModel;
 import com.my.spendright.Model.GetProfileModel;
 import com.my.spendright.R;
+import com.my.spendright.TvCabelBill.ConfirmPaymentTvAct;
 import com.my.spendright.act.HomeActivity;
 import com.my.spendright.act.PaymentComplete;
 import com.my.spendright.act.ui.budget.withdraw.WithdrawPaymentConfirmAct;
@@ -133,7 +134,14 @@ public class ConfirmPaymentAireTimeAct extends AppCompatActivity {
                  }
                  else t =  Double.parseDouble(amount);
 
-                 if(walletAmount >= t ) PyaAccoun();
+                 if(walletAmount >= t ) {
+                     binding.RRConfirm.setClickable(false);
+                     binding.RRConfirm.setFocusable(false);
+                     binding.RRConfirm.setEnabled(false);
+                     binding.RRConfirm.setBackground(getDrawable(R.drawable.btn_inactive_bg));
+                     binding.txtCancel.setVisibility(View.GONE);
+                     PyaAccoun();
+                 }
                  else {
                      AlertDialogStatus(getString(R.string.your_wallet_bal_is_low));
                  }
@@ -225,6 +233,11 @@ public class ConfirmPaymentAireTimeAct extends AppCompatActivity {
 
                          }else
                          {
+                                 binding.RRConfirm.setClickable(true);
+                                 binding.RRConfirm.setFocusable(true);
+                                 binding.RRConfirm.setEnabled(true);
+                                 binding.RRConfirm.setBackground(getDrawable(R.drawable.border_btn));
+                                 binding.txtCancel.setVisibility(View.VISIBLE);
                              Toast.makeText(ConfirmPaymentAireTimeAct.this, jsonObject.getString("response_description"), Toast.LENGTH_SHORT).show();
                          }
 
@@ -258,7 +271,7 @@ public class ConfirmPaymentAireTimeAct extends AppCompatActivity {
         String Current_date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
         Call<ResponseBody> call = RetrofitClients.getInstance().getApi()
                 .Api_add_vtpass_book_payment(sessionManager.getUserID(),Request_IDNew,amount,ServicesId,ServicesName,
-                        "airtime",status,Current_date,BudgetAccountId,selectBugCategoryId,phone/*binding.edtDescription.getText().toString()*/,phone,binding.tax.getText().toString(),response);
+                        "airtime",status,Current_date,BudgetAccountId,selectBugCategoryId,phone/*binding.edtDescription.getText().toString()*/,phone,binding.tax.getText().toString().replace("₦",""),response);
              Map<String,String> map = new HashMap<>();
              map.put("user_id",sessionManager.getUserID());
         map.put("request_id",Request_IDNew);
@@ -271,7 +284,7 @@ public class ConfirmPaymentAireTimeAct extends AppCompatActivity {
         map.put("budget_account_id",BudgetAccountId);
         map.put("transaction_time",selectBugCategoryId);
         map.put("description",phone);
-        map.put("payment_commision",binding.tax.getText().toString());
+        map.put("payment_commision",binding.tax.getText().toString().replace("₦",""));
         map.put("response",response);
         Log.e("paymentServerRequest===",map.toString());
 

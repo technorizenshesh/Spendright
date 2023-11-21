@@ -137,7 +137,14 @@ public class ConfirmPaymentBroadBandAct extends AppCompatActivity {
                         t = Double.parseDouble(binding.tax.getText().toString()) + Double.parseDouble(amount.replace(",",""));
                     } else t = Double.parseDouble(amount.replace(",",""));
 
-                    if (walletAmount >= t) PyaAccoun();
+                    if (walletAmount >= t) {
+                        binding.RRConfirm.setEnabled(false);
+                        binding.RRConfirm.setFocusable(false);
+                        binding.RRConfirm.setClickable(false);
+                        binding.RRConfirm.setBackground(getDrawable(R.drawable.btn_inactive_bg));
+                        binding.txtCancel.setVisibility(View.GONE);
+                        PyaAccoun();
+                    }
                     else {
                         AlertDialogStatus(getString(R.string.your_wallet_bal_is_low));
                     }
@@ -192,6 +199,11 @@ public class ConfirmPaymentBroadBandAct extends AppCompatActivity {
 
                         }else
                         {
+                            binding.RRConfirm.setEnabled(true);
+                            binding.RRConfirm.setFocusable(true);
+                            binding.RRConfirm.setClickable(true);
+                            binding.RRConfirm.setBackground(getDrawable(R.drawable.border_btn));
+                            binding.txtCancel.setVisibility(View.VISIBLE);
                             Toast.makeText(ConfirmPaymentBroadBandAct.this, jsonObject.getString("response_description"), Toast.LENGTH_SHORT).show();
                         }
 
@@ -215,7 +227,7 @@ public class ConfirmPaymentBroadBandAct extends AppCompatActivity {
         //sessionManager.getUserID();
         Call<ResponseBody> call = RetrofitClients.getInstance().getApi()
                 .Api_add_vtpass_book_payment(sessionManager.getUserID(),Request_IDNew,amount,ServicesId,ServicesName,
-                        "Broadband",status,Current_date,BudgetAccountId,selectBugCategoryId,billersCode/*binding.edtDescription.getText().toString()*/,phone,binding.tax.getText().toString(),response);
+                        "Broadband",status,Current_date,BudgetAccountId,selectBugCategoryId,billersCode/*binding.edtDescription.getText().toString()*/,phone,binding.tax.getText().toString().replace("₦",""),response);
         call.enqueue(new Callback<ResponseBody>() {
             @RequiresApi(api = Build.VERSION_CODES.GINGERBREAD)
             @Override

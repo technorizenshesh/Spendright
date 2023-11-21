@@ -105,7 +105,7 @@ public class PaiChartAct extends DemoBase implements SeekBar.OnSeekBarChangeList
            // sendToServerList = (ArrayList<GetExpenSeReport.Result>) getIntent().getSerializableExtra("list");
 
            // txtIncome.setText(totalIncomes+"");
-            txtExpence.setText("₦"+totalExpemce);
+            txtExpence.setText("₦"+Preference.doubleToStringNoDecimal(totalExpemce));
 
 
         }

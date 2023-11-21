@@ -48,6 +48,7 @@ public class TransferFundAct extends AppCompatActivity {
         binding.imgBack.setOnClickListener(view -> finish());
 
         binding.RRWallet.setOnClickListener(view -> {
+/*
             if(finallyPr!=null){
                 if(finallyPr.getResult().getKycStatus().equalsIgnoreCase("0")){
                     startActivity(new Intent(this, KYCAct.class)
@@ -61,6 +62,7 @@ public class TransferFundAct extends AppCompatActivity {
                             .putExtra("mainBal",mainAmount));
                 }
             }
+*/
         });
 
         binding.RRBank.setOnClickListener(view -> {

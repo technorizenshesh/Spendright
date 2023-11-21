@@ -158,7 +158,9 @@ public class WithdrawYourBankAct extends AppCompatActivity implements onGrpListe
                     beneficiaryName = beneficiaryArrayList.get(i).getBankAccountName();
                     beneficiaryAccount = beneficiaryArrayList.get(i).getBankNumber();
                     beneficiaryBank = beneficiaryArrayList.get(i).getBankName();
-                        if(CmAmt > Double.parseDouble(binding.edAmount.getText().toString()))  Toast.makeText(WithdrawYourBankAct.this,/*getString(R.string.withraw_bal_more_then_fees)*/ "Balance to withdraw is too small for bank withdrawal. Kindly use wallet withdrawal options"/* + CmAmt + "(fees.)"*/,Toast.LENGTH_LONG).show();
+                       if(!binding.edAmount.getText().toString().equalsIgnoreCase("")) {
+                           if(CmAmt > Double.parseDouble(binding.edAmount.getText().toString()))  Toast.makeText(WithdrawYourBankAct.this,/*getString(R.string.withraw_bal_more_then_fees)*/ "Balance to withdraw is too small for bank withdrawal. Kindly use wallet withdrawal options"/* + CmAmt + "(fees.)"*/,Toast.LENGTH_LONG).show();
+                       }
 
                 }
             }

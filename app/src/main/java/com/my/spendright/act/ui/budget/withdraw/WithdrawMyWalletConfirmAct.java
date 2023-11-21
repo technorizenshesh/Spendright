@@ -18,6 +18,7 @@ import androidx.databinding.DataBindingUtil;
 import com.google.gson.Gson;
 import com.my.spendright.Model.GetCategoryModelNew;
 import com.my.spendright.R;
+import com.my.spendright.TvCabelBill.ConfirmPaymentTvAct;
 import com.my.spendright.act.ui.budget.model.MonnifyCommissionModel;
 import com.my.spendright.act.ui.home.wallet.WalletToWalletAct;
 import com.my.spendright.act.ui.home.wallet.WalletToWalletConfirmAct;
@@ -111,7 +112,13 @@ public class WithdrawMyWalletConfirmAct extends AppCompatActivity {
                 {
                     t = Double.parseDouble(binding.tax.getText().toString()) + Double.parseDouble(amount);
                 }
-                else*/ t =  Double.parseDouble(amount);
+                else*/
+                    t =  Double.parseDouble(amount);
+                    binding.RRConfirm.setClickable(false);
+                    binding.RRConfirm.setFocusable(false);
+                    binding.RRConfirm.setEnabled(false);
+                    binding.RRConfirm.setBackground(getDrawable(R.drawable.btn_inactive_bg));
+                    binding.txtCancel.setVisibility(View.GONE);
 
                     transferToMyWallet(t);
 
@@ -272,7 +279,11 @@ public class WithdrawMyWalletConfirmAct extends AppCompatActivity {
                         finish();
 
                     } else {
-
+                        binding.RRConfirm.setClickable(true);
+                        binding.RRConfirm.setFocusable(true);
+                        binding.RRConfirm.setEnabled(true);
+                        binding.RRConfirm.setBackground(getDrawable(R.drawable.border_btn));
+                        binding.txtCancel.setVisibility(View.VISIBLE);
                         Toast.makeText(WithdrawMyWalletConfirmAct.this,jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
 
                     }

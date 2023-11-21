@@ -130,7 +130,14 @@ public class ConfirmPaymentTvAct extends AppCompatActivity {
                         t = FInalAmt;  // Double.parseDouble(binding.tax.getText().toString().replace("₦","")) + Double.parseDouble(amount);
                     } else t = Double.parseDouble(amount);
 
-                    if (walletAmount >= t) PyaAccoun();
+                    if (walletAmount >= t) {
+                        binding.RRConfirm.setClickable(false);
+                        binding.RRConfirm.setFocusable(false);
+                        binding.RRConfirm.setEnabled(false);
+                        binding.RRConfirm.setBackground(getDrawable(R.drawable.btn_inactive_bg));
+                        binding.txtCancel.setVisibility(View.GONE);
+                        PyaAccoun();
+                    }
                     else {
                         AlertDialogStatus(getString(R.string.your_wallet_bal_is_low));
                     }
@@ -188,6 +195,11 @@ public class ConfirmPaymentTvAct extends AppCompatActivity {
 
                      }else
                      {
+                         binding.RRConfirm.setClickable(true);
+                         binding.RRConfirm.setFocusable(true);
+                         binding.RRConfirm.setEnabled(true);
+                         binding.RRConfirm.setBackground(getDrawable(R.drawable.border_btn));
+                         binding.txtCancel.setVisibility(View.VISIBLE);
                          Toast.makeText(ConfirmPaymentTvAct.this, jsonObject.getString("response_description"), Toast.LENGTH_SHORT).show();
                      }
 
@@ -212,7 +224,7 @@ public class ConfirmPaymentTvAct extends AppCompatActivity {
        String Current_date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
         Call<ResponseBody> call = RetrofitClients.getInstance().getApi()
                 .Api_add_vtpass_book_payment(sessionManager.getUserID(),Request_IDNew,amount,ServicesId,ServicesName,
-                        "Tv Subscription",status,Current_date,BudgetAccountId,selectBugCategoryId,billersCode/*binding.edtDescription.getText().toString()*/,phone,binding.tax.getText().toString(),response);
+                        "Tv Subscription",status,Current_date,BudgetAccountId,selectBugCategoryId,billersCode/*binding.edtDescription.getText().toString()*/,phone,binding.tax.getText().toString().replace("₦",""),response);
         call.enqueue(new Callback<ResponseBody>() {
             @RequiresApi(api = Build.VERSION_CODES.GINGERBREAD)
             @Override

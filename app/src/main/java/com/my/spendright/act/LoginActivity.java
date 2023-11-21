@@ -160,8 +160,10 @@ public class LoginActivity extends AppCompatActivity /*implements GoogleApiClien
 
 
 
+/*
         binding.llFingerPrint.setOnClickListener(v -> {
         });
+*/
 
         binding.imgBack.setOnClickListener(v -> {
             onBackPressed();
@@ -182,7 +184,7 @@ public class LoginActivity extends AppCompatActivity /*implements GoogleApiClien
 
         setPrompt();
 
-        if(Utilitiesss.getInstance().isBiometricHardWareAvailable(LoginActivity.this)){
+      /*  if(Utilitiesss.getInstance().isBiometricHardWareAvailable(LoginActivity.this)){
             binding.llFingerPrint.setVisibility(View.VISIBLE);
             initBiometricPrompt(
                     Constant.BIOMETRIC_AUTHENTICATION,
@@ -193,7 +195,7 @@ public class LoginActivity extends AppCompatActivity /*implements GoogleApiClien
         }
         else {
             binding.llFingerPrint.setVisibility(View.GONE);
-        }
+        }*/
     }
 
     private void Validation() {
@@ -288,6 +290,7 @@ public class LoginActivity extends AppCompatActivity /*implements GoogleApiClien
 
        }
 
+/*
        binding.llFingerPrint.setOnClickListener(view -> {
         //  biometricPrompt.authenticate(promptInfo);
 
@@ -307,6 +310,7 @@ public class LoginActivity extends AppCompatActivity /*implements GoogleApiClien
            }
            biometricPrompt.authenticate(promptInfo, cryptoObject);
        } );
+*/
 
 
    }
