@@ -45,6 +45,8 @@ import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
+import retrofit2.http.HeaderMap;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 
@@ -129,6 +131,19 @@ public interface Api {
     String Api_finger_print ="update_finger_print";
 
 
+    String Api_clear_notification ="clear_notifications";
+
+    String Api_waec = "vt_pass_eduction";
+
+    String Api_pay_showmax = "vtpass_pay";
+
+    String Api_jamb = "service-variations";
+
+    String Api_pay_waec = "waec_registraton_api_payment";                     //"new_vtpass_api_pay";
+
+    String Api_pay_jamb = "purchase_jamb_pin";   // pay
+
+    String Api_verify_jamb = "verify_profile_id";   // merchant-verify
 
 
 
@@ -200,12 +215,12 @@ public interface Api {
     String Api_merchant_verify = "merchant_verify";
 
     ////////////
-    String Api_pay = "vtpass_api_pay";
-    String Api_pay_airtime = "vtpass_pay_airtime";
-    String Api_pay_tv = "vtpass_api_pay_tv";
+    String Api_pay = "new_vtpass_api_pay";
+    String Api_pay_airtime = "www_new_vtpass_pay_airtime";
+    String Api_pay_tv = "new_vtpass_api_pay_tv";
     String Api_pay_tv_change = "vtpass_pay_tv_change";
-    String Api_pay_broadband = "vtpass_pay_broadband";
-    String Api_pay_airtime_forin = "vtpass_pay_airtime_forin";
+    String Api_pay_broadband = "www_new_vtpass_pay_broadband";
+    String Api_pay_airtime_forin = "new_vtpass_pay_airtime_forin";
 
     String Api_generate_token = "generateMonnifyToken";
 
@@ -334,7 +349,8 @@ public interface Api {
 
     @FormUrlEncoded
     @POST(Api_get_profile)
-    Call<LoginModel> Api_get_profile(
+    Call<ResponseBody> Api_get_profile(
+            @HeaderMap Map<String,String> header,
             @Field("user_id") String user_id
     );
 
@@ -551,6 +567,7 @@ public interface Api {
     @FormUrlEncoded
     @POST(Api_add_vtpass_book_payment)
     Call<ResponseBody> Api_add_vtpass_book_payment(
+            @HeaderMap Map<String,String> header,
             @Field("user_id") String user_id,
             @Field("request_id") String request_id,
             @Field("amount") String amount,
@@ -564,14 +581,16 @@ public interface Api {
             @Field("description") String description,
             @Field("phone_number") String phone_number,
             @Field("payment_commision") String payment_commision,
-            @Field("response") String response
-
-
+            @Field("response") String response,
+            @Field("discount") String discount,
+            @Field("customer_name") String customerName,
+            @Field("billers_code") String billers_code
     );
 
     @FormUrlEncoded
     @POST(Api_add_vtpass_book_payment)
     Call<ResponseBody> Api_add_vtpass_book_payment11(
+            @HeaderMap Map<String,String> header,
             @Field("user_id") String user_id,
             @Field("request_id") String request_id,
             @Field("amount") String amount,
@@ -586,7 +605,12 @@ public interface Api {
             @Field("description") String description,
             @Field("phone_number") String phone_number,
             @Field("payment_commision") String payment_commision,
-            @Field("response") String response
+            @Field("vtpass_type") String vtpass_type,
+            @Field("vtpass_address") String vtpass_address,
+            @Field("response") String response,
+            @Field("discount") String discount,
+            @Field("customer_name") String customerName,
+            @Field("billers_code") String billers_code
 
     );
 
@@ -735,6 +759,9 @@ public interface Api {
     Call<ResponseBody> getHomeCatApi();
 
 
+    @FormUrlEncoded
+    @POST("updateBVNMonnifyAccount")
+    Call<ResponseBody> ApiUpdateBVN(@FieldMap Map<String, String> paramHashMap);
 
 
 
@@ -746,41 +773,45 @@ public interface Api {
     Call<GetService> Api_service_Api();
 
     @GET(Api_service_electricity_bill)
-    Call<GetServiceElectricialModel> Api_service_electricity_bill();
+    Call<ResponseBody> Api_service_electricity_bill(@HeaderMap Map<String,String> header);
 
     @GET(Api_service_airtime)
-    Call<GetServiceElectricialModel> Api_service_airtime();
+    Call<ResponseBody> Api_service_airtime(@HeaderMap Map<String,String> header);
 
     @GET(Api_get_international_airtime_countries)
-    Call<GetInternationalModel> Api_get_international_airtime_countries();
+    Call<ResponseBody> Api_get_international_airtime_countries(@HeaderMap Map<String,String> header);
 
     @GET(Api_service_data)
-    Call<GetServiceElectricialModel> Api_service_data();
+    Call<ResponseBody> Api_service_data(@HeaderMap Map<String,String> header);
+
+    /*@GET(Api_service_data)
+    Call<ResponseBody> Api_service_data();*/
 
     @GET(Api_service_tv_subscription)
-    Call<GetServiceElectricialModel> Api_service_tv_subscription();
+    Call<ResponseBody>   Api_service_tv_subscription(@HeaderMap Map<String,String>header);
 
     @GET(Api_service_tv_subscription_plan)
-    Call<TvSuscriptionServiceModel> Api_service_tv_subscription_plan(@Query("serviceID") String serviceID);
+    Call<ResponseBody> Api_service_tv_subscription_plan(@HeaderMap Map<String,String> header,@Query("serviceID") String serviceID);
 
     @GET(Api_service_data_plan)
-    Call<TvSuscriptionServiceModel> Api_service_data_plan(@Query("serviceID") String serviceID);
+    Call<ResponseBody> Api_service_data_plan(@HeaderMap Map<String,String> header,@Query("serviceID") String serviceID);
 
     @GET(Api_get_international_airtime_product_types)
-    Call<GetProductTypeModel> Api_get_international_airtime_product_types(@Query("code") String code);
+    Call<ResponseBody> Api_get_international_airtime_product_types(@HeaderMap Map<String,String> header,@Query("code") String code);
 
     @GET(Api_get_international_airtime_operator)
-    Call<GetOperatorModel> Api_get_international_airtime_operator(@Query("code") String code, @Query("product_type_id") String product_type_id);
+    Call<ResponseBody> Api_get_international_airtime_operator(@HeaderMap Map<String,String> header,@Query("code") String code, @Query("product_type_id") String product_type_id);
 
     @GET(Api_get_international_airtime_service_variations)
-    Call<GetAmountAirtimeModel> Api_get_international_airtime_service_variations(
+    Call<ResponseBody> Api_get_international_airtime_service_variations(
+           @HeaderMap Map<String,String> header,
             @Query("serviceID") String serviceID,
             @Query("operator_id") String operator_id,
             @Query("product_type_id") String product_type_id);
 
     @FormUrlEncoded
     @POST(Api_merchant_verify)
-    Call<ResponseBody> Api_merchant_verify(
+    Call<ResponseBody> Api_merchant_verify(@HeaderMap Map<String,String> header,
             @Field("billersCode") String billersCode,
             @Field("serviceID") String serviceID,
             @Field("type") String type
@@ -789,6 +820,7 @@ public interface Api {
     @FormUrlEncoded
     @POST(Api_merchant_verify)
     Call<GetMerchatAcocuntTv> Api_merchant_verify_Tv(
+            @HeaderMap Map<String,String> header,
             @Field("billersCode") String billersCode,
             @Field("serviceID") String serviceID
     );
@@ -796,6 +828,7 @@ public interface Api {
     @FormUrlEncoded
     @POST(Api_pay)
     Call<ResponseBody> Api_pay(
+            @HeaderMap Map<String,String> header,
             @Field("user_id") String user_id,
             @Field("request_id") String request_id,
             @Field("serviceID") String serviceID,
@@ -808,6 +841,7 @@ public interface Api {
     @FormUrlEncoded
     @POST(Api_pay_tv)
     Call<ResponseBody> Api_pay_tv(
+            @HeaderMap Map<String,String> header,
             @Field("user_id") String user_id,
             @Field("request_id") String request_id,
             @Field("serviceID") String serviceID,
@@ -820,6 +854,7 @@ public interface Api {
     @FormUrlEncoded
     @POST(Api_pay_tv_change)
     Call<ResponseBody> Api_pay_tv_change(
+            @HeaderMap Map<String,String> header,
             @Field("user_id") String user_id,
             @Field("request_id") String request_id,
             @Field("serviceID") String serviceID,
@@ -834,16 +869,19 @@ public interface Api {
     @FormUrlEncoded
     @POST(Api_pay_airtime)
     Call<ResponseBody> Api_pay_airtime(
+            @HeaderMap Map<String,String> header,
             @Field("user_id") String user_id,
             @Field("request_id") String request_id,
             @Field("serviceID") String serviceID,
             @Field("amount") String amount,
-            @Field("phone") String phone
+            @Field("phone") String phone,
+            @Field("password") String password
     );
 
     @FormUrlEncoded
     @POST(Api_pay_airtime_forin)
     Call<ResponseBody> Api_pay_airtime_forin(
+            @HeaderMap Map<String,String> header,
             @Field("user_id") String user_id,
             @Field("request_id") String request_id,
             @Field("serviceID") String serviceID,
@@ -860,6 +898,7 @@ public interface Api {
     @FormUrlEncoded
     @POST(Api_pay_broadband)
     Call<ResponseBody> Api_pay_broadband(
+            @HeaderMap Map<String,String> header,
             @Field("user_id") String user_id,
             @Field("request_id") String request_id,
             @Field("serviceID") String serviceID,
@@ -1041,4 +1080,101 @@ public interface Api {
     Call<ResponseBody> Api_finger_print(
             @Field("user_id") String user_id,
     @Field("finger_prints_key") String finger_prints_key);
+
+
+
+    @FormUrlEncoded
+    @POST(Api_clear_notification)
+    Call<ResponseBody> Api_clearAll_user_notification(
+            @Field("user_id") String user_id);
+
+
+
+
+
+
+
+    @FormUrlEncoded
+    @POST(Api_waec)
+    Call<ResponseBody> ApiWAECRegistration(@HeaderMap Map<String,String> header,@Field("serviceID") String serviceID);
+
+
+
+    @FormUrlEncoded
+    @POST(Api_pay_showmax)
+    Call<ResponseBody> Api_pay_showmax(@HeaderMap Map<String, String> header,
+            @Field("user_id") String user_id,
+           @Field("request_id") String request_id,
+            @Field("serviceId") String serviceID,
+            @Field("billersCode") String billersCode,
+            @Field("variationCode") String variation_code,
+            @Field("amount") String amount,
+            @Field("phone") String phone
+    );
+
+
+
+    @GET(Api_jamb)
+    Call<ResponseBody> ApiJAMB(@Query("serviceID") String serviceID);
+
+
+
+   /* @FormUrlEncoded
+    @POST(Api_pay_waec)
+    Call<ResponseBody> Api_pay_waec(
+            @Field("user_id") String user_id,
+            @Field("request_id") String request_id,
+            @Field("serviceID") String serviceID,
+            @Field("quantity") String quantity,
+            @Field("variation_code") String variation_code,
+            @Field("amount") String amount,
+            @Field("phone") String phone
+    );*/
+
+
+    @FormUrlEncoded
+    @POST(Api_pay_waec)
+    Call<ResponseBody> Api_pay_waec(@HeaderMap Map<String,String> header,
+            @Field("user_id") String user_id,
+            @Field("request_id") String request_id,
+            @Field("serviceId") String serviceID,
+            @Field("quantity") String quantity,
+            @Field("variationCode") String variation_code,
+            @Field("amount") String amount,
+            @Field("phone") String phone
+    );
+
+
+
+    @FormUrlEncoded
+    @POST(Api_pay_jamb)
+    Call<ResponseBody> Api_pay_jamb(@HeaderMap Map<String,String> header,
+            @Field("user_id") String user_id,
+            @Field("request_id") String request_id,
+            @Field("serviceID") String serviceID,
+            @Field("billersCode") String billersCode,
+            @Field("variationCode") String variation_code,
+            @Field("amount") String amount,
+            @Field("phone") String phone
+    );
+
+
+
+
+
+    @FormUrlEncoded
+    @POST(Api_verify_jamb)
+    Call<ResponseBody> Api_verify_jamb(@HeaderMap Map<String,String> header,
+            @Field("billersCode") String billersCode,
+            @Field("serviceID") String serviceID,
+            @Field("type") String type,
+            @Field("user_id") String userId
+
+    );
+
+
+
+
+
+
 }

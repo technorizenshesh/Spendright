@@ -15,18 +15,24 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
+import com.google.gson.Gson;
+import com.my.spendright.Broadband.PaymentBillBroadBandAct;
 import com.my.spendright.ElectircalBill.Model.GetServiceElectricialModel;
 import com.my.spendright.ElectircalBill.UtilRetro.RetrofitSetup;
 import com.my.spendright.NumberTextWatcher;
 import com.my.spendright.R;
+import com.my.spendright.act.LoginActivity;
 import com.my.spendright.airetime.adapter.ServicesAireAdapter;
 import com.my.spendright.databinding.ActivityPaymentBillAiretimeBinding;
 import com.my.spendright.utils.Preference;
 import com.my.spendright.utils.RetrofitClients;
 import com.my.spendright.utils.SessionManager;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -172,27 +178,48 @@ public class PaymentBillAireTime extends AppCompatActivity {
     }
 
     private void ServiceApi() {
-        Call<GetServiceElectricialModel> call = RetrofitClients.getInstance().getApi().Api_service_airtime();
-        call.enqueue(new Callback<GetServiceElectricialModel>() {
+        Call<ResponseBody> call = RetrofitClients.getInstance().getApi().Api_service_airtime(Preference.getHeader(PaymentBillAireTime.this));
+        call.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(@NonNull Call<GetServiceElectricialModel> call, @NonNull Response<GetServiceElectricialModel> response) {
+            public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
                 binding.progressBar.setVisibility(View.GONE);
                 if (response.isSuccessful()) {
                     // user object available
 
-                    GetServiceElectricialModel finallyPr = response.body();
-                    modelListCategory= (ArrayList<GetServiceElectricialModel.Content>) finallyPr.getContent();
+                   try {
 
-                    ServicesAireAdapter customAdapter=new ServicesAireAdapter(PaymentBillAireTime.this,modelListCategory);
-                    binding.spinnerServiceAirTime.setAdapter(customAdapter);
+                       String stringResponse = response.body().string();
+                       JSONObject jsonObject = new JSONObject(stringResponse);
 
+                       if (jsonObject.getString("response_description").equalsIgnoreCase("000")) {
+                           GetServiceElectricialModel finallyPr = new Gson().fromJson(stringResponse, GetServiceElectricialModel.class); // response.body();
+                           modelListCategory = (ArrayList<GetServiceElectricialModel.Content>) finallyPr.getContent();
+                           ServicesAireAdapter customAdapter = new ServicesAireAdapter(PaymentBillAireTime.this, modelListCategory);
+                           binding.spinnerServiceAirTime.setAdapter(customAdapter);
+                       }
+                       else if(jsonObject.getString("status").equalsIgnoreCase("9")){
+                           sessionManager.logoutUser();
+                           Toast.makeText(PaymentBillAireTime.this, getString(R.string.invalid_token), Toast.LENGTH_SHORT).show();
+                           startActivity(new Intent(PaymentBillAireTime.this, LoginActivity.class)
+                                   .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK| Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                           finish();
+                       }
+                       else {
+                           Toast.makeText(PaymentBillAireTime.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                       }
+
+
+
+                   }catch (Exception e){
+                       e.printStackTrace();
+                   }
 
                 } else {
                     Toast.makeText(PaymentBillAireTime.this, response.message(), Toast.LENGTH_SHORT).show();
                 }
             }
             @Override
-            public void onFailure(@NonNull Call<GetServiceElectricialModel> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
                 binding.progressBar.setVisibility(View.GONE);
             }
         });

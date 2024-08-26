@@ -56,6 +56,7 @@ public class KYCAct extends AppCompatActivity {
     private String name="";
     private String from="";
 
+    private String email="";
 
     private String userId="";
     private SessionManager sessionManager;
@@ -79,6 +80,11 @@ public class KYCAct extends AppCompatActivity {
             GetProfileMethod(userId);
             if(from.equalsIgnoreCase("otpScreen")) binding.layPrefer.setVisibility(View.VISIBLE);
             else binding.layPrefer.setVisibility(View.GONE);
+
+      //      if(from.equalsIgnoreCase("otpScreen")) binding.layPrefer.setVisibility(View.GONE);
+       //     else binding.layPrefer.setVisibility(View.GONE);
+
+
 
         }
 
@@ -164,7 +170,7 @@ public class KYCAct extends AppCompatActivity {
                     if (finallyPr.getStatus ().equalsIgnoreCase ("1")) {
                            binding.edtLegalLastName.setText(finallyPr.getResult().getLastName());
                            binding.edtLegalName.setText(finallyPr.getResult().getOtherLegalName());
-
+                           email = finallyPr.getResult().getEmail();
                     } else {
 
                         Toast.makeText (KYCAct.this, "" + finallyPr.getMessage (), Toast.LENGTH_SHORT).show ();
@@ -226,7 +232,7 @@ public class KYCAct extends AppCompatActivity {
         requestBody.put("legal_last", binding.edtLegalLastName.getText().toString().trim());
         requestBody.put("legal_name", binding.edtLegalName.getText().toString().trim());
         requestBody.put("gender", gender);
-
+        requestBody.put("email", email);
 
         Log.e("MonnifyKycRequest",requestBody.toString());
 
@@ -247,14 +253,17 @@ public class KYCAct extends AppCompatActivity {
                         String mobileMatch = object.getString("mobileNo");
                         if(nameMatch.equalsIgnoreCase("NO_MATCH"))
                             Toast.makeText(KYCAct.this, getText(R.string.name_not_matched), Toast.LENGTH_SHORT).show();
+/*
                         if(nameMatch.equalsIgnoreCase("PARTIAL_MATCH"))
                             Toast.makeText(KYCAct.this, getText(R.string.name_not_matched), Toast.LENGTH_SHORT).show();
+*/
                         else if(dobMatch.equalsIgnoreCase("NO_MATCH"))
                             Toast.makeText(KYCAct.this, getText(R.string.dob_not_matched), Toast.LENGTH_SHORT).show();
                        else if(mobileMatch.equalsIgnoreCase("NO_MATCH"))
                             Toast.makeText(KYCAct.this, getText(R.string.mobile_number_not_matched), Toast.LENGTH_SHORT).show();
-                        else if(nameMatch.equalsIgnoreCase("FULL_MATCH")&& dobMatch.equalsIgnoreCase("FULL_MATCH") && mobileMatch.equalsIgnoreCase("FULL_MATCH")){
+                        else if((nameMatch.equalsIgnoreCase("PARTIAL_MATCH")|| nameMatch.equalsIgnoreCase("FULL_MATCH"))&& dobMatch.equalsIgnoreCase("FULL_MATCH") && mobileMatch.equalsIgnoreCase("FULL_MATCH")){
                             Toast.makeText(KYCAct.this, "KYC verified successfully", Toast.LENGTH_SHORT).show();
+                            generateMAccount();
                            if(from.equalsIgnoreCase("otpScreen")) {
                                startActivity(new Intent(KYCAct.this, LoginActivity.class)
                                        .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP));
@@ -291,6 +300,39 @@ public class KYCAct extends AppCompatActivity {
     }
 
 
+    private void generateMAccount() {
+     //   binding.progressBar.setVisibility(View.VISIBLE);
+        Map<String, String> requestBody = new HashMap<>();
+        requestBody.put("user_id", sessionManager.getUserID());
+
+        Log.e(TAG, "Generate MAccount Request==" + requestBody.toString());
+
+        Call<ResponseBody> loginCall = RetrofitClientsOne.getInstance().getApi().Api_for_exiting_user(requestBody);
+        loginCall.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                binding.progressBar.setVisibility(View.GONE);
+                try {
+                    String stringResponse = response.body().string();
+                    JSONObject jsonObject = new JSONObject(stringResponse);
+                    Log.e(TAG, "Generate MAccount Response = " + stringResponse);
+                    if (jsonObject.getString("status").equalsIgnoreCase("1")) {
+                    } else {
+                        Toast.makeText(KYCAct.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                call.cancel();
+                binding.progressBar.setVisibility(View.GONE);
+            }
+        });
+    }
 
 
 

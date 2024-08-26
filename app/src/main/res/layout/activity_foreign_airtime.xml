@@ -233,7 +233,6 @@
                             android:textColor="@color/black"
                             android:textColorHint="@color/gray"
                             android:textSize="@dimen/_12sdp"
-                            android:textStyle="bold"
                             >
 
                         </EditText>
@@ -293,7 +292,7 @@
                         android:textColor="@color/black"
                         android:textColorHint="@color/gray"
                         android:textSize="@dimen/_12sdp"
-                        android:textStyle="bold"/>
+                        />
 
                 </LinearLayout>
 
@@ -339,7 +338,7 @@
                         android:textColor="@color/black"
                         android:textColorHint="@color/gray"
                         android:textSize="@dimen/_12sdp"
-                        android:textStyle="bold"></EditText>
+                        />
 
                 </LinearLayout>
 

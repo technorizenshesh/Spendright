@@ -109,12 +109,12 @@
     <string name="or">Or</string>
     <string name="registration">Registration</string>
     <string name="confirmation_code">Confirmation Code</string>
-    <string name="credit_wallet">Credit Wallet</string>
+    <string name="credit_wallet">Add Fund</string>
     <string name="set_budget1">Set Budget</string>
-    <string name="fund_transfer">Fund Transfer</string>
+    <string name="fund_transfer">Withdraw Fund</string>
     <string name="electricity">Electricity</string>
     <string name="data">Data</string>
-    <string name="airtime">Local and Foreign Airtime</string>
+    <string name="airtime">Airtime</string>
     <string name="cable">Cable TV</string>
     <string name="report">Transaction Report</string>
     <string name="username">Username</string>
@@ -123,7 +123,9 @@
     <string name="already_have_an_account">Already have an account?</string>
     <string name="contact_information">Contact Information</string>
     <string name="referral_code">Referral Code</string>
-    <string name="full_address">Full Address</string>
+  <string name="referral_code_optional">Referral Code(optional)</string>
+
+  <string name="full_address">Full Address</string>
     <string name="country">Country</string>
     <string name="confirm_password">Confirm Password</string>
     <string name="verify_identity">Verify Identity</string>
@@ -277,7 +279,7 @@
     <string name="add_beneficiary_to_list">Add Beneficiary to list</string>
     <string name="update">Update</string>
   <string name="edit_category">Edit Category</string>
-    <string name="generate_account">Generate Account</string>
+    <string name="generate_account">Generate Wallet Accounts</string>
     <string name="perform_kyc">Perform KYC</string>
   <string name="click_copy">Copied</string>
     <string name="beneficiary_add_successfully">beneficiary added successfully</string>
@@ -329,6 +331,35 @@
   <string name="channelId">1</string>
   <string name="fund_ready_to_withdraw">Fund Ready for Withdrawal</string>
   <string name="text_fund_withdraw">Withdraw fund to meet deadline or edit to extend budget</string>
+    <string name="education">Education</string>
+    <string name="waec_registration">WAEC Registration</string>
+    <string name="jamb">JAMB e-PIN</string>
+    <string name="waec_result">WAEC Result</string>
+    <string name="next">Next</string>
+    <string name="veriation_code">Variation Code</string>
+    <string name="quantity">Quantity</string>
+    <string name="select_product">Select Product</string>
+  <string name="select_package">Select Package</string>
+  <string name="profile_id">Profile ID</string>
+  <string name="enter_profile_id">Enter Profile ID</string>
+  <string name="unit_price">Unit Price</string>
+  <string name="biller_code">Billers Code</string>
+    <string name="profile_id_text"><u>Click to learn how to generate Profile ID</u></string>
+  <string name="profile_code">
+    Generating Profile Code for JAMB e-PIN Purchase
 
+\n\nYou need to generate your profile code, whether you’re a UTME candidate or a Direct Entry candidate. You then use the profile code to purchase your e-PIN. Here’s how
+
+\n\nFirstly, candidates should have obtained their NIN as directed by JAMB. In line with JAMB’s directive, only candidates who have obtained their NIN can register for the examination. If you do not have your NIN yet, then you need to register.  Consequently, if you already have your NIN, but misplaced it, You can simply dial *346# on any service provider to retrieve it.
+
+\n\nSecondly, Kindly link your SIM Card with your NIN to enable you receive the profile code in your phone. Even if you have linked your SIM before, try doing it again for faster receiving of your profile code. Note: Do not use SIM Card already linked by someone else maybe your mother or your father. It must be linked by you. This implies that the SIM must be yours.
+
+\n\nThirdly, upon obtaining your NIN, SMS ‘NIN’, space and your 11 digit NIN number to 55019. For example, send (NIN 00123456789) to 55019. Be sure to put a “space” just like the example given. Similarly, also ensure that you are sending the correct NIN. You don’t have to send this message with the same phone number used in registering your NIN in the first place.
+
+\n\nSubsequently, Get Your Profile Code. Upon sending message to 55019, you’ll receive an SMS response containing a 10-digit profile code alongside your registered name with NIMC. This 10 digit profile code is important as you will not be able to purchase JAMB e-PIN without it.
+
+  </string>
+  <string name="update_account">Update Account</string>
+    <string name="invalid_token">Invalid token.</string>
 
 </resources>

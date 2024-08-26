@@ -13,17 +13,24 @@ import android.widget.AdapterView;
 import android.widget.DatePicker;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.my.spendright.Broadband.PaymentBillBroadBandAct;
 import com.my.spendright.Model.GetCountryModel;
 import com.my.spendright.Model.LoginModel;
+import com.my.spendright.Model.TvSuscriptionServiceModel;
 import com.my.spendright.R;
 import com.my.spendright.adapter.CountryAdapter;
 import com.my.spendright.databinding.ActivityMyProfileBinding;
+import com.my.spendright.utils.Preference;
 import com.my.spendright.utils.RetrofitClients;
 import com.my.spendright.utils.SessionManager;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -127,18 +134,19 @@ public class MyProfileAct extends AppCompatActivity {
     }
 
     private void GetMyMethod(){
-        Call<LoginModel> call = RetrofitClients.getInstance().getApi()
-                .Api_get_profile(sessionManager.getUserID());
-        call.enqueue(new Callback<LoginModel>() {
+        Call<ResponseBody> call = RetrofitClients.getInstance().getApi()
+                .Api_get_profile(Preference.getHeader(MyProfileAct.this),sessionManager.getUserID());
+        call.enqueue(new Callback<ResponseBody>() {
             @RequiresApi(api = Build.VERSION_CODES.GINGERBREAD)
             @Override
-            public void onResponse(Call<LoginModel> call, Response<LoginModel> response) {
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 binding.progressBar.setVisibility(View.GONE);
                 try {
-                    LoginModel finallyPr = response.body();
+                    String stringResponse = response.body().string();
+                    JSONObject jsonObject = new JSONObject(stringResponse);
 
-                    if (finallyPr.getStatus().equalsIgnoreCase("1")) {
-
+                    if (jsonObject.getString("status").equalsIgnoreCase("1")) {
+                        LoginModel finallyPr = new Gson().fromJson(stringResponse, LoginModel.class); // response.body();
                         binding.edtMobile.setText(finallyPr.getResult().getMobile());
                         binding.edtemail.setText(finallyPr.getResult().getEmail());
                         binding.edtFName.setText(finallyPr.getResult().getFirstName());
@@ -155,8 +163,19 @@ public class MyProfileAct extends AppCompatActivity {
 
                         //binding.txtCountry.setCountryForPhoneCode(+93);
 
-                    } else {
-                        Toast.makeText(MyProfileAct.this, ""+finallyPr.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+
+
+                    else if(jsonObject.getString("status").equalsIgnoreCase("9")){
+                        sessionManager.logoutUser();
+                        Toast.makeText(MyProfileAct.this, getString(R.string.invalid_token), Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(MyProfileAct.this, LoginActivity.class)
+                                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK| Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                        finish();
+                    }
+
+                    else {
+                        Toast.makeText(MyProfileAct.this, ""+jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
                         binding.progressBar.setVisibility(View.GONE);
                     }
 
@@ -167,7 +186,7 @@ public class MyProfileAct extends AppCompatActivity {
                 }
             }
             @Override
-            public void onFailure(Call<LoginModel> call, Throwable t) {
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
                 binding.progressBar.setVisibility(View.GONE);
                 Toast.makeText(MyProfileAct.this, t.getMessage(), Toast.LENGTH_SHORT).show();
             }

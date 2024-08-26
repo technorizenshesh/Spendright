@@ -14,6 +14,8 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
 
+import com.my.spendright.BuildConfig;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
@@ -24,7 +26,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 public class Preference {
 
@@ -199,6 +203,52 @@ public static void clearPreference(Context context) {
     }
 
 
+    public static String convertDate22(String dd){
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+
+        Date dt = null;
+        String date2;
+        try {
+            dt = format.parse(dd);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+
+        SimpleDateFormat your_format = new SimpleDateFormat("dd MMM yyyy hh:mm:ss");
+
+        date2 = your_format.format(dt);
+        return  date2;
+    }
+
+
+    public static String convertDate222(String dd){
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        Date dt = null;
+        String date2;
+        try {
+            dt = format.parse(dd);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+
+        SimpleDateFormat your_format = new SimpleDateFormat("MMMM, dd  yyyy hh:mm a");
+
+        date2 = your_format.format(dt);
+        return  date2;
+    }
+
+
+    public static String getCurrentDate22() {
+        Date todayDate = Calendar.getInstance().getTime();
+        //SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
+        SimpleDateFormat formatter = new SimpleDateFormat("MMMM, dd  yyyy hh:mm a");
+        String todayString = formatter.format(todayDate);
+        return todayString;
+
+    }
+
+
+
 
     public static ArrayList<String> getCurrentDaily(){
         ArrayList<String>dailList = new ArrayList<>();
@@ -287,5 +337,18 @@ public static void clearPreference(Context context) {
         return sb.toString();
     }
 
+    public static Map getHeader(Context context){
+    SessionManager sessionManager = new SessionManager((Activity) context);
+        Map<String, String> headers = new HashMap<>();
+        headers.put("Accept", "application/json");
+        headers.put("Authorization",sessionManager.getUserToken());
+        headers.put("Api-key-spendright", BuildConfig.ApiKey);
+        headers.put("Api-secret-spendright", BuildConfig.ApiSecret);
+        Log.e("header map===",headers.toString());
+        Log.e("api key====",BuildConfig.ApiKey);
+        Log.e("secret key====",BuildConfig.ApiSecret);
+
+        return headers;
+    }
 
 }

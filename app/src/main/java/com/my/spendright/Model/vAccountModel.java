@@ -71,6 +71,18 @@ public class vAccountModel {
             @Expose
             private String type;
 
+            @SerializedName("bvn_connect_status")
+            @Expose
+            private String bvnConnectStatus;
+
+            public String getBvnConnectStatus() {
+                return bvnConnectStatus;
+            }
+
+            public void setBvnConnectStatus(String bvnConnectStatus) {
+                this.bvnConnectStatus = bvnConnectStatus;
+            }
+
             public String getBankCode() {
                 return bankCode;
             }

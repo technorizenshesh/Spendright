@@ -15,11 +15,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
 import com.google.gson.Gson;
+import com.my.spendright.Broadband.PaymentBillBroadBandAct;
 import com.my.spendright.BuildConfig;
 import com.my.spendright.Model.GetProfileModel;
 import com.my.spendright.Model.LoginModel;
 import com.my.spendright.R;
 import com.my.spendright.act.FundAct;
+import com.my.spendright.act.LoginActivity;
 import com.my.spendright.act.ui.budget.adapter.GrpDetailsAdapter;
 import com.my.spendright.act.ui.budget.listener.onGrpCatListener;
 import com.my.spendright.act.ui.budget.withdraw.WithdrawAct;
@@ -109,17 +111,19 @@ public class BudgetGrpAct extends AppCompatActivity implements CreateVirtualList
 
     private void GetProfileMethod() {
         binding.progressBar.setVisibility(View.VISIBLE);
-        Call<LoginModel> call = RetrofitClients.getInstance().getApi()
-                .Api_get_profile(sessionManager.getUserID());
-        call.enqueue(new Callback<LoginModel>() {
+        Call<ResponseBody> call = RetrofitClients.getInstance().getApi()
+                .Api_get_profile(Preference.getHeader(BudgetGrpAct.this),sessionManager.getUserID());
+        call.enqueue(new Callback<ResponseBody>() {
             @RequiresApi(api = Build.VERSION_CODES.GINGERBREAD)
             @Override
-            public void onResponse(Call<LoginModel> call, Response<LoginModel> response) {
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 binding.progressBar.setVisibility(View.GONE);
                 try {
-                    finallyPr = response.body();
-                    if (finallyPr.getStatus().equalsIgnoreCase("1")) {
-                        sessionManager.saveAccountReference(finallyPr.getResult().getBatchId());
+                    String stringResponse = response.body().string();
+                    JSONObject jsonObject = new JSONObject(stringResponse);
+
+                    if (jsonObject.getString("status").equalsIgnoreCase("1")) {
+                         finallyPr = new Gson().fromJson(stringResponse, LoginModel.class);                         sessionManager.saveAccountReference(finallyPr.getResult().getBatchId());
                         Log.e("refferece===", finallyPr.getResult() + "");
                          //binding.tvTotalBudget.setText("₦" + finallyPr.getResult().getPaymentWallet());
                         String ttt= "0.00";
@@ -132,9 +136,22 @@ public class BudgetGrpAct extends AppCompatActivity implements CreateVirtualList
                      /*   adapter = new GrpDetailsAdapter(BudgetGrpAct.this,arrayList,finallyPr);
                         binding.rvGrpDetails.setAdapter(adapter);*/
 
-                    } else {
+                    }
 
-                        Toast.makeText(BudgetGrpAct.this, "" + finallyPr.getMessage(), Toast.LENGTH_SHORT).show();
+
+                    else if(jsonObject.getString("status").equalsIgnoreCase("9")){
+                        sessionManager.logoutUser();
+                        Toast.makeText(BudgetGrpAct.this, getString(R.string.invalid_token), Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(BudgetGrpAct.this, LoginActivity.class)
+                                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK| Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                        finish();
+                    }
+
+
+
+                    else {
+
+                        Toast.makeText(BudgetGrpAct.this, "" + jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
                         binding.progressBar.setVisibility(View.GONE);
                     }
 
@@ -146,7 +163,7 @@ public class BudgetGrpAct extends AppCompatActivity implements CreateVirtualList
             }
 
             @Override
-            public void onFailure(Call<LoginModel> call, Throwable t) {
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
                 binding.progressBar.setVisibility(View.GONE);
                 //   binding.RRadd.setVisibility (View.VISIBLE);
             }

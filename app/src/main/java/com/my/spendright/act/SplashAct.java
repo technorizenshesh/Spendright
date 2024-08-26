@@ -1,18 +1,14 @@
-package com.my.spendright;
+package com.my.spendright.act;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -24,12 +20,10 @@ import com.google.android.play.core.appupdate.AppUpdateManager;
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory;
 import com.google.android.play.core.install.model.AppUpdateType;
 import com.google.android.play.core.install.model.UpdateAvailability;
-import com.my.spendright.act.WelcomeActivity;
+import com.my.spendright.BuildConfig;
+import com.my.spendright.R;
 import com.my.spendright.databinding.ActivityMainBinding;
 import com.my.spendright.utils.InAppUpdate;
-
-
-
 
 public class SplashAct extends AppCompatActivity {
 
@@ -44,7 +38,9 @@ public class SplashAct extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
+     //   Log.e("", );
 
+     //   Log.e("", );
 
 
       //  inAppUpdate = new InAppUpdate(SplashAct.this);
@@ -66,19 +62,23 @@ public class SplashAct extends AppCompatActivity {
         } catch (PackageManager.NameNotFoundException e) {
             throw new RuntimeException(e);
         }
-        AppUpdateManager appUpdateManager = AppUpdateManagerFactory.create(this);
+        AppUpdateManager appUpdateManager = AppUpdateManagerFactory.create(getApplicationContext());
         Task<AppUpdateInfo> appUpdateInfoTask = appUpdateManager.getAppUpdateInfo();
         int finalVersionName = versionName;
-        appUpdateInfoTask.addOnSuccessListener(appUpdateInfo -> {
-            if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)) {
-                Log.e("check====",appUpdateInfo.availableVersionCode()+"      "  + finalVersionName );
-                if(finalVersionName < appUpdateInfo.availableVersionCode()){
-                    showDialogToSendToPlayStore();
-                }
-                else  handlerMethod();
+      //  if(appUpdateInfoTask!=null) {
 
-            } else handlerMethod();
-        });
+        appUpdateInfoTask.addOnSuccessListener(appUpdateInfo -> {
+                if (appUpdateInfo != null) {
+                    if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)) {
+                        Log.e("check====", appUpdateInfo.availableVersionCode() + "      " + finalVersionName);
+                        if (finalVersionName < appUpdateInfo.availableVersionCode()) {
+                            showDialogToSendToPlayStore();
+                        } else handlerMethod();
+
+                    } else handlerMethod();
+                } else handlerMethod();
+            });
+       // }  else handlerMethod();
 
     }
 
@@ -95,10 +95,11 @@ public class SplashAct extends AppCompatActivity {
         super.onResume();
      //   inAppUpdate.onResume();
 
-        if (Build.VERSION.SDK_INT >= 33) {
-            if (ContextCompat.checkSelfPermission(SplashAct.this,
-                    android.Manifest.permission.POST_NOTIFICATIONS) !=
-                    PackageManager.PERMISSION_GRANTED) {
+
+
+
+      /* if (Build.VERSION.SDK_INT >= 33) {
+            if (ContextCompat.checkSelfPermission(SplashAct.this, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(SplashAct.this,
                         new String[]{android.Manifest.permission.POST_NOTIFICATIONS}
                         , 101);
@@ -107,7 +108,12 @@ public class SplashAct extends AppCompatActivity {
             }
         } else  {
             checkVersion();
-        }
+        }*/
+
+
+
+
+        handlerMethod();
     }
 
     @Override
@@ -124,7 +130,7 @@ public class SplashAct extends AppCompatActivity {
 
                 new AlertDialog.Builder(SplashAct.this)
                         .setTitle("Alert")
-                        .setMessage("Update Is Available.Do You Want To Update?")
+                        .setMessage("Update is available. Kindly update now to keep using SpendRight")
                         .setIcon(R.mipmap.ic_launcher)
                         .setCancelable(false)
                         .setPositiveButton("Update",
@@ -143,14 +149,14 @@ public class SplashAct extends AppCompatActivity {
                                         }
                                         dialog.dismiss();
                                     }
-                                }).setNegativeButton("Not yet", new DialogInterface.OnClickListener() {
+                                })/*.setNegativeButton("Not yet", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 dialogInterface.dismiss();
                                 handlerMethod();
-
                             }
-                        }).show();
+
+                        })*/.show();
 
 
 
@@ -163,8 +169,7 @@ public class SplashAct extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-
-                Intent intent = new Intent(SplashAct.this, WelcomeActivity.class);
+                Intent intent = new Intent(SplashAct.this, SelectAccount.class);
                 startActivity(intent);
                 finish();
 

@@ -11,5 +11,7 @@ public class SpendrightApplication extends Application {
     public void onCreate() {
         super.onCreate();
         EmojiManager.install(new GoogleEmojiProvider());
+        ContextSingleton.getInstance(this);
+
     }
 }

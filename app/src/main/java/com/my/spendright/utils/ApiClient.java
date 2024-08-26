@@ -10,28 +10,43 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient {
 
-    public static Retrofit retrofit = null;
 
-   /* public static Retrofit getClient() {
-        if (retrofit == null) {
-            OkHttpClient client = new OkHttpClient.Builder()
+
+    public static Retrofit retrofit = null;
+    private static ApiClient mInstance;
+    public  ApiClient() {
+
+        OkHttpClient client = new OkHttpClient.Builder()
                     .connectTimeout(300, TimeUnit.SECONDS)
                     .readTimeout(300, TimeUnit.SECONDS).build();
 
             retrofit = new Retrofit.Builder()
-                    .baseUrl(Constant.MONNIFY_GENERATE_TOKEN_URL)
+                    .baseUrl("https://sandbox.vtpass.com/api/")
                     .client(client)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
 
-        }*/
-
-       // return retrofit;
-  //  }
 
 
+    }
 
-   /* public static Retrofit getClient1() {
+
+    public static synchronized ApiClient getInstance(){
+        if (mInstance == null){
+            mInstance = new ApiClient();
+        }
+        return mInstance;
+    }
+
+    public Api getApi(){
+
+        return retrofit.create(Api.class);
+
+    }
+
+
+/*
+    public static Retrofit getClient1() {
          Retrofit retrofit1 = null;
 
         if (retrofit1 == null) {
@@ -48,7 +63,8 @@ public class ApiClient {
         }
 
         return retrofit1;
-    }*/
+    }
+*/
 
 
 

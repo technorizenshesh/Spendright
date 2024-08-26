@@ -56,7 +56,7 @@ public class WithdrawPaymentConfirmAct extends AppCompatActivity {
     private ArrayList<GetCategoryModelNew.Result> modelListCategory;
     ArrayList<IncomeExpenseCatModel.Category> arrayList;
     IncomeExpenseCatModel incomeExpenseCatModel;
-
+    boolean chkPayStatus = false;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,7 +94,7 @@ public class WithdrawPaymentConfirmAct extends AppCompatActivity {
 
 
         binding.imgBack.setOnClickListener(v -> {
-            onBackPressed();
+            finish();
         });
 
         binding.txtCancel.setOnClickListener(v -> {
@@ -121,6 +121,9 @@ public class WithdrawPaymentConfirmAct extends AppCompatActivity {
                 binding.RRConfirm.setEnabled(false);
                 binding.RRConfirm.setBackground(getDrawable(R.drawable.btn_inactive_bg));
                 binding.txtCancel.setVisibility(View.GONE);
+                   binding.imgBack.setEnabled(false);
+                   binding.imgBack.setClickable(false);
+                   chkPayStatus = false;
                    transferToBank(t);
 
                 }else {
@@ -287,8 +290,10 @@ public class WithdrawPaymentConfirmAct extends AppCompatActivity {
                         binding.RRConfirm.setEnabled(true);
                         binding.RRConfirm.setBackground(getDrawable(R.drawable.border_btn));
                         binding.txtCancel.setVisibility(View.VISIBLE);
+                        binding.imgBack.setEnabled(true);
+                        binding.imgBack.setClickable(true);
                         Toast.makeText(WithdrawPaymentConfirmAct.this,jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
-
+                        chkPayStatus = true;
                     }
 
                 } catch (Exception e) {
@@ -375,4 +380,8 @@ public class WithdrawPaymentConfirmAct extends AppCompatActivity {
         popupMenu.show();
     }
 
+    @Override
+    public void onBackPressed() {
+        if(chkPayStatus == true)super.onBackPressed();
+    }
 }

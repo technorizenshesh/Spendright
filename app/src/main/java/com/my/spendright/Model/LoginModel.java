@@ -139,8 +139,24 @@ public class LoginModel {
         @Expose
         private String paymentWallet;
 
+        @SerializedName("token")
+        @Expose
+        private String token;
+
+
+
+
         public String getPaymentWallet() {
             return paymentWallet;
+        }
+
+
+        public String getToken() {
+            return token;
+        }
+
+        public void setToken(String token) {
+            this.token = token;
         }
 
         public void setPaymentWallet(String paymentWallet) {

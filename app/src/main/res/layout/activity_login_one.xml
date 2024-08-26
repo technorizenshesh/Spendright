@@ -80,7 +80,8 @@
                 <View
                     android:layout_width="@dimen/_6sdp"
                     android:layout_height="@dimen/_6sdp"
-                    android:background="@drawable/circle_gray" />
+                    android:background="@drawable/circle_gray"
+                    android:visibility="gone"/>
 
                 <View
                     android:layout_marginLeft="@dimen/_3sdp"
@@ -98,7 +99,8 @@
                     android:layout_marginLeft="@dimen/_3sdp"
                     android:layout_width="@dimen/_6sdp"
                     android:layout_height="@dimen/_6sdp"
-                    android:background="@drawable/circle_gray" />
+                    android:background="@drawable/circle_gray"
+                    android:visibility="gone"/>
 
 
             </LinearLayout>
@@ -137,7 +139,7 @@
                     android:layout_marginTop="@dimen/_30sdp"
                     android:fontFamily="@font/poppinsregular"
                     android:gravity="center"
-                    android:text="Confirmation code has been sent to your mobile number."
+                    android:text="Confirmation code has been sent to your mobile number and email."
                     android:textColor="@color/gray"
                     android:textSize="@dimen/_15sdp" />
 

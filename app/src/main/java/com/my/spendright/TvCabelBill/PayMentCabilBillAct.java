@@ -8,22 +8,30 @@ import androidx.databinding.DataBindingUtil;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.my.spendright.Broadband.PaymentBillBroadBandAct;
 import com.my.spendright.ElectircalBill.Model.GetServiceElectricialModel;
 import com.my.spendright.R;
 import com.my.spendright.TvCabelBill.Model.GetMerchatAcocuntTv;
+import com.my.spendright.act.LoginActivity;
 import com.my.spendright.adapter.ServicesAdapter;
 import com.my.spendright.databinding.ActivityPayMentCabilBillBinding;
+import com.my.spendright.utils.Preference;
 import com.my.spendright.utils.RetrofitClients;
 import com.my.spendright.utils.SessionManager;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -90,6 +98,21 @@ public class PayMentCabilBillAct extends AppCompatActivity {
                 ServicesSubscriptionId = modelListCategory.get(pos).getServiceID();
                 serviceId = modelListCategory.get(pos).getServiceID();
                 ServicesSubscriptionName = modelListCategory.get(pos).getName();
+                if(ServicesSubscriptionName.equalsIgnoreCase("Showmax")){
+
+                    startActivity(new Intent(PayMentCabilBillAct.this, ShowmaxAct.class)
+                            .putExtra("Meter_Number",BillNumber+"")
+                          //  .putExtra("CustomerName",finallyPr.getContent().getCustomerName()+"")
+                         //   .putExtra("CustomerType",finallyPr.getContent().getCustomerType()+"")
+                         //   .putExtra("RenewalAmt",finallyPr.getContent().getRenewalAmount()+"")
+                            .putExtra("ServicesSubscriptionId",ServicesSubscriptionId+"")
+                            .putExtra("ServicesSubscriptionName",ServicesSubscriptionName+"")
+                            .putExtra("myWalletBalace",myWalletBalace+"")
+                    );
+
+
+
+                }
             }
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
@@ -122,26 +145,55 @@ public class PayMentCabilBillAct extends AppCompatActivity {
     }
 
     private void ServiceApi() {
-        Call<GetServiceElectricialModel> call = RetrofitClients.getInstance().getApi().Api_service_tv_subscription();
-        call.enqueue(new Callback<GetServiceElectricialModel>() {
+        Call<ResponseBody> call = RetrofitClients.getInstance().getApi().Api_service_tv_subscription(Preference.getHeader(PayMentCabilBillAct.this));
+        call.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(@NonNull Call<GetServiceElectricialModel> call, @NonNull Response<GetServiceElectricialModel> response) {
+            public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
                 binding.progressBar.setVisibility(View.GONE);
                 if (response.isSuccessful()) {
                     // user object available
+                    try {
+                        // user object available
+                        String stringResponse = response.body().string();
+                        JSONObject jsonObject = new JSONObject(stringResponse);
 
-                    GetServiceElectricialModel finallyPr = response.body();
-                    modelListCategory= (ArrayList<GetServiceElectricialModel.Content>) finallyPr.getContent();
+                        if (jsonObject.getString("response_description").equalsIgnoreCase("000")) {
+                            GetServiceElectricialModel finallyPr = new Gson().fromJson(stringResponse, GetServiceElectricialModel.class); // response.body();
+                            modelListCategory= (ArrayList<GetServiceElectricialModel.Content>) finallyPr.getContent();
+                            ServicesAdapter customAdapter=new ServicesAdapter(PayMentCabilBillAct.this,modelListCategory);
+                            binding.spinnerSubscription.setAdapter(customAdapter);
+                        }
 
-                    ServicesAdapter customAdapter=new ServicesAdapter(PayMentCabilBillAct.this,modelListCategory);
-                    binding.spinnerSubscription.setAdapter(customAdapter);
+                        else if(jsonObject.getString("status").equalsIgnoreCase("9")){
+                            sessionManager.logoutUser();
+                            Toast.makeText(PayMentCabilBillAct.this, getString(R.string.invalid_token), Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(PayMentCabilBillAct.this, LoginActivity.class)
+                                    .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK| Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                            finish();
+                        }
+
+
+                        else {
+                            Toast.makeText(PayMentCabilBillAct.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                        }
+
+
+
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+
+
+
+
+
 
                 } else {
                     Toast.makeText(PayMentCabilBillAct.this, response.message(), Toast.LENGTH_SHORT).show();
                 }
             }
             @Override
-            public void onFailure(@NonNull Call<GetServiceElectricialModel> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
                 binding.progressBar.setVisibility(View.GONE);
             }
         });
@@ -149,7 +201,12 @@ public class PayMentCabilBillAct extends AppCompatActivity {
 
 
     private void MerchantAccounCheck() {
-        Call<GetMerchatAcocuntTv> call = RetrofitClients.getInstance().getApi().Api_merchant_verify_Tv(BillNumber,ServicesSubscriptionId);
+
+        Log.e("biller_number",BillNumber);
+        Log.e("service id",ServicesSubscriptionId);
+        Call<GetMerchatAcocuntTv> call = RetrofitClients.getInstance().getApi().Api_merchant_verify_Tv(Preference.getHeader(PayMentCabilBillAct.this),BillNumber,ServicesSubscriptionId);
+
+
         call.enqueue(new Callback<GetMerchatAcocuntTv>() {
             @Override
             public void onResponse(@NonNull Call<GetMerchatAcocuntTv> call, @NonNull Response<GetMerchatAcocuntTv> response) {

@@ -235,6 +235,9 @@ public class LoginActivity extends AppCompatActivity /*implements GoogleApiClien
 
                     if (finallyPr.getStatus().equalsIgnoreCase("1")) {
                         sessionManager.saveUserId(finallyPr.getResult().getId());
+                        sessionManager.saveUserToken(finallyPr.getResult().getToken());
+                        sessionManager.saveUserPas(binding.edtPassword.getText().toString());
+                        Log.e("user_token=====",finallyPr.getResult().getToken());
                         startActivity(new Intent(LoginActivity.this,HomeActivity.class));
                         finish();
                     } else {

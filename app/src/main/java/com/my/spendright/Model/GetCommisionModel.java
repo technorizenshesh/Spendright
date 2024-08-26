@@ -54,6 +54,18 @@ public class GetCommisionModel {
         @Expose
         private String commisionAmount;
 
+        @SerializedName("discount")
+        @Expose
+        private String discount;
+
+        public String getDiscount() {
+            return discount;
+        }
+
+        public void setDiscount(String discount) {
+            this.discount = discount;
+        }
+
         public String getId() {
             return id;
         }

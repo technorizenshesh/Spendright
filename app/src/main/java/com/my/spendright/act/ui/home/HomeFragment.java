@@ -5,6 +5,7 @@ import static androidx.biometric.BiometricManager.Authenticators.DEVICE_CREDENTI
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -51,6 +52,7 @@ import com.my.spendright.act.FundAct;
 import com.my.spendright.act.LoginActivity;
 import com.my.spendright.act.Notification;
 import com.my.spendright.act.ui.budget.model.BudgetGrpModel;
+import com.my.spendright.act.ui.education.EducationAct;
 import com.my.spendright.act.ui.home.virtualcards.CreateVirtualAct;
 import com.my.spendright.act.ui.home.wallet.TransferFundAct;
 import com.my.spendright.adapter.HomeAdapter;
@@ -59,6 +61,7 @@ import com.my.spendright.biomatriclogin.Utilitiesss;
 import com.my.spendright.databinding.DialogBudgetInfoBinding;
 import com.my.spendright.databinding.FragmentHomeBinding;
 import com.my.spendright.listener.HomeListener;
+import com.my.spendright.utils.AvatarGenerator;
 import com.my.spendright.utils.Constant;
 import com.my.spendright.utils.Preference;
 import com.my.spendright.utils.RetrofitClients;
@@ -109,6 +112,8 @@ public class HomeFragment extends Fragment implements HomeListener{
     BiometricPrompt.PromptInfo promptInfo;
     Executor executor;
     String keyValue="";
+    AvatarGenerator avatarGenerator;
+
 
     @RequiresApi(api = Build.VERSION_CODES.GINGERBREAD)
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -143,7 +148,8 @@ public class HomeFragment extends Fragment implements HomeListener{
 
         binding.llVirtualCard.setOnClickListener (v -> {
            // if (finallyPr.getResult().getCheckUser().equalsIgnoreCase("1"))   startActivity (new Intent (getActivity(), CreateVirtualAct.class));
-            Toast.makeText(getActivity(), "Coming soon...", Toast.LENGTH_SHORT).show();
+          //  Toast.makeText(getActivity(), "Coming soon...", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(getActivity(), EducationAct.class));
         });
 
 
@@ -204,7 +210,7 @@ public class HomeFragment extends Fragment implements HomeListener{
 
             if (finallyPr.getResult().getCheckUser().equalsIgnoreCase("1")) {
                 sessionManager.saveCateId("2");
-                startActivity(new Intent(getActivity(), PaymentBillBroadBandAct.class).putExtra("Balance", ttt));
+                startActivity(new Intent(getActivity(), PaymentBillBroadBandAct.class).putExtra("Balance", totalBud));
             }
 
         });
@@ -220,7 +226,7 @@ public class HomeFragment extends Fragment implements HomeListener{
 
             if (finallyPr.getResult().getCheckUser().equalsIgnoreCase("1")) {
                 sessionManager.saveCateId("3");
-                startActivity(new Intent(getActivity(), PayMentCabilBillAct.class).putExtra("Balance", ttt));
+                startActivity(new Intent(getActivity(), PayMentCabilBillAct.class).putExtra("Balance", totalBud));
             }
 
         });
@@ -252,7 +258,7 @@ public class HomeFragment extends Fragment implements HomeListener{
             }*/
             if (finallyPr.getResult().getCheckUser().equalsIgnoreCase("1"))  {
                 sessionManager.saveCateId("4");
-                startActivity(new Intent(getActivity(), PaymentBill.class).putExtra("Balance", ttt));
+                startActivity(new Intent(getActivity(), PaymentBill.class).putExtra("Balance", totalBud));
             }
 
         });
@@ -274,24 +280,6 @@ public class HomeFragment extends Fragment implements HomeListener{
 
 
 
-/*
-        binding.RRnotification.setOnClickListener (v -> {
-            startActivity (new Intent (getActivity (), Notification.class));
-        });
-
-        binding.RRSchdule.setOnClickListener (v -> {
-            startActivity (new Intent (getActivity (), SchdulePayment.class));
-        });
-
-        binding.llReport.setOnClickListener (v -> {
-
-            startActivity (new Intent (getActivity (), PaymentReport.class));
-        });
-
-
-        binding.rlAdd.setOnClickListener (v -> {
-                startActivity (new Intent (getActivity (), AddActivity.class));
-        });*/
 
 
         return binding.getRoot ();
@@ -527,6 +515,9 @@ public class HomeFragment extends Fragment implements HomeListener{
                      binding.llTab.setVisibility(View.VISIBLE);
                     if (finallyPr.getStatus ().equalsIgnoreCase ("1")) {
                         sessionManager.saveAccountReference(finallyPr.getResult().getBatchId());
+
+                        Log.e("refferece===",finallyPr.getResult().getLastLogin());
+
                         Log.e("refferece===",finallyPr.getResult().getCheckUser());
                         if(finallyPr.getResult().getCheckUser().equalsIgnoreCase("1")){
                             binding.rlNewUser.setVisibility(View.GONE);
@@ -536,7 +527,16 @@ public class HomeFragment extends Fragment implements HomeListener{
                             binding.rlNewUser.setVisibility(View.VISIBLE);
                             binding.llDetails.setVisibility(View.GONE);
                         }
-                        binding.txtUser.setText ("Welcome, " + finallyPr.getResult ().getUserName());
+                        binding.txtUser.setText (finallyPr.getResult ().getUserName());
+                        binding.txtLastLogin.setText ("Last Login : " + Preference.convertDate22(finallyPr.getResult ().getLastLogin()));
+                        // Generate avatar bitmap
+                        avatarGenerator = new AvatarGenerator();
+                        Bitmap avatarBitmap = avatarGenerator.generateAvatar(finallyPr.getResult ().getUserName(), 200); // Adjust image size as needed
+                        binding.ivAvatar.setImageBitmap(avatarBitmap);
+
+
+
+
                         modelList = (ArrayList<GetProfileModel.AccountDetail>) finallyPr.getAccountDetail ();
                         final int position = 0;
                       //  final GetProfileModel.AccountDetail model = getItem (position);
@@ -551,6 +551,9 @@ public class HomeFragment extends Fragment implements HomeListener{
                         else ttt = Preference.doubleToStringNoDecimal(Double.parseDouble(finallyPr.getResult().getPaymentWallet()));
                         binding.tvAailableBal.setText("₦"+ttt);
 
+                     /// For new user Biometric
+
+/*
                         if(Utilitiesss.getInstance().isBiometricHardWareAvailable(getActivity())){
                             if(finallyPr!=null) {
                                 if(finallyPr.getResult().getFingerPrintsKey().equalsIgnoreCase(""))
@@ -562,6 +565,7 @@ public class HomeFragment extends Fragment implements HomeListener{
                                     );
                             }
                         }
+*/
 
 
                        // getAllBudgetGrps(Double.parseDouble(ttt));

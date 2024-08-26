@@ -34,34 +34,42 @@
                 android:layout_height="wrap_content"
                 >
 
-                <RelativeLayout
-                    android:id="@+id/RRtoolbaar"
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolBar"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_50sdp"
-                    >
+                    android:layout_height="wrap_content">
 
-                    <ImageView
-                        android:id="@+id/imgBack"
-                        android:layout_marginLeft="@dimen/_10sdp"
-                        android:layout_centerVertical="true"
-                        android:src="@drawable/left_arraow"
-                        android:layout_width="@dimen/_15sdp"
-                        android:layout_height="@dimen/_15sdp"
+                    <RelativeLayout
+                        android:id="@+id/RRtoolbaar"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_50sdp"
                         >
 
-                    </ImageView>
+                        <ImageView
+                            android:id="@+id/imgBack"
+                            android:layout_marginLeft="@dimen/_10sdp"
+                            android:layout_centerVertical="true"
+                            android:src="@drawable/left_arraow"
+                            android:layout_width="@dimen/_15sdp"
+                            android:layout_height="@dimen/_15sdp"
+                            >
 
-                    <TextView
-                        android:textStyle="bold"
-                        android:textSize="@dimen/_14sdp"
-                        android:layout_centerInParent="true"
-                        android:textColor="@color/white"
-                        android:text="Confirm Your Payment"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        />
+                        </ImageView>
 
-                </RelativeLayout>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:text="Confirm Your Payment"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_14sdp"
+                            android:textStyle="bold" />
+
+                    </RelativeLayout>
+
+
+                </androidx.appcompat.widget.Toolbar>
+
 
                 <LinearLayout
                     android:orientation="vertical"
@@ -341,6 +349,17 @@
                                 android:layout_height="wrap_content"
                                 />
 
+                            <TextView
+                                android:id="@+id/tvDiscountPercent"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_5sdp"
+                                android:fontFamily="@font/poppinsregular"
+                                android:text="Discount "
+                                android:textColor="@color/gray"
+                                android:textSize="@dimen/_12sdp" />
+
+
 
                         </LinearLayout>
 
@@ -376,6 +395,19 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 />
+
+                            <TextView
+                                android:id="@+id/tvDiscountAmount"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="right"
+                                android:drawablePadding="@dimen/_3sdp"
+                                android:gravity="center_vertical"
+                                android:text="₦0.00"
+                                android:textColor="@color/green"
+                                android:textSize="@dimen/_18sdp"
+                                android:textStyle="bold" />
+
 
                             <TextView
                                 android:gravity="right"

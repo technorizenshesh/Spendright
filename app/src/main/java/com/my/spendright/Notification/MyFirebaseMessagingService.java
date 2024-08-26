@@ -13,6 +13,9 @@ import android.graphics.drawable.Drawable;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.StyleSpan;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -47,6 +50,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     String amount ="";
     String Title ="";
     String key ="";
+    String dateTime ="";
     static int count = 0 ;
 
     @Override
@@ -107,8 +111,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 Msg = object.optString("key");
                 amount = object.optString("amount");
                 //  Intent intent;
-
-
+                dateTime = object.optString("date");
+                Log.e("date time===",dateTime);
                 int requestCode = (int) System.currentTimeMillis();
 
 
@@ -229,14 +233,16 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
                 PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent,
                         PendingIntent.FLAG_IMMUTABLE);
+                Spannable sb = new SpannableString(Title);
+                sb.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, Title.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
                 Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
                 NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, getString(R.string.channelId))
-                        .setStyle(new NotificationCompat.BigTextStyle().bigText(Msg))
+                        .setStyle(new NotificationCompat.BigTextStyle().bigText(Msg+"\n"+Preference.convertDate222(dateTime)))
                         .setSmallIcon(R.drawable.ic_noti)
-                        .setContentTitle(Title)
+                        .setContentTitle(sb)
                         .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                        .setContentText(Msg)
+                        .setContentText(Msg + "\n"+ Preference.convertDate222(dateTime))
                         // .setContentText(amount)
                         .setAutoCancel(true)
                         .setSound(defaultSoundUri)

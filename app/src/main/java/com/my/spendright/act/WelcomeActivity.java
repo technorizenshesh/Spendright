@@ -25,7 +25,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import com.my.spendright.SplashAct;
 import com.my.spendright.R;
 
 import java.security.MessageDigest;

@@ -26,7 +26,7 @@
     </style>
 
     <style
-        name="AppTheme.NoActionBar">
+        name="AppTheme.NoActionBar" parent="Theme.AppCompat.Light">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>

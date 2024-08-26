@@ -18,11 +18,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
 import com.google.gson.Gson;
+import com.my.spendright.Broadband.ConfirmPaymentBroadBandAct;
+import com.my.spendright.Broadband.PaymentBillBroadBandAct;
 import com.my.spendright.Model.GetCategoryModelNew;
 import com.my.spendright.Model.GetCommisionModel;
 import com.my.spendright.Model.GetProfileModel;
 import com.my.spendright.R;
+import com.my.spendright.act.ConfirmPaymentAct;
+import com.my.spendright.act.FundAct;
 import com.my.spendright.act.HomeActivity;
+import com.my.spendright.act.LoginActivity;
 import com.my.spendright.act.PaymentComplete;
 import com.my.spendright.act.ui.settings.model.IncomeExpenseCatModel;
 import com.my.spendright.adapter.CategoryAdapterNew;
@@ -62,6 +67,9 @@ public class ConfirmPaymentTvAct extends AppCompatActivity {
     String subscription_type="";
     String MyCuurentBlance="0.0";
     GetProfileModel finallyPr;
+    int discountPercent =0;
+    double discountAmount =0.0;
+
     double walletAmount ;
     private SessionManager sessionManager;
 
@@ -70,6 +78,7 @@ public class ConfirmPaymentTvAct extends AppCompatActivity {
     ArrayList<IncomeExpenseCatModel.Category> arrayList = new ArrayList<>();;
     IncomeExpenseCatModel incomeExpenseCatModel;
     double FInalAmt = 0.0;
+    boolean chkPayStatus = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,17 +106,17 @@ public class ConfirmPaymentTvAct extends AppCompatActivity {
             if(MyCuurentBlance==null || MyCuurentBlance.equalsIgnoreCase("")) MyCuurentBlance = "0.0";
 
              binding.meterNumber.setText(billersCode);
-             binding.MyCuurentBlance.setText( "₦"+Preference.doubleToStringNoDecimal(Double.parseDouble(MyCuurentBlance)));
+             binding.MyCuurentBlance.setText( "₦"+Preference.doubleToStringNoDecimal(Double.parseDouble(MyCuurentBlance.replace(",",""))));
              binding.type.setText(subscription_type);
-             binding.AmountPay.setText("₦"+Preference.doubleToStringNoDecimal(Double.parseDouble(amount)));
-             binding.totalAmountPay.setText("₦"+Preference.doubleToStringNoDecimal(Double.parseDouble(amount)));
+             binding.AmountPay.setText("₦"+Preference.doubleToStringNoDecimal(Double.parseDouble(amount.replace(",",""))));
+             binding.totalAmountPay.setText("₦"+Preference.doubleToStringNoDecimal(Double.parseDouble(amount.replace(",",""))));
         }
         if(amount.contains(",")) amount = amount.replace(",","");
         Log.e("change value====",amount);
 
 
         binding.imgBack.setOnClickListener(v -> {
-            onBackPressed();
+            finish();
         });
 
         binding.txtCancel.setOnClickListener(v -> {
@@ -136,6 +145,9 @@ public class ConfirmPaymentTvAct extends AppCompatActivity {
                         binding.RRConfirm.setEnabled(false);
                         binding.RRConfirm.setBackground(getDrawable(R.drawable.btn_inactive_bg));
                         binding.txtCancel.setVisibility(View.GONE);
+                        binding.imgBack.setEnabled(false);
+                        binding.imgBack.setClickable(false);
+                        chkPayStatus = false;
                         PyaAccoun();
                     }
                     else {
@@ -172,7 +184,7 @@ public class ConfirmPaymentTvAct extends AppCompatActivity {
 
     private void PyaAccoun() {
         binding.progressBar.setVisibility(View.VISIBLE);
-        Call<ResponseBody> call = RetrofitClients.getInstance().getApi().Api_pay_tv(sessionManager.getUserID(),Request_IDNew,ServicesId,billersCode,amount,
+        Call<ResponseBody> call = RetrofitClients.getInstance().getApi().Api_pay_tv(Preference.getHeader(ConfirmPaymentTvAct.this),sessionManager.getUserID(),Request_IDNew,ServicesId,billersCode,amount,
                 phone,subscription_type);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
@@ -193,13 +205,34 @@ public class ConfirmPaymentTvAct extends AppCompatActivity {
 
                          Toast.makeText(ConfirmPaymentTvAct.this, "SuccessFully Bill pay", Toast.LENGTH_SHORT).show();
 
-                     }else
+                     }
+
+
+                     else if (jsonObject.has("status")) {
+
+                         if (jsonObject.getString("status").equalsIgnoreCase("9")) {
+
+                             sessionManager.logoutUser();
+                             Toast.makeText(ConfirmPaymentTvAct.this, getString(R.string.invalid_token), Toast.LENGTH_SHORT).show();
+                             startActivity(new Intent(ConfirmPaymentTvAct.this, LoginActivity.class)
+                                     .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                             finish();
+                         }
+                     }
+
+
+
+
+                     else
                      {
                          binding.RRConfirm.setClickable(true);
                          binding.RRConfirm.setFocusable(true);
                          binding.RRConfirm.setEnabled(true);
                          binding.RRConfirm.setBackground(getDrawable(R.drawable.border_btn));
                          binding.txtCancel.setVisibility(View.VISIBLE);
+                         binding.imgBack.setEnabled(true);
+                         binding.imgBack.setClickable(true);
+                         chkPayStatus = true;
                          Toast.makeText(ConfirmPaymentTvAct.this, jsonObject.getString("response_description"), Toast.LENGTH_SHORT).show();
                      }
 
@@ -223,8 +256,8 @@ public class ConfirmPaymentTvAct extends AppCompatActivity {
     private void AddReportMethod(String status,String response){
        String Current_date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
         Call<ResponseBody> call = RetrofitClients.getInstance().getApi()
-                .Api_add_vtpass_book_payment(sessionManager.getUserID(),Request_IDNew,amount,ServicesId,ServicesName,
-                        "Tv Subscription",status,Current_date,BudgetAccountId,selectBugCategoryId,billersCode/*binding.edtDescription.getText().toString()*/,phone,binding.tax.getText().toString().replace("₦",""),response);
+                .Api_add_vtpass_book_payment(Preference.getHeader(ConfirmPaymentTvAct.this),sessionManager.getUserID(),Request_IDNew,amount,ServicesId,ServicesName,
+                        "Tv Subscription",status,Current_date,BudgetAccountId,selectBugCategoryId,billersCode/*binding.edtDescription.getText().toString()*/,phone,binding.tax.getText().toString().replace("₦",""),response,String.valueOf(discountPercent),"","");
         call.enqueue(new Callback<ResponseBody>() {
             @RequiresApi(api = Build.VERSION_CODES.GINGERBREAD)
             @Override
@@ -236,11 +269,33 @@ public class ConfirmPaymentTvAct extends AppCompatActivity {
                     Log.e("Report", "Report Response :" + stringResponse);
                     if (jsonObject.getString("status").equalsIgnoreCase("1")) {
                         // AddReportModal finallyPr = response.body();
+                        sessionManager.saveTransId(jsonObject.getString("transaction_id"));
                         startActivity(new Intent(ConfirmPaymentTvAct.this,PaymentComplete.class));
                         finish();
 
-                    } else
+                    }
+
+                    else if (jsonObject.has("status")) {
+
+                        if (jsonObject.getString("status").equalsIgnoreCase("9")) {
+
+                            sessionManager.logoutUser();
+                            Toast.makeText(ConfirmPaymentTvAct.this, getString(R.string.invalid_token), Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(ConfirmPaymentTvAct.this, LoginActivity.class)
+                                    .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                            finish();
+                        }
+                    }
+
+
+
+
+
+                    else
                     {
+                        binding.imgBack.setEnabled(true);
+                        binding.imgBack.setClickable(true);
+                        chkPayStatus = true;
                         Toast.makeText(ConfirmPaymentTvAct.this, ""+jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
                     }
                 }catch (Exception e)
@@ -341,15 +396,33 @@ public class ConfirmPaymentTvAct extends AppCompatActivity {
                         if (jsonObject.getString("status").equalsIgnoreCase("1")) {
                             GetCommisionModel finallyPr = new Gson().fromJson(stringResponse,GetCommisionModel.class);
                             String CommisionAmount = finallyPr.getResult().getCommisionAmount();
+                            discountPercent = Integer.parseInt(finallyPr.getResult().getDiscount());
+
                             Double CmAmt= Double.valueOf(CommisionAmount);
                             Double TotalAmt= Double.valueOf(amount);
                             FInalAmt  = CmAmt+TotalAmt;
+                            FInalAmt = FInalAmt - discountAmount;
 
                           //  binding.tax.setText(CommisionAmount+"");
                          //   binding.totalAmountPay.setText(FInalAmt+"");
-                            binding.tax.setText("₦"+Preference.doubleToStringNoDecimal(Double.parseDouble(CommisionAmount))+"");
-                            binding.totalAmountPay.setText("₦"+Preference.doubleToStringNoDecimal(Double.parseDouble(FInalAmt+""))+"");
+                            binding.tvDiscountPercent.setText("Discount (" + discountPercent + "%)" );
+                            if(discountAmount<10)  {
+                                discountAmount = Double.parseDouble("0"+Preference.doubleToStringNoDecimal(discountAmount));
+                                binding.tvDiscountAmount.setText(""+"₦"+"0"+Preference.doubleToStringNoDecimal(discountAmount)+"");
+                            }
+                            else  binding.tvDiscountAmount.setText(""+"₦"+Preference.doubleToStringNoDecimal(discountAmount)+"");
 
+                            if(Double.parseDouble(CommisionAmount)<10)  {
+                                CommisionAmount = "0" + Preference.doubleToStringNoDecimal(Double.parseDouble(CommisionAmount));
+                                binding.tax.setText("₦"+ "0"+Preference.doubleToStringNoDecimal(Double.parseDouble(CommisionAmount))+"");
+                            }
+                            else binding.tax.setText("₦"+Preference.doubleToStringNoDecimal(Double.parseDouble(CommisionAmount))+"");
+
+                            if(FInalAmt<10){
+                                FInalAmt = Double.parseDouble("0"+Preference.doubleToStringNoDecimal(FInalAmt));
+                                binding.totalAmountPay.setText("₦"+ "0"+FInalAmt+"");
+                            }
+                            else binding.totalAmountPay.setText("₦"+Preference.doubleToStringNoDecimal(Double.parseDouble(FInalAmt+""))+"");
                         }
 
                         else {
@@ -384,7 +457,7 @@ public class ConfirmPaymentTvAct extends AppCompatActivity {
                 try {
                     finallyPr = response.body ();
                     if (finallyPr.getStatus ().equalsIgnoreCase ("1")) {
-                        walletAmount =   Double.parseDouble(finallyPr.getResult().getPaymentWallet());
+                        walletAmount =   Double.parseDouble(finallyPr.getResult().getPaymentWalletOriginal());
                     } else {
                         Toast.makeText (ConfirmPaymentTvAct.this, "" + finallyPr.getMessage (), Toast.LENGTH_SHORT).show ();
                         binding.progressBar.setVisibility (View.GONE);
@@ -415,7 +488,7 @@ public class ConfirmPaymentTvAct extends AppCompatActivity {
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.dismiss();
-                        startActivity(new Intent(ConfirmPaymentTvAct.this, HomeActivity.class)
+                        startActivity(new Intent(ConfirmPaymentTvAct.this, FundAct.class)
                                 .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP));
                         finish();
                     }
@@ -501,4 +574,8 @@ public class ConfirmPaymentTvAct extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onBackPressed() {
+       if(chkPayStatus == true) super.onBackPressed();
+    }
 }

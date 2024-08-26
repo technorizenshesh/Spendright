@@ -238,19 +238,19 @@
 
         </LinearLayout>
 
+
         <TextView
             android:id="@+id/txtPrice"
-            android:layout_alignParentRight="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="-813.00"
-            android:fontFamily="@font/poppinsregular"
-            android:textColor="@color/orange"
-            android:textSize="@dimen/_13sdp"
-            android:layout_marginTop="@dimen/_11sdp"
+            android:layout_alignParentRight="true"
             android:layout_centerInParent="true"
-            />
-
+            android:layout_marginTop="@dimen/_11sdp"
+            android:layout_marginRight="4dp"
+            android:fontFamily="@font/poppinsregular"
+            android:text="-813.00"
+            android:textColor="@color/orange"
+            android:textSize="@dimen/_13sdp" />
 
         <TextView
             android:id="@+id/ivCurr"

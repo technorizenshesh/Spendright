@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.PopupMenu;
@@ -13,17 +14,23 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
 
 import com.google.gson.Gson;
+import com.my.spendright.Broadband.ConfirmPaymentBroadBandAct;
+import com.my.spendright.Broadband.PaymentBillBroadBandAct;
 import com.my.spendright.Model.GetCategoryModelNew;
 import com.my.spendright.Model.GetCommisionModel;
 import com.my.spendright.Model.GetProfileModel;
 import com.my.spendright.R;
 import com.my.spendright.TvCabelBill.ConfirmPaymentTvAct;
+import com.my.spendright.act.FundAct;
 import com.my.spendright.act.HomeActivity;
+import com.my.spendright.act.LoginActivity;
 import com.my.spendright.act.PaymentComplete;
 import com.my.spendright.act.ui.budget.withdraw.WithdrawPaymentConfirmAct;
 import com.my.spendright.act.ui.settings.model.IncomeExpenseCatModel;
@@ -65,6 +72,8 @@ public class ConfirmPaymentAireTimeAct extends AppCompatActivity {
     GetProfileModel finallyPr;
     double walletAmount ;
 
+    int discountPercent =0;
+    double discountAmount =0.0;
     private SessionManager sessionManager;
     private ArrayList<GetCategoryModelNew.Result> modelListCategory = new ArrayList<>();
     String BudgetAccountId="";
@@ -72,12 +81,22 @@ public class ConfirmPaymentAireTimeAct extends AppCompatActivity {
     ArrayList<IncomeExpenseCatModel.Category> arrayList = new ArrayList<>();;
     IncomeExpenseCatModel incomeExpenseCatModel;
     Double CmAmt =0.0;
+    ActionBar actionBar ;
+
+    boolean  chkPayStatus = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding= DataBindingUtil.setContentView(this,R.layout.activity_confirm_payment_airtime);
+    //  Toolbar mToolbar = binding.toolBar;
+     //  setSupportActionBar(mToolbar);
 
+  //     actionBar = this.getSupportActionBar();
+ //       if (actionBar != null) {
+  //          actionBar.setDisplayHomeAsUpEnabled(true);
+  //      }
         sessionManager = new SessionManager(ConfirmPaymentAireTimeAct.this);
 
         Log.d("Request_ID:>>",get_current_Time());
@@ -105,7 +124,7 @@ public class ConfirmPaymentAireTimeAct extends AppCompatActivity {
         }
 
         binding.imgBack.setOnClickListener(v -> {
-            onBackPressed();
+            finish();
         });
 
         binding.txtCancel.setOnClickListener(v -> {
@@ -140,7 +159,13 @@ public class ConfirmPaymentAireTimeAct extends AppCompatActivity {
                      binding.RRConfirm.setEnabled(false);
                      binding.RRConfirm.setBackground(getDrawable(R.drawable.btn_inactive_bg));
                      binding.txtCancel.setVisibility(View.GONE);
-                     PyaAccoun();
+
+                   //  binding.imgBack.setVisibility(View.GONE);
+                     binding.imgBack.setEnabled(false);
+                     binding.imgBack.setClickable(false);
+                    // actionBar.setDisplayHomeAsUpEnabled(false);
+                     chkPayStatus = false;
+                     PayAccount();
                  }
                  else {
                      AlertDialogStatus(getString(R.string.your_wallet_bal_is_low));
@@ -211,8 +236,15 @@ public class ConfirmPaymentAireTimeAct extends AppCompatActivity {
         });
     }
 
-    private void PyaAccoun() {
-        Call<ResponseBody> call = RetrofitClients.getInstance().getApi().Api_pay_airtime(sessionManager.getUserID(),Request_IDNew,ServicesId,amount,phone);
+    private void PayAccount() {
+        Call<ResponseBody> call = RetrofitClients.getInstance().getApi().Api_pay_airtime(Preference.getHeader(ConfirmPaymentAireTimeAct.this),sessionManager.getUserID(),Request_IDNew,ServicesId,amount,phone,sessionManager.getUserPass());
+         Map<String,String> map = new HashMap<>();
+         map.put("user_id",sessionManager.getUserID());
+        map.put("request_id",Request_IDNew);
+        map.put("serviceID",ServicesId);
+        map.put("amount",amount);
+        map.put("phone",phone);
+        Log.e("checkAirtimePayment===",map.toString());
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
@@ -231,14 +263,32 @@ public class ConfirmPaymentAireTimeAct extends AppCompatActivity {
 
                              Toast.makeText(ConfirmPaymentAireTimeAct.this, "SuccessFully Bill pay", Toast.LENGTH_SHORT).show();
 
-                         }else
+                         }
+
+                        else if(jsonObject.has("status")) {
+                          if (jsonObject.getString("status").equalsIgnoreCase("9")) {
+                                 sessionManager.logoutUser();
+                                 Toast.makeText(ConfirmPaymentAireTimeAct.this, getString(R.string.invalid_token), Toast.LENGTH_SHORT).show();
+                                 startActivity(new Intent(ConfirmPaymentAireTimeAct.this, LoginActivity.class)
+                                         .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                                 finish();
+                             }
+                         }
+
+
+                         else
                          {
                                  binding.RRConfirm.setClickable(true);
                                  binding.RRConfirm.setFocusable(true);
                                  binding.RRConfirm.setEnabled(true);
                                  binding.RRConfirm.setBackground(getDrawable(R.drawable.border_btn));
                                  binding.txtCancel.setVisibility(View.VISIBLE);
-                             Toast.makeText(ConfirmPaymentAireTimeAct.this, jsonObject.getString("response_description"), Toast.LENGTH_SHORT).show();
+                         //    binding.imgBack.setVisibility(View.VISIBLE);
+                             binding.imgBack.setEnabled(true);
+                             binding.imgBack.setClickable(true);
+                             chkPayStatus = true;
+                             if(jsonObject.getString("code").equalsIgnoreCase("087")) Toast.makeText(ConfirmPaymentAireTimeAct.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                             else Toast.makeText(ConfirmPaymentAireTimeAct.this, jsonObject.getString("response_description"), Toast.LENGTH_SHORT).show();
                          }
 
                      }catch (Exception e){
@@ -270,8 +320,8 @@ public class ConfirmPaymentAireTimeAct extends AppCompatActivity {
     private void AddReportMethod(String status,String response){
         String Current_date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
         Call<ResponseBody> call = RetrofitClients.getInstance().getApi()
-                .Api_add_vtpass_book_payment(sessionManager.getUserID(),Request_IDNew,amount,ServicesId,ServicesName,
-                        "airtime",status,Current_date,BudgetAccountId,selectBugCategoryId,phone/*binding.edtDescription.getText().toString()*/,phone,binding.tax.getText().toString().replace("₦",""),response);
+                .Api_add_vtpass_book_payment(Preference.getHeader(ConfirmPaymentAireTimeAct.this),sessionManager.getUserID(),Request_IDNew,amount,ServicesId,ServicesName,
+                        "showmax",status,Current_date,BudgetAccountId,selectBugCategoryId,phone/*binding.edtDescription.getText().toString()*/,phone,binding.tax.getText().toString().replace("₦",""),response,String.valueOf(discountPercent),"","");
              Map<String,String> map = new HashMap<>();
              map.put("user_id",sessionManager.getUserID());
         map.put("request_id",Request_IDNew);
@@ -299,10 +349,33 @@ public class ConfirmPaymentAireTimeAct extends AppCompatActivity {
                     Log.e("Report", "Report Response :" + stringResponse);
                     if (jsonObject.getString("status").equalsIgnoreCase("1")) {
                         // AddReportModal finallyPr = response.body();
-                        startActivity(new Intent(ConfirmPaymentAireTimeAct.this, PaymentComplete.class));
+                       sessionManager.saveTransId(jsonObject.getString("transaction_id"));
+                       startActivity(new Intent(ConfirmPaymentAireTimeAct.this, PaymentComplete.class));
                         finish();
 
-                    } else {
+                    }
+
+
+
+                    else if (jsonObject.has("status")) {
+
+                        if (jsonObject.getString("status").equalsIgnoreCase("9")) {
+
+                            sessionManager.logoutUser();
+                            Toast.makeText(ConfirmPaymentAireTimeAct.this, getString(R.string.invalid_token), Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(ConfirmPaymentAireTimeAct.this, LoginActivity.class)
+                                    .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                            finish();
+                        }
+                    }
+
+
+
+                    else {
+                      //  binding.imgBack.setVisibility(View.VISIBLE);
+                        binding.imgBack.setEnabled(true);
+                        binding.imgBack.setClickable(true);
+                        chkPayStatus = true;
                         Toast.makeText(ConfirmPaymentAireTimeAct.this, "" + jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
                     }
 
@@ -374,17 +447,34 @@ public class ConfirmPaymentAireTimeAct extends AppCompatActivity {
                         if (jsonObject.getString("status").equalsIgnoreCase("1")) {
                             GetCommisionModel finallyPr = new Gson().fromJson(stringResponse,GetCommisionModel.class);
                             String CommisionAmount = finallyPr.getResult().getCommisionAmount();
-
+                            discountPercent = Integer.parseInt(finallyPr.getResult().getDiscount());
                             CmAmt = Double.valueOf(CommisionAmount);
                             Double TotalAmt= Double.valueOf(amount);
+                            discountAmount = (TotalAmt * discountPercent ) /100;
 
                             Double FInalAmt=CmAmt+TotalAmt;
+                            FInalAmt = FInalAmt - discountAmount;
 
                           //  binding.tax.setText(CommisionAmount+"");
                          //   binding.totalAmountPay.setText(FInalAmt+"");
-                            binding.tax.setText("₦"+Preference.doubleToStringNoDecimal(Double.parseDouble(CommisionAmount))+"");
-                            binding.totalAmountPay.setText("₦"+Preference.doubleToStringNoDecimal(Double.parseDouble(FInalAmt+""))+"");
-                        }
+                            binding.tvDiscountPercent.setText("Discount (" + discountPercent + "%)" );
+                            if(discountAmount<10)  {
+                                discountAmount = Double.parseDouble("0"+Preference.doubleToStringNoDecimal(discountAmount));
+                                binding.tvDiscountAmount.setText(""+"₦"+"0"+Preference.doubleToStringNoDecimal(discountAmount)+"");
+                            }
+                            else  binding.tvDiscountAmount.setText(""+"₦"+Preference.doubleToStringNoDecimal(discountAmount)+"");
+
+
+                            if(Double.parseDouble(CommisionAmount)<10)  {
+                                CommisionAmount = "0" + Preference.doubleToStringNoDecimal(Double.parseDouble(CommisionAmount));
+                                binding.tax.setText("₦"+ "0"+Preference.doubleToStringNoDecimal(Double.parseDouble(CommisionAmount))+"");
+                            }
+                            else binding.tax.setText("₦"+Preference.doubleToStringNoDecimal(Double.parseDouble(CommisionAmount))+"");
+                            if(FInalAmt<10){
+                                FInalAmt = Double.parseDouble("0"+Preference.doubleToStringNoDecimal(FInalAmt));
+                                binding.totalAmountPay.setText("₦"+ "0"+FInalAmt+"");
+                            }
+                            else binding.totalAmountPay.setText("₦"+Preference.doubleToStringNoDecimal(Double.parseDouble(FInalAmt+""))+"");                        }
 
                         else {
 
@@ -419,7 +509,7 @@ public class ConfirmPaymentAireTimeAct extends AppCompatActivity {
                 try {
                     finallyPr = response.body ();
                     if (finallyPr.getStatus ().equalsIgnoreCase ("1")) {
-                      walletAmount =   Double.parseDouble(finallyPr.getResult().getPaymentWallet());
+                      walletAmount =   Double.parseDouble(finallyPr.getResult().getPaymentWalletOriginal());
                     } else {
                         Toast.makeText (ConfirmPaymentAireTimeAct.this, "" + finallyPr.getMessage (), Toast.LENGTH_SHORT).show ();
                         binding.progressBar.setVisibility (View.GONE);
@@ -450,7 +540,7 @@ public class ConfirmPaymentAireTimeAct extends AppCompatActivity {
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.dismiss();
-                        startActivity(new Intent(ConfirmPaymentAireTimeAct.this, HomeActivity.class)
+                        startActivity(new Intent(ConfirmPaymentAireTimeAct.this, FundAct.class)
                                 .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP));
                         finish();
                     }
@@ -527,6 +617,14 @@ public class ConfirmPaymentAireTimeAct extends AppCompatActivity {
         });
         popupMenu.show();
     }
+
+
+    @Override
+    public void onBackPressed() {
+      if(chkPayStatus == true)  super.onBackPressed();
+
+    }
+
 
 
 

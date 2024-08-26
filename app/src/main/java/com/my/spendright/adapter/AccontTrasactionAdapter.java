@@ -3,6 +3,7 @@ package com.my.spendright.adapter;
 import android.content.Context;
 import android.os.Build;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,16 +62,25 @@ public class AccontTrasactionAdapter extends RecyclerView.Adapter<RecyclerView.V
                        if(model.getType().equalsIgnoreCase("income"))
                        {
                            genericViewHolder.txtPrice.setTextColor(ContextCompat.getColor(mContext, R.color.green));
-                           String FinalAmt = Preference.doubleToStringNoDecimalSecond(Double.parseDouble(model.getTransactionAmount().replace(",","")));
-                           FinalAmt = String.valueOf(Double.parseDouble(FinalAmt.replace(",",""))); //+ Double.parseDouble(modelList.get(position).getAdminFee().replace(",","")));
-                           genericViewHolder.txtPrice.setText("₦"+Preference.doubleToStringNoDecimal(Double.parseDouble(FinalAmt)));
+                         //  String FinalAmt = Preference.doubleToStringNoDecimalSecond(Double.parseDouble(model.getTransactionAmount().replace(",","")));
+                         //  FinalAmt = String.valueOf(Double.parseDouble(FinalAmt.replace(",",""))); //+ Double.parseDouble(modelList.get(position).getAdminFee().replace(",","")));
+                       //    genericViewHolder.txtPrice.setText("₦"+Preference.doubleToStringNoDecimal(Double.parseDouble(FinalAmt)));
+                           if(Double.parseDouble(model.getTransactionAmount())<10){
+                               genericViewHolder.txtPrice.setText("₦"+ "0"+Preference.doubleToStringNoDecimal(Double.parseDouble(model.getTransactionAmount().replace(",",""))));
+                           }
+                           else genericViewHolder.txtPrice.setText("₦"+Preference.doubleToStringNoDecimal(Double.parseDouble(model.getTransactionAmount().replace(",",""))));
+
                        }else
                        {
                            genericViewHolder.txtPrice.setTextColor(ContextCompat.getColor(mContext, R.color.red));
-                           String FinalAmt = Preference.doubleToStringNoDecimalSecond(Double.parseDouble(model.getTransactionAmount().replace(",","")));
-                           FinalAmt = String.valueOf(Double.parseDouble(FinalAmt.replace(",",""))); //+ Double.parseDouble(modelList.get(position).getAdminFee().replace(",","")));
-                           genericViewHolder.txtPrice.setText("₦"+Preference.doubleToStringNoDecimal(Double.parseDouble(FinalAmt)));
-
+                           Log.e("transaction amount",model.getTransactionAmount());
+                          // String FinalAmt = Preference.doubleToStringNoDecimalSecond(Double.parseDouble(model.getTransactionAmount().replace(",","")));
+                        //   FinalAmt = String.valueOf(Double.parseDouble(FinalAmt.replace(",",""))); //+ Double.parseDouble(modelList.get(position).getAdminFee().replace(",","")));
+                        //   genericViewHolder.txtPrice.setText("₦"+Preference.doubleToStringNoDecimal(Double.parseDouble(FinalAmt)));
+                            if(Double.parseDouble(model.getTransactionAmount())<10){
+                                genericViewHolder.txtPrice.setText("₦"+ "0"+Preference.doubleToStringNoDecimal(Double.parseDouble(model.getTransactionAmount().replace(",",""))));
+                            }
+                           else genericViewHolder.txtPrice.setText("₦"+Preference.doubleToStringNoDecimal(Double.parseDouble(model.getTransactionAmount().replace(",",""))));
 
                        }
 

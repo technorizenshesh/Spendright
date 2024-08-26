@@ -32,6 +32,14 @@ public class SessionManager {
     public static final String KEY_USER_ID = "keyUserID";
     public static final String KEY_account_id = "keyAccountId";
     public static final String KEY_USER_EMAIL = "keyUserEmail";
+
+    public static final String KEY_USER_NEWTOKEN = "keyUserToken";
+
+    public static final String KEY_USER_PASS = "keyUserPass";
+
+
+
+
     public static final String KEY_USER_ADDRESS = "keyUserAddress";
     public static final String KEY_USER_PROFILE_PICTURE = "keyUserProfile";
     public static final String KEY_DEVICE_TOKEN = "keyDeviceToken";
@@ -39,12 +47,20 @@ public class SessionManager {
     public static final String KEY_ACCOUNT_REFERENCE = "accountReference";
     public static final String KEY_cate_id = "category_id";
 
+    public static final String KEY_trans_id = "transaction_id";
 
+    public static final String KEY_ele_address = "ele_address";
+
+    public static final String KEY_ele_type = "ele_type";
+
+
+/*
     public void saveUserToken(String userAuthKey){
     editor = preferences.edit();
     editor.putString(KEY_USER_AUTHKEY, userAuthKey);
     editor.apply();
     }
+*/
 
     public SessionManager(Activity activity){
           this.activity = activity;
@@ -98,6 +114,39 @@ public class SessionManager {
         editor.apply();
 
     }
+
+
+
+    @RequiresApi(api = Build.VERSION_CODES.GINGERBREAD)
+    public void saveUserPas(String pass){
+        editor = preferences.edit();
+        editor.putString(KEY_USER_PASS, pass);
+        editor.apply();
+
+    }
+
+
+    public String getUserPass(){
+        String pass = preferences.getString(KEY_USER_PASS,"");
+        return pass;
+    }
+
+
+
+    @RequiresApi(api = Build.VERSION_CODES.GINGERBREAD)
+    public void saveUserToken(String token){
+        editor = preferences.edit();
+        editor.putString(KEY_USER_NEWTOKEN, token);
+        editor.apply();
+
+    }
+
+
+    public String getUserToken(){
+        String token = preferences.getString(KEY_USER_NEWTOKEN,"");
+        return token;
+    }
+
 
     @RequiresApi(api = Build.VERSION_CODES.GINGERBREAD)
     public void saveUserId(String id){
@@ -156,6 +205,52 @@ public class SessionManager {
     public String getAccontId(){
         String accontId = preferences.getString(KEY_account_id,"");
         return accontId;
+    }
+
+
+
+    public void saveTransId(String transId){
+
+        editor = preferences.edit();
+        editor.putString(KEY_trans_id, transId);
+        editor.apply();
+
+    }
+
+    public String getTransId(){
+        String transId = preferences.getString(KEY_trans_id,"");
+        return transId;
+    }
+
+
+
+
+
+    public void saveEleAddress(String eleAddress){
+
+        editor = preferences.edit();
+        editor.putString(KEY_ele_address, eleAddress);
+        editor.apply();
+
+    }
+
+    public String getEleAddress(){
+        String eleAddress = preferences.getString(KEY_ele_address,"");
+        return eleAddress;
+    }
+
+
+    public void saveEleType(String eleType){
+
+        editor = preferences.edit();
+        editor.putString(KEY_ele_type, eleType);
+        editor.apply();
+
+    }
+
+    public String getEleType(){
+        String eleType = preferences.getString(KEY_ele_type,"");
+        return eleType;
     }
 
 

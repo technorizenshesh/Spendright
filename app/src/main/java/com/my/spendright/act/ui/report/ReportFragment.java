@@ -4,6 +4,7 @@ import static android.content.Context.DOWNLOAD_SERVICE;
 import static androidx.core.content.ContextCompat.getSystemService;
 
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.app.DownloadManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -17,6 +18,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.DatePicker;
 import android.widget.PopupMenu;
 import android.widget.TextView;
@@ -39,12 +43,15 @@ import com.my.spendright.Model.GetExpenSeReport;
 import com.my.spendright.R;
 import com.my.spendright.act.HomeActivity;
 import com.my.spendright.act.PaiChartAct;
+import com.my.spendright.act.PaymentComplete;
 import com.my.spendright.act.SettingActivity;
 import com.my.spendright.act.UpdatedAccountInfoTrasaction;
 import com.my.spendright.act.ui.home.virtualcards.TransactionAdapter;
 import com.my.spendright.adapter.CategoryAdapterNewFilter;
 import com.my.spendright.adapter.ExpencePaymentAdapter;
+import com.my.spendright.databinding.DialogFullscreenPdfBinding;
 import com.my.spendright.databinding.FragmentReportBinding;
+import com.my.spendright.listener.BeneficiaryListener;
 import com.my.spendright.utils.Preference;
 import com.my.spendright.utils.RetrofitClients;
 import com.my.spendright.utils.SessionManager;
@@ -65,7 +72,7 @@ import retrofit2.Response;
 import retrofit2.http.Field;
 
 
-public class ReportFragment extends Fragment {
+public class ReportFragment extends Fragment implements BeneficiaryListener {
     private String TAG = "ReportFragment";
 
     FragmentReportBinding binding;
@@ -282,7 +289,7 @@ public class ReportFragment extends Fragment {
 
                         Log.e("serverListSize===", sendToServerList.size() + "");
                         // setAdapter(modelList);
-                        transactionAdapter = new TransactionAdapter(getActivity(), modelList);
+                        transactionAdapter = new TransactionAdapter(getActivity(), modelList,ReportFragment.this);
                         binding.recycleViewReport.setAdapter(transactionAdapter);
 
                     } else if (jsonObject.getString("status").equalsIgnoreCase("0")) {
@@ -518,7 +525,7 @@ public class ReportFragment extends Fragment {
                         totalExpences =0.0;
                         sendToServerList.clear();
                         sendToServerList.addAll(filterData(Preference.getCurrentDaily(), mainList));
-                        transactionAdapter = new TransactionAdapter(getActivity(), sendToServerList);
+                        transactionAdapter = new TransactionAdapter(getActivity(), sendToServerList,ReportFragment.this);
                         binding.recycleViewReport.setAdapter(transactionAdapter);
                         for(int j=0;j<sendToServerList.size();j++){
                             totalExpences = totalExpences + (Double.parseDouble(sendToServerList.get(j).getTransactionAmount())); /*+ Double.parseDouble(sendToServerList.get(j).getAdminFee()));*/
@@ -530,7 +537,7 @@ public class ReportFragment extends Fragment {
 
                         sendToServerList.clear();
                         sendToServerList.addAll(filterData(Preference.getCurrentWeek(), mainList));
-                        transactionAdapter = new TransactionAdapter(getActivity(), sendToServerList);
+                        transactionAdapter = new TransactionAdapter(getActivity(), sendToServerList,ReportFragment.this);
                         binding.recycleViewReport.setAdapter(transactionAdapter);
                         for(int j=0;j<sendToServerList.size();j++){
                             totalExpences = totalExpences + (Double.parseDouble(sendToServerList.get(j).getTransactionAmount())); /*+ Double.parseDouble(sendToServerList.get(j).getAdminFee()));*/
@@ -541,7 +548,7 @@ public class ReportFragment extends Fragment {
 
                         sendToServerList.clear();
                         sendToServerList.addAll(filterData(Preference.getCurrentMonth(), mainList));
-                        transactionAdapter = new TransactionAdapter(getActivity(), sendToServerList);
+                        transactionAdapter = new TransactionAdapter(getActivity(), sendToServerList,ReportFragment.this);
                         binding.recycleViewReport.setAdapter(transactionAdapter);
                         for(int j=0;j<sendToServerList.size();j++){
                             totalExpences = totalExpences + (Double.parseDouble(sendToServerList.get(j).getTransactionAmount())); /*+ Double.parseDouble(sendToServerList.get(j).getAdminFee()));*/
@@ -552,7 +559,7 @@ public class ReportFragment extends Fragment {
 
                         sendToServerList.clear();
                         sendToServerList.addAll(filterData(Preference.getCurrentYear(), mainList));
-                        transactionAdapter = new TransactionAdapter(getActivity(), sendToServerList);
+                        transactionAdapter = new TransactionAdapter(getActivity(), sendToServerList,ReportFragment.this);
                         binding.recycleViewReport.setAdapter(transactionAdapter);
                         for(int j=0;j<sendToServerList.size();j++){
                             totalExpences = totalExpences + (Double.parseDouble(sendToServerList.get(j).getTransactionAmount())); /*+ Double.parseDouble(sendToServerList.get(j).getAdminFee()));*/
@@ -563,7 +570,7 @@ public class ReportFragment extends Fragment {
 
                         sendToServerList.clear();
                         sendToServerList = mainList;
-                        transactionAdapter = new TransactionAdapter(getActivity(), mainList);
+                        transactionAdapter = new TransactionAdapter(getActivity(), mainList,ReportFragment.this);
                         binding.recycleViewReport.setAdapter(transactionAdapter);
                         for(int j=0;j<sendToServerList.size();j++){
                             totalExpences = totalExpences + (Double.parseDouble(sendToServerList.get(j).getTransactionAmount())); /*+ Double.parseDouble(sendToServerList.get(j).getAdminFee()));*/
@@ -595,7 +602,6 @@ public class ReportFragment extends Fragment {
     }
 
 
-
     private void Download_PDF_Internal_Storage(String url) {
         Uri Download_ = Uri.parse(url);
         DownloadManager.Request request = new DownloadManager.Request(Download_);
@@ -625,4 +631,63 @@ public class ReportFragment extends Fragment {
 
 
 
+    public void fullscreenDialog(Context context,GetExpenSeReport.Result data){
+        Dialog dialogFullscreen = new Dialog(context, WindowManager.LayoutParams.MATCH_PARENT);
+
+        DialogFullscreenPdfBinding dialogBinding = DataBindingUtil.inflate(LayoutInflater.from(context),
+                R.layout.dialog_fullscreen_pdf, null, false);
+        dialogFullscreen.setContentView(dialogBinding.getRoot());
+
+        // WebSettings webSettings = dialogBinding.webView.getSettings();
+        // webSettings.setJavaScriptEnabled(true);
+        //   webSettings.setBuiltInZoomControls(true);
+        //   webSettings.setDisplayZoomControls(false);
+        String url =  "https://docs.google.com/viewer?url="+ "https://spendright.ng/webservice/invoice_me?transaction_id="+     data.getId();
+
+
+        //   dialogBinding.webView.loadUrl(url);
+
+        Log.e("pdf url===",url);
+
+        dialogBinding.imgBack.setOnClickListener(view -> dialogFullscreen.dismiss());
+
+        dialogBinding.ivDownload.setOnClickListener(view -> Download_PDF_Internal_Storage( "https://spendright.ng/webservice/invoice_me?transaction_id="+sessionManager.getTransId()));
+
+        dialogBinding.ivShare.setOnClickListener(view ->{
+            Intent shareIntent = new Intent(Intent.ACTION_SEND);
+            shareIntent.setType("text/plain");
+            shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Spendright");
+            String shareMessage = "https://spendright.ng/webservice/invoice_me?transaction_id="+data.getId();
+            shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
+            startActivity(Intent.createChooser(shareIntent, "Share"));
+
+
+        } );
+
+
+        dialogBinding.webView.getSettings().setJavaScriptEnabled(true);
+
+        dialogBinding.webView.getSettings().setLoadWithOverviewMode(true);
+        dialogBinding.webView.getSettings().setDomStorageEnabled(true);
+        dialogBinding.webView.getSettings().setBuiltInZoomControls(true);
+        dialogBinding.webView.getSettings().setUseWideViewPort(true);
+        dialogBinding.webView.setWebViewClient(new WebViewClient(){
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
+                Log.e("url===",url);
+            }
+        });
+        dialogBinding.webView.loadUrl(url);
+
+
+        dialogFullscreen.show();
+
+    }
+
+
+    @Override
+    public void OnBeneficiary(int position) {
+        fullscreenDialog(getActivity(),modelList.get(position));
+    }
 }

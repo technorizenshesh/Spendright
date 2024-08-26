@@ -18,6 +18,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
 import com.google.gson.Gson;
+import com.my.spendright.Broadband.ConfirmPaymentBroadBandAct;
+import com.my.spendright.Broadband.PaymentBillBroadBandAct;
 import com.my.spendright.Model.GetCategoryModelNew;
 import com.my.spendright.Model.GetCommisionModel;
 import com.my.spendright.Model.GetProfileModel;
@@ -67,6 +69,9 @@ public class ConfirmPaymentAct extends AppCompatActivity {
     GetProfileModel finallyPr;
     double walletAmount ;
     String Current_date="";
+
+    int discountPercent =0;
+    double discountAmount =0.0;
     private ArrayList<GetCategoryModelNew.Result> modelListCategory = new ArrayList<>();
      String BudgetAccountId="",selectBugCategoryId="";
     ArrayList<IncomeExpenseCatModel.Category> arrayList = new ArrayList<>();;
@@ -111,7 +116,7 @@ public class ConfirmPaymentAct extends AppCompatActivity {
         Log.e("change value====",amount);
 
         binding.imgBack.setOnClickListener(v -> {
-            onBackPressed();
+            finish();
         });
 
         binding.txtCancel.setOnClickListener(v -> {
@@ -143,7 +148,10 @@ public class ConfirmPaymentAct extends AppCompatActivity {
                         binding.RRConfirm.setEnabled(false);
                         binding.RRConfirm.setBackground(getDrawable(R.drawable.btn_inactive_bg));
                         binding.txtCancel.setVisibility(View.GONE);
-                         PyaAccoun(UserName, UserPassword);
+                        binding.imgBack.setEnabled(false);
+                        binding.imgBack.setClickable(false);
+
+                        PyaAccoun(UserName, UserPassword);
                     }
                     else {
                         AlertDialogStatus(getString(R.string.your_wallet_bal_is_low));
@@ -226,7 +234,7 @@ public class ConfirmPaymentAct extends AppCompatActivity {
         map.put("phone",phone);
 
         Log.e("ElectricityBillRequest=",map.toString());
-        Call<ResponseBody> call = RetrofitClients.getInstance().getApi().Api_pay(sessionManager.getUserID(),Request_IDNew,ServicesId,billersCode,variation_code,amount,phone);
+        Call<ResponseBody> call = RetrofitClients.getInstance().getApi().Api_pay(Preference.getHeader(ConfirmPaymentAct.this),sessionManager.getUserID(),Request_IDNew,ServicesId,billersCode,variation_code,amount,phone);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
@@ -245,13 +253,29 @@ public class ConfirmPaymentAct extends AppCompatActivity {
 
                             Toast.makeText(ConfirmPaymentAct.this, "SuccessFully Bill pay", Toast.LENGTH_SHORT).show();
 
-                        }else
+                        }
+
+                        else if(jsonObject.has("status")) {
+                            if (jsonObject.getString("status").equalsIgnoreCase("9")) {
+                                sessionManager.logoutUser();
+                                Toast.makeText(ConfirmPaymentAct.this, getString(R.string.invalid_token), Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(ConfirmPaymentAct.this, LoginActivity.class)
+                                        .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                                finish();
+                            }
+                        }
+
+
+                        else
                         {
                             binding.RRConfirm.setClickable(true);
                             binding.RRConfirm.setFocusable(true);
                             binding.RRConfirm.setEnabled(true);
                             binding.RRConfirm.setBackground(getDrawable(R.drawable.border_btn));
                             binding.txtCancel.setVisibility(View.VISIBLE);
+                            binding.imgBack.setEnabled(true);
+                            binding.imgBack.setClickable(true);
+
                             Toast.makeText(ConfirmPaymentAct.this, jsonObject.getString("response_description"), Toast.LENGTH_SHORT).show();
                         }
                     }catch (Exception e)
@@ -276,8 +300,9 @@ public class ConfirmPaymentAct extends AppCompatActivity {
         Current_date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
         //sessionManager.getUserID();
         Call<ResponseBody> call = RetrofitClients.getInstance().getApi()
-                .Api_add_vtpass_book_payment11(sessionManager.getUserID(),Request_IDNew,amount,ServicesId,ServicesName,
-                        "Electricity",status,Current_date,selectBugCategoryId,BudgetAccountId,selectBugCategoryId,billersCode/*binding.edtDescription.getText().toString()*/,phone,binding.tax.getText().toString().replace("₦",""),response);
+                .Api_add_vtpass_book_payment11(Preference.getHeader(ConfirmPaymentAct.this),sessionManager.getUserID(),Request_IDNew,amount,ServicesId,ServicesName,
+                        "Electricity",status,Current_date,selectBugCategoryId,BudgetAccountId,selectBugCategoryId,billersCode/*binding.edtDescription.getText().toString()*/,phone,binding.tax.getText().toString().replace("₦","")
+                        ,sessionManager.getEleType(),sessionManager.getEleAddress(),response,String.valueOf(discountPercent),"","");
        Map<String,String> map = new HashMap<>();
        map.put("user_id",sessionManager.getUserID()+"");
         map.put("request_id",Request_IDNew+"");
@@ -292,7 +317,11 @@ public class ConfirmPaymentAct extends AppCompatActivity {
         map.put("description",billersCode+"");
         map.put("phone_number",phone+"");
         map.put("payment_commision",binding.tax.getText().toString().replace("₦","")+"");
+        map.put("vtpass_type",sessionManager.getEleType());
+        map.put("vtpass_address",sessionManager.getEleAddress());
+
         map.put("response",response+"");
+        map.put("discount",discountAmount+"");
 
         Log.e("electy====",map.toString());
 
@@ -309,11 +338,29 @@ public class ConfirmPaymentAct extends AppCompatActivity {
 
                     if (jsonObject.getString("status").equalsIgnoreCase("1")) {
                        // AddReportModal finallyPr = response.body();
+                        sessionManager.saveTransId(jsonObject.getString("transaction_id"));
                         startActivity(new Intent(ConfirmPaymentAct.this,PaymentComplete.class));
                         finish();
 
-                    } else
+                    }
+
+                    else if (jsonObject.has("status")) {
+
+                        if (jsonObject.getString("status").equalsIgnoreCase("9")) {
+
+                            sessionManager.logoutUser();
+                            Toast.makeText(ConfirmPaymentAct.this, getString(R.string.invalid_token), Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(ConfirmPaymentAct.this, LoginActivity.class)
+                                    .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                            finish();
+                        }
+                    }
+
+
+                    else
                     {
+                        binding.imgBack.setEnabled(true);
+                        binding.imgBack.setClickable(true);
                         Toast.makeText(ConfirmPaymentAct.this, ""+jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
                     }
                 }catch (Exception e)
@@ -381,15 +428,38 @@ public class ConfirmPaymentAct extends AppCompatActivity {
                         if (jsonObject.getString("status").equalsIgnoreCase("1")) {
                             GetCommisionModel finallyPr = new Gson().fromJson(stringResponse,GetCommisionModel.class);
                             String CommisionAmount = finallyPr.getResult().getCommisionAmount();
+                            discountPercent = Integer.parseInt(finallyPr.getResult().getDiscount());
 
                             CmAmt= Double.valueOf(CommisionAmount);
                             Double TotalAmt= Double.valueOf(amount);
+                            discountAmount = (TotalAmt * discountPercent ) /100;
 
                             Double FInalAmt=CmAmt+TotalAmt;
+                            FInalAmt = FInalAmt - discountAmount;
 
 
-                            binding.tax.setText("₦"+Preference.doubleToStringNoDecimal(Double.parseDouble(CommisionAmount))+"");
-                            binding.totalAmountPay.setText("₦"+Preference.doubleToStringNoDecimal(Double.parseDouble(FInalAmt+""))+"");
+                            if(Double.parseDouble(CommisionAmount)<10)  {
+                                CommisionAmount = "0" + Preference.doubleToStringNoDecimal(Double.parseDouble(CommisionAmount));
+                                binding.tax.setText("₦"+ "0"+Preference.doubleToStringNoDecimal(Double.parseDouble(CommisionAmount))+"");
+                            }
+                            else binding.tax.setText("₦"+Preference.doubleToStringNoDecimal(Double.parseDouble(CommisionAmount))+"");
+                            if(FInalAmt<10){
+                                FInalAmt = Double.parseDouble("0"+Preference.doubleToStringNoDecimal(FInalAmt));
+                                binding.totalAmountPay.setText("₦"+ "0"+FInalAmt+"");
+                            }
+                            else binding.totalAmountPay.setText("₦"+Preference.doubleToStringNoDecimal(Double.parseDouble(FInalAmt+""))+"");                            binding.tvDiscountPercent.setText("Discount (" + discountPercent + "%)" );
+                            if(discountAmount<10)  {
+                                discountAmount = Double.parseDouble("0"+Preference.doubleToStringNoDecimal(discountAmount));
+                                binding.tvDiscountAmount.setText(""+"₦"+"0"+Preference.doubleToStringNoDecimal(discountAmount)+"");
+                            }
+                            else  binding.tvDiscountAmount.setText(""+"₦"+Preference.doubleToStringNoDecimal(discountAmount)+"");
+
+
+
+
+
+
+
                         }
 
                         else {
@@ -422,7 +492,7 @@ public class ConfirmPaymentAct extends AppCompatActivity {
                 try {
                     finallyPr = response.body ();
                     if (finallyPr.getStatus ().equalsIgnoreCase ("1")) {
-                        walletAmount =   Double.parseDouble(finallyPr.getResult().getPaymentWallet());
+                        walletAmount =   Double.parseDouble(finallyPr.getResult().getPaymentWalletOriginal());
                     } else {
                         Toast.makeText (ConfirmPaymentAct.this, "" + finallyPr.getMessage (), Toast.LENGTH_SHORT).show ();
                         binding.progressBar.setVisibility (View.GONE);
@@ -539,7 +609,8 @@ public class ConfirmPaymentAct extends AppCompatActivity {
         popupMenu.show();
     }
 
-
-
-
+    @Override
+    public void onBackPressed() {
+      //  super.onBackPressed();
+    }
 }

@@ -16,9 +16,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
 import com.google.gson.Gson;
+import com.my.spendright.Broadband.ConfirmPaymentBroadBandAct;
+import com.my.spendright.Broadband.PaymentBillBroadBandAct;
 import com.my.spendright.Model.GetCategoryModelNew;
 import com.my.spendright.Model.GetCommisionModel;
 import com.my.spendright.R;
+import com.my.spendright.act.ConfirmPaymentAct;
+import com.my.spendright.act.LoginActivity;
 import com.my.spendright.act.PaymentComplete;
 import com.my.spendright.act.ui.settings.model.IncomeExpenseCatModel;
 import com.my.spendright.adapter.CategoryAdapterNew;
@@ -65,12 +69,15 @@ public class ConfirmPaymentTvChangeAct extends AppCompatActivity {
     String variation_amount="";
     String variation_name="";
     String phone="",selectBugCategoryId="";
+    int discountPercent =0;
+    double discountAmount =0.0;
 
     private ArrayList<GetCategoryModelNew.Result> modelListCategory = new ArrayList<>();
     String BudgetAccountId="";
 
     ArrayList<IncomeExpenseCatModel.Category> arrayList = new ArrayList<>();;
     IncomeExpenseCatModel incomeExpenseCatModel;
+    boolean chkPayStatus = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -101,16 +108,16 @@ public class ConfirmPaymentTvChangeAct extends AppCompatActivity {
 
 
             binding.meterNumber.setText(Meter_Number);
-            binding.MyCuurentBlance.setText("₦"+Preference.doubleToStringNoDecimal(Double.parseDouble(myWalletBalace)));
+            binding.MyCuurentBlance.setText("₦"+Preference.doubleToStringNoDecimal(Double.parseDouble(myWalletBalace.replace(",",""))));
             binding.type.setText(PayMentCabilBillAct.serviceId);
-            binding.AmountPay.setText("₦"+Preference.doubleToStringNoDecimal(Double.parseDouble(variation_amount)));
-            binding.totalAmountPay.setText("₦"+Preference.doubleToStringNoDecimal(Double.parseDouble(variation_amount)));
+            binding.AmountPay.setText("₦"+Preference.doubleToStringNoDecimal(Double.parseDouble(variation_amount.replace(",",""))));
+            binding.totalAmountPay.setText("₦"+Preference.doubleToStringNoDecimal(Double.parseDouble(variation_amount.replace(",",""))));
 
 
         }
 
         binding.imgBack.setOnClickListener(v -> {
-            onBackPressed();
+            finish();
         });
 
         binding.txtCancel.setOnClickListener(v -> {
@@ -135,6 +142,9 @@ public class ConfirmPaymentTvChangeAct extends AppCompatActivity {
                     binding.RRConfirm.setEnabled(false);
                     binding.RRConfirm.setBackground(getDrawable(R.drawable.btn_inactive_bg));
                     binding.txtCancel.setVisibility(View.GONE);
+                    binding.imgBack.setEnabled(false);
+                    binding.imgBack.setClickable(false);
+                    chkPayStatus = false;
                     PyaAccoun();
                 } else {
                     Toast.makeText(this, R.string.checkInternet, Toast.LENGTH_SHORT).show();
@@ -197,7 +207,7 @@ public class ConfirmPaymentTvChangeAct extends AppCompatActivity {
     }
 
     private void PyaAccoun() {
-        Call<ResponseBody> call = RetrofitClients.getInstance().getApi().Api_pay_tv_change(sessionManager.getUserID(),Request_IDNew,ServicesSubscriptionId,Meter_Number,variation_code,variation_amount,
+        Call<ResponseBody> call = RetrofitClients.getInstance().getApi().Api_pay_tv_change(Preference.getHeader(ConfirmPaymentTvChangeAct.this),sessionManager.getUserID(),Request_IDNew,ServicesSubscriptionId,Meter_Number,variation_code,variation_amount,
                 phone,"change","1");
         call.enqueue(new Callback<ResponseBody>() {
             @Override
@@ -219,13 +229,30 @@ public class ConfirmPaymentTvChangeAct extends AppCompatActivity {
 
                         Toast.makeText(ConfirmPaymentTvChangeAct.this, "SuccessFully Bill pay", Toast.LENGTH_SHORT).show();
 
-                    }else
+                    }
+
+                    else if (jsonObject.has("status")) {
+
+                        if (jsonObject.getString("status").equalsIgnoreCase("9")) {
+
+                            sessionManager.logoutUser();
+                            Toast.makeText(ConfirmPaymentTvChangeAct.this, getString(R.string.invalid_token), Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(ConfirmPaymentTvChangeAct.this, LoginActivity.class)
+                                    .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                            finish();
+                        }
+                    }
+
+                    else
                     {
                         binding.RRConfirm.setClickable(true);
                         binding.RRConfirm.setFocusable(true);
                         binding.RRConfirm.setEnabled(true);
                         binding.RRConfirm.setBackground(getDrawable(R.drawable.border_btn));
                         binding.txtCancel.setVisibility(View.VISIBLE);
+                        binding.imgBack.setEnabled(true);
+                        binding.imgBack.setClickable(true);
+                        chkPayStatus = true;
                         Toast.makeText(ConfirmPaymentTvChangeAct.this, jsonObject.getString("response_description"), Toast.LENGTH_SHORT).show();
                     }
 
@@ -263,15 +290,33 @@ public class ConfirmPaymentTvChangeAct extends AppCompatActivity {
                         if (jsonObject.getString("status").equalsIgnoreCase("1")) {
                             GetCommisionModel finallyPr = new Gson().fromJson(stringResponse,GetCommisionModel.class);
                             String CommisionAmount = finallyPr.getResult().getCommisionAmount();
+                            discountPercent = Integer.parseInt(finallyPr.getResult().getDiscount());
                             Double CmAmt= Double.valueOf(CommisionAmount);
                             Double TotalAmt= Double.valueOf(variation_amount);
+                            discountAmount = (TotalAmt * discountPercent ) /100;
                             Double FInalAmt=CmAmt+TotalAmt;
-
+                            FInalAmt = FInalAmt - discountAmount;
                             //  binding.tax.setText(CommisionAmount+"");
                             //   binding.totalAmountPay.setText(FInalAmt+"");
-                            binding.tax.setText("₦"+Preference.doubleToStringNoDecimal(Double.parseDouble(CommisionAmount))+"");
-                            binding.totalAmountPay.setText("₦"+Preference.doubleToStringNoDecimal(Double.parseDouble(FInalAmt+""))+"");
 
+                            binding.tvDiscountPercent.setText("Discount (" + discountPercent + "%)" );
+                            if(discountAmount<10)  {
+                                discountAmount = Double.parseDouble("0"+Preference.doubleToStringNoDecimal(discountAmount));
+                                binding.tvDiscountAmount.setText(""+"₦"+"0"+Preference.doubleToStringNoDecimal(discountAmount)+"");
+                            }
+                            else  binding.tvDiscountAmount.setText(""+"₦"+Preference.doubleToStringNoDecimal(discountAmount)+"");
+
+                            if(Double.parseDouble(CommisionAmount)<10)  {
+                                CommisionAmount = "0" + Preference.doubleToStringNoDecimal(Double.parseDouble(CommisionAmount));
+                                binding.tax.setText("₦"+ "0"+Preference.doubleToStringNoDecimal(Double.parseDouble(CommisionAmount))+"");
+                            }
+                            else binding.tax.setText("₦"+Preference.doubleToStringNoDecimal(Double.parseDouble(CommisionAmount))+"");
+
+                            if(FInalAmt<10){
+                                FInalAmt = Double.parseDouble("0"+Preference.doubleToStringNoDecimal(FInalAmt));
+                                binding.totalAmountPay.setText("₦"+ "0"+FInalAmt+"");
+                            }
+                            else binding.totalAmountPay.setText("₦"+Preference.doubleToStringNoDecimal(Double.parseDouble(FInalAmt+""))+"");
                         }
 
                         else {
@@ -300,8 +345,8 @@ public class ConfirmPaymentTvChangeAct extends AppCompatActivity {
     private void AddReportMethod(String status,String response){
         String Current_date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
         Call<ResponseBody> call = RetrofitClients.getInstance().getApi()
-                .Api_add_vtpass_book_payment(sessionManager.getUserID(),Request_IDNew,RenewalAmt,ServicesSubscriptionId,ServicesSubscriptionName,
-                        "TVchange",status,Current_date,BudgetAccountId,selectBugCategoryId,binding.edtDescription.getText().toString(),phone,binding.tax.getText().toString().replace("₦",""),response);
+                .Api_add_vtpass_book_payment(Preference.getHeader(ConfirmPaymentTvChangeAct.this),sessionManager.getUserID(),Request_IDNew,RenewalAmt,ServicesSubscriptionId,ServicesSubscriptionName,
+                        "TVchange",status,Current_date,BudgetAccountId,selectBugCategoryId,binding.edtDescription.getText().toString(),phone,binding.tax.getText().toString().replace("₦",""),response,String.valueOf(discountPercent),"","");
         call.enqueue(new Callback<ResponseBody>() {
             @RequiresApi(api = Build.VERSION_CODES.GINGERBREAD)
             @Override
@@ -313,11 +358,31 @@ public class ConfirmPaymentTvChangeAct extends AppCompatActivity {
                     Log.e("Report", "Report Response :" + stringResponse);
                     if (jsonObject.getString("status").equalsIgnoreCase("1")) {
                         // AddReportModal finallyPr = response.body();
+                        sessionManager.saveTransId(jsonObject.getString("transaction_id"));
                         startActivity(new Intent(ConfirmPaymentTvChangeAct.this,PaymentComplete.class));
                         finish();
 
-                    } else
+                    }
+
+
+                    else if (jsonObject.has("status")) {
+                        if (jsonObject.getString("status").equalsIgnoreCase("9")) {
+
+                            sessionManager.logoutUser();
+                            Toast.makeText(ConfirmPaymentTvChangeAct.this, getString(R.string.invalid_token), Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(ConfirmPaymentTvChangeAct.this, LoginActivity.class)
+                                    .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                            finish();
+                        }
+                    }
+
+
+
+                    else
                     {
+                        binding.imgBack.setEnabled(true);
+                        binding.imgBack.setClickable(true);
+                        chkPayStatus = true;
                         Toast.makeText(ConfirmPaymentTvChangeAct.this, ""+jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
                     }
 
@@ -439,6 +504,8 @@ public class ConfirmPaymentTvChangeAct extends AppCompatActivity {
         popupMenu.show();
     }
 
-
-
+    @Override
+    public void onBackPressed() {
+     if(chkPayStatus == true)  super.onBackPressed();
+    }
 }

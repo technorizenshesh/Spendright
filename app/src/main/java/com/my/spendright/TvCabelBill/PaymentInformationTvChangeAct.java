@@ -10,15 +10,24 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.google.gson.Gson;
+import com.my.spendright.Broadband.PaymentBillBroadBandAct;
+import com.my.spendright.ElectircalBill.Model.GetServiceElectricialModel;
 import com.my.spendright.Model.TvSuscriptionServiceModel;
 import com.my.spendright.R;
 import com.my.spendright.TvCabelBill.adapter.TvSusCriptionChnageAdapter;
+import com.my.spendright.act.LoginActivity;
+import com.my.spendright.adapter.ServicesAdapter;
 import com.my.spendright.databinding.ActivityPaymentInformationTvChangeBinding;
+import com.my.spendright.utils.Preference;
 import com.my.spendright.utils.RetrofitClients;
 import com.my.spendright.utils.SessionManager;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -104,30 +113,45 @@ public class PaymentInformationTvChangeAct extends AppCompatActivity {
     }
 
     private void ServiceSubscriptionPlanApi() {
-        Call<TvSuscriptionServiceModel> call = RetrofitClients.getInstance().getApi().Api_service_tv_subscription_plan(ServicesSubscriptionId);
-        call.enqueue(new Callback<TvSuscriptionServiceModel>() {
+        Call<ResponseBody> call = RetrofitClients.getInstance().getApi().Api_service_tv_subscription_plan(Preference.getHeader(PaymentInformationTvChangeAct.this),ServicesSubscriptionId);
+        call.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(@NonNull Call<TvSuscriptionServiceModel> call, @NonNull Response<TvSuscriptionServiceModel> response) {
+            public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
                 binding.progressBar.setVisibility(View.GONE);
                 if (response.isSuccessful()) {
                     // user object available
 
-                    TvSuscriptionServiceModel finallyPr = response.body();
+                    try {
+                        String stringResponse = response.body().string();
+                        JSONObject jsonObject = new JSONObject(stringResponse);
 
-                    if(finallyPr.getResponseDescription().equalsIgnoreCase("000"))
-                    {
-                        binding.edtServicesId.setText(finallyPr.getContent().getServiceName()+"");
+                        if (jsonObject.getString("response_description").equalsIgnoreCase("000")) {
+                            TvSuscriptionServiceModel finallyPr = new Gson().fromJson(stringResponse, TvSuscriptionServiceModel.class); // response.body();
+                            modelList= (ArrayList<TvSuscriptionServiceModel.Content.Varation>) finallyPr.getContent().getVarations();
+                            setAdapter(modelList);
+                        }
+                        else if(jsonObject.getString("status").equalsIgnoreCase("9")){
+                            sessionManager.logoutUser();
+                            Toast.makeText(PaymentInformationTvChangeAct.this, getString(R.string.invalid_token), Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(PaymentInformationTvChangeAct.this, LoginActivity.class)
+                                    .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK| Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                            finish();
+                        }
 
-                        modelList= (ArrayList<TvSuscriptionServiceModel.Content.Varation>) finallyPr.getContent().getVarations();
+                        else {
+                            Toast.makeText(PaymentInformationTvChangeAct.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                        }
 
-                        setAdapter(modelList);
+
+                    }catch (Exception e){
+                        e.printStackTrace();
                     }
                 } else {
                     Toast.makeText(PaymentInformationTvChangeAct.this, response.message(), Toast.LENGTH_SHORT).show();
                 }
             }
             @Override
-            public void onFailure(@NonNull Call<TvSuscriptionServiceModel> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
                 binding.progressBar.setVisibility(View.GONE);
             }
         });

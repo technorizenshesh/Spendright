@@ -158,17 +158,22 @@ public class Registration extends AppCompatActivity {
 
         if(binding.edUsername.getText().toString().equalsIgnoreCase(""))
             Toast.makeText(this, "Please Enter User name.", Toast.LENGTH_SHORT).show();
-            else if(binding.edLastName.getText().toString().equalsIgnoreCase(""))
+           /* else if(binding.edLastName.getText().toString().equalsIgnoreCase(""))
             Toast.makeText(this, "Please Enter Last name.", Toast.LENGTH_SHORT).show();
             else if(binding.edOtherName.getText().toString().equalsIgnoreCase(""))
-            Toast.makeText(this, "Please Enter Other name.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Please Enter Other name.", Toast.LENGTH_SHORT).show();*/
             else if(binding.edEmail.getText().toString().equalsIgnoreCase(""))
             Toast.makeText(this, "Please Enter Email.", Toast.LENGTH_SHORT).show();
         else if(!binding.edEmail.getText().toString().matches(emailPattern))
             Toast.makeText(this, "Wrong Email.", Toast.LENGTH_SHORT).show();
             else if(binding.edPhoneNumber.getText().toString().equalsIgnoreCase(""))
             Toast.makeText(this, "Please Enter Phone number.", Toast.LENGTH_SHORT).show();
-            else
+        else if (binding.edPassword.getText().toString().equalsIgnoreCase(""))
+            Toast.makeText(this, "Please Enter Password.", Toast.LENGTH_SHORT).show();
+        else if (!binding.checEdTerms.isChecked())
+            Toast.makeText(this, "please accept Terms &amp; Conditions.", Toast.LENGTH_SHORT).show();
+
+        else
         {
             if (sessionManager.isNetworkAvailable()) {
                // binding.progressBar.setVisibility(View.VISIBLE);
@@ -177,13 +182,15 @@ public class Registration extends AppCompatActivity {
              //   signUpMethod_one("");
                 HashMap<String,String> map = new HashMap<>();
                 map.put("user_name",binding.edUsername.getText().toString());
-                map.put("first_name","");
-                map.put("last_name",binding.edLastName.getText().toString());
-                map.put("other_legal_name",binding.edOtherName.getText().toString());
+            //    map.put("first_name","");
+            //    map.put("last_name",binding.edLastName.getText().toString());
+            //    map.put("other_legal_name",binding.edOtherName.getText().toString());
                 map.put("email",binding.edEmail.getText().toString());
                 map.put("phone_number",binding.edPhoneNumber.getText().toString() );
                 map.put("country_code",binding.CpCountry.getSelectedCountryCodeWithPlus());
-                startActivity(new Intent(Registration.this,RegistrationSecondAct.class).putExtra("phone_number",binding.edPhoneNumber.getText().toString())
+                map.put("referral_code",binding.edReferralCode.getText().toString());
+                map.put("password",binding.edPassword.getText().toString());
+                startActivity(new Intent(Registration.this,LoginOne.class).putExtra("phone_number",binding.edPhoneNumber.getText().toString())
                         .putExtra("countryCode",binding.CpCountry.getSelectedCountryCodeWithPlus()).putExtra("hashMaps",map));
 
 

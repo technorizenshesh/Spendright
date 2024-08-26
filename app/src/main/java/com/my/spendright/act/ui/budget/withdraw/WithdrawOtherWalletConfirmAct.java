@@ -50,7 +50,7 @@ public class WithdrawOtherWalletConfirmAct extends AppCompatActivity {
     private ArrayList<GetCategoryModelNew.Result> modelListCategory;
     ArrayList<IncomeExpenseCatModel.Category> arrayList;
     IncomeExpenseCatModel incomeExpenseCatModel;
-
+    boolean chkPayStatus = false;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,7 +90,7 @@ public class WithdrawOtherWalletConfirmAct extends AppCompatActivity {
 
 
         binding.imgBack.setOnClickListener(v -> {
-            onBackPressed();
+            finish();
         });
 
         binding.txtCancel.setOnClickListener(v -> {
@@ -117,7 +117,9 @@ public class WithdrawOtherWalletConfirmAct extends AppCompatActivity {
                       binding.RRConfirm.setEnabled(false);
                   binding.RRConfirm.setBackground(getDrawable(R.drawable.btn_inactive_bg));
                   binding.txtCancel.setVisibility(View.GONE);
-
+                  binding.imgBack.setEnabled(false);
+                  binding.imgBack.setClickable(false);
+                  chkPayStatus = false;
                   transferToAnotherWallet(t);
 
                 }else {
@@ -283,6 +285,9 @@ public class WithdrawOtherWalletConfirmAct extends AppCompatActivity {
                         binding.RRConfirm.setEnabled(true);
                         binding.RRConfirm.setBackground(getDrawable(R.drawable.border_btn));
                         binding.txtCancel.setVisibility(View.VISIBLE);
+                        binding.imgBack.setEnabled(true);
+                        binding.imgBack.setClickable(true);
+                        chkPayStatus = true;
                         Toast.makeText(WithdrawOtherWalletConfirmAct.this,jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
 
                     }
@@ -373,4 +378,8 @@ public class WithdrawOtherWalletConfirmAct extends AppCompatActivity {
         popupMenu.show();
     }
 
+    @Override
+    public void onBackPressed() {
+      if(chkPayStatus == true)  super.onBackPressed();
+    }
 }

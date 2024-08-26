@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+    <RelativeLayout android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        xmlns:android="http://schemas.android.com/apk/res/android">
+
+        <RelativeLayout
+            android:id="@+id/RRtoolbaar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_50sdp"
+            android:background="@color/blue"
+            >
+
+            <ImageView
+                android:id="@+id/imgBack"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/left_arraow"
+                android:layout_width="@dimen/_15sdp"
+                android:layout_height="@dimen/_15sdp"
+                />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="Receipt"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_14sdp"
+                android:textStyle="bold" />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true">
+
+                <ImageView
+                    android:id="@+id/ivDownload"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:src="@drawable/ic_downloads"
+                    android:layout_width="@dimen/_15sdp"
+                    android:layout_height="@dimen/_15sdp"
+                    app:tint="@color/white"
+                    android:layout_marginEnd="@dimen/_15sdp"
+                    android:layout_centerInParent="true"
+                    android:layout_toStartOf="@+id/ivShare"/>
+
+                <ImageView
+                    android:id="@+id/ivShare"
+                    android:src="@drawable/ic_shares"
+                    android:layout_width="@dimen/_15sdp"
+                    android:layout_height="@dimen/_15sdp"
+                    app:tint="@color/white"
+                    android:layout_marginEnd="@dimen/_15sdp"
+                    android:layout_centerInParent="true"
+                    android:layout_alignParentEnd="true"/>
+
+
+            </RelativeLayout>
+
+
+
+
+        </RelativeLayout>
+
+
+
+
+        <WebView
+            android:id="@+id/webView"
+            android:layout_below="@+id/RRtoolbaar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+
+
+
+
+    </RelativeLayout>
+
+
+
+</layout>

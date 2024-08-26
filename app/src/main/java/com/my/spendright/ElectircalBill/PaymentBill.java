@@ -16,9 +16,11 @@ import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.my.spendright.Broadband.PaymentBillBroadBandAct;
 import com.my.spendright.ElectircalBill.Model.GetMerchatAcocunt;
 import com.my.spendright.ElectircalBill.Model.GetServiceElectricialModel;
 import com.my.spendright.R;
+import com.my.spendright.act.LoginActivity;
 import com.my.spendright.act.PaymentInformation;
 import com.my.spendright.adapter.ServicesAdapter;
 import com.my.spendright.databinding.ActivityPaymentBillBinding;
@@ -134,7 +136,7 @@ public class PaymentBill extends AppCompatActivity {
 
 
     private void MerchantAccounCheck() {
-        Call<ResponseBody> call = RetrofitClients.getInstance().getApi().Api_merchant_verify(BillNumber,ServicesId,type);
+        Call<ResponseBody> call = RetrofitClients.getInstance().getApi().Api_merchant_verify(Preference.getHeader(PaymentBill.this),BillNumber,ServicesId,type);
         Map<String,String>map = new HashMap<>();
         map.put("billersCode",BillNumber);
         map.put("serviceID",ServicesId);
@@ -154,6 +156,9 @@ public class PaymentBill extends AppCompatActivity {
                         if (jsonObject.getString("code").equalsIgnoreCase("000")) {
                             GetMerchatAcocunt finallyPr = new Gson().fromJson(stringResponse,GetMerchatAcocunt.class);
                             if (!finallyPr.getContent().getCustomerName().equals("")) {
+                                sessionManager.saveEleAddress(finallyPr.getContent().getAddress());
+                                sessionManager.saveEleType(type);
+
                                 startActivity(new Intent(PaymentBill.this, PaymentInformation.class)
                                         .putExtra("Customer_Name", finallyPr.getContent().getCustomerName() + "")
                                         .putExtra("Meter_Number", BillNumber + "")
@@ -167,6 +172,18 @@ public class PaymentBill extends AppCompatActivity {
 
                             }
                         }
+
+
+                        else if(jsonObject.getString("status").equalsIgnoreCase("9")){
+                            sessionManager.logoutUser();
+                            Toast.makeText(PaymentBill.this, getString(R.string.invalid_token), Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(PaymentBill.this, LoginActivity.class)
+                                    .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK| Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                            finish();
+                        }
+
+
+
 
                         else
                         {
@@ -195,27 +212,48 @@ public class PaymentBill extends AppCompatActivity {
 
 
     private void ServiceApi() {
-        Call<GetServiceElectricialModel> call = RetrofitClients.getInstance().getApi().Api_service_electricity_bill();
-        call.enqueue(new Callback<GetServiceElectricialModel>() {
+        Call<ResponseBody> call = RetrofitClients.getInstance().getApi().Api_service_electricity_bill(Preference.getHeader(PaymentBill.this));
+        call.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(@NonNull Call<GetServiceElectricialModel> call, @NonNull Response<GetServiceElectricialModel> response) {
+            public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
                 binding.progressBar.setVisibility(View.GONE);
                 if (response.isSuccessful()) {
                     // user object available
+                    try {
+                        String stringResponse = response.body().string();
+                        JSONObject jsonObject = new JSONObject(stringResponse);
 
-                    GetServiceElectricialModel finallyPr = response.body();
-                    modelListCategory= (ArrayList<GetServiceElectricialModel.Content>) finallyPr.getContent();
+                        if (jsonObject.getString("response_description").equalsIgnoreCase("000")) {
+                            GetServiceElectricialModel finallyPr = new Gson().fromJson(stringResponse, GetServiceElectricialModel.class); // response.body();
+                            //  GetServiceElectricialModel finallyPr = response.body();
+                            modelListCategory = (ArrayList<GetServiceElectricialModel.Content>) finallyPr.getContent();
 
-                    ServicesAdapter customAdapter=new ServicesAdapter(PaymentBill.this,modelListCategory);
-                    binding.spinnerService.setAdapter(customAdapter);
+                            ServicesAdapter customAdapter = new ServicesAdapter(PaymentBill.this, modelListCategory);
+                            binding.spinnerService.setAdapter(customAdapter);
+                        } else if (jsonObject.getString("status").equalsIgnoreCase("9")) {
+                            sessionManager.logoutUser();
+                            Toast.makeText(PaymentBill.this, getString(R.string.invalid_token), Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(PaymentBill.this, LoginActivity.class)
+                                    .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                            finish();
+                        }
 
+
+                        else {
+                            Toast.makeText(PaymentBill.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                        }
+
+
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
 
                 } else {
                     Toast.makeText(PaymentBill.this, response.message(), Toast.LENGTH_SHORT).show();
                 }
             }
             @Override
-            public void onFailure(@NonNull Call<GetServiceElectricialModel> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
                 binding.progressBar.setVisibility(View.GONE);
             }
         });

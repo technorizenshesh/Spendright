@@ -123,7 +123,8 @@
                         android:textColor="@color/black"
                         android:textColorHint="@color/gray"
                         android:textSize="@dimen/_12sdp"
-                        android:textStyle="bold"/>
+
+                        />
 
                 </LinearLayout>
 
@@ -226,7 +227,7 @@
                         android:paddingLeft="@dimen/_10sdp"
                         android:text="Prepaid"
                         android:textColor="@color/black"
-                        android:textSize="@dimen/_16sdp"
+                        android:textSize="@dimen/_12sdp"
                         android:visibility="visible" />
 
                     <ImageView

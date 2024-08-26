@@ -29,99 +29,177 @@
             />
 
 
-        <ImageView
-            android:id="@+id/ivLogo"
-            android:layout_width="@dimen/_100sdp"
-            android:layout_height="@dimen/_40sdp"
-            android:layout_centerHorizontal="true"
-            android:src="@drawable/logo_welcome"
-            />
+
         <RelativeLayout
-            android:id="@+id/RRtoolbaar"
-            android:layout_below="@+id/ivLogo"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_30sdp"
-            android:layout_marginTop="@dimen/_3sdp"
-            android:layout_marginBottom="@dimen/_8sdp">
+            android:layout_height="wrap_content"
+            android:id="@+id/rlHeader">
+            <ImageView
+                android:id="@+id/ivLogo"
+                android:layout_width="@dimen/_100sdp"
+                android:layout_height="@dimen/_40sdp"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/logo_welcome"
+                android:visibility="gone"
+                />
 
 
-            <TextView
-                android:id="@+id/txtUser"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:text=""
-                android:textColor="@color/white"
-                android:textSize="@dimen/_16sdp"
-                android:textStyle="bold" />
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_alignParentRight="true"
-                android:orientation="horizontal">
+            <RelativeLayout
+                android:id="@+id/RRtoolbaar"
+                android:layout_below="@+id/ivLogo"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_40sdp"
+                android:layout_marginTop="@dimen/_3sdp"
+                android:layout_marginBottom="@dimen/_3sdp"
+                android:padding="@dimen/_2sdp">
 
-                <RelativeLayout
-                    android:id="@+id/RRNotification"
-                    android:layout_width="@dimen/_40sdp"
-                    android:layout_height="match_parent"
-                    android:visibility="visible">
 
-                    <ImageView
-                        android:layout_width="@dimen/_20sdp"
-                        android:layout_height="@dimen/_20sdp"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginRight="@dimen/_10sdp"
-                        android:src="@drawable/notifications">
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/ivAvatar"
+                    android:layout_width="@dimen/_50sdp"
+                    android:layout_height="@dimen/_50sdp"
+                    android:layout_alignParentStart="true"
+                    android:padding="@dimen/_3sdp"
+                    android:src="@drawable/ic_user_default"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    app:civ_border_color="@color/white"
+                    app:civ_border_width="1dp"/>
 
-                    </ImageView>
+
+
+                <LinearLayout
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_toEndOf="@+id/ivAvatar"
+                    android:layout_toStartOf="@+id/llNotification"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical"
+
+                    >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+
+                        >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:text="Welcome, "
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_16sdp"
+                            android:textStyle="normal" />
+
+
+                        <TextView
+                            android:id="@+id/txtUser"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_toEndOf="@+id/txtLastLogin"
+                            android:gravity="center_horizontal"
+                            android:text=""
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_16sdp"
+                            android:textStyle="bold" />
+
+
+                    </LinearLayout>
 
 
                     <TextView
-                        android:id="@+id/tvCounter"
+                        android:id="@+id/txtLastLogin"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="@dimen/_8sdp"
-                        android:textColor="@color/white"
-                        android:layout_marginEnd="@dimen/_5sdp"
-                        android:gravity="center"
-                        android:padding="@dimen/_2sdp"
-                        android:layout_alignParentRight="true"
-                        android:background="@drawable/circle_red"
-                        android:visibility="gone"
-                        android:text="12"
-                        />
-
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/RRProfile"
-                    android:layout_width="@dimen/_40sdp"
-                    android:layout_height="match_parent"
-                    android:visibility="gone">
-
-                    <ImageView
-
-                        android:layout_width="@dimen/_20sdp"
-                        android:layout_height="@dimen/_20sdp"
-                        android:layout_alignParentRight="true"
+                        android:layout_height="match_parent"
                         android:layout_centerVertical="true"
-                        android:layout_marginRight="@dimen/_10sdp"
-                        android:src="@drawable/setting">
+                        android:layout_margin="@dimen/_2sdp"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_8sdp"
+                        android:textStyle="bold" />
+                </LinearLayout>
 
-                    </ImageView>
 
-                </RelativeLayout>
 
-            </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/llNotification"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:id="@+id/RRNotification"
+                        android:layout_width="@dimen/_40sdp"
+                        android:layout_height="match_parent"
+                        android:visibility="visible">
+
+                        <ImageView
+                            android:layout_width="@dimen/_20sdp"
+                            android:layout_height="@dimen/_20sdp"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="@dimen/_10sdp"
+                            android:src="@drawable/notifications">
+
+                        </ImageView>
+
+
+                        <TextView
+                            android:id="@+id/tvCounter"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/_8sdp"
+                            android:textColor="@color/white"
+                            android:layout_marginEnd="@dimen/_5sdp"
+                            android:gravity="center"
+                            android:padding="@dimen/_2sdp"
+                            android:layout_alignParentRight="true"
+                            android:background="@drawable/circle_red"
+                            android:visibility="gone"
+                            android:text="12"
+                            />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/RRProfile"
+                        android:layout_width="@dimen/_40sdp"
+                        android:layout_height="match_parent"
+                        android:visibility="gone">
+
+                        <ImageView
+
+                            android:layout_width="@dimen/_20sdp"
+                            android:layout_height="@dimen/_20sdp"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="@dimen/_10sdp"
+                            android:src="@drawable/setting">
+
+                        </ImageView>
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
 
         </RelativeLayout>
+
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/RRtoolbaar"
+            android:layout_below="@+id/rlHeader"
             android:orientation="vertical"
             android:visibility="visible">
 
@@ -431,7 +509,8 @@
                             android:gravity="center"
                             android:text="@string/credit_wallet"
                             android:textColor="@color/black"
-                            android:textSize="@dimen/_9sdp" />
+                            android:textSize="@dimen/_9sdp"
+                            android:textStyle="bold"/>
 
                     </LinearLayout>
 
@@ -464,7 +543,8 @@
                             android:gravity="center"
                             android:text="@string/set_budget1"
                             android:textColor="@color/black"
-                            android:textSize="@dimen/_9sdp" />
+                            android:textSize="@dimen/_9sdp"
+                            android:textStyle="bold"/>
 
                     </LinearLayout>
 
@@ -481,10 +561,10 @@
 
 
                         <ImageView
-                            android:layout_width="@dimen/_20sdp"
+                            android:layout_width="@dimen/_25sdp"
                             android:layout_height="@dimen/_20sdp"
                             android:layout_gravity="center"
-                            android:src="@drawable/ic_fund_transfer"/>
+                            android:src="@drawable/ic_fund_transfer1"/>
 
 
                         <TextView
@@ -496,7 +576,8 @@
                             android:gravity="center"
                             android:text="@string/fund_transfer"
                             android:textColor="@color/black"
-                            android:textSize="@dimen/_9sdp" />
+                            android:textSize="@dimen/_9sdp"
+                            android:textStyle="bold"/>
 
                     </LinearLayout>
 
@@ -529,7 +610,7 @@
                             android:layout_width="@dimen/_20sdp"
                             android:layout_height="@dimen/_20sdp"
                             android:layout_gravity="center"
-                            android:src="@drawable/ic_virtual_cardss"/>
+                            android:src="@drawable/ic_education"/>
 
                         <!--virtual_card-->
 
@@ -539,15 +620,16 @@
                             android:orientation="vertical">
 
                             <TextView
-                                android:layout_width="wrap_content"
+                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:fontFamily="@font/poppinsregular"
                                 android:layout_marginTop="@dimen/_5sdp"
                                 android:gravity="center"
-                                android:text="Virtual Card"
+                                android:text="Education"
                                 android:textColor="@color/black"
-                                android:textSize="@dimen/_9sdp" />
+                                android:textSize="@dimen/_9sdp"
+                                android:textStyle="bold"/>
 
 
                             <TextView
@@ -557,7 +639,9 @@
                                 android:fontFamily="@font/poppinsregular"
                                 android:gravity="center"
                                 android:text="Coming soon"
+                                android:layout_marginTop="-3dp"
                                 android:textColor="@color/red"
+                                android:visibility="gone"
                                 android:textSize="@dimen/_7sdp" />
 
                         </LinearLayout>
@@ -593,7 +677,8 @@
                             android:gravity="center"
                             android:text="@string/data"
                             android:textColor="@color/black"
-                            android:textSize="@dimen/_9sdp" />
+                            android:textSize="@dimen/_9sdp"
+                            android:textStyle="bold"/>
 
                     </LinearLayout>
 
@@ -610,10 +695,10 @@
 
 
                         <ImageView
-                            android:layout_width="@dimen/_20sdp"
+                            android:layout_width="@dimen/_25sdp"
                             android:layout_height="@dimen/_20sdp"
                             android:layout_gravity="center"
-                            android:src="@drawable/ic_airtime"/>
+                            android:src="@drawable/ic_airtime1"/>
 
 
                         <TextView
@@ -626,7 +711,8 @@
                             android:text="@string/airtime"
                             android:lineSpacingExtra="-3dp"
                             android:textColor="@color/black"
-                            android:textSize="@dimen/_9sdp" />
+                            android:textSize="@dimen/_9sdp"
+                            android:textStyle="bold"/>
 
                     </LinearLayout>
 
@@ -674,7 +760,8 @@
                             android:gravity="center"
                             android:text="@string/cable"
                             android:textColor="@color/black"
-                            android:textSize="@dimen/_9sdp" />
+                            android:textSize="@dimen/_9sdp"
+                            android:textStyle="bold"/>
 
                     </LinearLayout>
 
@@ -708,7 +795,8 @@
                             android:text="@string/electricity"
                             android:lineSpacingExtra="-3dp"
                             android:textColor="@color/black"
-                            android:textSize="@dimen/_9sdp" />
+                            android:textSize="@dimen/_9sdp"
+                            android:textStyle="bold"/>
 
                     </LinearLayout>
 

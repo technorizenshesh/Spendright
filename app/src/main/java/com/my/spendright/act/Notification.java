@@ -63,6 +63,12 @@ public class Notification extends AppCompatActivity {
             finish();
         });
 
+
+        binding.tvClear.setOnClickListener(v -> {
+            clearNotification();
+        });
+
+
         getAllNotification();
     }
 
@@ -83,6 +89,7 @@ public class Notification extends AppCompatActivity {
 
 
                     if (jsonObject.getString("status").equalsIgnoreCase("1")) {
+                        binding.txtNotFound.setVisibility(View.GONE);
                         NotificationModel finallyPr = new Gson().fromJson(stringResponse, NotificationModel.class);
                         arrayList.clear();
                         arrayList.addAll(finallyPr.getResult());
@@ -93,6 +100,7 @@ public class Notification extends AppCompatActivity {
                     {
                         arrayList.clear();
                         adapter.notifyDataSetChanged();
+                        binding.txtNotFound.setVisibility(View.VISIBLE);
                     }
                 }catch (Exception e)
                 {
@@ -107,5 +115,40 @@ public class Notification extends AppCompatActivity {
             }
         });
     }
+
+
+    private void clearNotification() {
+        binding.progressBar.setVisibility(View.VISIBLE);
+        Call<ResponseBody> call = RetrofitClients.getInstance().getApi()
+                .Api_clearAll_user_notification(sessionManager.getUserID());
+        call.enqueue(new Callback<ResponseBody>() {
+            @RequiresApi(api = Build.VERSION_CODES.GINGERBREAD)
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                binding.progressBar.setVisibility(View.GONE);
+                try {
+                    String stringResponse = response.body().string();
+                    JSONObject jsonObject = new JSONObject(stringResponse);
+                    Log.e(TAG, "Notification Clear Response = " + stringResponse);
+                    getAllNotification();
+
+                }catch (Exception e)
+                {
+                    e.printStackTrace();
+
+
+                }
+            }
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                binding.progressBar.setVisibility(View.GONE);
+            }
+        });
+    }
+
+
+
+
+
 
 }

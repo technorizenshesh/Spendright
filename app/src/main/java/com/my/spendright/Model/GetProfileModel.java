@@ -284,6 +284,42 @@ public class GetProfileModel {
         private String referralBonus;
 
 
+        @SerializedName("last_login")
+        @Expose
+        private String lastLogin;
+
+        @SerializedName("recreate_monnify_account")
+        @Expose
+        private String recreateMonnifyAccount;
+
+        @SerializedName("token")
+        @Expose
+        private String token;
+
+        public String getToken() {
+            return token;
+        }
+
+        public void setToken(String token) {
+            this.token = token;
+        }
+
+        public String getRecreateMonnifyAccount() {
+            return recreateMonnifyAccount;
+        }
+
+        public void setRecreateMonnifyAccount(String recreateMonnifyAccount) {
+            this.recreateMonnifyAccount = recreateMonnifyAccount;
+        }
+
+        public String getLastLogin() {
+            return lastLogin;
+        }
+
+        public void setLastLogin(String lastLogin) {
+            this.lastLogin = lastLogin;
+        }
+
         @SerializedName("payment_wallet_original") // wallet balance
         @Expose
         private String paymentWalletOriginal;

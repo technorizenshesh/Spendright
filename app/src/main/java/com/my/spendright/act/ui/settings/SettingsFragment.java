@@ -20,13 +20,17 @@ import androidx.annotation.RequiresApi;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
+import com.google.gson.Gson;
+import com.my.spendright.Broadband.PaymentBillBroadBandAct;
 import com.my.spendright.Model.GetProfileModel;
 import com.my.spendright.Model.LoginModel;
+import com.my.spendright.Model.TvSuscriptionServiceModel;
 import com.my.spendright.R;
 import com.my.spendright.act.ChangePassword;
 import com.my.spendright.act.FundAct;
 import com.my.spendright.act.HomeActivity;
 import com.my.spendright.act.KYCAct;
+import com.my.spendright.act.LoginActivity;
 import com.my.spendright.act.ManageBeneficiaryAct;
 import com.my.spendright.act.MyProfileAct;
 import com.my.spendright.act.SelectAccount;
@@ -39,6 +43,9 @@ import com.my.spendright.utils.Preference;
 import com.my.spendright.utils.RetrofitClients;
 import com.my.spendright.utils.SessionManager;
 
+import org.json.JSONObject;
+
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -194,19 +201,32 @@ public class SettingsFragment extends Fragment implements CreateVirtualListener 
 
     private void GetProfileMethod() {
        // binding.progressBar.setVisibility(View.VISIBLE);
-        Call<LoginModel> call = RetrofitClients.getInstance().getApi()
-                .Api_get_profile(sessionManager.getUserID());
-        call.enqueue(new Callback<LoginModel>() {
+        Call<ResponseBody> call = RetrofitClients.getInstance().getApi()
+                .Api_get_profile(Preference.getHeader(getActivity()),sessionManager.getUserID());
+        call.enqueue(new Callback<ResponseBody>() {
             @RequiresApi(api = Build.VERSION_CODES.GINGERBREAD)
             @Override
-            public void onResponse(Call<LoginModel> call, Response<LoginModel> response) {
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 binding.progressBar.setVisibility(View.GONE);
                 try {
-                    finallyPr = response.body();
-                    if (finallyPr.getStatus().equalsIgnoreCase("1")) {
-                        //sessionManager.saveAccountReference(finallyPr.getResult().getBatchId());
+                    String stringResponse = response.body().string();
+                    JSONObject jsonObject = new JSONObject(stringResponse);
+                    if (jsonObject.getString("status").equalsIgnoreCase("1")) {
+                         finallyPr = new Gson().fromJson(stringResponse, LoginModel.class); // response.body();
 
-                    } else {
+                    }
+
+                    else if(jsonObject.getString("status").equalsIgnoreCase("9")){
+                        sessionManager.logoutUser();
+                        Toast.makeText(getActivity(), getString(R.string.invalid_token), Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(getActivity(), LoginActivity.class)
+                                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK| Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                        getActivity().finish();
+                    }
+
+
+
+                    else {
 
                         Toast.makeText(getActivity(), "" + finallyPr.getMessage(), Toast.LENGTH_SHORT).show();
                         binding.progressBar.setVisibility(View.GONE);
@@ -220,7 +240,7 @@ public class SettingsFragment extends Fragment implements CreateVirtualListener 
             }
 
             @Override
-            public void onFailure(Call<LoginModel> call, Throwable t) {
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
                 binding.progressBar.setVisibility(View.GONE);
                 //   binding.RRadd.setVisibility (View.VISIBLE);
             }

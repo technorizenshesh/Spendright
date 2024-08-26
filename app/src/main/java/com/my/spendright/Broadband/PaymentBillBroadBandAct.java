@@ -1,5 +1,7 @@
 package com.my.spendright.Broadband;
 
+import static com.flutterwave.raveandroid.RavePayActivity.BASE_URL;
+
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -15,20 +17,30 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.google.gson.Gson;
+import com.my.spendright.BuildConfig;
 import com.my.spendright.ElectircalBill.Model.GetServiceElectricialModel;
 import com.my.spendright.Model.TvSuscriptionServiceModel;
 import com.my.spendright.R;
 import com.my.spendright.TvCabelBill.adapter.TvSusCriptionChnageAdapter;
+import com.my.spendright.act.LoginActivity;
 import com.my.spendright.adapter.ServicesAdapter;
 import com.my.spendright.databinding.ActivityPaymentBillBroadbandBinding;
+import com.my.spendright.utils.Api;
+import com.my.spendright.utils.ApiClientWithHeader;
+import com.my.spendright.utils.Preference;
 import com.my.spendright.utils.RetrofitClients;
 import com.my.spendright.utils.SessionManager;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class PaymentBillBroadBandAct extends AppCompatActivity {
 
@@ -177,26 +189,54 @@ public class PaymentBillBroadBandAct extends AppCompatActivity {
 
 
     private void ServiceApi() {
-        Call<GetServiceElectricialModel> call = RetrofitClients.getInstance().getApi().Api_service_data();
-        call.enqueue(new Callback<GetServiceElectricialModel>() {
+        Call<ResponseBody> call = RetrofitClients.getInstance().getApi().Api_service_data(Preference.getHeader(PaymentBillBroadBandAct.this));
+     //  Call<ResponseBody> call = ApiClientWithHeader.getInstance(PaymentBillBroadBandAct.this).getApi().Api_service_data();
+
+
+
+        call.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(@NonNull Call<GetServiceElectricialModel> call, @NonNull Response<GetServiceElectricialModel> response) {
+            public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
                 binding.progressBar.setVisibility(View.GONE);
                 if (response.isSuccessful()) {
-                    // user object available
+                    try {
+                        // user object available
+                        String stringResponse = response.body().string();
+                        JSONObject jsonObject = new JSONObject(stringResponse);
 
-                    GetServiceElectricialModel finallyPr = response.body();
-                    modelListCategory= (ArrayList<GetServiceElectricialModel.Content>) finallyPr.getContent();
+                        if (jsonObject.getString("response_description").equalsIgnoreCase("000")) {
+                            GetServiceElectricialModel finallyPr = new Gson().fromJson(stringResponse, GetServiceElectricialModel.class); // response.body();
+                            modelListCategory = (ArrayList<GetServiceElectricialModel.Content>) finallyPr.getContent();
+                            ServicesAdapter customAdapter = new ServicesAdapter(PaymentBillBroadBandAct.this, modelListCategory);
+                            binding.spinnerServicedata.setAdapter(customAdapter);
+                        }
 
-                    ServicesAdapter customAdapter=new ServicesAdapter(PaymentBillBroadBandAct.this,modelListCategory);
-                    binding.spinnerServicedata.setAdapter(customAdapter);
+                        else if(jsonObject.getString("status").equalsIgnoreCase("9")){
+                            sessionManager.logoutUser();
+                            Toast.makeText(PaymentBillBroadBandAct.this, getString(R.string.invalid_token), Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(PaymentBillBroadBandAct.this, LoginActivity.class)
+                                    .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK| Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                            finish();
+                        }
+
+
+                        else {
+                            Toast.makeText(PaymentBillBroadBandAct.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                        }
+
+
+
+                    }
+                    catch (Exception e){
+                        e.printStackTrace();
+                    }
 
                 } else {
                     Toast.makeText(PaymentBillBroadBandAct.this, response.message(), Toast.LENGTH_SHORT).show();
                 }
             }
             @Override
-            public void onFailure(@NonNull Call<GetServiceElectricialModel> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
                 binding.progressBar.setVisibility(View.GONE);
             }
         });
@@ -204,29 +244,49 @@ public class PaymentBillBroadBandAct extends AppCompatActivity {
 
 
     private void ServiceSubscriptionPlanApi() {
-        Call<TvSuscriptionServiceModel> call = RetrofitClients.getInstance().getApi().Api_service_data_plan(ServicesId);
-        call.enqueue(new Callback<TvSuscriptionServiceModel>() {
+        Call<ResponseBody> call = RetrofitClients.getInstance().getApi().Api_service_data_plan(Preference.getHeader(PaymentBillBroadBandAct.this),ServicesId);
+        call.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(@NonNull Call<TvSuscriptionServiceModel> call, @NonNull Response<TvSuscriptionServiceModel> response) {
+            public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
                 binding.progressBar.setVisibility(View.GONE);
                 if (response.isSuccessful()) {
                     // user object available
 
-                    TvSuscriptionServiceModel finallyPr = response.body();
+                    try {
+                        // user object available
+                        String stringResponse = response.body().string();
+                        JSONObject jsonObject = new JSONObject(stringResponse);
 
-                    if(finallyPr.getResponseDescription().equalsIgnoreCase("000"))
-                    {
+                        if (jsonObject.getString("response_description").equalsIgnoreCase("000")) {
+                            TvSuscriptionServiceModel finallyPr = new Gson().fromJson(stringResponse, TvSuscriptionServiceModel.class); // response.body();
+                            modelList= (ArrayList<TvSuscriptionServiceModel.Content.Varation>) finallyPr.getContent().getVarations();
+                            setAdapter(modelList);
+                        }
 
-                        modelList= (ArrayList<TvSuscriptionServiceModel.Content.Varation>) finallyPr.getContent().getVarations();
+                        else if(jsonObject.getString("status").equalsIgnoreCase("9")){
+                            sessionManager.logoutUser();
+                            Toast.makeText(PaymentBillBroadBandAct.this, getString(R.string.invalid_token), Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(PaymentBillBroadBandAct.this, LoginActivity.class)
+                                    .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK| Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                            finish();
+                        }
 
-                        setAdapter(modelList);
+
+                        else {
+                            Toast.makeText(PaymentBillBroadBandAct.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                        }
+
+
+
+                    }catch (Exception e){
+                        e.printStackTrace();
                     }
                 } else {
                     Toast.makeText(PaymentBillBroadBandAct.this, response.message(), Toast.LENGTH_SHORT).show();
                 }
             }
             @Override
-            public void onFailure(@NonNull Call<TvSuscriptionServiceModel> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
                 binding.progressBar.setVisibility(View.GONE);
             }
         });

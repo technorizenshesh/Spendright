@@ -12,8 +12,12 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.my.spendright.Broadband.PaymentBillBroadBandAct;
+import com.my.spendright.Model.TvSuscriptionServiceModel;
 import com.my.spendright.NumberTextWatcher;
 import com.my.spendright.R;
+import com.my.spendright.act.LoginActivity;
 import com.my.spendright.airetime.adapter.ServicesAdapterForienAmt;
 import com.my.spendright.airetime.model.GetAmountAirtimeModel;
 import com.my.spendright.databinding.ActivityForeignAirtimeBinding;
@@ -21,8 +25,11 @@ import com.my.spendright.utils.Preference;
 import com.my.spendright.utils.RetrofitClients;
 import com.my.spendright.utils.SessionManager;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -231,32 +238,42 @@ public class ForeignAirtimeActivity extends AppCompatActivity {
     }
 
     private void ServiceApi() {
-        Call<GetAmountAirtimeModel> call = RetrofitClients.getInstance().getApi().Api_get_international_airtime_service_variations(serviceID,OPerator_Id,ProductId);
-        call.enqueue(new Callback<GetAmountAirtimeModel>() {
+        Call<ResponseBody> call = RetrofitClients.getInstance().getApi().Api_get_international_airtime_service_variations(Preference.getHeader(ForeignAirtimeActivity.this),serviceID,OPerator_Id,ProductId);
+        call.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(@NonNull Call<GetAmountAirtimeModel> call, @NonNull Response<GetAmountAirtimeModel> response) {
+            public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
 
                 binding.progressBar.setVisibility(View.GONE);
                 try {
                     if (response.isSuccessful()) {
                         // user object available
+                        String stringResponse = response.body().string();
+                        JSONObject jsonObject = new JSONObject(stringResponse);
 
-                        GetAmountAirtimeModel finallyPr = response.body();
-                        modelListAmt = (ArrayList<GetAmountAirtimeModel.Content.Variation>) finallyPr.getContent().getVariations();
-
-                        if (finallyPr.getResponseDescription().equalsIgnoreCase("000")) {
+                        if (jsonObject.getString("response_description").equalsIgnoreCase("000")) {
+                            GetAmountAirtimeModel finallyPr = new Gson().fromJson(stringResponse, GetAmountAirtimeModel.class); // response.body();
+                            modelListAmt = (ArrayList<GetAmountAirtimeModel.Content.Variation>) finallyPr.getContent().getVariations();
                             ServicesAdapterForienAmt customAdapter1 = new ServicesAdapterForienAmt(ForeignAirtimeActivity.this, modelListAmt);
                             binding.spinnerServiceAmount.setAdapter(customAdapter1);
+
+                        } else if (jsonObject.getString("status").equalsIgnoreCase("9")) {
+                            sessionManager.logoutUser();
+                            Toast.makeText(ForeignAirtimeActivity.this, getString(R.string.invalid_token), Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(ForeignAirtimeActivity.this, LoginActivity.class)
+                                    .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                            finish();
+                        } else {
+                            Toast.makeText(ForeignAirtimeActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
                         }
-                    } else {
-                        Toast.makeText(ForeignAirtimeActivity.this, response.message(), Toast.LENGTH_SHORT).show();
+
+
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
             @Override
-            public void onFailure(@NonNull Call<GetAmountAirtimeModel> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
                 binding.progressBar.setVisibility(View.GONE);
             }
         });

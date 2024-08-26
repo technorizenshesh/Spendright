@@ -27,19 +27,32 @@
                 android:src="@drawable/back"
                 android:layout_width="@dimen/_15sdp"
                 android:layout_height="@dimen/_15sdp"
-                >
+                />
 
-            </ImageView>
 
             <TextView
-                android:textStyle="bold"
-                android:textSize="@dimen/_14sdp"
-                android:layout_centerInParent="true"
-                android:textColor="@color/black"
+                android:layout_toEndOf="@+id/imgBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
                 android:text="Notifications"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_14sdp"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvClear"
+                android:textStyle="bold"
+                android:textSize="@dimen/_12sdp"
+                android:layout_centerInParent="true"
+                android:layout_alignParentEnd="true"
+                android:textColor="@color/black"
+                android:text="Clear Notifications"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 />
+
 
         </RelativeLayout>
 
@@ -456,6 +469,19 @@
             android:visibility="gone"
             />
 
+
+
+        <TextView
+            android:id="@+id/txtNotFound"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/not_found"
+            android:fontFamily="@font/poppinsregular"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_12sdp"
+            android:visibility="gone"
+            android:layout_centerInParent="true"
+            />
 
     </RelativeLayout>
 </layout>

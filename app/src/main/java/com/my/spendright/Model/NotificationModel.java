@@ -68,7 +68,7 @@ public class NotificationModel {
         @SerializedName("main_category_name")
         @Expose
         private String mainCategoryName;
-        @SerializedName("date_time")
+        @SerializedName("datetime")
         @Expose
         private String dateTime;
         @SerializedName("description")
@@ -133,12 +133,26 @@ public class NotificationModel {
         @Expose
         private String image;
 
+
+        @SerializedName("title")
+        @Expose
+        private String title;
+
+
         public String getImage() {
             return image;
         }
 
         public void setImage(String image) {
             this.image = image;
+        }
+
+        public String getTitle() {
+            return title;
+        }
+
+        public void setTitle(String title) {
+            this.title = title;
         }
 
         public boolean isChk() {

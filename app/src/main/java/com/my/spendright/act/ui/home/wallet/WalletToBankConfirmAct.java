@@ -22,6 +22,7 @@ import com.my.spendright.Model.GetCategoryModelNew;
 import com.my.spendright.R;
 import com.my.spendright.TvCabelBill.ConfirmPaymentTvAct;
 import com.my.spendright.act.ConfirmPaymentAct;
+import com.my.spendright.act.FundAct;
 import com.my.spendright.act.HomeActivity;
 import com.my.spendright.act.ui.budget.model.MonnifyCommissionModel;
 import com.my.spendright.act.ui.budget.withdraw.WithdrawCompleteAct;
@@ -58,6 +59,7 @@ public class WalletToBankConfirmAct extends AppCompatActivity {
     IncomeExpenseCatModel incomeExpenseCatModel;
 
     double FInalAmt=0.0;
+    boolean chkPayStatus = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -100,7 +102,7 @@ public class WalletToBankConfirmAct extends AppCompatActivity {
 
 
         binding.imgBack.setOnClickListener(v -> {
-            onBackPressed();
+            finish();
         });
 
         binding.txtCancel.setOnClickListener(v -> {
@@ -128,6 +130,9 @@ public class WalletToBankConfirmAct extends AppCompatActivity {
                         binding.RRConfirm.setEnabled(false);
                         binding.txtCancel.setVisibility(View.GONE);
                         binding.RRConfirm.setBackground(getDrawable(R.drawable.btn_inactive_bg));
+                        binding.imgBack.setEnabled(false);
+                        binding.imgBack.setClickable(false);
+                        chkPayStatus = false;
                         transferToBank(t);
                     }
                     else AlertDialogStatus(getString(R.string.your_wallet_bal_is_low));
@@ -174,7 +179,7 @@ public class WalletToBankConfirmAct extends AppCompatActivity {
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.dismiss();
-                        startActivity(new Intent(WalletToBankConfirmAct.this, HomeActivity.class)
+                        startActivity(new Intent(WalletToBankConfirmAct.this, FundAct.class)
                                 .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP));
                         finish();
                     }
@@ -317,6 +322,9 @@ public class WalletToBankConfirmAct extends AppCompatActivity {
                         binding.RRConfirm.setEnabled(true);
                         binding.RRConfirm.setBackground(getDrawable(R.drawable.border_btn));
                         binding.txtCancel.setVisibility(View.VISIBLE);
+                        binding.imgBack.setEnabled(true);
+                        binding.imgBack.setClickable(true);
+                        chkPayStatus = true;
                         Toast.makeText(WalletToBankConfirmAct.this,jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
 
                     }
@@ -405,5 +413,9 @@ public class WalletToBankConfirmAct extends AppCompatActivity {
         popupMenu.show();
     }
 
+    @Override
+    public void onBackPressed() {
+        if(chkPayStatus == true )super.onBackPressed();
+    }
 }
 

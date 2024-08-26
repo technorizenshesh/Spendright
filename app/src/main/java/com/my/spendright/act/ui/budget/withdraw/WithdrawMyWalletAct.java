@@ -71,7 +71,7 @@ public class WithdrawMyWalletAct extends AppCompatActivity {
     private void validation() {
         if(binding.edAmount.getText().toString().equalsIgnoreCase(""))
             Toast.makeText(WithdrawMyWalletAct.this,getString(R.string.please_enter_amount),Toast.LENGTH_LONG).show();
-        else if(Double.parseDouble(amount) < Double.parseDouble(binding.edAmount.getText().toString()))
+        else if(Double.parseDouble(amount.replace(",","")) < Double.parseDouble(binding.edAmount.getText().toString()))
             Toast.makeText(WithdrawMyWalletAct.this,getString(R.string.amount_must_be_lessthen_from_available_amount),Toast.LENGTH_LONG).show();
          else{
            //  transferToMyWallet(Double.parseDouble(binding.edAmount.getText().toString()));

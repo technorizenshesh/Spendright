@@ -97,15 +97,17 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
+                            android:background="@drawable/blue_rounded_border"
+                            android:padding="@dimen/_5sdp"
                             >
 
                             <TextView
                                 android:id="@+id/tvAccountNo1"
                                 android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
+                                android:layout_height="wrap_content"
                                 android:fontFamily="@font/poppinsregular"
                                 android:text="5446746788"
-                                android:textColor="@color/black"
+                                android:textColor="@color/white"
                                 android:textSize="@dimen/_13sdp"
                                 android:textStyle="bold" />
 
@@ -115,7 +117,7 @@
                                 android:layout_height="@dimen/_15sdp"
                                 android:src="@drawable/ic_cop"
                                 android:layout_marginLeft="@dimen/_5sdp"
-                                app:tint="@color/black" />
+                                app:tint="@color/white" />
 
                         </LinearLayout>
 
@@ -127,11 +129,18 @@
                             android:layout_height="wrap_content"
                             android:text="Wema Bank"
                             android:fontFamily="@font/poppinsregular"
-                            android:textColor="@color/gray1"
-                            android:layout_marginTop="-3dp"
+                            android:textColor="@color/black"
+                            android:alpha="0.8"
                             android:textSize="@dimen/_11sdp"/>
 
+
+
+
+
+
                     </LinearLayout>
+
+
 
 
                     <LinearLayout
@@ -156,7 +165,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
-                            >
+                            android:background="@drawable/blue_rounded_border"
+                            android:padding="@dimen/_5sdp">
 
                             <TextView
                                 android:id="@+id/tvAccountNo2"
@@ -164,7 +174,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="5446746788"
                                 android:fontFamily="@font/poppinsregular"
-                                android:textColor="@color/black"
+                                android:textColor="@color/white"
                                 android:textStyle="bold"
                                 android:textSize="@dimen/_13sdp"/>
 
@@ -174,7 +184,7 @@
                                 android:layout_height="@dimen/_15sdp"
                                 android:src="@drawable/ic_cop"
                                 android:layout_marginLeft="@dimen/_5sdp"
-                                app:tint="@color/black" />
+                                app:tint="@color/white" />
 
                         </LinearLayout>
 
@@ -186,8 +196,8 @@
                             android:layout_height="wrap_content"
                             android:text="Wema Bank"
                             android:fontFamily="@font/poppinsregular"
-                            android:textColor="@color/gray1"
-                            android:layout_marginTop="-3dp"
+                            android:textColor="@color/black"
+                            android:alpha="0.8"
                             android:textSize="@dimen/_11sdp"/>
 
                     </LinearLayout>
@@ -221,10 +231,71 @@
 
                     </RelativeLayout>
 
+                    <RelativeLayout
+                        android:id="@+id/RRUpdateMonnnifyOne"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/_30sdp"
+                        android:layout_alignParentStart="true"
+                        android:layout_margin="@dimen/_20sdp"
+                        android:background="@drawable/blue_rounded_border"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_marginLeft="20sp"
+                            android:fontFamily="@font/poppinsregular"
+                            android:text="@string/update_account"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_12sdp"
+                            android:textStyle="bold" />
+
+                        <ImageView
+                            android:layout_width="@dimen/_20sdp"
+                            android:layout_height="@dimen/_20sdp"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="@dimen/_20sdp"
+                            android:src="@drawable/right_back"
+                            android:visibility="gone"/>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/RRUpdateMonnnifyTwo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/_30sdp"
+                        android:layout_below="@+id/RRUpdateMonnnifyOne"
+                        android:layout_margin="@dimen/_20sdp"
+                        android:background="@drawable/blue_rounded_border"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_marginLeft="20sp"
+                            android:fontFamily="@font/poppinsregular"
+                            android:text="@string/update_account"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_12sdp"
+                            android:textStyle="bold" />
+
+                        <ImageView
+                            android:layout_width="@dimen/_20sdp"
+                            android:layout_height="@dimen/_20sdp"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="@dimen/_20sdp"
+                            android:src="@drawable/right_back"
+                            android:visibility="gone"/>
+
+                    </RelativeLayout>
 
 
 
-                    <LinearLayout
+                     <LinearLayout
                         android:id="@+id/ll21"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -261,6 +332,9 @@
 
 
                         </LinearLayout>
+
+
+
 
                 </RelativeLayout>
 
@@ -300,6 +374,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
+                            android:background="@drawable/blue_rounded_border"
+                            android:padding="@dimen/_5sdp"
                             >
 
                             <TextView
@@ -308,7 +384,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="5446746788"
                                 android:fontFamily="@font/poppinsregular"
-                                android:textColor="@color/black"
+                                android:textColor="@color/white"
                                 android:textStyle="bold"
                                 android:textSize="@dimen/_13sdp"/>
 
@@ -318,7 +394,7 @@
                                 android:layout_height="@dimen/_15sdp"
                                 android:src="@drawable/ic_cop"
                                 android:layout_marginLeft="@dimen/_5sdp"
-                                app:tint="@color/black" />
+                                app:tint="@color/white" />
 
                         </LinearLayout>
 
@@ -330,8 +406,8 @@
                             android:layout_height="wrap_content"
                             android:text="Wema Bank"
                             android:fontFamily="@font/poppinsregular"
-                            android:textColor="@color/gray1"
-                            android:layout_marginTop="-3dp"
+                            android:textColor="@color/black"
+                            android:alpha="0.8"
                             android:textSize="@dimen/_11sdp"/>
 
 
@@ -438,7 +514,8 @@
                     android:layout_height="wrap_content"
                     android:text="Make a transfer to any of the above account numbers to automatically fund your wallet."
                     android:fontFamily="@font/poppinsregular"
-                    android:textColor="@color/gray1"
+                    android:textColor="@color/black"
+                    android:alpha="0.8"
                     android:layout_marginTop="-2sp"
                     android:layout_marginLeft="@dimen/_15sdp"
                     android:textSize="@dimen/_11sdp"/>
@@ -460,7 +537,8 @@
                     android:layout_height="wrap_content"
                     android:text="To use ATM card or USSD, enter the amount in the space below and click the button, to fund your wallet."
                     android:fontFamily="@font/poppinsregular"
-                    android:textColor="@color/gray1"
+                    android:textColor="@color/black"
+                    android:alpha="0.8"
                     android:layout_marginTop="-2dp"
                     android:layout_marginLeft="@dimen/_15sdp"
                     android:textSize="@dimen/_11sdp"/>

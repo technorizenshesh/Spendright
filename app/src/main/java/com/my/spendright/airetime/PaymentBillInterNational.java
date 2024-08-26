@@ -12,8 +12,13 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
+import com.google.gson.Gson;
+import com.my.spendright.Broadband.PaymentBillBroadBandAct;
+import com.my.spendright.ElectircalBill.Model.GetServiceElectricialModel;
 import com.my.spendright.Model.CurencyModel;
+import com.my.spendright.Model.TvSuscriptionServiceModel;
 import com.my.spendright.R;
+import com.my.spendright.act.LoginActivity;
 import com.my.spendright.airetime.adapter.ServicesAireAdapterCountry;
 import com.my.spendright.airetime.adapter.ServicesOperatorAdapter;
 import com.my.spendright.airetime.adapter.ServicesProductTypeAdapter;
@@ -25,8 +30,11 @@ import com.my.spendright.utils.Preference;
 import com.my.spendright.utils.RetrofitClients;
 import com.my.spendright.utils.SessionManager;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -141,27 +149,47 @@ public class PaymentBillInterNational extends AppCompatActivity {
 
 
     private void ServiceApi() {
-        Call<GetInternationalModel> call = RetrofitClients.getInstance().getApi().Api_get_international_airtime_countries();
-        call.enqueue(new Callback<GetInternationalModel>() {
+        Call<ResponseBody> call = RetrofitClients.getInstance().getApi().Api_get_international_airtime_countries(Preference.getHeader(PaymentBillInterNational.this));
+        call.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(@NonNull Call<GetInternationalModel> call, @NonNull Response<GetInternationalModel> response) {
+            public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
                 binding.progressBar.setVisibility(View.GONE);
                 if (response.isSuccessful()) {
                     // user object available
+                    try {
+                        String stringResponse = response.body().string();
+                        JSONObject jsonObject = new JSONObject(stringResponse);
 
-                    GetInternationalModel finallyPr = response.body();
-                    modelListCountry= (ArrayList<GetInternationalModel.Content.Country>) finallyPr.getContent().getCountries();
+                        if (jsonObject.getString("response_description").equalsIgnoreCase("000")) {
+                            GetInternationalModel finallyPr = new Gson().fromJson(stringResponse, GetInternationalModel.class); // response.body();
+                           // GetInternationalModel finallyPr = response.body();
+                            modelListCountry = (ArrayList<GetInternationalModel.Content.Country>) finallyPr.getContent().getCountries();
+                            ServicesAireAdapterCountry customAdapter = new ServicesAireAdapterCountry(PaymentBillInterNational.this, modelListCountry);
+                            binding.spinnerServiceCountry.setAdapter(customAdapter);
+                        }
+                        else if(jsonObject.getString("status").equalsIgnoreCase("9")){
+                            sessionManager.logoutUser();
+                            Toast.makeText(PaymentBillInterNational.this, getString(R.string.invalid_token), Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(PaymentBillInterNational.this, LoginActivity.class)
+                                    .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK| Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                            finish();
+                        }
 
-                    ServicesAireAdapterCountry customAdapter=new ServicesAireAdapterCountry(PaymentBillInterNational.this,modelListCountry);
-                    binding.spinnerServiceCountry.setAdapter(customAdapter);
+                        else {
+                            Toast.makeText(PaymentBillInterNational.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                        }
 
+
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
 
                 } else {
                     Toast.makeText(PaymentBillInterNational.this, response.message(), Toast.LENGTH_SHORT).show();
                 }
             }
             @Override
-            public void onFailure(@NonNull Call<GetInternationalModel> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
                 binding.progressBar.setVisibility(View.GONE);
             }
         });
@@ -169,32 +197,52 @@ public class PaymentBillInterNational extends AppCompatActivity {
 
     private void ServiceProductTypesApi() {
         binding.progressBar.setVisibility(View.VISIBLE);
-        Call<GetProductTypeModel> call = RetrofitClients.getInstance().getApi().Api_get_international_airtime_product_types(Code);
-        call.enqueue(new Callback<GetProductTypeModel>() {
+        Call<ResponseBody> call = RetrofitClients.getInstance().getApi().Api_get_international_airtime_product_types(Preference.getHeader(PaymentBillInterNational.this),Code);
+        call.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(@NonNull Call<GetProductTypeModel> call, @NonNull Response<GetProductTypeModel> response) {
+            public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
                 binding.progressBar.setVisibility(View.GONE);
                 if (response.isSuccessful()) {
                     // user object available
-                    try {
-                        GetProductTypeModel finallyPr = response.body();
-                        modelListProductType= (ArrayList<GetProductTypeModel.Content>) finallyPr.getContent();
 
-                        if(finallyPr.getResponseDescription().equalsIgnoreCase("000"))
-                        {
+                    try {
+                        // user object available
+                        String stringResponse = response.body().string();
+                        JSONObject jsonObject = new JSONObject(stringResponse);
+
+                        if (jsonObject.getString("response_description").equalsIgnoreCase("000")) {
+                            GetProductTypeModel finallyPr = new Gson().fromJson(stringResponse, GetProductTypeModel.class); // response.body();
+                            modelListProductType= (ArrayList<GetProductTypeModel.Content>) finallyPr.getContent();
                             ServicesProductTypeAdapter customAdapter1=new ServicesProductTypeAdapter(PaymentBillInterNational.this,modelListProductType);
                             binding.spinnerServiceProductType.setAdapter(customAdapter1);
+
                         }
-                    }catch (Exception e)
-                    {
+
+                        else if(jsonObject.getString("status").equalsIgnoreCase("9")){
+                            sessionManager.logoutUser();
+                            Toast.makeText(PaymentBillInterNational.this, getString(R.string.invalid_token), Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(PaymentBillInterNational.this, LoginActivity.class)
+                                    .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK| Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                            finish();
+                        }
+
+
+                        else {
+                            Toast.makeText(PaymentBillInterNational.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                        }
+
+
+
+                    }catch (Exception e){
                         e.printStackTrace();
                     }
+
                 } else {
                     Toast.makeText(PaymentBillInterNational.this, response.message(), Toast.LENGTH_SHORT).show();
                 }
             }
             @Override
-            public void onFailure(@NonNull Call<GetProductTypeModel> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
                 binding.progressBar.setVisibility(View.GONE);
             }
         });
@@ -202,24 +250,43 @@ public class PaymentBillInterNational extends AppCompatActivity {
 
     private void ServiceOperatorApi() {
        binding.progressBar.setVisibility(View.VISIBLE);
-       Call<GetOperatorModel> call = RetrofitClients.getInstance().getApi().Api_get_international_airtime_operator(Code,ProductId);
-        call.enqueue(new Callback<GetOperatorModel>() {
+       Call<ResponseBody> call = RetrofitClients.getInstance().getApi().Api_get_international_airtime_operator(Preference.getHeader(PaymentBillInterNational.this),Code,ProductId);
+        call.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(@NonNull Call<GetOperatorModel> call, @NonNull Response<GetOperatorModel> response) {
+            public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
                 binding.progressBar.setVisibility(View.GONE);
                 if (response.isSuccessful()) {
                     // user object available
-                    try {
-                        GetOperatorModel finallyPr = response.body();
-                        modelListOperator= (ArrayList<GetOperatorModel.Content>) finallyPr.getContent();
 
-                        if(finallyPr.getResponseDescription().equalsIgnoreCase("000"))
-                        {
+                    try {
+                        // user object available
+                        String stringResponse = response.body().string();
+                        JSONObject jsonObject = new JSONObject(stringResponse);
+
+                        if (jsonObject.getString("response_description").equalsIgnoreCase("000")) {
+                            GetOperatorModel finallyPr = new Gson().fromJson(stringResponse, GetOperatorModel.class); // response.body();
+                            modelListOperator= (ArrayList<GetOperatorModel.Content>) finallyPr.getContent();
                             ServicesOperatorAdapter customAdapter1=new ServicesOperatorAdapter(PaymentBillInterNational.this,modelListOperator);
                             binding.spinnerServiceOperator.setAdapter(customAdapter1);
+
                         }
-                    }catch (Exception e)
-                    {
+
+                        else if(jsonObject.getString("status").equalsIgnoreCase("9")){
+                            sessionManager.logoutUser();
+                            Toast.makeText(PaymentBillInterNational.this, getString(R.string.invalid_token), Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(PaymentBillInterNational.this, LoginActivity.class)
+                                    .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK| Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                            finish();
+                        }
+
+
+                        else {
+                            Toast.makeText(PaymentBillInterNational.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                        }
+
+
+
+                    }catch (Exception e){
                         e.printStackTrace();
                     }
                 } else {
@@ -227,7 +294,7 @@ public class PaymentBillInterNational extends AppCompatActivity {
                 }
             }
             @Override
-            public void onFailure(@NonNull Call<GetOperatorModel> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<ResponseBody> call, @NonNull Throwable t) {
                 binding.progressBar.setVisibility(View.GONE);
             }
         });

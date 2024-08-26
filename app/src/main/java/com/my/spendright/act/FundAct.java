@@ -104,8 +104,26 @@ public class FundAct extends AppCompatActivity {
         });
 
         binding.RRGenerateAcct.setOnClickListener(view -> {
-            if (sessionManager.isNetworkAvailable()) generateMAccount();
-            else Toast.makeText(FundAct.this, R.string.checkInternet, Toast.LENGTH_SHORT).show();
+            if (finallyPr != null) {
+                if (finallyPr.getResult().getKycStatus().equalsIgnoreCase("0")) {
+                    startActivity(new Intent(this, KYCAct.class)
+                            .putExtra("user_id", finallyPr.getResult().getId())
+                            .putExtra("mobile", finallyPr.getResult().getMobile())
+                            .putExtra("name", finallyPr.getResult().getLastName() + finallyPr.getResult().getOtherLegalName())
+                            .putExtra("from", "FundScreen"));
+                }
+                else {
+
+                    if (sessionManager.isNetworkAvailable()) generateMAccount();
+                    else Toast.makeText(FundAct.this, R.string.checkInternet, Toast.LENGTH_SHORT).show();
+
+                }
+
+            }
+
+
+
+
         });
 
 
@@ -168,6 +186,9 @@ public class FundAct extends AppCompatActivity {
 
         binding.ivCopy3.setOnClickListener(view ->setClipboard(this,binding.tvAccountNo3.getText().toString().trim()));
 
+        binding.RRUpdateMonnnifyOne.setOnClickListener(view -> generateMAccount());
+
+        binding.RRUpdateMonnnifyTwo.setOnClickListener(view -> generateMAccount());
 
         GetProfileMethod();
 
@@ -298,6 +319,7 @@ public class FundAct extends AppCompatActivity {
                     finallyPr = response.body();
                     getAccount();
                     if (finallyPr.getStatus().equalsIgnoreCase("1")) {
+                        Log.e("check user new or old==",finallyPr.getResult().getRecreateMonnifyAccount());
                         fName = finallyPr.getResult().getFirstName();
                         lName = finallyPr.getResult().getLastName();
                         email = finallyPr.getResult().getEmail();
@@ -414,18 +436,45 @@ public class FundAct extends AppCompatActivity {
                                 for (int i = 0; i < model.getResult().getBank().size(); i++) {
                                     if (model.getResult().getBank().get(i).getType().equalsIgnoreCase("monnify") && !model.getResult().getBank().get(i).getAccountNumber().equalsIgnoreCase("")) {
                                         if (i == 0) {
-                                            binding.llOne.setVisibility(View.VISIBLE);
-                                            binding.ll21.setVisibility(View.VISIBLE);
-                                            binding.RRGenerateAcct.setVisibility(View.GONE);
-                                            binding.tvAccountNo1.setText(model.getResult().getBank().get(i).getAccountNumber());
-                                            binding.tvbankName1.setText(model.getResult().getBank().get(i).getBankName());
+                                            if(model.getResult().getBank().get(i).getBvnConnectStatus().equalsIgnoreCase("YES") && finallyPr.getResult().getRecreateMonnifyAccount().equalsIgnoreCase("1")) {
+                                                binding.llOne.setVisibility(View.VISIBLE);
+                                                binding.ll21.setVisibility(View.VISIBLE);
+                                                binding.RRUpdateMonnnifyOne.setVisibility(View.GONE);
+
+                                                binding.RRGenerateAcct.setVisibility(View.GONE);
+                                                binding.tvAccountNo1.setText(model.getResult().getBank().get(i).getAccountNumber());
+                                                binding.tvbankName1.setText(model.getResult().getBank().get(i).getBankName());
+                                            }
+                                            else {
+                                                binding.llOne.setVisibility(View.GONE );
+                                                binding.ll21.setVisibility(View.GONE);
+                                                binding.RRUpdateMonnnifyOne.setVisibility(View.VISIBLE);
+                                                binding.RRGenerateAcct.setVisibility(View.GONE);
+
+
+                                            }
                                         } else {
-                                            binding.llTwo.setVisibility(View.VISIBLE);
-                                            binding.RRGenerateAcct.setVisibility(View.GONE);
-                                            binding.tvAccountNo2.setText(model.getResult().getBank().get(i).getAccountNumber());
-                                            binding.tvbankName2.setText(model.getResult().getBank().get(i).getBankName());
+                                            if(model.getResult().getBank().get(i).getBvnConnectStatus().equalsIgnoreCase("YES") && finallyPr.getResult().getRecreateMonnifyAccount().equalsIgnoreCase("1")) {
+                                                binding.llTwo.setVisibility(View.VISIBLE);
+                                                binding.RRGenerateAcct.setVisibility(View.GONE);
+                                           //     binding.RRUpdateMonnnifyTwo.setVisibility(View.GONE);
+                                                binding.RRUpdateMonnnifyOne.setVisibility(View.GONE);
+                                                binding.tvAccountNo2.setText(model.getResult().getBank().get(i).getAccountNumber());
+                                                binding.tvbankName2.setText(model.getResult().getBank().get(i).getBankName());
+                                            }
+                                            else {
+                                                binding.llTwo.setVisibility(View.GONE);
+                                                binding.RRGenerateAcct.setVisibility(View.GONE);
+                                                binding.RRUpdateMonnnifyOne.setVisibility(View.VISIBLE);
+                                            //    binding.RRUpdateMonnnifyTwo.setVisibility(View.VISIBLE);
+
+                                            }
+
                                         }
-                                    } else if (model.getResult().getBank().get(i).getType().equalsIgnoreCase("flutterwave")) {
+                                    }
+
+
+                                    else if (model.getResult().getBank().get(i).getType().equalsIgnoreCase("flutterwave")) {
                                         if (!model.getResult().getBank().get(i).getAccountNumber().equalsIgnoreCase("") && finallyPr.getResult().getKycStatus().equalsIgnoreCase("1")) {
                                             binding.rlFlutterWave.setVisibility(View.VISIBLE);
                                             binding.llThree.setVisibility(View.VISIBLE);
@@ -439,7 +488,10 @@ public class FundAct extends AppCompatActivity {
                                             binding.llThree.setVisibility(View.GONE);
                                             binding.v1.setVisibility(View.GONE);
                                             binding.ll41.setVisibility(View.GONE);
-                                            binding.RRKYC.setVisibility(View.VISIBLE);
+                                            binding.RRKYC.setVisibility(View.GONE);
+
+                                        //    binding.RRKYC.setVisibility(View.VISIBLE);
+
                                         }
 
                                     } else {
@@ -494,14 +546,81 @@ public class FundAct extends AppCompatActivity {
                     JSONObject jsonObject = new JSONObject(stringResponse);
                     Log.e(TAG, "Generate MAccount Response = " + stringResponse);
                     if (jsonObject.getString("status").equalsIgnoreCase("1")) {
-                        getAccount();
+                        Toast.makeText(FundAct.this, "Account Generate Successfully...", Toast.LENGTH_SHORT).show();
+                        GetProfileMethod();
                     } else {
+                        if (finallyPr != null) {
+                            if (jsonObject.getString("message").equalsIgnoreCase("BVN not found in db")) {
+                                startActivity(new Intent(FundAct.this, KYCAct.class)
+                                        .putExtra("user_id", finallyPr.getResult().getId())
+                                        .putExtra("mobile", finallyPr.getResult().getMobile())
+                                        .putExtra("name", finallyPr.getResult().getLastName() + finallyPr.getResult().getOtherLegalName())
+                                        .putExtra("from", "FundScreen"));
+                            }
+
+                        }
                         Toast.makeText(FundAct.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
                     }
 
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                call.cancel();
+                binding.progressBar.setVisibility(View.GONE);
+            }
+        });
+    }
+
+
+    private void UpdateBvnAccount() {
+        binding.progressBar.setVisibility(View.VISIBLE);
+        Map<String, String> map = new HashMap<>();
+        map.put("user_id", sessionManager.getUserID());
+        Log.e(TAG, "Update BVN Request  = " + map);
+
+        Call<ResponseBody> call = RetrofitClientsOne.getInstance().getApi().ApiUpdateBVN(map);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                binding.progressBar.setVisibility(View.GONE);
+                try {
+                    if (response.code() == 200) {
+                        String stringResponse = response.body().string();
+                        JSONObject jsonObject = new JSONObject(stringResponse);
+                        Log.e(TAG, "Update BVN Response = " + stringResponse);
+                        if (jsonObject.getString("status").equalsIgnoreCase("1")) {
+                            Toast.makeText(FundAct.this, "Updated Successfully...", Toast.LENGTH_SHORT).show();
+
+                            getAccount();
+
+                        } else {
+                            if (finallyPr != null) {
+                                if (jsonObject.getString("message").equalsIgnoreCase("BVN not found in db")) {
+                                    startActivity(new Intent(FundAct.this, KYCAct.class)
+                                            .putExtra("user_id", finallyPr.getResult().getId())
+                                            .putExtra("mobile", finallyPr.getResult().getMobile())
+                                            .putExtra("name", finallyPr.getResult().getLastName() + finallyPr.getResult().getOtherLegalName())
+                                            .putExtra("from", "FundScreen"));
+                                }
+
+                            }
+
+                            Toast.makeText(FundAct.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                            //  startActivity(new Intent(FundAct.this,PaymentComplete.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                            //   finish();
+                        }
+                    } else {
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+
             }
 
             @Override

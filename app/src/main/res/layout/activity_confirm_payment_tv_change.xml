@@ -332,14 +332,22 @@
 
 
                             <TextView
-                                android:layout_marginTop="@dimen/_10sdp"
-                                android:text="Fee"
-                                android:fontFamily="@font/poppinsregular"
-                                android:textSize="@dimen/_12sdp"
-                                android:textColor="@color/gray"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                />
+                                android:layout_marginTop="@dimen/_10sdp"
+                                android:fontFamily="@font/poppinsregular"
+                                android:text="Fee"
+                                android:textColor="@color/gray"
+                                android:textSize="@dimen/_12sdp" />
+                            <TextView
+                                android:id="@+id/tvDiscountPercent"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_5sdp"
+                                android:fontFamily="@font/poppinsregular"
+                                android:text="Discount "
+                                android:textColor="@color/gray"
+                                android:textSize="@dimen/_12sdp" />
 
 
                         </LinearLayout>
@@ -376,6 +384,20 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 />
+
+
+                            <TextView
+                                android:id="@+id/tvDiscountAmount"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="right"
+                                android:drawablePadding="@dimen/_3sdp"
+                                android:gravity="center_vertical"
+                                android:text="₦0.00"
+                                android:textColor="@color/green"
+                                android:textSize="@dimen/_18sdp"
+                                android:textStyle="bold" />
+
 
                             <TextView
                                 android:gravity="right"

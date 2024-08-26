@@ -50,16 +50,37 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
        if(arrayList.get(position).getNotificationType().equalsIgnoreCase("SENDT_BY_ADMIN"))   {
-           holder.binding.tvTitle.setText(arrayList.get(position).getMessage());
-          // holder.binding.tvTitle1.setText(arrayList.get(position).getMessage());
+           holder.binding.tvTitle1.setText(arrayList.get(position).getMessage());
 
        }
            else {
               // holder.binding.tvTitle.setText("₦"+arrayList.get(position).getTransactionAmount() + " for " + arrayList.get(position).getDescription());
-              holder.binding.tvTitle.setText(arrayList.get(position).getDescription());
+              holder.binding.tvTitle1.setText(arrayList.get(position).getDescription());
 
        }
-      holder.binding.txtTime.setText(arrayList.get(position).getDateTime());
+
+           if(arrayList.get(position).getTitle()!=null){
+               holder.binding.tvTitle.setVisibility(View.VISIBLE);
+               holder.binding.tvTitle.setText(arrayList.get(position).getTitle());
+
+           }
+           else {
+               holder.binding.tvTitle.setVisibility(View.GONE);
+
+           }
+
+
+           if(arrayList.get(position).getDateTime()!=null) {
+               holder.binding.txtTime.setText(Preference.convertDate222(arrayList.get(position).getDateTime()));
+              Log.e("convert date===",Preference.convertDate222(arrayList.get(position).getDateTime()));
+
+           }
+           else  {
+               holder.binding.txtTime.setText(Preference.getCurrentDate22());
+               Log.e("system date===",Preference.getCurrentDate22());
+
+           }
+
 /*
       if(arrayList.get(position).isChk()==false) {
           holder.binding.tvTitle.setVisibility(View.VISIBLE);
@@ -92,9 +113,9 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 //      Log.e("line count===",holder.binding.tvTitle.getLayout().getLineCount()+"");
         Glide.with(context).load(arrayList.get(position).getImage()).placeholder(R.mipmap.logo_one)
                         .error(R.mipmap.logo_one).into(holder.binding.img1);
-        makeTextViewResizable(holder,3,"Read more",true);
+     // if(holder.binding.tvTitle1.getLineCount()>1)  makeTextViewResizable(holder,3,"Read more",true);
 
-
+          makeTextViewResizable(holder,3,"Read more",true);
 
     }
 
@@ -120,10 +141,10 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
     public static void makeTextViewResizable(final MyViewHolder holder, final int maxLine, final String expandText, final boolean viewMore) {
 
-        if (holder.binding.tvTitle.getTag() == null) {
-            holder.binding.tvTitle.setTag(holder.binding.tvTitle.getText());
+        if (holder.binding.tvTitle1.getTag() == null) {
+            holder.binding.tvTitle1.setTag(holder.binding.tvTitle1.getText());
         }
-        ViewTreeObserver vto = holder.binding.tvTitle.getViewTreeObserver();
+        ViewTreeObserver vto = holder.binding.tvTitle1.getViewTreeObserver();
         vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
 
             @SuppressWarnings("deprecation")
@@ -131,39 +152,39 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             public void onGlobalLayout() {
                 String text ="";
                 int lineEndIndex =0;
-                ViewTreeObserver obs = holder.binding.tvTitle.getViewTreeObserver();
+                ViewTreeObserver obs = holder.binding.tvTitle1.getViewTreeObserver();
                 obs.removeOnGlobalLayoutListener(this);
 
                 if (maxLine == 0) {
-                    lineEndIndex = holder.binding.tvTitle.getLayout().getLineEnd(0);
-                    text = holder.binding.tvTitle.getText().subSequence(0, lineEndIndex - expandText.length() + 1) + " " + expandText;
-                } else if (maxLine > 0 && holder.binding.tvTitle.getLineCount() >= maxLine) {
-                    lineEndIndex = holder.binding.tvTitle.getLayout().getLineEnd(maxLine - 1);
-                    text = holder.binding.tvTitle.getText().subSequence(0, lineEndIndex - expandText.length() + 1) + " " + expandText;
+                    lineEndIndex = holder.binding.tvTitle1.getLayout().getLineEnd(0);
+                    text = holder.binding.tvTitle1.getText().subSequence(0, lineEndIndex - expandText.length() + 1) + " " + expandText;
+                } else if (maxLine > 0 && holder.binding.tvTitle1.getLineCount() >= maxLine) {
+                    lineEndIndex = holder.binding.tvTitle1.getLayout().getLineEnd(maxLine - 1);
+                    text = holder.binding.tvTitle1.getText().subSequence(0, lineEndIndex - expandText.length() + 1) + " " + expandText;
                 }
-                else if ( holder.binding.tvTitle.getLineCount()==1) {
-                    lineEndIndex = holder.binding.tvTitle.getLayout().getLineEnd(holder.binding.tvTitle.getLayout().getLineCount() - 1);
-                    text = holder.binding.tvTitle.getText().subSequence(0, lineEndIndex)+"";
-                }
-
-                else if ( holder.binding.tvTitle.getLineCount()==2) {
-                    lineEndIndex = holder.binding.tvTitle.getLayout().getLineEnd(holder.binding.tvTitle.getLayout().getLineCount() - 1);
-                    text = holder.binding.tvTitle.getText().subSequence(0, lineEndIndex)+"";
+                else if ( holder.binding.tvTitle1.getLineCount()==1) {
+                    lineEndIndex = holder.binding.tvTitle1.getLayout().getLineEnd(holder.binding.tvTitle1.getLayout().getLineCount() - 1);
+                    text = holder.binding.tvTitle1.getText().subSequence(0, lineEndIndex)+"";
                 }
 
-                else if (holder.binding.tvTitle.getLineCount()>=3) {
-                    lineEndIndex = holder.binding.tvTitle.getLayout().getLineEnd(holder.binding.tvTitle.getLayout().getLineCount() - 1);
-                    text = holder.binding.tvTitle.getText().subSequence(0, lineEndIndex - expandText.length() + 1) + " " + expandText;
+                else if ( holder.binding.tvTitle1.getLineCount()==2) {
+                    lineEndIndex = holder.binding.tvTitle1.getLayout().getLineEnd(holder.binding.tvTitle1.getLayout().getLineCount() - 1);
+                    text = holder.binding.tvTitle1.getText().subSequence(0, lineEndIndex)+"";
                 }
-                Log.e("line size====",holder.binding.tvTitle.getLineCount()+"");
+
+                else if (holder.binding.tvTitle1.getLineCount()>=3) {
+                    lineEndIndex = holder.binding.tvTitle1.getLayout().getLineEnd(holder.binding.tvTitle1.getLayout().getLineCount() - 1);
+                    text = holder.binding.tvTitle1.getText().subSequence(0, lineEndIndex - expandText.length() + 9) + " " + expandText;
+                }
+                Log.e("line size====",holder.binding.tvTitle1.getLineCount()+"");
                 /*else {
                     lineEndIndex = tv.getLayout().getLineEnd(tv.getLayout().getLineCount());
                     text = tv.getText().subSequence(0, lineEndIndex) + " " + expandText;
                 }*/
-                holder.binding.tvTitle.setText(text);
-                holder.binding.tvTitle.setMovementMethod(LinkMovementMethod.getInstance());
-                holder.binding.tvTitle.setText(
-                        addClickablePartTextViewResizable(holder.binding.tvTitle.getText().toString(), holder, lineEndIndex, expandText,
+                holder.binding.tvTitle1.setText(text);
+                holder.binding.tvTitle1.setMovementMethod(LinkMovementMethod.getInstance());
+                holder.binding.tvTitle1.setText(
+                        addClickablePartTextViewResizable(holder.binding.tvTitle1.getText().toString(), holder, lineEndIndex, expandText,
                                 viewMore), TextView.BufferType.SPANNABLE);
             }
         });
@@ -179,9 +200,9 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
                 @Override
                 public void onClick(View widget) {
-                    holder.binding.tvTitle.setLayoutParams(holder.binding.tvTitle.getLayoutParams());
-                    holder.binding.tvTitle.setText(holder.binding.tvTitle.getTag().toString(), TextView.BufferType.SPANNABLE);
-                    holder.binding.tvTitle.invalidate();
+                    holder.binding.tvTitle1.setLayoutParams(holder.binding.tvTitle1.getLayoutParams());
+                    holder.binding.tvTitle1.setText(holder.binding.tvTitle1.getTag().toString(), TextView.BufferType.SPANNABLE);
+                    holder.binding.tvTitle1.invalidate();
                     if (viewMore) {
                         makeTextViewResizable(holder, -1, "View Less", false);
                     } else {

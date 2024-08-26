@@ -350,7 +350,6 @@
                         android:textColor="@color/black"
                         android:textColorHint="@color/gray"
                         android:textSize="@dimen/_12sdp"
-                        android:textStyle="bold"
                         />
 
                 </LinearLayout>
